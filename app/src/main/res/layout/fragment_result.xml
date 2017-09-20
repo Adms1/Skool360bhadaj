@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingTop="@dimen/_5sdp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@drawable/hedar_1">
+
+        <Button
+            android:id="@+id/btnMenu"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:background="@drawable/menu_btn_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RESULT"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnBackUnitTest"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@drawable/back_btn" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/unit_test2"
+        android:scaleType="fitXY"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/txtNoRecordsUnitTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Records Found..."
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <ExpandableListView
+        android:id="@+id/lvExpResult"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:dividerHeight="@dimen/_5sdp"
+        android:divider="@android:color/white"
+        android:childDivider="@android:color/transparent"
+        android:groupIndicator="@null"
+        android:layout_margin="@dimen/_10sdp"
+        android:scrollbars="none"/>
+
+</LinearLayout>

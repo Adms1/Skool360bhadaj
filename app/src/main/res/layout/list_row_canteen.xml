@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llHeaderRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgBulletCanteen"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/blue_bulletpoint_withline"/>
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light_blue"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="dsasdf"
+            android:padding="5dp"
+            android:gravity="left|center_vertical"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/txtDay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light_blue"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="dsasdf"
+            android:padding="5dp"
+            android:gravity="right|center_vertical"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llChildRowBreakfast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llHeaderRow">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="0dp"
+            android:src="@drawable/canteen_line"/>
+
+        <TextView
+            android:id="@+id/txtBreakfastLabel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/app_text"
+            android:textStyle="bold"
+            android:text="Breakfast : "
+            android:padding="5dp"
+            android:gravity="right|top"
+            android:layout_weight="60"/>
+
+        <TextView
+            android:id="@+id/txtBreakfast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_text"
+            android:textStyle="normal"
+            android:singleLine="false"
+            android:text="dsasdfsssss"
+            android:padding="5dp"
+            android:gravity="left|center_vertical"
+            android:layout_weight="40"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llChildRowLunch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llChildRowBreakfast">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="0dp"
+            android:src="@drawable/canteen_line"/>
+
+        <TextView
+            android:id="@+id/txtLunchLabel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/app_text"
+            android:textStyle="bold"
+            android:text="Lunch : "
+            android:padding="5dp"
+            android:gravity="right|top"
+            android:layout_weight="60"/>
+
+        <TextView
+            android:id="@+id/txtLunch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_text"
+            android:textStyle="normal"
+            android:text="dsasdf"
+            android:padding="5dp"
+            android:gravity="left|center_vertical"
+            android:layout_weight="40"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llChildRowFlvMilk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llChildRowLunch">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="0dp"
+            android:src="@drawable/canteen_line"/>
+
+        <TextView
+            android:id="@+id/txtMilkLabel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/app_text"
+            android:textStyle="bold"
+            android:text="Flavour Milk : "
+            android:padding="5dp"
+            android:gravity="right|top"
+            android:layout_weight="60"/>
+
+        <TextView
+            android:id="@+id/txtMilk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_text"
+            android:textStyle="normal"
+            android:text="dsasdf"
+            android:padding="5dp"
+            android:gravity="left|center_vertical"
+            android:layout_weight="40"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

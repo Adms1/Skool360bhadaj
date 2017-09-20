@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/shadow_box"
+    android:orientation="horizontal"
+    android:padding="4dp"
+    android:weightSum="2">
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:gravity="left"
+        android:text="Subject"
+        android:textColor="@android:color/white" />-->
+
+    <TextView
+        android:id="@+id/lblPayDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:singleLine="true"
+        android:layout_marginTop="3dp"
+        android:text="PayDate"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/lblPaid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableRight="@drawable/arrow_1_42"
+        android:layout_marginTop="3dp"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="Paid"
+        android:textColor="@android:color/black"
+        android:textSize="17dp" />
+
+</LinearLayout>

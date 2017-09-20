@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/hedar_1">
+
+        <Button
+            android:id="@+id/btnMenu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/menu_btn_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="10dp"
+            android:text="EVENT"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnBackEvent"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/back_btn" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imgEventBG"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        android:layout_below="@+id/top_bar"
+        android:src="@drawable/event2" />
+    <TextView
+        android:id="@+id/txtNoRecordsEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Records Found..."
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+    <ExpandableListView
+        android:id="@+id/lvExpEvents"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/imgEventBG"
+        android:dividerHeight="5dp"
+        android:divider="@android:color/white"
+        android:childDivider="@android:color/transparent"
+        android:groupIndicator="@null"
+        android:layout_margin="10dp"/>
+
+    <RelativeLayout
+        android:id="@+id/rlOverLay"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone"
+        android:background="@drawable/transprant_bg">
+
+        <Button
+            android:id="@+id/btnCloseOverLay"
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+            android:layout_above="@+id/imgFullScreenImage"
+            android:layout_toRightOf="@+id/imgFullScreenImage"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@android:color/white"
+            android:text="X"/>
+
+        <ImageView
+            android:id="@+id/imgFullScreenImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/event2"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

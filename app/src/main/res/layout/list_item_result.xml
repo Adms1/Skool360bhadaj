@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/llHeaderRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtSubjectHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Subject"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/txtMarksGainedHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:text="Marks"
+            android:textColor="@color/white"
+            android:textSize="13dip" />
+
+        <TextView
+            android:id="@+id/txtTotalMarksHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Total"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="13dip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llMiddleRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llHeaderRow"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#f8fcfe"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Subject"
+            android:textColor="@color/black"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/txtMarksGained"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="#f8fcfe"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Gained Marks"
+            android:textColor="@color/black"
+            android:textSize="13dip" />
+
+        <TextView
+            android:id="@+id/txtMarksTotal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#f8fcfe"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Total Marks"
+            android:textColor="@color/black"
+            android:textSize="13dip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBottomRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llMiddleRow"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtInvisibleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Subject"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/txtTotalMarksGained"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:text="Marks"
+            android:textColor="@color/white"
+            android:textSize="13dip" />
+
+        <TextView
+            android:id="@+id/txtTotalMarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Total"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="13dip" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtPercentage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:padding="5dp"
+        android:layout_below="@+id/llBottomRow"
+        android:text="Percentage : 56.67%"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/selectedButton"
+        android:textSize="13dip" />
+
+</RelativeLayout>
