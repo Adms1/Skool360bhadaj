@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/list_line"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inbox_text"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtSubject"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.21"
+                android:gravity="left"
+                android:padding="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="9dp"
+                android:text="Subject"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="13dip"
+                android:textStyle="normal"/>
+
+            <Button
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/round_button"
+                android:text="Delete"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

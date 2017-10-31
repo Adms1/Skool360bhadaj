@@ -32,6 +32,7 @@ import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeworkFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ImprestFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.NotificationFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.PTMMainFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.PrincipalMessageFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ProfileFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ReportCardFragment;
@@ -296,7 +297,7 @@ public class DashBoardActivity extends FragmentActivity {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
             case 12:
-                fragment = new AppointmentFragment();
+                fragment = new PTMMainFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;

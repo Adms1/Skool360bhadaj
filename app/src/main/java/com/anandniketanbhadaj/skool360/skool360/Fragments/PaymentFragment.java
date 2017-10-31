@@ -119,7 +119,7 @@ public class PaymentFragment extends Fragment {
         btnBackUnitTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new HomeFragment();
+                Fragment fragment = new FeesFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)

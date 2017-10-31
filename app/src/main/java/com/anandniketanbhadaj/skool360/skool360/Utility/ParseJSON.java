@@ -440,8 +440,7 @@ public class ParseJSON {
             JSONObject reader = new JSONObject(responseString);
             String data_load_basket = reader.getString("Success");
             AttendanceModel attendanceModel = new AttendanceModel();
-            attendanceModel.setTotalAbsent(reader.getString("TotalAbsent"));
-            attendanceModel.setTotalPresent(reader.getString("TotalPresent"));
+
 
             if (data_load_basket.toString().equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
@@ -458,6 +457,8 @@ public class ParseJSON {
                 }
                 attendanceModel.setEventsList(attendances);
                 result.add(attendanceModel);
+                            attendanceModel.setTotalAbsent(reader.getString("TotalAbsent"));
+                attendanceModel.setTotalPresent(reader.getString("TotalPresent"));
             } else {
                 //invalid login
             }

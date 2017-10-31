@@ -313,7 +313,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                 } else if (position == 10) {
-                    fragment = new AppointmentFragment();
+                    fragment = new PTMMainFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
