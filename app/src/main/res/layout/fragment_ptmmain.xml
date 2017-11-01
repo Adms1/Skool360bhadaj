@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_5sdp">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -16,38 +17,39 @@
         <RelativeLayout
             android:id="@+id/headerRel"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="@dimen/_50sdp"
             android:background="@drawable/hedar_1">
 
             <Button
                 android:id="@+id/btnMenu"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginBottom="@dimen/_1sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:background="@drawable/menu_btn_blue" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="3dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:text="PTM"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="normal" />
 
             <Button
                 android:id="@+id/btnBackPtm"
-                android:layout_width="15dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:background="@drawable/back_btn" />
 
         </RelativeLayout>
@@ -62,21 +64,22 @@
             <android.support.design.widget.TabLayout
                 android:id="@+id/tablayout_ptm_main"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30sdp"
                 android:background="@color/orange"
                 android:minHeight="?attr/actionBarSize"
                 app:tabIndicatorColor="@color/white"
-                app:tabIndicatorHeight="5dp"
+                app:tabIndicatorHeight="@dimen/_4sdp"
                 app:tabMaxWidth="0dp"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextAppearance="?android:attr/textAppearanceSmall"
-                app:tabTextColor="@color/white" />
+                app:tabTextColor="@color/white"
+                android:elevation="7dp"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="@dimen/_3sdp"
                 android:scrollbars="vertical" />
         </LinearLayout>
     </RelativeLayout>

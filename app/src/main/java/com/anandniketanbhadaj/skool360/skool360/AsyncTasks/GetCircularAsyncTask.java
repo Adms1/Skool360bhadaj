@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.AsyncTasks;
 
 import android.os.AsyncTask;
 
+
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.ParseJSON;
@@ -27,7 +28,7 @@ public class GetCircularAsyncTask extends AsyncTask<Void, Void, ArrayList<Circul
             String responseString = null;
             ArrayList<CircularModel> result = null;
             try {
-                responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetCircular), param);
+                responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetCircularDetail), param);
                 result = ParseJSON.parseCircularJson(responseString);
             } catch (Exception e) {
                 e.printStackTrace();

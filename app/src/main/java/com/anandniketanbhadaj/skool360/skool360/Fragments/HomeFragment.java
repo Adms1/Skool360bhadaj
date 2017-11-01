@@ -77,7 +77,6 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         rootView = inflater.inflate(R.layout.home_fragment, container, false);
         mContext = getActivity().getApplicationContext();
         initViews();
@@ -201,48 +200,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                /*                else if (position == 2) {
-//                    fragment = new ClassworkFragment();
-//                    fragmentManager = getFragmentManager();
-//                    fragmentManager.beginTransaction()
-//                            .setCustomAnimations(0, 0)
-//                            .replace(R.id.frame_container, fragment).commit();
-//                }
-                     else if (position == 4) {
-                    fragment = new AnnouncementFragment();
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(0, 0)
-                            .replace(R.id.frame_container, fragment).commit();
-                }
-                    else if (position == 5) {
-                    fragment = new CircularFragment();
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(0, 0)
-                            .replace(R.id.frame_container, fragment).commit();
-                }
-                     else if (position == 5) {
-                    fragment = new ExamFragment();
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(0, 0)
-                            .replace(R.id.frame_container, fragment).commit();
-                }else if (position == 10) {
-                    fragment = new CourseFragment();
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(0, 0)
-                            .replace(R.id.frame_container, fragment).commit();
-                }
-                else if (position == 8) {
-                    fragment = new EventFragment();
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(0, 0)
-                            .replace(R.id.frame_container, fragment).commit();
-                }
-                */
 
                 if (position == 0) {
                     fragment = new AttendanceFragment();
@@ -251,13 +208,6 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                 }
-//                else if (position == 1) {
-//                    fragment = new CourseFragment();
-//                    fragmentManager = getFragmentManager();
-//                    fragmentManager.beginTransaction()
-//                            .setCustomAnimations(0, 0)
-//                            .replace(R.id.frame_container, fragment).commit();
-//                }
                 else if (position == 1) {
                     fragment = new HomeworkFragment();
                     fragmentManager = getFragmentManager();
@@ -320,6 +270,12 @@ public class HomeFragment extends Fragment {
                             .replace(R.id.frame_container, fragment).commit();
                 } else if (position == 11) {
                     fragment = new PrincipalMessageFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
+                            .replace(R.id.frame_container, fragment).commit();
+                }else if (position == 12) {
+                    fragment = new CircularFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)

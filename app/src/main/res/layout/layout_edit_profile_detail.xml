@@ -2,53 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_10sdp"
+    android:padding="10dp"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/str_login_detail"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="@dimen/_14sdp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="@dimen/_130sdp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:text="User Name: "
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="@dimen/_12sdp"/>
 
         <TextView
             android:id="@+id/txtUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textSize="@dimen/_12sdp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="@dimen/_130sdp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:text="Password: "
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="@dimen/_12sdp"/>
 
         <EditText
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
+            android:textSize="@dimen/_12sdp"
             android:inputType="textPassword"
             android:visibility="gone"/>
 
@@ -59,27 +63,30 @@
             android:layout_weight="1"
             android:inputType="textPassword"
             android:textStyle="bold"
-            android:visibility="visible"/>
+            android:visibility="visible"
+            android:textSize="@dimen/_12sdp"/>
 
         <TextView
             android:id="@+id/txtEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CHANGE"
+            android:textSize="@dimen/_12sdp"
             android:textColor="@color/light_blue"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:textStyle="bold" />
     </LinearLayout>
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginLeft="@dimen/_75sdp"
-        android:layout_marginRight="@dimen/_75sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/profile_button"
-        android:padding="@dimen/_6sdp"
+        android:padding="3dp"
+        android:textSize="@dimen/_12sdp"
         android:text="Update Password"
         android:textColor="@android:color/white"
         android:visibility="visible"

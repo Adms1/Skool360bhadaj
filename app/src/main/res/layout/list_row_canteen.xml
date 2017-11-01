@@ -11,8 +11,8 @@
 
         <ImageView
             android:id="@+id/imgBulletCanteen"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_30sdp"
             android:scaleType="fitXY"
             android:src="@drawable/blue_bulletpoint_withline"/>
 
@@ -25,6 +25,7 @@
             android:textStyle="bold"
             android:text="dsasdf"
             android:padding="5dp"
+            android:textSize="@dimen/_14sdp"
             android:gravity="left|center_vertical"
             android:layout_weight="1"/>
 
@@ -36,7 +37,8 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="dsasdf"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_14sdp"
             android:gravity="right|center_vertical"
             android:layout_weight="1"/>
 
@@ -49,7 +51,7 @@
         android:layout_below="@+id/llHeaderRow">
 
         <ImageView
-            android:layout_width="20dp"
+            android:layout_width="@dimen/_20sdp"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:layout_marginLeft="0dp"
@@ -62,7 +64,8 @@
             android:textColor="@color/app_text"
             android:textStyle="bold"
             android:text="Breakfast : "
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
             android:gravity="right|top"
             android:layout_weight="60"/>
 
@@ -74,7 +77,8 @@
             android:textStyle="normal"
             android:singleLine="false"
             android:text="dsasdfsssss"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
             android:gravity="left|center_vertical"
             android:layout_weight="40"/>
 
@@ -87,7 +91,7 @@
         android:layout_below="@+id/llChildRowBreakfast">
 
         <ImageView
-            android:layout_width="20dp"
+            android:layout_width="@dimen/_20sdp"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:layout_marginLeft="0dp"
@@ -100,7 +104,8 @@
             android:textColor="@color/app_text"
             android:textStyle="bold"
             android:text="Lunch : "
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
             android:gravity="right|top"
             android:layout_weight="60"/>
 
@@ -111,7 +116,8 @@
             android:textColor="@color/app_text"
             android:textStyle="normal"
             android:text="dsasdf"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
             android:gravity="left|center_vertical"
             android:layout_weight="40"/>
 
@@ -124,7 +130,7 @@
         android:layout_below="@+id/llChildRowLunch">
 
         <ImageView
-            android:layout_width="20dp"
+            android:layout_width="@dimen/_20sdp"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:layout_marginLeft="0dp"
@@ -137,7 +143,8 @@
             android:textColor="@color/app_text"
             android:textStyle="bold"
             android:text="Flavour Milk : "
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
             android:gravity="right|top"
             android:layout_weight="60"/>
 
@@ -148,7 +155,8 @@
             android:textColor="@color/app_text"
             android:textStyle="normal"
             android:text="dsasdf"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
             android:gravity="left|center_vertical"
             android:layout_weight="40"/>
 

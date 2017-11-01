@@ -29,14 +29,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_4sdp"
-            android:textSize="18sp"
             android:textColor="@android:color/white"
-            android:textStyle="bold"/>
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="normal"/>
 
         <Button
             android:id="@+id/btnBackHomework"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -95,8 +95,9 @@
             android:layout_alignBottom="@+id/toDate"
             android:layout_marginLeft="@dimen/_5sdp"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:padding="@dimen/_1sdp"/>
+            android:textStyle="normal"
+            android:textSize="@dimen/_12sdp"
+            android:padding="@dimen/_4sdp" />
 
     </RelativeLayout>
 
@@ -109,6 +110,7 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:textColor="@android:color/holo_red_dark"
         android:textStyle="bold"
+        android:textSize="@dimen/_12sdp"
         android:visibility="gone"/>
 
     <ExpandableListView

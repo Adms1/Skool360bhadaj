@@ -30,13 +30,13 @@
             android:text="REPORT CARD"
             android:layout_marginBottom="@dimen/_4sdp"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="normal" />
 
         <Button
             android:id="@+id/btnBackUnitTest"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="@dimen/_5sdp"

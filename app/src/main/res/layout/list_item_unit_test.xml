@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="Subject Name"
                 android:textColor="@color/syllabuscolor"
-                android:textSize="18dp"
+                android:textSize="13dp"
                 android:textStyle="normal" />
 
             <TextView
@@ -34,14 +34,14 @@
                 android:layout_marginEnd="19dp"
                 android:text="@string/syllabus"
                 android:textColor="@color/syllabuscolor"
-                android:textSize="18dp"
+                android:textSize="13dp"
                 android:textStyle="normal" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/syllabus_linear"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -56,7 +56,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:textAlignment="textStart"
-                android:textSize="14dp"
+                android:textSize="12dp"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>

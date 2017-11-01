@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="hi"
                 android:textColor="@color/syllabuscolor"
-                android:textSize="15dip"
+                android:textSize="13dip"
                 android:textStyle="bold" />
 
             <TextView
@@ -36,7 +36,7 @@
                 android:paddingBottom="@dimen/_5sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:text="hiiii"
-                android:textSize="15dip" />
+                android:textSize="12dip" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,7 +57,7 @@
                 android:paddingTop="@dimen/_5sdp"
                 android:text=""
                 android:textColor="@color/light_blue"
-                android:textSize="15dip"
+                android:textSize="13dip"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -71,7 +71,7 @@
                 android:paddingBottom="@dimen/_5sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:text="hiiii"
-                android:textSize="15dip"
+                android:textSize="12dip"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -93,7 +93,7 @@
                 android:paddingTop="@dimen/_5sdp"
                 android:text=""
                 android:textColor="@color/light_blue"
-                android:textSize="15dip"
+                android:textSize="13dip"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -107,7 +107,7 @@
                 android:paddingBottom="@dimen/_5sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:text="hiiii"
-                android:textSize="15dip"
+                android:textSize="12dip"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -129,7 +129,7 @@
                 android:paddingTop="@dimen/_5sdp"
                 android:text=""
                 android:textColor="@color/light_blue"
-                android:textSize="15dip"
+                android:textSize="13dip"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -143,7 +143,7 @@
                 android:paddingBottom="@dimen/_5sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:text="hiiii"
-                android:textSize="15dip"
+                android:textSize="12dip"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>

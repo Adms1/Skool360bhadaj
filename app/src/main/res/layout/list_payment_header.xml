@@ -4,7 +4,7 @@
     android:layout_height="40dp"
     android:background="@drawable/shadow_box"
     android:orientation="horizontal"
-    android:padding="4dp"
+    android:padding="@dimen/_4sdp"
     android:weightSum="2">
 
     <!--<TextView

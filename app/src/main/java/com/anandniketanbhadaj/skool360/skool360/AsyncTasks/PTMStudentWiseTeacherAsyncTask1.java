@@ -1,4 +1,4 @@
-package com.anandniketanbhadaj.skool360.skool360.Fragments;
+package com.anandniketanbhadaj.skool360.skool360.AsyncTasks;
 
 import android.os.AsyncTask;
 
@@ -10,13 +10,13 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 /**
- * Created by admsandroid on 10/31/2017.
+ * Created by admsandroid on 11/1/2017.
  */
 
-class PTMStudentWiseTeacherAsyncTask extends AsyncTask<Void, Void, PTMStudentWiseTeacher> {
+public class PTMStudentWiseTeacherAsyncTask1 extends AsyncTask<Void, Void, PTMStudentWiseTeacher> {
     HashMap<String, String> param = new HashMap<String, String>();
 
-    public PTMStudentWiseTeacherAsyncTask(HashMap<String, String> param) {
+    public PTMStudentWiseTeacherAsyncTask1(HashMap<String, String> param) {
         this.param = param;
     }
 

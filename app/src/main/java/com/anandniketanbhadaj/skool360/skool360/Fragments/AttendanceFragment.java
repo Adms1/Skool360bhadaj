@@ -77,11 +77,11 @@ public class AttendanceFragment extends Fragment {
         txtNoRecordsHomework = (TextView) rootView.findViewById(R.id.txtNoRecordsHomework);
         rlCalender = (RelativeLayout) rootView.findViewById(R.id.rlCalender);
         spinMonth = (Spinner) rootView.findViewById(R.id.spinMonth);
-        ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.month));
+        ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, getResources().getStringArray(R.array.month));
         spinMonth.setAdapter(adapterMonth);
 
         spinYear = (Spinner) rootView.findViewById(R.id.spinYear);
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, year1);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext,R.layout.spinner_layout, year1);
         spinYear.setAdapter(adapterYear);
 
         final Calendar calendar = Calendar.getInstance();
@@ -107,6 +107,7 @@ public class AttendanceFragment extends Fragment {
             args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.SUNDAY);
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, false);
             args.putBoolean(CaldroidFragment.SHOW_NAVIGATION_ARROWS, false);
+
 
             mCaldroidFragment.setArguments(args);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.calFrameContainer, mCaldroidFragment).commit();

@@ -2,12 +2,10 @@ package com.anandniketanbhadaj.skool360.skool360.Utility;
 
 import android.util.Log;
 
-import com.anandniketanbhadaj.skool360.skool360.Models.AnnouncementModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.AttendanceModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CanteenModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.EventModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ImprestDataModel;
@@ -623,80 +621,6 @@ public class ParseJSON {
         return result;
     }
 
-    public static ArrayList<EventModel> parseEventJson(String responseString) {
-        ArrayList<EventModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-
-
-            if (data_load_basket.toString().equals("True")) {
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                EventModel eventModel = null;
-                for (int i = 0; i < jsonMainNode.length(); i++) {
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    eventModel = new EventModel();
-                    eventModel.setCreateDate(jsonChildNode.getString("CreateDate"));
-                    eventModel.setDescription(jsonChildNode.getString("Description"));
-
-                    JSONArray jsonMainNode1 = jsonChildNode.optJSONArray("EventImage");
-                    EventModel.EventImage eventImage = null;
-                    ArrayList<EventModel.EventImage> eventImages = new ArrayList<>();
-                    for (int j = 0; j < jsonMainNode1.length(); j++) {
-                        JSONObject jsonChildNode1 = jsonMainNode1.getJSONObject(j);
-                        eventImage = eventModel.new EventImage();
-                        eventImage.setImagePath(jsonChildNode1.getString("ImagePath"));
-
-                        eventImages.add(eventImage);
-                    }
-                    eventModel.setEventImages(eventImages);
-                    result.add(eventModel);
-                }
-
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
-    public static ArrayList<AnnouncementModel> parseAnnouncementJson(String responseString) {
-        ArrayList<AnnouncementModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-
-                AnnouncementModel announcementModel = null;
-                for (int i = 0; i < jsonMainNode.length(); i++) {
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    announcementModel = new AnnouncementModel();
-                    announcementModel.setCreateDate(jsonChildNode.getString("CreateDate"));
-                    announcementModel.setAnnoucementDescription(jsonChildNode.getString("AnnoucementDescription"));
-                    announcementModel.setAnnoucementPDF(jsonChildNode.getString("AnnoucementPDF"));
-
-                    result.add(announcementModel);
-                }
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
     public static ArrayList<CanteenModel> parseCanteenJson(String responseString) {
         ArrayList<CanteenModel> result = new ArrayList<>();
         CanteenModel canteenModel = null;
@@ -750,9 +674,9 @@ public class ParseJSON {
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
                     circularModel = new CircularModel();
-                    circularModel.setCreateDate(jsonChildNode.getString("CreateDate"));
-                    circularModel.setCircularHeading(jsonChildNode.getString("CircularHeading"));
-                    circularModel.setCircularFile(jsonChildNode.getString("CircularFile"));
+                    circularModel.setDate(jsonChildNode.getString("Date"));
+                    circularModel.setSubject(jsonChildNode.getString("Subject"));
+                    circularModel.setDiscription(jsonChildNode.getString("Discription"));
 
                     result.add(circularModel);
                 }

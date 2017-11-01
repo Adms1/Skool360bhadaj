@@ -6,5 +6,5 @@
     android:text="hello"
     android:paddingLeft="5dp"
     android:textColor="#000000"
-    android:textSize="16sp"
+    android:textSize="15sp"
     />

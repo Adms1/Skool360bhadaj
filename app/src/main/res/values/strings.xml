@@ -46,8 +46,9 @@
         <item>Fees</item>
         <item>Imprest</item>
         <item>Canteen</item>
-        <item>Appointment Requests</item>
+        <item>PTM</item>
         <item>Message</item>
+        <item>Circular</item>
         <item>Logout</item>
     </string-array>
 

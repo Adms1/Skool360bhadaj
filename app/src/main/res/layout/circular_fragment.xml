@@ -3,70 +3,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:paddingTop="5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_5sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="@dimen/_50sdp"
         android:background="@drawable/hedar_1">
 
         <Button
             android:id="@+id/btnMenu"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginBottom="@dimen/_1sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_1sdp"
             android:background="@drawable/menu_btn_blue" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:text="CIRCUALR"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:textSize="18sp"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:text="CIRCULAR"
             android:textColor="@android:color/white"
-            android:textStyle="bold"/>
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="normal" />
 
         <Button
             android:id="@+id/btnBackCircular"
-            android:layout_width="15dp"
-            android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/back_btn" />
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:background="@drawable/back_btn"  />
 
     </RelativeLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/circular2"
-        android:scaleType="fitXY"/>
-
     <TextView
-        android:id="@+id/txtNoRecordsClasswork"
+        android:id="@+id/txtNoRecordsCircular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No Records Found..."
+        android:layout_marginTop="@dimen/_20sdp"
         android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:text="No Records Found..."
         android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/_12sdp"
         android:textStyle="bold"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/listCircular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="5dp"
-        android:divider="@color/white"
-        android:layout_margin="10dp"/>
+        android:layout_margin="@dimen/_5sdp"
+        android:childDivider="@android:color/transparent"
+        android:divider="@android:color/white"
+        android:dividerHeight="@dimen/_5sdp"
+        android:groupIndicator="@null"
+        android:scrollbars="none"/>
 
 </LinearLayout>

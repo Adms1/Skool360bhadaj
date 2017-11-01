@@ -133,7 +133,7 @@ public class ImprestFragment extends Fragment {
                                     for (int i = 0; i < termModels.size(); i++) {
                                         termText.add(termModels.get(i).getTerm());
                                     }
-                                    ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, termText);
+                                    ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext,R.layout.spinner_layout, termText);
                                     spinYear.setAdapter(adapterSpinYear);
                                 } else {
                                     progressDialog.dismiss();

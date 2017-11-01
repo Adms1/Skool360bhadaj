@@ -8,7 +8,7 @@
         android:id="@+id/imgGridOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/annoucement"/>
+        android:src="@drawable/attendance"/>
 
     <TextView
         android:id="@+id/txtGridOptionsName"

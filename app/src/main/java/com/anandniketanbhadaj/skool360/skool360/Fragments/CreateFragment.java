@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -22,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.PTMStudentWiseTeacherAsyncTask1;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.PTMTeacherStudentInsertDetailAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.MainPtmSentMessageResponse;
 import com.anandniketanbhadaj.skool360.skool360.Models.PTMTeacherResponse.PTMStudentWiseTeacher;
@@ -38,7 +38,7 @@ public class CreateFragment extends Fragment {
     private EditText edtPurpose, edtDescription;
     private Spinner spinRequestFor;
     private Button btnSave, btnCancel;
-    private PTMStudentWiseTeacherAsyncTask ptmStudentWiseTeacherAsyncTask = null;
+    private PTMStudentWiseTeacherAsyncTask1 ptmStudentWiseTeacherAsyncTask = null;
     private ProgressDialog progressDialog = null;
     PTMStudentWiseTeacher responseTeacher;
     private PTMTeacherStudentInsertDetailAsyncTask getPTMTeacherStudentInsertDetailAsyncTask = null;
@@ -194,7 +194,7 @@ public class CreateFragment extends Fragment {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
-                        ptmStudentWiseTeacherAsyncTask = new PTMStudentWiseTeacherAsyncTask(params);
+                        ptmStudentWiseTeacherAsyncTask = new PTMStudentWiseTeacherAsyncTask1(params);
                         responseTeacher = ptmStudentWiseTeacherAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override

@@ -72,11 +72,11 @@ public class CanteenFragment extends Fragment {
         listCanteen = (ListView) rootView.findViewById(R.id.listCanteen);
 
         spinMonth = (Spinner) rootView.findViewById(R.id.spinMonth);
-        ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.month));
+        ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(mContext,R.layout.spinner_layout, getResources().getStringArray(R.array.month));
         spinMonth.setAdapter(adapterMonth);
 
         spinYear = (Spinner) rootView.findViewById(R.id.spinYear);
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, year1);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext,R.layout.spinner_layout, year1);
         spinYear.setAdapter(adapterYear);
 
         final Calendar calendar = Calendar.getInstance();

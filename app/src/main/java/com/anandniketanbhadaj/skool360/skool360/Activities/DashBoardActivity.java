@@ -22,11 +22,11 @@ import android.widget.RelativeLayout;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.menuoptionItemAdapter;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.AppointmentFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.AttendanceFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.CanteenFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.CircularFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ClassworkFragment;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.CourseFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.CreateFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.FeesFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeworkFragment;
@@ -209,27 +209,6 @@ public class DashBoardActivity extends FragmentActivity {
 
     public void displayView(int position) {
 
-                /*  case 4:
-                fragment = new ClassworkFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                break;
-                 case 6:
-                fragment = new EventFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                break;
-                  case 9:
-                fragment = new AnnouncementFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                break;
-            case 10:
-                fragment = new CircularFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                break;
-*/
         switch (position) {
             case 0:
                 fragment = new HomeFragment();
@@ -246,11 +225,6 @@ public class DashBoardActivity extends FragmentActivity {
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
-//            case 3:
-//                fragment=new CourseFragment();
-//                myid=fragment.getId();
-//                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-//                break;
             case 3:
                 fragment = new HomeworkFragment();
                 myid = fragment.getId();
@@ -307,6 +281,11 @@ public class DashBoardActivity extends FragmentActivity {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
             case 14:
+                fragment = new CircularFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                break;
+            case 15:
                 Utility.setPref(mContext, "unm", "");
                 Utility.setPref(mContext, "pwd", "");
                 Utility.setPref(mContext, "studid", "");

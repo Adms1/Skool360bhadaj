@@ -26,17 +26,17 @@
             android:layout_height="wrap_content"
             android:text="PROFILE"
             android:layout_marginRight="@dimen/_10sdp"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:layout_marginBottom="@dimen/_4sdp"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 
         <Button
             android:id="@+id/btnBackProfile"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -76,7 +76,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:singleLine="true"
                 android:gravity="center"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:text="Siddharth Karnik"
                 android:textColor="@android:color/white" />
 

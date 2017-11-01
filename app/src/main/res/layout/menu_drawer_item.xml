@@ -11,7 +11,7 @@
         android:padding="10dp"
         android:layout_alignParentLeft="true"
         android:text="Inbox"
-        android:textSize="18sp"
+        android:textSize="@dimen/_12sdp"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

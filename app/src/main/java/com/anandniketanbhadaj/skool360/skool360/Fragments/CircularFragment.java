@@ -3,26 +3,25 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
+
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.CircularListAdapter;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterCircular;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetCircularAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,14 +31,16 @@ import java.util.HashMap;
 public class CircularFragment extends Fragment {
     private View rootView;
     private Button btnMenu, btnBackCircular;
-    private ListView listCircular;
-    private TextView txtNoRecordsClasswork;
+    private ExpandableListView listCircular;
+    private TextView txtNoRecordsCircular;
     private Context mContext;
     private GetCircularAsyncTask getCircularAsyncTask = null;
-    private CircularListAdapter circularListAdapter = null;
+    private ExpandableListAdapterCircular circularListAdapter = null;
     private ProgressDialog progressDialog = null;
     private ArrayList<CircularModel> circularModels = new ArrayList<>();
-
+    ArrayList<String> listDataHeader;
+    HashMap<String, ArrayList<CircularModel>> listDataChildCircular;
+    private int lastExpandedPosition = -1;
     public CircularFragment() {
     }
 
@@ -51,29 +52,20 @@ public class CircularFragment extends Fragment {
 
         initViews();
         setListners();
-        getAnnouncementData();
+        getCircularData();
 
         return rootView;
     }
 
     public void initViews() {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecordsClasswork = (TextView) rootView.findViewById(R.id.txtNoRecordsClasswork);
+        txtNoRecordsCircular = (TextView) rootView.findViewById(R.id.txtNoRecordsCircular);
         btnBackCircular = (Button) rootView.findViewById(R.id.btnBackCircular);
-        listCircular = (ListView) rootView.findViewById(R.id.listCircular);
+        listCircular = (ExpandableListView) rootView.findViewById(R.id.listCircular);
 
     }
 
     public void setListners() {
-
-        listCircular.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (view.getTag().toString().contains(".pdf")) {
-                    downloadPDF(view.getTag().toString());
-                }
-            }
-        });
 
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,47 +74,32 @@ public class CircularFragment extends Fragment {
             }
         });
 
+        listCircular.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedPosition != -1
+                        && groupPosition != lastExpandedPosition) {
+                    listCircular.collapseGroup(lastExpandedPosition);
+                }
+                lastExpandedPosition = groupPosition;
+            }
+        });
         btnBackCircular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
-                        .setCustomAnimations(0, 0)
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                         .replace(R.id.frame_container, fragment).commit();
             }
         });
 
     }
 
-    public void downloadPDF(final String pdfURL) {
-        final String fileName = pdfURL.substring(pdfURL.lastIndexOf('/') + 1);
-
-        if (Utility.isFileExists(fileName, "circular")) {
-            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-            Utility.pong(mContext, "File already exists at " + new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childCircularFolderName + "/" + fileName).getPath());
-
-        } else {
-            progressDialog.show();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Utility.downloadFile(pdfURL, fileName, "circular");
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-                            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                            Utility.pong(mContext, "File download complete at " + new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childCircularFolderName + "/" + fileName).getPath());
-                        }
-                    });
-                }
-            }).start();
-        }
-    }
-
-    public void getAnnouncementData() {
-        if (Utility.isNetworkConnected(mContext)) {
+    public void getCircularData(){
+        if(Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
@@ -140,13 +117,14 @@ public class CircularFragment extends Fragment {
                             public void run() {
                                 progressDialog.dismiss();
                                 if (circularModels.size() > 0) {
-                                    txtNoRecordsClasswork.setVisibility(View.GONE);
-                                    circularListAdapter = new CircularListAdapter(mContext, circularModels);
+                                    txtNoRecordsCircular.setVisibility(View.GONE);
+                                    prepaareList();
+                                    circularListAdapter = new ExpandableListAdapterCircular(getActivity(),listDataHeader,listDataChildCircular);
                                     listCircular.setAdapter(circularListAdapter);
 
                                 } else {
                                     progressDialog.dismiss();
-                                    txtNoRecordsClasswork.setVisibility(View.VISIBLE);
+                                    txtNoRecordsCircular.setVisibility(View.VISIBLE);
                                 }
                             }
                         });
@@ -155,8 +133,29 @@ public class CircularFragment extends Fragment {
                     }
                 }
             }).start();
-        } else {
-            Utility.ping(mContext, "Network not available");
+        }else{
+            Utility.ping(mContext,"Network not avialable");
         }
+    }
+    public void prepaareList() {
+        listDataHeader = new ArrayList<>();
+        listDataChildCircular = new HashMap<String, ArrayList<CircularModel>>();
+
+        for (int i = 0; i < circularModels.size(); i++) {
+            Circulardemo cdemo = new Circulardemo();
+            cdemo.Date = circularModels.get(i).getDate().toString();
+            cdemo.Subject = circularModels.get(i).getSubject().toString();
+            listDataHeader.add(cdemo.Subject.toString() + "|" + cdemo.Date);
+            Log.d("displaypositiondata", listDataHeader.get(0));
+
+            ArrayList<CircularModel> rows = new ArrayList<CircularModel>();
+                rows.add(circularModels.get(i));
+            listDataChildCircular.put(listDataHeader.get(i), rows);
+        }
+    }
+
+    public class Circulardemo {
+        private String Date;
+        private String Subject;
     }
 }
