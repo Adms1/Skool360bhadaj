@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="@string/str_login_detail"
         android:textStyle="bold"
-        android:textSize="@dimen/_14sdp"/>
+        android:textSize="@dimen/_13sdp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,14 +23,14 @@
             android:layout_height="wrap_content"
             android:text="User Name: "
             android:textStyle="bold"
-            android:textSize="@dimen/_12sdp"/>
+            android:textSize="@dimen/_11sdp"/>
 
         <TextView
             android:id="@+id/txtUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="@dimen/_12sdp"/>
+            android:textSize="@dimen/_11sdp"/>
 
     </LinearLayout>
 
@@ -45,14 +45,14 @@
             android:layout_height="wrap_content"
             android:text="Password: "
             android:textStyle="bold"
-            android:textSize="@dimen/_12sdp"/>
+            android:textSize="@dimen/_11sdp"/>
 
         <EditText
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
             android:inputType="textPassword"
             android:visibility="gone"/>
 
@@ -64,7 +64,7 @@
             android:inputType="textPassword"
             android:textStyle="bold"
             android:visibility="visible"
-            android:textSize="@dimen/_12sdp"/>
+            android:textSize="@dimen/_11sdp"/>
 
         <TextView
             android:id="@+id/txtEdit"
@@ -85,11 +85,11 @@
         android:layout_marginRight="75dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/profile_button"
-        android:padding="3dp"
-        android:textSize="@dimen/_12sdp"
+        android:padding="1dp"
+        android:textSize="@dimen/_11sdp"
         android:text="Update Password"
         android:textColor="@android:color/white"
         android:visibility="visible"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
 </LinearLayout>

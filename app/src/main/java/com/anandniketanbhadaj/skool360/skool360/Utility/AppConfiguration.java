@@ -59,4 +59,5 @@ public class AppConfiguration {
     public static String PTMDeleteMeeting = "PTMDeleteMeeting";
     public static String PTMStudentWiseTeacher = "PTMStudentWiseTeacher";
     public static String GetCircularDetail = "GetCircularDetail";
+    public static String DeviceVersion = "DeviceVersion";
 }

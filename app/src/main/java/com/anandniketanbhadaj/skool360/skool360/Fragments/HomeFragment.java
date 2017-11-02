@@ -1,7 +1,11 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -9,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +28,9 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.HomeImageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ImageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.AddDeviceDetailAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.DeviceVersionAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetUserProfileAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.Models.DeviceVersionModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -70,7 +78,10 @@ public class HomeFragment extends Fragment {
     private ImageLoader imageLoader;
     private TextView student_name_txt, student_classname_txt, teacher_name_txt, teacher_name1_txt,
             vehicle_name_txt, vehicle_picktime_txt, vehicle_droptime_txt, admission_txt, attendance_txt;
-
+    private boolean isVersionCodeUpdated = false;
+    private int versionCode = 0;
+    private DeviceVersionAsyncTask deviceVersionAsyncTask = null;
+    DeviceVersionModel deviceVersionModel;
     public HomeFragment() {
     }
 
@@ -82,8 +93,7 @@ public class HomeFragment extends Fragment {
         initViews();
         setListners();
         if (Utility.isNetworkConnected(mContext)) {
-        getRegistrationID();
-        getUserProfile();
+            getVersionUpdateInfo();
         } else {
             Utility.ping(mContext, "Network not available");
         }
@@ -286,10 +296,6 @@ public class HomeFragment extends Fragment {
     }
 
     public void getUserProfile() {
-//        progressDialog = new ProgressDialog(getActivity());
-//        progressDialog.setCancelable(false);
-//        progressDialog.setMessage("Please wait...");
-//        progressDialog.show();
 
         new Thread(new Runnable() {
             @Override
@@ -302,7 +308,6 @@ public class HomeFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            progressDialog.dismiss();
                             student_name_txt.setText(studDetailList.get(0).getStudentName());
                             imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
                             vehicle_picktime_txt.setText("Pick Up :" + studDetailList.get(0).getTransport_PicupTime());
@@ -323,5 +328,63 @@ public class HomeFragment extends Fragment {
             }
         }).start();
 
+    }
+    
+    public void getVersionUpdateInfo() {
+        if (Utility.isNetworkConnected(mContext)) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("UserID", Utility.getPref(mContext, "studid"));
+                        params.put("VersionID",String.valueOf(versionCode));//String.valueOf(versionCode)
+                        params.put("UserType", "Student");
+                        deviceVersionAsyncTask = new DeviceVersionAsyncTask(params);
+                        deviceVersionModel = deviceVersionAsyncTask.execute().get();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (deviceVersionModel.getSuccess().equalsIgnoreCase("True")) {
+                                    isVersionCodeUpdated = true;
+                                    Log.d("hellotrue", "" + isVersionCodeUpdated);
+                                    getRegistrationID();
+                                    getUserProfile();
+                                } else {
+                                    isVersionCodeUpdated = false;
+                                    Log.d("hellofalse", "" + isVersionCodeUpdated);
+                                    new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                                            .setCancelable(false)
+                                            .setTitle("Skool360 Bhadaj Update")
+                                            .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                                            .setMessage("Please update to a new version of the app.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.anandniketanbhadaj.skool360"));
+                                                    getActivity().startActivity(i);
+
+                                                }
+                                            })
+                                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    // do nothing
+                                                    Utility.pong(mContext, "You wont be able to use other funcationality without updating to a newer version");
+                                                    getActivity().finish();
+                                                }
+                                            })
+                                            .setIcon(R.drawable.ic_launcher)
+                                            .show();
+
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Utility.ping(mContext, "Network not available");
+        }
     }
 }

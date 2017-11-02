@@ -34,7 +34,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Receipt No"
                 android:textColor="@color/syllabuscolor" />
 
@@ -44,7 +44,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor" />
 
             <TextView
@@ -77,7 +77,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Mode of Payment"
                 android:textColor="@color/syllabuscolor" />
 
@@ -87,7 +87,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor" />
 
             <TextView
@@ -112,7 +112,7 @@
                 android:layout_height="30dp"
                 android:layout_weight=".2"
                 android:scaleType="fitXY"
-                 />
+                />
 
             <TextView
                 android:id="@+id/admission_fee_txt"
@@ -121,7 +121,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Admission Fee"
                 android:textColor="@color/syllabuscolor" />
 
@@ -131,7 +131,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor" />
 
             <TextView
@@ -156,7 +156,7 @@
                 android:layout_height="30dp"
                 android:layout_weight=".2"
                 android:scaleType="fitXY"
-                 />
+                />
 
             <TextView
                 android:id="@+id/tution_fee_txt"
@@ -165,7 +165,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Tution Fee"
                 android:textColor="@color/syllabuscolor" />
 
@@ -175,7 +175,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor" />
 
             <TextView
@@ -200,7 +200,7 @@
                 android:layout_height="30dp"
                 android:layout_weight=".2"
                 android:scaleType="fitXY"
-                 />
+                />
 
             <TextView
                 android:id="@+id/transport_fee_txt"
@@ -209,7 +209,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Transport Fee"
                 android:textColor="@color/syllabuscolor" />
 
@@ -219,7 +219,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor"/>
 
             <TextView
@@ -244,7 +244,7 @@
                 android:layout_height="30dp"
                 android:layout_weight=".2"
                 android:scaleType="fitXY"
-                 />
+                />
 
             <TextView
                 android:id="@+id/imprest_txt"
@@ -253,7 +253,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Imprest"
                 android:textColor="@color/syllabuscolor" />
 
@@ -263,7 +263,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor" />
 
             <TextView
@@ -288,7 +288,7 @@
                 android:layout_height="30dp"
                 android:layout_weight=".2"
                 android:scaleType="fitXY"
-                 />
+                />
 
             <TextView
                 android:id="@+id/late_fees_txt"
@@ -297,7 +297,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Late Fee"
                 android:textColor="@color/syllabuscolor" />
 
@@ -307,7 +307,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor"/>
 
             <TextView
@@ -332,7 +332,7 @@
                 android:layout_height="30dp"
                 android:layout_weight=".2"
                 android:scaleType="fitXY"
-                 />
+                />
 
             <TextView
                 android:id="@+id/waive_off_txt"
@@ -341,7 +341,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Waive off(₹)"
                 android:textColor="@color/syllabuscolor" />
 
@@ -351,7 +351,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor" />
 
             <TextView
@@ -376,7 +376,7 @@
                 android:layout_height="30dp"
                 android:layout_weight=".2"
                 android:scaleType="fitXY"
-                 />
+                />
 
             <TextView
                 android:id="@+id/previous_outstanding_txt"
@@ -385,7 +385,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Previous OutStanding"
                 android:textColor="@color/syllabuscolor" />
 
@@ -395,7 +395,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor" />
 
             <TextView
@@ -420,7 +420,7 @@
                 android:layout_height="30dp"
                 android:layout_weight=".2"
                 android:scaleType="fitXY"
-                 />
+                />
 
             <TextView
                 android:id="@+id/total_paid_fee_txt"
@@ -429,7 +429,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Total Paid Fees"
                 android:textColor="@color/syllabuscolor" />
 
@@ -439,7 +439,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor"/>
 
             <TextView
@@ -464,7 +464,7 @@
                 android:layout_height="30dp"
                 android:layout_weight=".2"
                 android:scaleType="fitXY"
-                 />
+                />
 
             <TextView
                 android:id="@+id/current_outstanding_txt"
@@ -473,7 +473,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1.7"
                 android:gravity="left"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Current OutStanding"
                 android:textColor="@color/syllabuscolor" />
 
@@ -483,7 +483,7 @@
                 android:layout_weight=".4"
                 android:gravity="center"
                 android:text=": "
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/syllabuscolor"/>
 
             <TextView
