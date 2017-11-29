@@ -329,7 +329,6 @@ public class HomeFragment extends Fragment {
         }).start();
 
     }
-    
     public void getVersionUpdateInfo() {
         if (Utility.isNetworkConnected(mContext)) {
             new Thread(new Runnable() {
