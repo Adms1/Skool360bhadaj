@@ -70,4 +70,5 @@
     <color name="present_header">#a4c639</color>
     <color name="absent_header">#ff0000</color>
     <color name="sent">#EBEBF1</color>
+    <color name="offwhite">#A6FFFFFF</color>
 </resources>
