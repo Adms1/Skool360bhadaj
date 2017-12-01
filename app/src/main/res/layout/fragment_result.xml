@@ -13,8 +13,8 @@
 
         <Button
             android:id="@+id/btnMenu"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_1sdp"
@@ -44,12 +44,6 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/unit_test2"
-        android:scaleType="fitXY"
-        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/txtNoRecordsUnitTest"

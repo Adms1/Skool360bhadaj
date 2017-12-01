@@ -18,16 +18,17 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="@dimen/_18sdp"
             android:src="@drawable/profile_pic_holder"
             app:border_color="@color/orange"
-            app:border_width="@dimen/_2sdp" />
+            app:border_width="@dimen/_2sdp"
+            android:layout_alignParentLeft="true" />
 
         <TextView
             android:id="@+id/profile_name_txt"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical|center"
             android:layout_margin="@dimen/_5sdp"
             android:text="Name"
             android:textAlignment="center"
@@ -37,10 +38,11 @@
 
         <TextView
             android:id="@+id/type_txt"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="@dimen/_1sdp"
+            android:layout_gravity="center_vertical|center"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_margin="@dimen/_2sdp"
             android:text="Type"
             android:textAlignment="center"
             android:textSize="@dimen/_11sdp"

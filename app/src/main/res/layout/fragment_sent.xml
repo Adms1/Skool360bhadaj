@@ -10,8 +10,8 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="0dp"
-        android:layout_marginRight="0dp"
+        android:layout_marginBottom="@dimen/_1sdp"
+        android:layout_marginRight="@dimen/_1sdp"
         android:background="@color/white">
 
         <TextView
@@ -30,7 +30,7 @@
         <LinearLayout
             android:id="@+id/Sent_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_40sdp"
             android:layout_margin="0dp"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"
@@ -47,7 +47,7 @@
             android:layout_below="@+id/Sent_header"
             android:childDivider="@android:color/transparent"
             android:divider="@android:color/white"
-            android:dividerHeight="5dp"
+            android:dividerHeight="@dimen/_5sdp"
             android:groupIndicator="@null"
             android:scrollbars="none" />
 

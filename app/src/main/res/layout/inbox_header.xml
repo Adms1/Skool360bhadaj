@@ -7,8 +7,8 @@
     <LinearLayout
         android:id="@+id/llHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_margin="@dimen/_3sdp"
         android:orientation="horizontal"
         android:padding="@dimen/_4sdp"
         android:paddingBottom="@dimen/_1sdp"
@@ -20,10 +20,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.4"
-            android:padding="@dimen/_5sdp"
+            android:padding="@dimen/_3sdp"
             android:text="Name"
+            android:gravity="center"
             android:textColor="@color/syllabuscolor"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_11sdp" />
 
         <TextView
             android:id="@+id/date_inbox_txt"
@@ -33,9 +34,10 @@
             android:layout_weight="1"
             android:padding="@dimen/_5sdp"
             android:text="Date"
+            android:gravity="center"
             android:textAlignment="center"
             android:textColor="@color/syllabuscolor"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_11sdp" />
 
         <TextView
             android:id="@+id/subject_inbox_txt"
@@ -44,9 +46,10 @@
             android:layout_weight=".8"
             android:padding="@dimen/_5sdp"
             android:text="Subject"
+            android:gravity="center"
             android:textAlignment="center"
             android:textColor="@color/syllabuscolor"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_11sdp" />
 
         <TextView
             android:id="@+id/view_inbox_txt"
@@ -55,9 +58,10 @@
             android:layout_weight="1"
             android:padding="@dimen/_5sdp"
             android:text="View"
+            android:gravity="center"
             android:textAlignment="center"
             android:textColor="@color/syllabuscolor"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_11sdp" />
 
 
     </LinearLayout>

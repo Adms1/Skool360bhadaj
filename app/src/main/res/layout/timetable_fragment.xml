@@ -13,8 +13,8 @@
 
         <Button
             android:id="@+id/btnMenu"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/_1sdp"
             android:layout_marginRight="@dimen/_10sdp"
@@ -44,13 +44,6 @@
             android:background="@drawable/back_btn" />
 
     </RelativeLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
-        android:scaleType="fitXY"
-        android:src="@drawable/timetable2"
-        android:visibility="gone" />
 
     <TextView
         android:id="@+id/txtNoRecordsTimetable"

@@ -236,7 +236,7 @@ public class CreateFragment extends Fragment {
         }
         ArrayList<String> TeacherName = new ArrayList<String>();
         for (int i = 0; i < responseTeacher.getFinalArray().size(); i++) {
-            TeacherName.add(responseTeacher.getFinalArray().get(i).getTeacherName());
+            TeacherName.add(responseTeacher.getFinalArray().get(i).getTeacherName().trim());
 
         }
         String[] spinnerstaffIdArray = new String[staffId.size()];

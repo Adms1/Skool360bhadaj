@@ -8,153 +8,162 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/_10sdp">
+        android:padding="@dimen/_10sdp"
+        android:weightSum="4">
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp">
+            android:layout_marginTop="@dimen/_10sdp"
+            android:weightSum="2">
 
             <TextView
-                android:layout_width="@dimen/_80sdp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight=".63"
                 android:text="Date: "
                 android:textColor="@color/appointment_text"
-                android:textStyle="bold"
-                android:textSize="12dp"/>
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtDate"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:background="@drawable/gray_border"
                 android:hint="DD/MM/YYYY"
                 android:padding="7dp"
                 android:singleLine="true"
                 android:text=""
-                android:textSize="12dp"
-                android:textColor="@color/gray" />
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_10sdp" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp">
+            android:layout_marginTop="@dimen/_15sdp"
+            android:weightSum="2">
 
             <TextView
-                android:layout_width="@dimen/_80sdp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:dropDownVerticalOffset="35dp"
-                android:forceHasOverlappingRendering="false"
                 android:text="Purpose: "
-                android:textSize="12dp"
+                android:layout_weight=".63"
                 android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edtPurpose"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:background="@drawable/gray_border"
                 android:padding="@dimen/_5sdp"
-                android:textSize="12dp"
                 android:singleLine="true"
                 android:text=""
-                android:textColor="@color/appointment_text" />
+                android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_10sdp" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp">
+            android:layout_marginTop="@dimen/_15sdp"
+            android:weightSum="2">
 
             <TextView
-                android:layout_width="@dimen/_80sdp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Request For: "
-                android:textSize="12dp"
                 android:paddingTop="@dimen/_5sdp"
+                android:layout_weight=".63"
+                android:text="Request For: "
                 android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spinRequestFor"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:textSize="12dp"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_27sdp"
+                android:layout_weight="1.2"
                 android:background="@drawable/dropdown_button"
-                android:dropDownVerticalOffset="50dp"
                 android:forceHasOverlappingRendering="false"
-                android:textColor="@color/appointment_text"/>
+                android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_10sdp" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="@dimen/_15sdp"
+            android:weightSum="2">
 
             <TextView
-                android:layout_width="@dimen/_80sdp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="Description: "
-                android:textSize="12dp"
                 android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_10sdp"
+                android:layout_weight=".63"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edtDescription"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_120sdp"
-                android:layout_weight="1"
-                android:textSize="12dp"
+                android:layout_weight="1.2"
                 android:background="@drawable/gray_border"
                 android:gravity="top"
                 android:maxLines="20"
                 android:padding="@dimen/_5sdp"
                 android:singleLine="false"
-                android:textColor="@color/appointment_text" />
+                android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_10sdp" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="@dimen/_5sdp"
+            android:weightSum="2">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Description: "
+                android:layout_weight=".63"
                 android:textColor="@color/appointment_text"
                 android:textStyle="bold"
                 android:visibility="invisible" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2">
 
                 <Button
                     android:id="@+id/btnSave"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_27sdp"
                     android:background="@drawable/profile_button"
                     android:text="Save"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="13dp" />
+                    android:textSize="@dimen/_9sdp" />
 
                 <Button
                     android:id="@+id/btnCancel"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="3dp"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_27sdp"
+                    android:layout_marginLeft="@dimen/_3sdp"
                     android:background="@drawable/profile_button"
                     android:text="Cancel"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="13dp" />
+                    android:textSize="@dimen/_10sdp" />
             </LinearLayout>
         </TableRow>
     </TableLayout>

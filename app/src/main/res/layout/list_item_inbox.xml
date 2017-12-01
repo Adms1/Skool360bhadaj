@@ -26,6 +26,6 @@
             android:paddingTop="@dimen/_9sdp"
             android:textAlignment="textStart"
             android:textColor="@color/black"
-            android:textSize="13dip" />
+            android:textSize="@dimen/_10sdp" />
     </LinearLayout>
 </RelativeLayout>

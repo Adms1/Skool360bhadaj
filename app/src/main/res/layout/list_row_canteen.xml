@@ -7,12 +7,12 @@
     <LinearLayout
         android:id="@+id/llHeaderRow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/_27sdp">
 
         <ImageView
             android:id="@+id/imgBulletCanteen"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_27sdp"
             android:scaleType="fitXY"
             android:src="@drawable/blue_bulletpoint_withline"/>
 
@@ -24,8 +24,8 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="dsasdf"
-            android:padding="5dp"
-            android:textSize="@dimen/_14sdp"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
             android:gravity="left|center_vertical"
             android:layout_weight="1"/>
 
@@ -38,7 +38,7 @@
             android:textStyle="bold"
             android:text="dsasdf"
             android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_12sdp"
             android:gravity="right|center_vertical"
             android:layout_weight="1"/>
 
@@ -47,12 +47,12 @@
     <LinearLayout
         android:id="@+id/llChildRowBreakfast"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_30sdp"
         android:layout_below="@+id/llHeaderRow">
 
         <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_30sdp"
             android:scaleType="fitXY"
             android:layout_marginLeft="0dp"
             android:src="@drawable/canteen_line"/>
@@ -65,20 +65,20 @@
             android:textStyle="bold"
             android:text="Breakfast : "
             android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
             android:gravity="right|top"
             android:layout_weight="60"/>
 
         <TextView
             android:id="@+id/txtBreakfast"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColor="@color/app_text"
             android:textStyle="normal"
             android:singleLine="false"
             android:text="dsasdfsssss"
             android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
             android:gravity="left|center_vertical"
             android:layout_weight="40"/>
 
@@ -87,12 +87,12 @@
     <LinearLayout
         android:id="@+id/llChildRowLunch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_30sdp"
         android:layout_below="@+id/llChildRowBreakfast">
 
         <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_30sdp"
             android:scaleType="fitXY"
             android:layout_marginLeft="0dp"
             android:src="@drawable/canteen_line"/>
@@ -105,19 +105,19 @@
             android:textStyle="bold"
             android:text="Lunch : "
             android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
             android:gravity="right|top"
             android:layout_weight="60"/>
 
         <TextView
             android:id="@+id/txtLunch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColor="@color/app_text"
             android:textStyle="normal"
             android:text="dsasdf"
             android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
             android:gravity="left|center_vertical"
             android:layout_weight="40"/>
 
@@ -126,12 +126,12 @@
     <LinearLayout
         android:id="@+id/llChildRowFlvMilk"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_30sdp"
         android:layout_below="@+id/llChildRowLunch">
 
         <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_30sdp"
             android:scaleType="fitXY"
             android:layout_marginLeft="0dp"
             android:src="@drawable/canteen_line"/>
@@ -144,19 +144,19 @@
             android:textStyle="bold"
             android:text="Flavour Milk : "
             android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
             android:gravity="right|top"
             android:layout_weight="60"/>
 
         <TextView
             android:id="@+id/txtMilk"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColor="@color/app_text"
             android:textStyle="normal"
             android:text="dsasdf"
             android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
             android:gravity="left|center_vertical"
             android:layout_weight="40"/>
 

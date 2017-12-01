@@ -8,8 +8,8 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="@dimen/_120sdp"
-        android:layout_height="wrap_content"
-        android:textSize="13dip"
+        android:layout_height="@dimen/_27sdp"
+        android:textSize="@dimen/_10sdp"
         android:paddingTop="@dimen/_5sdp"
         android:paddingBottom="@dimen/_5sdp"
         android:textColor="@color/light_blue"
@@ -20,8 +20,8 @@
     <TextView
         android:id="@+id/lblListItem"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12dip"
+        android:layout_height="@dimen/_27sdp"
+        android:textSize="@dimen/_10sdp"
         android:gravity="left"
         android:layout_marginLeft="@dimen/_13sdp"
         android:layout_weight="1"
@@ -33,7 +33,7 @@
         android:id="@+id/imgRightSign"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:textSize="13dip"
+        android:textSize="@dimen/_10sdp"
         android:src="@drawable/orange_tick"
         android:layout_marginRight="@dimen/_15sdp"
         android:visibility="gone"/>

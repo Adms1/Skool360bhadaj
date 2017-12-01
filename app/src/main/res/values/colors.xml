@@ -26,14 +26,13 @@
     <color name="female_selector">#FED6D7</color>
 
     <!-- #49C1E8 -->
-
+<color name="headercolor">#ff9623</color>
     <color name="attendance_present_old">#b5e61d</color>
     <color name="attendance_absent_old">#ed1c24</color>
     <color name="attendance_present_new">#86c129</color>
     <color name="attendance_absent_new">#f40606</color>
     <color name="attendance_filter">#0174b7</color>
     <color name="appointment_text">#323232</color>
-
     <color name="schedule_inactive">#D6D6D6</color>
     <color name="schedule_active">#F7A62C</color>
     <color name="student_back">#efefef</color>

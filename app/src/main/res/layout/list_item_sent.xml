@@ -32,20 +32,21 @@
                 android:text="Subject"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="13dip"
+                android:textSize="@dimen/_9sdp"
                 android:textStyle="normal"/>
 
             <Button
                 android:id="@+id/delete_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_27sdp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/profile_button"
                 android:text="Delete"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_10sdp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

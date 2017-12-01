@@ -15,7 +15,7 @@
         <WebView
             android:id="@+id/circular_description_webview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_25sdp"
             android:padding="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"></WebView>

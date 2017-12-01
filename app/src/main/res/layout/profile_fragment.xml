@@ -13,8 +13,8 @@
 
         <Button
             android:id="@+id/btnMenu"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_1sdp"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:text="PROFILE"
             android:layout_marginRight="@dimen/_10sdp"
-            android:textSize="14sp"
+            android:textSize="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_4sdp"
             android:textColor="@android:color/white"
             android:textStyle="normal"
@@ -73,10 +73,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profile_image"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_7sdp"
                 android:singleLine="true"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Siddharth Karnik"
                 android:textColor="@android:color/white" />
 
@@ -87,11 +87,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlProfile"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="3">
 
             <Button
                 android:id="@+id/btnPersonalDetail"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_weight="1"
                 android:background="@color/profile_dark"
@@ -100,11 +101,11 @@
                 android:paddingRight="@dimen/_10sdp"
                 android:text="Personal Detail"
                 android:textColor="@android:color/white"
-                android:textSize="11sp" />
+                android:textSize="@dimen/_9sdp" />
 
             <Button
                 android:id="@+id/btnEducationalDetail"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_weight="1"
                 android:background="@color/profile_dark"
@@ -116,11 +117,11 @@
                 android:singleLine="true"
                 android:text="Educational Detail"
                 android:textColor="@android:color/white"
-                android:textSize="11sp" />
+                android:textSize="@dimen/_9sdp" />
 
             <Button
                 android:id="@+id/btnEditProfile"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_weight="1"
                 android:background="@color/profile_dark"
@@ -129,7 +130,7 @@
                 android:gravity="center"
                 android:text="Edit Profile"
                 android:textColor="@android:color/white"
-                android:textSize="11sp" />
+                android:textSize="@dimen/_9sdp" />
 
         </LinearLayout>
 

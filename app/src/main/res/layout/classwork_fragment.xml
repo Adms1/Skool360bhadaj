@@ -13,8 +13,8 @@
 
         <Button
             android:id="@+id/btnMenu"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_1sdp"
@@ -47,26 +47,26 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_40sdp"
         android:gravity="center"
         android:layout_marginTop="@dimen/_10sdp">
 
         <TextView
             android:id="@+id/fromDate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_28sdp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/gray_border"
             android:gravity="center_vertical"
             android:hint="DD/MM/YYYY"
             android:padding="@dimen/_5sdp"
             android:singleLine="true"
-            android:textSize="13sp" />
+            android:textSize="@dimen/_12sdp" />
 
         <TextView
             android:id="@+id/toDate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_28sdp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/gray_border"
             android:layout_toRightOf="@+id/fromDate"
@@ -75,12 +75,12 @@
             android:hint="DD/MM/YYYY"
             android:padding="@dimen/_5sdp"
             android:singleLine="true"
-            android:textSize="13sp" />
+            android:textSize="@dimen/_12sdp" />
 
         <Button
             android:id="@+id/btnFilterClasswork"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_28sdp"
             android:text="Filter"
             android:layout_toRightOf="@+id/toDate"
             android:background="@drawable/profile_button"
