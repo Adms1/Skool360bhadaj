@@ -26,6 +26,7 @@ import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -77,10 +78,32 @@ public class AttendanceFragment extends Fragment {
         txtNoRecordsHomework = (TextView) rootView.findViewById(R.id.txtNoRecordsHomework);
         rlCalender = (RelativeLayout) rootView.findViewById(R.id.rlCalender);
         spinMonth = (Spinner) rootView.findViewById(R.id.spinMonth);
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinMonth);
+
+            popupWindow.setHeight(getResources().getStringArray(R.array.month).length > 5 ? 500 : getResources().getStringArray(R.array.month).length * 100);
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
         ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, getResources().getStringArray(R.array.month));
         spinMonth.setAdapter(adapterMonth);
 
         spinYear = (Spinner) rootView.findViewById(R.id.spinYear);
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinYear);
+
+            popupWindow.setHeight(year1.size() > 5 ? 500 : year1.size() * 100);
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext,R.layout.spinner_layout, year1);
         spinYear.setAdapter(adapterYear);
 

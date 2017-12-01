@@ -27,6 +27,7 @@ import com.anandniketanbhadaj.skool360.skool360.Models.MainPtmSentMessageRespons
 import com.anandniketanbhadaj.skool360.skool360.Models.PTMTeacherResponse.PTMStudentWiseTeacher;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -247,7 +248,17 @@ public class CreateFragment extends Fragment {
             spinnerMap.put(i, String.valueOf(TeacherId.get(i)));
             spinnerteacherIdArray[i] = TeacherName.get(i).trim();
         }
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
 
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinRequestFor);
+
+            popupWindow.setHeight(spinnerteacherIdArray.length > 5 ? 500 : spinnerteacherIdArray.length * 100);
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnerteacherIdArray);
         spinRequestFor.setAdapter(adapterYear);
 
