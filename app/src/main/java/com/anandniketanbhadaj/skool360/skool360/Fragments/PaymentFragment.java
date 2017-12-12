@@ -260,7 +260,7 @@ public class PaymentFragment extends Fragment {
                                     expandableListAdapterPayment = new ExpandableListAdapterPayment(getActivity(), listDataHeader, listDataChildPayment);
                                     lvExpPayment.setAdapter(expandableListAdapterPayment);
                                 } else {
-                                    txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
                                     payment_history.setVisibility(View.GONE);
                                 }
                             }

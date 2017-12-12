@@ -66,6 +66,7 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
 
         subject_name_txt.setText(childData.get(childPosition).getSubject());
         syllabus_detail_txt.setText(childData.get(childPosition).getDetail());
+
         syllabus_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +81,8 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
                 }
             }
         });
+        syllabus_linear.setVisibility(View.GONE);
+        syllabus_detail_txt.setVisibility(View.GONE);
         return convertView;
     }
 

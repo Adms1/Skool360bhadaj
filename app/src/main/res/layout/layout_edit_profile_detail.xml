@@ -90,6 +90,6 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/_11sdp"
         android:textStyle="normal"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 </LinearLayout>

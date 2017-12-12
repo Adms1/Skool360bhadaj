@@ -45,13 +45,6 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/unit_test2"
-        android:scaleType="fitXY"
-        android:visibility="gone"/>
-
     <TextView
         android:id="@+id/txtNoRecordsUnitTest"
         android:layout_width="match_parent"
