@@ -64,16 +64,18 @@
             <android.support.design.widget.TabLayout
                 android:id="@+id/tablayout_ptm_main"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_27sdp"
-                style="@style/MyCustomTabLayout"
+                android:layout_height="@dimen/_30sdp"
                 android:background="@color/orange"
                 android:minHeight="?attr/actionBarSize"
-                app:tabIndicatorColor="@color/white"
-                app:tabIndicatorHeight="@dimen/_4sdp"
+                app:tabIndicatorColor="@color/app_bg"
+                app:tabIndicatorHeight="@dimen/_3sdp"
                 app:tabMaxWidth="0dp"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="@color/white"
-                android:elevation="7dp"/>
+                app:tabPaddingStart="@dimen/_10sdp"
+                app:tabPaddingEnd="@dimen/_10sdp"
+                app:tabTextAppearance="@style/MyCustomTabText"
+                app:tabSelectedTextColor="@color/app_bg"
+                app:tabTextColor="@color/app_bg"
+                android:elevation="@dimen/_7sdp"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"

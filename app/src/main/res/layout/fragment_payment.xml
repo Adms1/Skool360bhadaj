@@ -592,7 +592,8 @@
                         android:gravity="center"
                         android:text="-"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/balance_term2_txt"
@@ -604,7 +605,8 @@
                         android:gravity="center"
                         android:text="-"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
 
                 </TableRow>
 
