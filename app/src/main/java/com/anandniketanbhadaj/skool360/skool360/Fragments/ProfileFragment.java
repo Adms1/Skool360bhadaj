@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
     private Button btnMenu, btnPersonalDetail, btnEducationalDetail, btnEditProfile, btnUpdate, btnBackProfile;
     private TextView txtName, txtDOB, txtAge, txtGender, txtBloodGroup, txtBirthPlace, txtFatherName, txtFatherPhNo, txtFatherEmail,
             txtMotherName, txtMotherPhNo, txtMotherEmail, txtAddress, txtCity, txtTransKMs, txtTrasPickTime, txtTrasDropTime,
-            txtGRNO, txtStandard, txtClass, txtUserName, txtPassword, txtEdit, studName;
+            txtGRNO, txtStandard, txtClass, txtUserName, txtPassword, txtEdit, studName, txtsmsno;
     private View viewShadow1, viewShadow2, viewShadow3;
     private CircleImageView profile_image;
     private View includePersonalDetail, includeEducationalDetail, includeEditProfileDetail;
@@ -96,11 +96,13 @@ public class ProfileFragment extends Fragment {
         txtMotherName = (TextView) includePersonalDetail.findViewById(R.id.txtMotherName);
         txtMotherPhNo = (TextView) includePersonalDetail.findViewById(R.id.txtMotherPhNo);
         txtMotherEmail = (TextView) includePersonalDetail.findViewById(R.id.txtMotherEmail);
+        txtsmsno = (TextView) includePersonalDetail.findViewById(R.id.txtsmsno);
         txtAddress = (TextView) includePersonalDetail.findViewById(R.id.txtAddress);
         txtCity = (TextView) includePersonalDetail.findViewById(R.id.txtCity);
         txtTransKMs = (TextView) includePersonalDetail.findViewById(R.id.txtTransKMs);
         txtTrasPickTime = (TextView) includePersonalDetail.findViewById(R.id.txtTrasPickTime);
         txtTrasDropTime = (TextView) includePersonalDetail.findViewById(R.id.txtTrasDropTime);
+
         txtGRNO = (TextView) includeEducationalDetail.findViewById(R.id.txtGRNO);
         txtStandard = (TextView) includeEducationalDetail.findViewById(R.id.txtStandard);
         txtClass = (TextView) includeEducationalDetail.findViewById(R.id.txtClass);
@@ -108,6 +110,7 @@ public class ProfileFragment extends Fragment {
         txtPassword = (TextView) includeEditProfileDetail.findViewById(R.id.txtPassword);
         edtPassword = (EditText) includeEditProfileDetail.findViewById(R.id.edtPassword);
         txtEdit = (TextView) includeEditProfileDetail.findViewById(R.id.txtEdit);
+
         btnUpdate = (Button) includeEditProfileDetail.findViewById(R.id.btnUpdate);
 
         profile_image = (CircleImageView) rootView.findViewById(R.id.profile_image);
@@ -133,11 +136,11 @@ public class ProfileFragment extends Fragment {
         btnBackProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Fragment fragment = new HomeFragment();
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-            .replace(R.id.frame_container, fragment).commit();
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
             }
         });
         btnMenu.setOnClickListener(new View.OnClickListener() {
@@ -258,15 +261,15 @@ public class ProfileFragment extends Fragment {
                             Utility.pong(mContext, "Password cant be empty");
                         }
                     }
-                }else{
-                    Utility.ping(mContext,"NEtwork not available");
+                } else {
+                    Utility.ping(mContext, "NEtwork not available");
                 }
             }
         });
     }
 
     public void getUserProfile() {
-        if(Utility.isNetworkConnected(mContext)) {
+        if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setCancelable(false);
             progressDialog.setMessage("Please wait...");
@@ -298,6 +301,7 @@ public class ProfileFragment extends Fragment {
                                 txtMotherName.setText(studDetailList.get(0).getMotherName());
                                 txtMotherPhNo.setText(studDetailList.get(0).getMotherMobile());
                                 txtMotherEmail.setText(studDetailList.get(0).getMotherEmail());
+                                txtsmsno.setText(studDetailList.get(0).getSMSNumber());
                                 txtAddress.setText(studDetailList.get(0).getAddress());
                                 txtCity.setText(studDetailList.get(0).getCity());
                                 txtTransKMs.setText(studDetailList.get(0).getTransport_KM());
@@ -317,8 +321,8 @@ public class ProfileFragment extends Fragment {
                     }
                 }
             }).start();
-        }else{
-            Utility.ping(mContext,"Network not available");
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
 }

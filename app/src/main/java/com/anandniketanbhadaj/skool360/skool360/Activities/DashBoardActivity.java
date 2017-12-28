@@ -1,10 +1,13 @@
 package com.anandniketanbhadaj.skool360.skool360.Activities;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -12,6 +15,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -286,15 +290,34 @@ public class DashBoardActivity extends FragmentActivity {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
             case 15:
-                Utility.setPref(mContext, "unm", "");
-                Utility.setPref(mContext, "pwd", "");
-                Utility.setPref(mContext, "studid", "");
-                Utility.setPref(mContext, "FamilyID", "");
-                Utility.setPref(mContext, "standardID", "");
-                Utility.setPref(mContext, "ClassID", "");
-                Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
-                startActivity(intentLogin);
-                finish();
+                new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
+                        .setCancelable(false)
+                        .setTitle("Logout")
+                        .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                        .setMessage("Are you sure,you want to logout?")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utility.setPref(mContext, "unm", "");
+                                Utility.setPref(mContext, "pwd", "");
+                                Utility.setPref(mContext, "studid", "");
+                                Utility.setPref(mContext, "FamilyID", "");
+                                Utility.setPref(mContext, "standardID", "");
+                                Utility.setPref(mContext, "ClassID", "");
+                                Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
+                                startActivity(intentLogin);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+
+                            }
+                        })
+                        .setIcon(R.drawable.ic_launcher)
+                        .show();
+
+
                 break;
         }
 

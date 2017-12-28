@@ -92,14 +92,15 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
         subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject() + ":"));
         FontStyle = "";
         FontStyle = childData.get(childPosition).getFont();
+String str=childData.get(childPosition).getHomework().trim();
 
         if (!FontStyle.equalsIgnoreCase("-")) {
             SetLanguageHomework(FontStyle);
-            homework_title_txt.setText(Html.fromHtml(childData.get(childPosition).getHomework()));
+            homework_title_txt.setText(Html.fromHtml(str));
         } else {
             typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/arial.ttf");
             homework_title_txt.setTypeface(typeface);
-            homework_title_txt.setText(Html.fromHtml(childData.get(childPosition).getHomework()));
+            homework_title_txt.setText(Html.fromHtml(str));
         }
         return convertView;
     }
@@ -136,9 +137,9 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
         }
 
         if (isExpanded) {
-            convertView.setBackgroundResource(R.drawable.homework_selected_bg);
+            convertView.setBackgroundResource(R.color.orange);
         } else {
-            convertView.setBackgroundResource(R.drawable.homework_subject_bg);
+            convertView.setBackgroundResource(R.color.gray);
         }
 
 

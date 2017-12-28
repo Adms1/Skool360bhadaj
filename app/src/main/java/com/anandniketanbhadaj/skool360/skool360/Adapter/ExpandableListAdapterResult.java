@@ -128,9 +128,9 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
         }
 
         if(isExpanded){
-            convertView.setBackgroundResource(R.drawable.homework_selected_bg);
+            convertView.setBackgroundResource(R.color.orange);
         }else{
-            convertView.setBackgroundResource(R.drawable.homework_subject_bg);
+            convertView.setBackgroundResource(R.color.gray);
         }
 
         TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);

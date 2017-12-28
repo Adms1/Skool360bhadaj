@@ -4,7 +4,7 @@
     android:layout_height="@dimen/_30sdp"
     android:orientation="horizontal"
     android:padding="@dimen/_4sdp"
-    android:background="@drawable/homework_subject_bg">
+    android:background="@color/gray">
 
     <TextView
         android:id="@+id/lblListHeader"

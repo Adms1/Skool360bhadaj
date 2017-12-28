@@ -2,17 +2,21 @@ package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Models.UnitTestModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,8 +55,7 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
 
         final ArrayList<UnitTestModel.Data> childData = getChild(groupPosition, 0);
         final LinearLayout syllabus_linear;
-        final TextView subject_name_txt, syllabus_txt, syllabus_detail_txt;
-
+        final TextView subject_name_txt, syllabus_txt;
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -61,28 +64,51 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
 
         subject_name_txt = (TextView) convertView.findViewById(R.id.subject_name_txt);
         syllabus_txt = (TextView) convertView.findViewById(R.id.syllabus_txt);
-        syllabus_detail_txt = (TextView) convertView.findViewById(R.id.syllabus_detail_txt);
         syllabus_linear = (LinearLayout) convertView.findViewById(R.id.syllabus_linear);
-
         subject_name_txt.setText(childData.get(childPosition).getSubject());
-        syllabus_detail_txt.setText(childData.get(childPosition).getDetail());
+
+        String[] data = childData.get(childPosition).getDetail().split("\\|");
+
+        List<String> stringList = new ArrayList<String>(Arrays.asList(data));
+
+
+        if (syllabus_linear.getChildCount() > 0) {
+            syllabus_linear.removeAllViews();
+        }
+        final TextView[] myTextViews = new TextView[stringList.size()];
+        for (int i = 0; i < stringList.size(); i++) {
+
+            final TextView rowTextView = new TextView(_context);
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//            params.setMargins(0,10,0,0);
+//            rowTextView.setLayoutParams(params);
+            rowTextView.setBackgroundResource(R.drawable.list_line_textbox);
+            rowTextView.setTextSize(12);
+            rowTextView.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER);
+
+
+            rowTextView.setText(stringList.get(i));
+            // add the textview to the linearlayout
+            syllabus_linear.addView(rowTextView);
+            // save a reference to the textview for later
+            myTextViews[i] = rowTextView;
+
+        }
+
 
         syllabus_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (visible == true) {
                     syllabus_linear.setVisibility(View.VISIBLE);
-                    syllabus_detail_txt.setVisibility(View.VISIBLE);
                     visible = false;
                 } else {
                     syllabus_linear.setVisibility(View.GONE);
-                    syllabus_detail_txt.setVisibility(View.GONE);
                     visible = true;
                 }
             }
         });
         syllabus_linear.setVisibility(View.GONE);
-        syllabus_detail_txt.setVisibility(View.GONE);
         return convertView;
     }
 
@@ -117,9 +143,9 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
         }
 
         if (isExpanded) {
-            convertView.setBackgroundResource(R.drawable.homework_selected_bg);
+            convertView.setBackgroundResource(R.color.orange);
         } else {
-            convertView.setBackgroundResource(R.drawable.homework_subject_bg);
+            convertView.setBackgroundResource(R.color.gray);
         }
 
         TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);

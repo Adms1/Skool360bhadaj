@@ -16,9 +16,9 @@
         android:layout_alignTop="@+id/txtSubject"
         android:layout_alignBottom="@+id/txtSubject"
         android:textColor="@color/black"
-        android:background="#f8fcfe"
+        android:background="@color/linearbg"
         android:text="Lecture 1" />
-
+    <!--android:background="#f8fcfe"-->
     <TextView
         android:id="@+id/txtSubject"
         android:layout_width="@dimen/_110sdp"
@@ -31,7 +31,7 @@
         android:layout_centerInParent="true"
         android:textColor="@color/black"
         android:padding="@dimen/_5sdp"
-        android:background="#f8fcfe"
+        android:background="@color/linearbg"
         android:text="Subject" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:textSize="@dimen/_10sdp"
         android:gravity="center"
         android:textColor="@color/black"
-        android:background="#f8fcfe"
+        android:background="@color/linearbg"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/txtSubject"
         android:layout_alignTop="@+id/txtSubject"

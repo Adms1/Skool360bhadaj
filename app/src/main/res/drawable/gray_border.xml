@@ -4,9 +4,11 @@
 
     <stroke
         android:width="1dip"
-        android:color="#c7cfd1" />
+        android:color="@color/linear_color" />
     <solid
         android:color="@color/app_bg">
     </solid>
 	
 </shape>
+
+<!--#c7cfd1-->

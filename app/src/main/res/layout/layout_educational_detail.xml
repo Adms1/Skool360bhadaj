@@ -17,7 +17,7 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:text="GRNO: "
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textSize="@dimen/_10sdp"/>
 
             <TextView
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Standard: "
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textSize="@dimen/_10sdp"/>
 
             <TextView
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Class: "
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textSize="@dimen/_10sdp"/>
 
             <TextView

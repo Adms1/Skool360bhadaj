@@ -58,7 +58,7 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
         txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
         txtTeacher = (TextView) convertView.findViewById(R.id.txtTeacher);
 
-        txtLecture.setText("Lecture "+getChild(groupPosition, childPosition).getLecture());
+        txtLecture.setText("Lecture: "+getChild(groupPosition, childPosition).getLecture());
         txtSubject.setText(getChild(groupPosition, childPosition).getSubject());
         txtTeacher.setText(getChild(groupPosition, childPosition).getTeacher());
 
@@ -97,9 +97,9 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
         }
 
         if(isExpanded){
-            convertView.setBackgroundResource(R.drawable.homework_selected_bg);
+            convertView.setBackgroundResource(R.color.orange);
         }else{
-            convertView.setBackgroundResource(R.drawable.homework_subject_bg);
+            convertView.setBackgroundResource(R.color.gray);
         }
 
         TextView lblListHeader = (TextView) convertView

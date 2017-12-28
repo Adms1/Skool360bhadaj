@@ -28,6 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -73,6 +74,9 @@ public class CanteenFragment extends Fragment {
         listCanteen = (ListView) rootView.findViewById(R.id.listCanteen);
 
         spinMonth = (Spinner) rootView.findViewById(R.id.spinMonth);
+
+        Collections.sort(year1);
+        System.out.println("Sorted ArrayList in Java - Ascending order : " + year1);
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");
             popup.setAccessible(true);
@@ -228,6 +232,7 @@ public class CanteenFragment extends Fragment {
         c.add(Calendar.MONTH, 1);  // number of days to add
         c.add(Calendar.DATE, -1);
         Date todate = c.getTime();
+
 
         return format.format(todate);
     }

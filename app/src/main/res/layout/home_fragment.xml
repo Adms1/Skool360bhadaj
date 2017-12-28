@@ -75,7 +75,7 @@
                         android:layout_alignTop="@+id/profile_image"
                         android:layout_marginLeft="@dimen/_115sdp"
                         android:layout_marginTop="@dimen/_4sdp"
-                        android:text="Adit Shah"
+                        android:text="Student Name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_16sdp"
                         android:textStyle="bold" />
@@ -87,7 +87,7 @@
                         android:layout_alignTop="@+id/student_name_txt"
                         android:layout_marginLeft="@dimen/_115sdp"
                         android:layout_marginTop="@dimen/_20sdp"
-                        android:text="class:"
+                        android:text="Grade:"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="italic" />

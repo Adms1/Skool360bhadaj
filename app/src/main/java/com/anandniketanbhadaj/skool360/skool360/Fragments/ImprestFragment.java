@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -134,6 +137,17 @@ public class ImprestFragment extends Fragment {
                                     for (int i = 0; i < termModels.size(); i++) {
                                         termText.add(termModels.get(i).getTerm());
                                     }
+
+                                    final Calendar calendar = Calendar.getInstance();
+                                    int yy = calendar.get(Calendar.YEAR);
+                                    int mm = calendar.get(Calendar.MONTH) + 1;
+                                    int dd = calendar.get(Calendar.DAY_OF_MONTH);
+
+                                    System.out.print("year:"+yy);
+                                    String year;
+                                    year= String.valueOf(yy);
+                                    Collections.sort(termText);
+                                    System.out.println("Sorted ArrayList in Java - Ascending order : " + termText);
                                     try {
                                         Field popup = Spinner.class.getDeclaredField("mPopup");
                                         popup.setAccessible(true);
@@ -147,6 +161,17 @@ public class ImprestFragment extends Fragment {
                                     }
                                     ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext,R.layout.spinner_layout, termText);
                                     spinYear.setAdapter(adapterSpinYear);
+
+                                    for (int m = 0; m < termText.size(); m++) {
+                                        String []str=termText.get(m).split("\\-");
+                                        if (year.equalsIgnoreCase(str[0])) {
+                                            Log.d("yearValue", termText.get(m));
+                                            int index = m;
+                                            Log.d("indexOf", String.valueOf(index));
+                                            spinYear.setSelection(index);
+
+                                        }
+                                    }
                                 } else {
                                     progressDialog.dismiss();
                                 }

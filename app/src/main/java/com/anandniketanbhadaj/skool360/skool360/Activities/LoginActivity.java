@@ -58,11 +58,11 @@ public class LoginActivity extends Activity {
                         if (!edtPassword.getText().toString().equalsIgnoreCase("")) {
                             login();
                         } else {
-                            Utility.pong(mContext, "Password cant be blank");
+                            Utility.pong(mContext, "Please Enter Password");
                             edtPassword.requestFocus();
                         }
                     } else {
-                        Utility.pong(mContext, "User name cant be blank");
+                        Utility.pong(mContext, "Please Enter User Name");
                         edtUserName.requestFocus();
                     }
                 }else{
@@ -115,7 +115,7 @@ public class LoginActivity extends Activity {
                                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                                 finish();
                             } else {
-                                Utility.pong(mContext, "Invalid Credentials. Please try again...");
+                                Utility.pong(mContext, "Invalid Username/ password");
                             }
                         }
                     });

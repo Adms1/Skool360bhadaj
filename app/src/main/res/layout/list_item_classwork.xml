@@ -22,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_27sdp"
         android:textSize="@dimen/_10sdp"
-        android:gravity="left"
-        android:layout_marginLeft="@dimen/_13sdp"
+
+        android:layout_marginLeft="@dimen/_3sdp"
         android:layout_weight="1"
         android:paddingTop="@dimen/_5sdp"
         android:paddingBottom="@dimen/_5sdp"

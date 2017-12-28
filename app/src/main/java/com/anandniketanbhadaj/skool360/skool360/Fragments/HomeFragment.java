@@ -312,7 +312,7 @@ public class HomeFragment extends Fragment {
                             imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
                             vehicle_picktime_txt.setText("Pick Up :" + studDetailList.get(0).getTransport_PicupTime());
                             vehicle_droptime_txt.setText("Drop off :" + studDetailList.get(0).getTransport_DropTime());
-                            student_classname_txt.setText("Class :" + " " + studDetailList.get(0).getStandard() + " " + "Standard -" + studDetailList.get(0).getStudClass());
+                            student_classname_txt.setText("Grade :" + " " + studDetailList.get(0).getStandard() + " " + "Section -" + studDetailList.get(0).getStudClass());
                             teacher_name1_txt.setText(studDetailList.get(0).getTeacherName());
                             admission_txt.setText("Admission No :" + " " + studDetailList.get(0).getGRNO());
                             if (studDetailList.get(0).getTodayAttendance().equalsIgnoreCase("")) {

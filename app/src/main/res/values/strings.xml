@@ -28,9 +28,9 @@
     <string name="copyright_text">&#169; 2016 Copyright AnandNiketan Group of Schools</string>
 
     <string name="str_login_detail"><u>Login Detail - </u></string>
-    <string name="str_personal_detail"><u>Personal Detail - </u></string>
-    <string name="str_family_detail"><u>Family Detail - </u></string>
-    <string name="str_transport_detail"><u>Transport Detail - </u></string>
+    <string name="str_personal_detail"><u>Personal Details - </u></string>
+    <string name="str_family_detail"><u>Family Details - </u></string>
+    <string name="str_transport_detail"><u>Transport Details - </u></string>
     <!-- <item>Classwork</item><item>Event</item><item>Announcements</item><item>Circular</item>
  <item>Exams</item><item>Course</item>-->
     <string-array name="menuoption1">

@@ -67,14 +67,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         lblchaptername= (TextView) convertView.findViewById(R.id.title);
         title_2= (TextView) convertView.findViewById(R.id.title);
         lblobjective= (TextView) convertView.findViewById(R.id.title);
-        String[] data = childText.split(":");
+        String[] data = childText.trim().split(":");
         if(!childText.contains(":")){
             title.setText("Proxy :");
             imgRightSign.setVisibility(View.VISIBLE);
             txtListChild.setText("");
         }else {
-            title.setText(data[0]+" : ");
-            txtListChild.setText(data[1]);
+            title.setText(data[0].trim()+" : ");
+            txtListChild.setText(data[1].trim());
             imgRightSign.setVisibility(View.GONE);
         }
         txtListChild.setOnClickListener(new View.OnClickListener() {
@@ -126,9 +126,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         if (isExpanded) {
-            convertView.setBackgroundResource(R.drawable.homework_selected_bg);
+            convertView.setBackgroundResource(R.color.orange);
         } else {
-            convertView.setBackgroundResource(R.drawable.homework_subject_bg);
+            convertView.setBackgroundResource(R.color.gray);
         }
 
 

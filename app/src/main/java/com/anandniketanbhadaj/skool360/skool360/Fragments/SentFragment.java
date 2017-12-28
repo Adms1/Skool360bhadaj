@@ -192,7 +192,7 @@ public class SentFragment extends Fragment {
         for (int j = 0; j < response.getFinalArray().size(); j++) {
             listDataHeader.add(response.getFinalArray().get(j).getUserName() + "|" +
                     response.getFinalArray().get(j).getMeetingDate() + "|" +
-                    response.getFinalArray().get(j).getSubjectLine());
+                    response.getFinalArray().get(j).getSubjectLine()+"|"+response.getFinalArray().get(j).getReadStatus());
 
             ArrayList<FinalArrayInbox> rows = new ArrayList<FinalArrayInbox>();
             rows.add(response.getFinalArray().get(j));
