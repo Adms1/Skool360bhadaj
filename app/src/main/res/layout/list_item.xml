@@ -139,13 +139,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imgRightSign"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="15dp"
-        android:src="@drawable/orange_tick"
-        android:textSize="17dip"
-        android:visibility="gone" />
+
 
 </LinearLayout>

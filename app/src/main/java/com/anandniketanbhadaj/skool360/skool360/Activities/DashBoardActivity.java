@@ -294,7 +294,7 @@ public class DashBoardActivity extends FragmentActivity {
                         .setCancelable(false)
                         .setTitle("Logout")
                         .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
-                        .setMessage("Are you sure,you want to logout?")
+                        .setMessage("Are you sure you want to logout?")
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Utility.setPref(mContext, "unm", "");

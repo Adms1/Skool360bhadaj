@@ -73,12 +73,13 @@
                 android:layout_height="@dimen/_27sdp"
                 android:background="@drawable/dropdown_button"
                 android:hint="DD/MM/YYYY"
-                android:padding="@dimen/_7sdp"
+
                 android:singleLine="true"
                 android:text=""
                 android:layout_weight="1"
                 android:forceHasOverlappingRendering="false"
-                android:textColor="@color/appointment_text" />
+                android:textColor="@color/appointment_text"
+                android:overlapAnchor="false"/>
         </TableRow>
 
         <TableRow

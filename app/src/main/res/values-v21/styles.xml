@@ -2,14 +2,15 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="colorPrimary">@color/linear_color</item>
+        <item name="colorPrimaryDark">@color/linear_color</item>
         <item name="colorAccent">@color/linear_color</item>
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
     </style>
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <!-- Hint color and label color in FALSE state -->
@@ -26,6 +27,10 @@
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-
+    </style>
+    <style name="SpinnerStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:divider">#d1d1d1</item>
+        <item name="android:dividerHeight">0.5dp</item>
+        <item name="android:background">@color/app_bg</item>
     </style>
 </resources>

@@ -68,16 +68,20 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
 
         subject_title_txt = (TextView) convertView.findViewById(R.id.subject_title_txt);
         homework_title_txt = (TextView) convertView.findViewById(R.id.homework_title_txt);
-        imgRightSign = (ImageView) convertView.findViewById(R.id.imgRightSign);
-        chapter_title_txt = (TextView) convertView.findViewById(R.id.chapter_title_txt);
-        lblchaptername = (TextView) convertView.findViewById(R.id.lblchaptername);
-        objective_title_txt = (TextView) convertView.findViewById(R.id.objective_title_txt);
-        lblobjective = (TextView) convertView.findViewById(R.id.lblobjective);
-        que_title_txt = (TextView) convertView.findViewById(R.id.que_title_txt);
-        lblque = (TextView) convertView.findViewById(R.id.lblque);
-        chapter_linear = (LinearLayout) convertView.findViewById(R.id.chapter_linear);
-        objective_linear = (LinearLayout) convertView.findViewById(R.id.objective_linear);
-        que_linear = (LinearLayout) convertView.findViewById(R.id.que_linear);
+
+
+
+
+
+//        chapter_title_txt = (TextView) convertView.findViewById(R.id.chapter_title_txt);
+//        lblchaptername = (TextView) convertView.findViewById(R.id.lblchaptername);
+//        objective_title_txt = (TextView) convertView.findViewById(R.id.objective_title_txt);
+//        lblobjective = (TextView) convertView.findViewById(R.id.lblobjective);
+//        que_title_txt = (TextView) convertView.findViewById(R.id.que_title_txt);
+//        lblque = (TextView) convertView.findViewById(R.id.lblque);
+//        chapter_linear = (LinearLayout) convertView.findViewById(R.id.chapter_linear);
+//        objective_linear = (LinearLayout) convertView.findViewById(R.id.objective_linear);
+//        que_linear = (LinearLayout) convertView.findViewById(R.id.que_linear);
 //        String[] data = childText.split(":");
 //        if(!childText.contains(":")){
 //            title.setText("Proxy :");
@@ -89,18 +93,17 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
 //            imgRightSign.setVisibility(View.GONE);
 //        }
 
-        subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject() + ":"));
+        subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
         FontStyle = "";
         FontStyle = childData.get(childPosition).getFont();
-String str=childData.get(childPosition).getHomework().trim();
 
         if (!FontStyle.equalsIgnoreCase("-")) {
             SetLanguageHomework(FontStyle);
-            homework_title_txt.setText(Html.fromHtml(str));
+            homework_title_txt.setText(Html.fromHtml(childData.get(childPosition).getHomework().replaceAll("\\<.*?\\>", "")));
         } else {
             typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/arial.ttf");
             homework_title_txt.setTypeface(typeface);
-            homework_title_txt.setText(Html.fromHtml(str));
+            homework_title_txt.setText(Html.fromHtml(childData.get(childPosition).getHomework().replaceAll("\\<.*?\\>", "")));
         }
         return convertView;
     }

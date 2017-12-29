@@ -31,7 +31,8 @@
             android:name="com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity"
             android:label="@string/title_activity_dash_board"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".skool360.Fragments.NotificationFragment"
             android:label="Notification"
             android:screenOrientation="portrait"></activity>

@@ -141,7 +141,7 @@ public class PaymentFragment extends Fragment {
     }
 
     public void getFeesData() {
-        if(Utility.isNetworkConnected(mContext)) {
+        if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
@@ -176,8 +176,8 @@ public class PaymentFragment extends Fragment {
                     }
                 }
             }).start();
-        }else{
-            Utility.ping(mContext,"Network not available");
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
 
@@ -191,31 +191,31 @@ public class PaymentFragment extends Fragment {
             }
         }
         for (int k = 0; k < rows.size(); k++) {
-            previous_balance_term1_txt.setText(rows.get(0).getPreviousBalance());
-            tutionfees_term1_txt.setText(rows.get(0).getTutionFees());
-            transportfees_term1_txt.setText(rows.get(0).getTransportFees());
-            imprest_term1_txt.setText(rows.get(0).getImprest());
-            latefees_term1_txt.setText(rows.get(0).getLateFees());
-            totalpayablefees_term1_txt.setText(rows.get(0).getTotalPayableFees());
-            paidfees_term1_txt.setText(rows.get(0).getPaidFees());
-            balance_term1_txt.setText(rows.get(0).getTotalFees());
-            admission_fees_term1_txt.setText(rows.get(0).getAdmissionFees());
-            caution_fees_term1_txt.setText(rows.get(0).getCautionFees());
-            discount_fee_term1_txt.setText(rows.get(0).getDiscount());
-            term_fees_term1_txt.setText(rows.get(0).getTermFees());
+            previous_balance_term1_txt.setText("₹" + "" + rows.get(0).getPreviousBalance());
+            tutionfees_term1_txt.setText("₹" + "" + rows.get(0).getTutionFees());
+            transportfees_term1_txt.setText("₹" + "" + rows.get(0).getTransportFees());
+            imprest_term1_txt.setText("₹" + "" + rows.get(0).getImprest());
+            latefees_term1_txt.setText("₹" + "" + rows.get(0).getLateFees());
+            totalpayablefees_term1_txt.setText("₹" + "" + rows.get(0).getTotalPayableFees());
+            paidfees_term1_txt.setText("₹" + "" + rows.get(0).getPaidFees());
+            balance_term1_txt.setText("₹" + "" + rows.get(0).getTotalFees());
+            admission_fees_term1_txt.setText("₹" + "" + rows.get(0).getAdmissionFees());
+            caution_fees_term1_txt.setText("₹" + "" + rows.get(0).getCautionFees());
+            discount_fee_term1_txt.setText("₹" + "" + rows.get(0).getDiscount());
+            term_fees_term1_txt.setText("₹" + "" + rows.get(0).getTermFees());
 
-            previous_balance_term2_txt.setText(rows.get(1).getPreviousBalance());
-            tutionfees_term2_txt.setText(rows.get(1).getTutionFees());
-            transportfees_term2_txt.setText(rows.get(1).getTransportFees());
-            imprest_term2_txt.setText(rows.get(1).getImprest());
-            latefees_term2_txt.setText(rows.get(1).getLateFees());
-            totalpayablefees_term2_txt.setText(rows.get(1).getTotalPayableFees());
-            paidfees_term2_txt.setText(rows.get(1).getPaidFees());
-            balance_term2_txt.setText(rows.get(1).getTotalFees());
-            admission_fees_term2_txt.setText(rows.get(1).getAdmissionFees());
-            caution_fees_term2_txt.setText(rows.get(1).getCautionFees());
-            discount_fee_term2_txt.setText(rows.get(1).getDiscount());
-            term_fees_term2_txt.setText(rows.get(0).getTermFees());
+            previous_balance_term2_txt.setText("₹" + "" + rows.get(1).getPreviousBalance());
+            tutionfees_term2_txt.setText("₹" + "" + rows.get(1).getTutionFees());
+            transportfees_term2_txt.setText("₹" + "" + rows.get(1).getTransportFees());
+            imprest_term2_txt.setText("₹" + "" + rows.get(1).getImprest());
+            latefees_term2_txt.setText("₹" + "" + rows.get(1).getLateFees());
+            totalpayablefees_term2_txt.setText("₹" + "" + rows.get(1).getTotalPayableFees());
+            paidfees_term2_txt.setText("₹" + "" + rows.get(1).getPaidFees());
+            balance_term2_txt.setText("₹" + "" + rows.get(1).getTotalFees());
+            admission_fees_term2_txt.setText("₹" + "" + rows.get(1).getAdmissionFees());
+            caution_fees_term2_txt.setText("₹" + "" + rows.get(1).getCautionFees());
+            discount_fee_term2_txt.setText("₹" + "" + rows.get(1).getDiscount());
+            term_fees_term2_txt.setText("₹" + "" + rows.get(0).getTermFees());
         }
 
 //        if (totalpayablefees_term1_txt.getText().toString().equalsIgnoreCase("0.00")) {
@@ -242,7 +242,7 @@ public class PaymentFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                if(Utility.isNetworkConnected(mContext)) {
+                if (Utility.isNetworkConnected(mContext)) {
                     try {
 
                         HashMap<String, String> params = new HashMap<String, String>();
@@ -268,8 +268,8 @@ public class PaymentFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
-                    Utility.ping(mContext,"Network not available");
+                } else {
+                    Utility.ping(mContext, "Network not available");
                 }
             }
         }).start();

@@ -64,7 +64,7 @@
             android:textAlignment="center"
             android:textSize="@dimen/_12sdp" />
 
-        
+
         <TextView
             android:id="@+id/toDate"
             android:layout_width="wrap_content"

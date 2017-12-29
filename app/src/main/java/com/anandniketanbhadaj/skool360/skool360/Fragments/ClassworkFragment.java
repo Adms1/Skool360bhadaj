@@ -48,7 +48,7 @@ public class ClassworkFragment extends Fragment {
     ExpandableListAdapter listAdapter;
     ExpandableListView lvExpClassWork;
     List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    HashMap<String, ArrayList<ClassWorkModel.ClassWorkData>> listDataChild;
 
     public ClassworkFragment() {
     }
@@ -202,16 +202,16 @@ public class ClassworkFragment extends Fragment {
 
     public void prepaareList(){
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        listDataChild = new HashMap<String,ArrayList<ClassWorkModel.ClassWorkData>>();
 
         for(int i = 0;i < classWorkModels.size();i++){
             listDataHeader.add(classWorkModels.get(i).getClassWorkDate());
-            ArrayList<String> rows = new ArrayList<String>();
+            ArrayList<ClassWorkModel.ClassWorkData> rows = new ArrayList<ClassWorkModel.ClassWorkData>();
             for(int j = 0;j < classWorkModels.get(i).getClassWorkDatas().size();j++){
-                rows.add(classWorkModels.get(i).getClassWorkDatas().get(j).getSubject()+":"+classWorkModels.get(i).getClassWorkDatas().get(j).getClasswork());
-                if(!(classWorkModels.get(i).getClassWorkDatas().get(j).getProxyStatus().equalsIgnoreCase("-") || classWorkModels.get(i).getClassWorkDatas().get(j).getProxyStatus().equalsIgnoreCase("0"))){
-                    rows.add(classWorkModels.get(i).getClassWorkDatas().get(j).getProxyStatus());
-                }
+                rows.add(classWorkModels.get(i).getClassWorkDatas().get(j));
+//                if(!(classWorkModels.get(i).getClassWorkDatas().get(j).getProxyStatus().equalsIgnoreCase("-") || classWorkModels.get(i).getClassWorkDatas().get(j).getProxyStatus().equalsIgnoreCase("0"))){
+//                    rows.add(classWorkModels.get(i).getClassWorkDatas().get(j).getProxyStatus());
+//                }
                 listDataChild.put(listDataHeader.get(i), rows);
             }
         }

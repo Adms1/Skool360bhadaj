@@ -163,7 +163,8 @@
             android:text="More Details"
            android:background="@drawable/fees_button"
             android:textAllCaps="false"
-            android:textSize="@dimen/_12sdp"/>
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="normal"/>
     </LinearLayout>
 </ScrollView>
 </LinearLayout>

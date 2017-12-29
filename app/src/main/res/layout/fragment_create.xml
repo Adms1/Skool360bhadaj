@@ -92,6 +92,7 @@
                 android:background="@drawable/dropdown_button"
                 android:forceHasOverlappingRendering="false"
                 android:textColor="@color/appointment_text"
+                android:overlapAnchor="false"
                 android:textSize="@dimen/_10sdp" />
         </TableRow>
 
