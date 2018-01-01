@@ -29,7 +29,7 @@ public class AppConfiguration {
 
     //Local
     public static String DOMAIN_LOCAL = "";
-    public static String DOMAIN_LIVE = "http://192.168.1.15:8086/MobileApp_Service.asmx/";//use for office only
+    public static String DOMAIN_LIVE = "http://192.168.1.13:8086/MobileApp_Service.asmx/";//use for office only
 //    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
 
 

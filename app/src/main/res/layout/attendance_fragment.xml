@@ -83,6 +83,7 @@
             android:background="@drawable/profile_button"
             android:padding="@dimen/_3sdp"
             android:text="Filter"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_11sdp"
             android:textStyle="normal" />

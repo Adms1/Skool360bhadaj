@@ -19,7 +19,7 @@
             android:layout_marginBottom="@dimen/_1sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_1sdp"
-            android:background="@drawable/menu_btn_blue"/>
+            android:background="@drawable/menu_btn_blue" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
             android:text="IMPREST"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp"
-            android:textStyle="normal"/>
+            android:textStyle="normal" />
 
         <Button
             android:id="@+id/btnBackImprest"
@@ -41,7 +41,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:background="@drawable/back_btn"/>
+            android:background="@drawable/back_btn" />
 
     </RelativeLayout>
 
@@ -49,37 +49,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/_10sdp"
+        android:orientation="vertical"
         android:weightSum="3">
 
         <TableRow
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_weight="2">
+            android:layout_weight="1"
+            android:weightSum="3">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_27sdp"
-                android:text="Academic Year : "
-                android:textColor="@color/appointment_text"
-                android:textStyle="normal"
-                android:layout_weight=".63"
+                android:layout_weight="1"
                 android:paddingTop="@dimen/_5sdp"
-                android:textSize="@dimen/_11sdp"/>
+                android:text="Academic Year"
+                android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_27sdp"
+                android:layout_weight="0.1"
+                android:paddingTop="@dimen/_5sdp"
+                android:text=":"
+                android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="normal" />
 
             <Spinner
                 android:id="@+id/spinYear"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_27sdp"
+                android:layout_weight="1.5"
                 android:background="@drawable/dropdown_button"
+                android:forceHasOverlappingRendering="false"
                 android:hint="DD/MM/YYYY"
-
+                android:overlapAnchor="false"
                 android:singleLine="true"
                 android:text=""
-                android:layout_weight="1"
-                android:forceHasOverlappingRendering="false"
-                android:textColor="@color/appointment_text"
-                android:overlapAnchor="false"/>
+                android:textColor="@color/appointment_text" />
         </TableRow>
 
         <TableRow
@@ -88,28 +99,39 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
             android:visibility="gone"
-            android:weightSum="2">
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:paddingTop="@dimen/_1sdp"
+                android:text="Opening Balance"
+                android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="normal" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_27sdp"
-                android:text="Opening Balance: "
+                android:layout_weight="0.1"
+                android:paddingTop="@dimen/_5sdp"
+                android:text=":"
                 android:textColor="@color/appointment_text"
-                android:textStyle="normal"
-                android:layout_weight=".79"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/txtOpeningBalaceTop"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_27sdp"
-                android:layout_weight="1"
-                android:padding="@dimen/_5sdp"
-                android:textStyle="normal"
+                android:layout_weight="1.2"
                 android:singleLine="true"
                 android:text=""
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:textColor="@color/appointment_text"
                 android:textSize="@dimen/_12sdp"
-                android:textColor="@color/appointment_text" />
+                android:textStyle="normal" />
         </TableRow>
 
         <TableRow
@@ -118,28 +140,38 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
             android:visibility="gone"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_27sdp"
-                android:text="My Balance: "
+                android:layout_weight="1"
+                android:text="My Balance"
                 android:textColor="@color/appointment_text"
-                android:textStyle="normal"
-                android:layout_weight=".79"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_27sdp"
+                android:layout_weight="0.1"
+                android:text=":"
+                android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/txtMyBalance"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_27sdp"
-                android:layout_weight="1"
-                android:padding="@dimen/_5sdp"
-                android:textStyle="normal"
+                android:layout_weight="1.2"
+                android:paddingTop="@dimen/_1sdp"
                 android:singleLine="true"
                 android:text=""
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:textColor="@color/appointment_text"
                 android:textSize="@dimen/_12sdp"
-                android:textColor="@color/appointment_text" />
+                android:textStyle="normal" />
         </TableRow>
 
     </TableLayout>
@@ -148,13 +180,13 @@
         android:id="@+id/txtNoRecordsImprest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No Records Found..."
-        android:gravity="center"
         android:layout_marginTop="@dimen/_20sdp"
+        android:gravity="center"
+        android:text="No Records Found..."
         android:textColor="@android:color/holo_red_dark"
-        android:textStyle="bold"
         android:textSize="@dimen/_12sdp"
-        android:visibility="gone"/>
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/listImprestData"
@@ -162,6 +194,6 @@
         android:layout_height="match_parent"
         android:divider="@color/white"
         android:dividerHeight="@dimen/_5sdp"
-        android:scrollbars="none"/>
+        android:scrollbars="none" />
 
 </LinearLayout>

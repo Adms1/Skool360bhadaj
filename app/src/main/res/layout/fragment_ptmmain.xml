@@ -76,7 +76,12 @@
                 app:tabSelectedTextColor="@color/app_bg"
                 app:tabTextColor="@color/app_bg"
                 android:elevation="@dimen/_7sdp"/>
-
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_5sdp"
+                android:background="@drawable/dropshadow"
+                android:visibility="gone" />
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"

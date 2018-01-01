@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 
 /**
  * Created by Harsh on 04-Aug-16.
@@ -115,5 +116,27 @@ public class Utility {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static String getTodaysDate() {
+        final Calendar calendar = Calendar.getInstance();
+        int yy = calendar.get(Calendar.YEAR);
+        int mm = calendar.get(Calendar.MONTH) + 1;
+        int dd = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        String mDAY, mMONTH, mYEAR;
+
+        mDAY = Integer.toString(dd);
+        mMONTH = Integer.toString(mm);
+        mYEAR = Integer.toString(yy);
+
+        if (dd < 10) {
+            mDAY = "0" + mDAY;
+        }
+        if (mm < 10) {
+            mMONTH = "0" + mMONTH;
+        }
+
+        return mDAY + "/" + mMONTH + "/" + mYEAR;
     }
 }

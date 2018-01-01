@@ -142,10 +142,13 @@ public class ImprestFragment extends Fragment {
                                     int yy = calendar.get(Calendar.YEAR);
                                     int mm = calendar.get(Calendar.MONTH) + 1;
                                     int dd = calendar.get(Calendar.DAY_OF_MONTH);
+                                    int yy1 =calendar.get(Calendar.YEAR)-1;
 
                                     System.out.print("year:"+yy);
-                                    String year;
-                                    year= String.valueOf(yy);
+                                    String year,yearnotmatch;
+                                    year = String.valueOf(yy);
+                                    yearnotmatch=String.valueOf(yy1);
+
                                     Collections.sort(termText);
                                     System.out.println("Sorted ArrayList in Java - Ascending order : " + termText);
                                     try {
@@ -170,6 +173,11 @@ public class ImprestFragment extends Fragment {
                                             Log.d("indexOf", String.valueOf(index));
                                             spinYear.setSelection(index);
 
+                                        }else if(yearnotmatch.equalsIgnoreCase(str[0])) {
+                                            Log.d("yearValue", termText.get(m));
+                                            int index = m;
+                                            Log.d("indexOf", String.valueOf(index));
+                                            spinYear.setSelection(index);
                                         }
                                     }
                                 } else {

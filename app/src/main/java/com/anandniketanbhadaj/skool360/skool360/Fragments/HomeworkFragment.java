@@ -75,14 +75,8 @@ public class HomeworkFragment extends Fragment {
         btnBackHomework = (Button) rootView.findViewById(R.id.btnBackHomework);
         lvExpHomework = (ExpandableListView) rootView.findViewById(R.id.lvExpHomework);
 
-        final Calendar calendar = Calendar.getInstance();
-        int yy = calendar.get(Calendar.YEAR);
-        int mm = calendar.get(Calendar.MONTH) + 1;
-        int dd = calendar.get(Calendar.DAY_OF_MONTH);
-
-        //load today's data first
-        fromDate.setText(dd + "/" + mm + "/" + yy);
-        toDate.setText(dd + "/" + mm + "/" + yy);
+        fromDate.setText(Utility.getTodaysDate());
+        toDate.setText(Utility.getTodaysDate());
         getHomeworkData(fromDate.getText().toString(), toDate.getText().toString());
     }
 
@@ -228,7 +222,20 @@ public class HomeworkFragment extends Fragment {
         }
 
         public void populateSetDate(int year, int month, int day) {
-            dateFinal = day + "/" + month + "/" + year;
+            String d, m, y;
+            d = Integer.toString(day);
+            m = Integer.toString(month);
+            y = Integer.toString(year);
+
+            if (day < 10) {
+                d = "0" + d;
+            }
+            if (month < 10) {
+                m = "0" + m;
+            }
+            dateFinal = d + "/" + m + "/" + y;
+
+
             if (isFromDate) {
                 fromDate.setText(dateFinal);
             } else {

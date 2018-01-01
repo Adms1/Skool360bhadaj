@@ -70,6 +70,7 @@
                 android:textSize="@dimen/_12sdp" />
         </LinearLayout>
 
+        
         <CheckBox
             android:id="@+id/chkRemember"
             android:layout_width="wrap_content"

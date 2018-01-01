@@ -20,7 +20,7 @@ import com.anandniketanbhadaj.skool360.skool360.Adapter.PTMPageAdapter;
 public class PTMMainFragment extends Fragment {
     private View rootView;
     private Button btnMenu, btnBackPtm_main;
-
+    View view;
     private TabLayout tablayout_ptm_main;
     private ViewPager viewPager;
     private Context mContext;
@@ -47,7 +47,7 @@ public class PTMMainFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBackPtm_main= (Button) rootView.findViewById(R.id.btnBackPtm);
         viewPager = (ViewPager) rootView.findViewById(R.id.pager);
-
+        view = (View) rootView.findViewById(R.id.view);
 
         tablayout_ptm_main = (TabLayout) rootView.findViewById(R.id.tablayout_ptm_main);
         tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Inbox"),true);
@@ -60,6 +60,11 @@ public class PTMMainFragment extends Fragment {
         adapter = new PTMPageAdapter(getFragmentManager(), tablayout_ptm_main.getTabCount());
 //Adding adapter to pager
         viewPager.setAdapter(adapter);
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            view.setVisibility(View.GONE);
+        } else {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setListner() {
