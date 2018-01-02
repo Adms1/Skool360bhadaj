@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
@@ -98,8 +99,8 @@ public class UnitTestFragment extends Fragment {
         });
     }
 
-    public void getUnitTestData(){
-        if(Utility.isNetworkConnected(mContext)) {
+    public void getUnitTestData() {
+        if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
@@ -135,20 +136,20 @@ public class UnitTestFragment extends Fragment {
                     }
                 }
             }).start();
-        }else{
-            Utility.ping(mContext,"Network not available");
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
 
-    public void prepaareList(){
+    public void prepaareList() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, ArrayList<UnitTestModel.Data>>();
 
-        for(int i = 0; i < testdetailModels.size(); i++){
+        for (int i = 0; i < testdetailModels.size(); i++) {
             listDataHeader.add(testdetailModels.get(i).getTestDate());
 
             ArrayList<UnitTestModel.Data> rows = new ArrayList<UnitTestModel.Data>();
-            for(int j = 0; j < testdetailModels.get(i).getDataArrayList().size(); j++){
+            for (int j = 0; j < testdetailModels.get(i).getDataArrayList().size(); j++) {
                 rows.add(testdetailModels.get(i).getDataArrayList().get(j));
 
             }

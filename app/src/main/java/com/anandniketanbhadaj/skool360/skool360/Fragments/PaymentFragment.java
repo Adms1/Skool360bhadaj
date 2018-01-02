@@ -20,6 +20,7 @@ import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterPay
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesDetailsAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetPaymentLedgerAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.PTMInboxResponse.FinalArrayInbox;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
@@ -279,24 +280,16 @@ public class PaymentFragment extends Fragment {
         listDataHeader = new ArrayList<>();
         listDataChildPayment = new HashMap<String, ArrayList<PaymentLedgerModel.Data>>();
 
-        for (int i = 0; i < paymentdetailsModel.size(); i++) {
-            paymentdemo pdemo = new paymentdemo();
-            pdemo.PayDate = paymentdetailsModel.get(i).getPayDate().toString();
-            pdemo.Paid = paymentdetailsModel.get(i).getPaid().toString();
-            listDataHeader.add(pdemo.PayDate.toString() + "|" + pdemo.Paid.toString());
-            Log.d("displaypositiondata", listDataHeader.get(0));
+        for (int j = 0; j < paymentdetailsModel.size(); j++) {
+            listDataHeader.add(paymentdetailsModel.get(j).getPayDate() + "|" + paymentdetailsModel.get(j).getPaid());
 
             ArrayList<PaymentLedgerModel.Data> rows = new ArrayList<PaymentLedgerModel.Data>();
-            for (int j = 0; j < paymentdetailsModel.get(i).getDataArrayList().size(); j++) {
-                rows.add(paymentdetailsModel.get(i).getDataArrayList().get(j));
-
+            for (int k = 0; k < paymentdetailsModel.get(j).getDataArrayList().size(); k++) {
+                rows.add(paymentdetailsModel.get(j).getDataArrayList().get(k));
             }
-            listDataChildPayment.put(listDataHeader.get(i), rows);
+            listDataChildPayment.put(listDataHeader.get(j), rows);
         }
-    }
 
-    public class paymentdemo {
-        private String PayDate;
-        private String Paid;
+
     }
 }

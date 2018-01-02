@@ -1,85 +1,133 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
-import com.anandniketanbhadaj.skool360.skool360.Models.ImprestDataModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.ImprestResponse.Datum;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
-public class ImprestListAdapter extends BaseAdapter {
-    private Context mContext;
-    private ArrayList<ImprestDataModel> imprestModels = new ArrayList<>();
+public class ImprestListAdapter extends BaseExpandableListAdapter {
 
-    // Constructor
-    public ImprestListAdapter(Context c, ArrayList<ImprestDataModel> imprestModels) {
-        mContext = c;
-        this.imprestModels = imprestModels;
+    private Context _context;
+    private List<String> _listDataHeader; // header titles
+    // child data in format of header title, child title
+    private HashMap<String, ArrayList<Datum>> _listDataChild;
+
+    public ImprestListAdapter(Context context, List<String> listDataHeader,
+                              HashMap<String, ArrayList<Datum>> listChildData) {
+        this._context = context;
+        this._listDataHeader = listDataHeader;
+        this._listDataChild = listChildData;
     }
 
     @Override
-    public int getCount() {
-        return imprestModels.size();
+    public Datum getChild(int groupPosition, int childPosititon) {
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                .get(childPosititon);
     }
 
     @Override
-    public Object getItem(int position) {
-        return imprestModels.get(position);
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
+    public View getChildView(int groupPosition, final int childPosition,
+                             boolean isLastChild, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_imprest_row, null);
+        }
+        TextView txtOpening, txtDeduct, txtBalance, txtMessage;
+
+        txtOpening = (TextView) convertView.findViewById(R.id.txtOpening);
+        txtDeduct = (TextView) convertView.findViewById(R.id.txtDeduct);
+        txtBalance = (TextView) convertView.findViewById(R.id.txtBalance);
+        txtMessage = (TextView) convertView.findViewById(R.id.txtMessage);
+
+
+        txtOpening.setText(getChild(groupPosition,childPosition).getOpeningBalance());
+        txtDeduct.setText(getChild(groupPosition,childPosition).getDeductAmount());
+        txtBalance.setText(getChild(groupPosition,childPosition).getBalance());
+        txtMessage.setText(getChild(groupPosition,childPosition).getMessage());
+
+        return convertView;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        TextView txtMessage = null, txtDate = null, txtOpening = null, txtDeduct = null, txtBalance = null, txtDay = null;
-        LinearLayout  llDateRow = null;
+    public int getChildrenCount(int groupPosition) {
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                .size();
+    }
 
-        if(convertView == null){
-            LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.list_imprest_row, null);
+    @Override
+    public Object getGroup(int groupPosition) {
+        return this._listDataHeader.get(groupPosition);
+    }
 
-            llDateRow = (LinearLayout) convertView.findViewById(R.id.llDateRow);
-            txtMessage = (TextView) convertView.findViewById(R.id.txtMessage);
-            txtDate = (TextView) convertView.findViewById(R.id.txtDate);
-            txtOpening = (TextView) convertView.findViewById(R.id.txtOpening);
-            txtDeduct = (TextView) convertView.findViewById(R.id.txtDeduct);
-            txtBalance = (TextView) convertView.findViewById(R.id.txtBalance);
-            txtDay = (TextView) convertView.findViewById(R.id.txtDay);
+    @Override
+    public int getGroupCount() {
+        return this._listDataHeader.size();
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded,
+                             View convertView, ViewGroup parent) {
+        String headerTitle = (String) getGroup(groupPosition);
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_group_imprest, null);
         }
 
-        if(position == 0){
-            llDateRow.setBackgroundColor(mContext.getResources().getColor(R.color.orange));
+        if (isExpanded) {
+            convertView.setBackgroundResource(R.color.orange);
+        } else {
+            convertView.setBackgroundResource(R.color.gray);
         }
 
-        txtMessage.setText(imprestModels.get(position).getMessage());
-        txtDate.setText(imprestModels.get(position).getDate().replace("00:00:00", ""));
-
+        TextView lblListHeader = (TextView) convertView
+                .findViewById(R.id.lblListHeader);
+        lblListHeader.setTypeface(null, Typeface.BOLD);
         try {
-            SimpleDateFormat inFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = inFormat.parse(imprestModels.get(position).getDate().replace("00:00:00", "").toString());
-            SimpleDateFormat outFormat = new SimpleDateFormat("EEEE");
+            SimpleDateFormat inFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+            Date date = inFormat.parse(headerTitle);
+            SimpleDateFormat outFormat = new SimpleDateFormat("dd/MM/yyyy");
             String day = outFormat.format(date);
-            txtDay.setText(day);
+            lblListHeader.setText(day);
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        txtOpening.setText(imprestModels.get(position).getOpeningBalance());
-        txtDeduct.setText(imprestModels.get(position).getDeductAmount());
-        txtBalance.setText(imprestModels.get(position).getBalance());
+
         return convertView;
     }
 
+    @Override
+    public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return true;
+    }
 }
+

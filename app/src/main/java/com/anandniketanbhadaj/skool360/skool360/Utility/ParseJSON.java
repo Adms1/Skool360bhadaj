@@ -8,7 +8,6 @@ import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.ImprestDataModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PrincipalModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
@@ -578,48 +577,7 @@ public class ParseJSON {
         return result;
     }
 
-    public static ArrayList<ImprestDataModel> getImprestData(String responseString) {
-        ArrayList<ImprestDataModel> result = new ArrayList<>();
 
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            String MyBalance = reader.getString("MyBalance");
-            String OpeningBalanceTop = reader.getString("OpeningBalance");
-            ImprestDataModel imprestDataModel = null;
-            if (data_load_basket.toString().equals("True")) {
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                if (jsonMainNode.length() > 0) {
-                    for (int i = 0; i < jsonMainNode.length(); i++) {
-                        JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                        imprestDataModel = new ImprestDataModel();
-                        imprestDataModel.setMyBalance(MyBalance);
-                        imprestDataModel.setOpeningBalanceTop(OpeningBalanceTop);
-                        imprestDataModel.setMessage(jsonChildNode.getString("Message"));
-                        imprestDataModel.setDate(jsonChildNode.getString("Date"));
-                        imprestDataModel.setOpeningBalance(jsonChildNode.getString("OpeningBalance"));
-                        imprestDataModel.setDeductAmount(jsonChildNode.getString("DeductAmount"));
-                        imprestDataModel.setBalance(jsonChildNode.getString("Balance"));
-
-                        result.add(imprestDataModel);
-                    }
-                } else {
-                    imprestDataModel = new ImprestDataModel();
-                    imprestDataModel.setMyBalance(MyBalance);
-                    imprestDataModel.setOpeningBalanceTop(OpeningBalanceTop);
-                    result.add(imprestDataModel);
-                }
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
 
     public static ArrayList<CanteenModel> parseCanteenJson(String responseString) {
         ArrayList<CanteenModel> result = new ArrayList<>();

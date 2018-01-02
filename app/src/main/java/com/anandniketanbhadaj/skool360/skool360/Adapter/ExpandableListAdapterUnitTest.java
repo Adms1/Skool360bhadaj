@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, ArrayList<UnitTestModel.Data>> _listDataChild;
+    private HashMap<Integer, Integer> visibleArray = new HashMap<Integer, Integer>();
 
     public ExpandableListAdapterUnitTest(Context context, List<String> listDataHeader,
                                          HashMap<String, ArrayList<UnitTestModel.Data>> listChildData) {
@@ -66,7 +68,8 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
         syllabus_txt = (TextView) convertView.findViewById(R.id.syllabus_txt);
         syllabus_linear = (LinearLayout) convertView.findViewById(R.id.syllabus_linear);
         subject_name_txt.setText(childData.get(childPosition).getSubject());
-
+        visibleArray.put(groupPosition,childPosition);
+        Log.d("position",visibleArray.toString());
         String[] data = childData.get(childPosition).getDetail().split("\\|");
 
         List<String> stringList = new ArrayList<String>(Arrays.asList(data));
@@ -84,7 +87,7 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
 //            rowTextView.setLayoutParams(params);
             rowTextView.setBackgroundResource(R.drawable.list_line_textbox);
             rowTextView.setTextSize(12);
-            rowTextView.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER);
+            rowTextView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
 
 
             rowTextView.setText(stringList.get(i));
@@ -152,6 +155,7 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 
+
         return convertView;
     }
 
@@ -162,6 +166,7 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
+
         return true;
     }
 }

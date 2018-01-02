@@ -70,7 +70,7 @@
                 android:textSize="@dimen/_12sdp" />
         </LinearLayout>
 
-        
+
         <CheckBox
             android:id="@+id/chkRemember"
             android:layout_width="wrap_content"
@@ -91,6 +91,7 @@
             android:gravity="center"
             android:padding="@dimen/_10sdp"
             android:text="LOG IN"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp" />
 

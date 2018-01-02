@@ -188,12 +188,15 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/listImprestData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/white"
+        android:layout_margin="@dimen/_10sdp"
+        android:childDivider="@android:color/transparent"
+        android:divider="@android:color/white"
+        android:scrollbars="none"
         android:dividerHeight="@dimen/_5sdp"
-        android:scrollbars="none" />
+        android:groupIndicator="@null" />
 
 </LinearLayout>

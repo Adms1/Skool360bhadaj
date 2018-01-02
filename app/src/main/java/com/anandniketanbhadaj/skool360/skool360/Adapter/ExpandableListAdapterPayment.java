@@ -50,7 +50,7 @@ public class ExpandableListAdapterPayment extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
         final ArrayList<PaymentLedgerModel.Data> childData = getChild(groupPosition, 0);
-        final TextView receipe_no_value_txt, mode_of_payment_value_txt, admission_fee_value_txt, tution_fee_value_txt, transport_fee_value_txt,
+        final TextView receipe_no_value_txt, mode_of_payment_value_txt, tution_fee_value_txt, transport_fee_value_txt,
                 imprest_value_txt, late_fees_value_txt, waive_off_value_txt, previous_outstanding_value_txt, total_paid_fee_value_txt, current_outstanding_value_txt;
 
         if (convertView == null) {
@@ -59,7 +59,6 @@ public class ExpandableListAdapterPayment extends BaseExpandableListAdapter {
         }
         receipe_no_value_txt = (TextView) convertView.findViewById(R.id.receipe_no_value_txt);
         mode_of_payment_value_txt = (TextView) convertView.findViewById(R.id.mode_of_payment_value_txt);
-        admission_fee_value_txt = (TextView) convertView.findViewById(R.id.admission_fee_value_txt);
         tution_fee_value_txt = (TextView) convertView.findViewById(R.id.tution_fee_value_txt);
         transport_fee_value_txt = (TextView) convertView.findViewById(R.id.transport_fee_value_txt);
         imprest_value_txt = (TextView) convertView.findViewById(R.id.imprest_value_txt);
@@ -69,17 +68,16 @@ public class ExpandableListAdapterPayment extends BaseExpandableListAdapter {
         total_paid_fee_value_txt = (TextView) convertView.findViewById(R.id.total_paid_fee_value_txt);
         current_outstanding_value_txt = (TextView) convertView.findViewById(R.id.current_outstanding_value_txt);
 
-        receipe_no_value_txt.setText(childData.get(0).getReceiptNo());
-        mode_of_payment_value_txt.setText(childData.get(0).getPayMode());
-        admission_fee_value_txt.setText(childData.get(0).getAdmissionFee());
-        tution_fee_value_txt.setText(childData.get(0).getTuitionFee());
-        transport_fee_value_txt.setText(childData.get(0).getTransport());
-        imprest_value_txt.setText(childData.get(0).getImprestFee());
-        late_fees_value_txt.setText(childData.get(0).getLatesFee());
-        waive_off_value_txt.setText(childData.get(0).getDiscountFee());
-        previous_outstanding_value_txt.setText(childData.get(0).getPreviousFees());
-        total_paid_fee_value_txt.setText(childData.get(0).getPaidFee());
-        current_outstanding_value_txt.setText(childData.get(0).getCurrentOutstandingFees());
+        receipe_no_value_txt.setText(childData.get(childPosition).getReceiptNo());
+        mode_of_payment_value_txt.setText(childData.get(childPosition).getPayMode());
+        tution_fee_value_txt.setText(childData.get(childPosition).getTuitionFee());
+        transport_fee_value_txt.setText(childData.get(childPosition).getTransport());
+        imprest_value_txt.setText(childData.get(childPosition).getImprestFee());
+        late_fees_value_txt.setText(childData.get(childPosition).getLatesFee());
+        waive_off_value_txt.setText(childData.get(childPosition).getDiscountFee());
+        previous_outstanding_value_txt.setText(childData.get(childPosition).getPreviousFees());
+        total_paid_fee_value_txt.setText(childData.get(childPosition).getPaidFee());
+        current_outstanding_value_txt.setText(childData.get(childPosition).getCurrentOutstandingFees());
 
 
         return convertView;

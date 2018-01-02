@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,7 +23,9 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ImprestListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetImprestDataAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTermAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.Models.ImprestDataModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.ImprestResponse.Datum;
+import com.anandniketanbhadaj.skool360.skool360.Models.ImprestResponse.FinalArrayImprest;
+import com.anandniketanbhadaj.skool360.skool360.Models.ImprestResponse.GetImprestDataModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Harsh on 04-Aug-16.
@@ -42,15 +45,18 @@ public class ImprestFragment extends Fragment {
     private TextView txtMyBalance, txtOpeningBalaceTop, txtNoRecordsImprest;
     private Spinner spinYear;
     private TableRow tblRowBalance, tblRowOpeningBalance;
-    private ListView listImprestData;
-//    private LinearLayout llListTitle;
+    private ExpandableListView listImprestData;
+    //    private LinearLayout llListTitle;
     private Context mContext;
     private GetTermAsyncTask getTermAsyncTask = null;
     private GetImprestDataAsyncTask getImprestDataAsyncTask = null;
     private ArrayList<TermModel> termModels = new ArrayList<>();
-    private ArrayList<ImprestDataModel> imprestModels = new ArrayList<>();
+    GetImprestDataModel getImprestResponse;
     private ImprestListAdapter imprestListAdapter = null;
     private ProgressDialog progressDialog = null;
+    List<String> listDataHeader;
+    HashMap<String, ArrayList<Datum>> listDataChild;
+    private int lastExpandedPosition = -1;
 
     public ImprestFragment() {
     }
@@ -77,7 +83,7 @@ public class ImprestFragment extends Fragment {
         txtMyBalance = (TextView) rootView.findViewById(R.id.txtMyBalance);
         txtOpeningBalaceTop = (TextView) rootView.findViewById(R.id.txtOpeningBalaceTop);
         txtNoRecordsImprest = (TextView) rootView.findViewById(R.id.txtNoRecordsImprest);
-        listImprestData = (ListView) rootView.findViewById(R.id.listImprestData);
+        listImprestData = (ExpandableListView) rootView.findViewById(R.id.listImprestData);
 //        llListTitle = (LinearLayout) rootView.findViewById(R.id.llListTitle);
     }
 
@@ -85,7 +91,7 @@ public class ImprestFragment extends Fragment {
         spinYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               getImprestData();
+                getImprestData();
             }
 
             @Override
@@ -111,10 +117,22 @@ public class ImprestFragment extends Fragment {
                         .replace(R.id.frame_container, fragment).commit();
             }
         });
+        listImprestData.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedPosition != -1
+                        && groupPosition != lastExpandedPosition) {
+                    listImprestData.collapseGroup(lastExpandedPosition);
+
+                }
+                lastExpandedPosition = groupPosition;
+            }
+        });
     }
 
-    public void fillspinYear(){
-        if(Utility.isNetworkConnected(mContext)) {
+    public void fillspinYear() {
+        if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
@@ -142,12 +160,12 @@ public class ImprestFragment extends Fragment {
                                     int yy = calendar.get(Calendar.YEAR);
                                     int mm = calendar.get(Calendar.MONTH) + 1;
                                     int dd = calendar.get(Calendar.DAY_OF_MONTH);
-                                    int yy1 =calendar.get(Calendar.YEAR)-1;
+                                    int yy1 = calendar.get(Calendar.YEAR) - 1;
 
-                                    System.out.print("year:"+yy);
-                                    String year,yearnotmatch;
+                                    System.out.print("year:" + yy);
+                                    String year, yearnotmatch;
                                     year = String.valueOf(yy);
-                                    yearnotmatch=String.valueOf(yy1);
+                                    yearnotmatch = String.valueOf(yy1);
 
                                     Collections.sort(termText);
                                     System.out.println("Sorted ArrayList in Java - Ascending order : " + termText);
@@ -162,18 +180,18 @@ public class ImprestFragment extends Fragment {
                                     } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
                                         // silently fail...
                                     }
-                                    ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext,R.layout.spinner_layout, termText);
+                                    ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, termText);
                                     spinYear.setAdapter(adapterSpinYear);
 
                                     for (int m = 0; m < termText.size(); m++) {
-                                        String []str=termText.get(m).split("\\-");
+                                        String[] str = termText.get(m).split("\\-");
                                         if (year.equalsIgnoreCase(str[0])) {
                                             Log.d("yearValue", termText.get(m));
                                             int index = m;
                                             Log.d("indexOf", String.valueOf(index));
                                             spinYear.setSelection(index);
 
-                                        }else if(yearnotmatch.equalsIgnoreCase(str[0])) {
+                                        } else if (yearnotmatch.equalsIgnoreCase(str[0])) {
                                             Log.d("yearValue", termText.get(m));
                                             int index = m;
                                             Log.d("indexOf", String.valueOf(index));
@@ -190,13 +208,13 @@ public class ImprestFragment extends Fragment {
                     }
                 }
             }).start();
-        }else{
-            Utility.ping(mContext,"Network not available");
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
 
-    public void getImprestData(){
-        if(Utility.isNetworkConnected(mContext)) {
+    public void getImprestData() {
+        if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
@@ -217,21 +235,22 @@ public class ImprestFragment extends Fragment {
                         params.put("Term", id);
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         getImprestDataAsyncTask = new GetImprestDataAsyncTask(params);
-                        imprestModels = getImprestDataAsyncTask.execute().get();
+                        getImprestResponse = getImprestDataAsyncTask.execute().get();
 
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (imprestModels.size() > 0) {
+                                if (getImprestResponse.getFinalArray().size() > 0) {
                                     txtNoRecordsImprest.setVisibility(View.GONE);
                                     tblRowBalance.setVisibility(View.VISIBLE);
                                     tblRowOpeningBalance.setVisibility(View.VISIBLE);
-                                    txtMyBalance.setText(imprestModels.get(0).getMyBalance());
-                                    txtOpeningBalaceTop.setText(imprestModels.get(0).getOpeningBalanceTop());
+                                    txtMyBalance.setText(getImprestResponse.getMyBalance());
+                                    txtOpeningBalaceTop.setText(getImprestResponse.getOpeningBalance());
                                     listImprestData.setVisibility(View.VISIBLE);
-                                    if (imprestModels.size() > 0 && imprestModels.get(0).getBalance() != null) {
-                                        imprestListAdapter = new ImprestListAdapter(mContext, imprestModels);
+                                    if (getImprestResponse.getFinalArray().size() > 0 && getImprestResponse.getMyBalance() != null) {
+                                        prepaareList();
+                                        imprestListAdapter = new ImprestListAdapter(mContext, listDataHeader, listDataChild);
                                         listImprestData.setAdapter(imprestListAdapter);
                                     }
                                 } else {
@@ -249,9 +268,22 @@ public class ImprestFragment extends Fragment {
                     }
                 }
             }).start();
-        }else
-        {
-            Utility.ping(mContext,"Network not available");
+        } else {
+            Utility.ping(mContext, "Network not available");
+        }
+    }
+
+    public void prepaareList() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, ArrayList<Datum>>();
+
+        for (int i = 0; i < getImprestResponse.getFinalArray().size(); i++) {
+            listDataHeader.add(getImprestResponse.getFinalArray().get(i).getDate());
+            ArrayList<Datum> rows = new ArrayList<Datum>();
+            for (int j = 0; j < getImprestResponse.getFinalArray().get(i).getData().size(); j++) {
+                rows.add(getImprestResponse.getFinalArray().get(i).getData().get(j));
+            }
+            listDataChild.put(listDataHeader.get(i), rows);
         }
     }
 }
