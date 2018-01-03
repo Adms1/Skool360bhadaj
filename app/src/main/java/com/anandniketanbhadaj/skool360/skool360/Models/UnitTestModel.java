@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class UnitTestModel {
     private String TestDate;
-    private ArrayList<UnitTestModel.Data> dataArrayList;
+    private ArrayList<Data> dataArrayList;
 
     public UnitTestModel() {
     }
@@ -22,40 +22,13 @@ public class UnitTestModel {
     }
 
 
-    public ArrayList<UnitTestModel.Data> getDataArrayList() {
+    public ArrayList<Data> getDataArrayList() {
         return dataArrayList;
     }
 
-    public void setDataArrayList(ArrayList<UnitTestModel.Data> dataArrayList) {
+    public void setDataArrayList(ArrayList<Data> dataArrayList) {
         this.dataArrayList = dataArrayList;
     }
 
-    public class Data {
-
-        private String Subject;
-        private String Detail;
-
-        public Data() {
-        }
-
-        public String getSubject() {
-            return Subject;
-        }
-
-        public void setSubject(String subject) {
-            Subject = subject;
-        }
-
-        public String getDetail() {
-            return Detail;
-        }
-
-        public void setDetail(String detail) {
-            Detail = detail;
-        }
-
-
-
-    }
 }
 

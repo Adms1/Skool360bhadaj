@@ -126,7 +126,7 @@ public class FeesFragment extends Fragment {
                                     total_fee_txt.setText("Total" + "\n" + "₹" + " " + Html.fromHtml(feesdetailModels.get(0).getTermTotal()));
                                     due_fee_txt.setText("Due" + "\n" + "₹" + " " + Html.fromHtml(feesdetailModels.get(0).getTermDuePay()));
                                     discount_fee_txt.setText("Discount" + "\n" + "₹" + " " + Html.fromHtml(feesdetailModels.get(0).getTermDiscount()));
-                                    linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
+                                    linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.arrow_1_42));
 
                                 } else {
                                     progressDialog.dismiss();

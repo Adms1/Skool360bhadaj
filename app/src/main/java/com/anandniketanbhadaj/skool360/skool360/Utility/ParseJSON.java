@@ -6,15 +6,16 @@ import com.anandniketanbhadaj.skool360.skool360.Models.AttendanceModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CanteenModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.Data;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PrincipalModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.ResultModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TimetableModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.ResultModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.UnitTestModel;
 
 import org.json.JSONArray;
@@ -454,7 +455,7 @@ public class ParseJSON {
                 }
                 attendanceModel.setEventsList(attendances);
                 result.add(attendanceModel);
-                            attendanceModel.setTotalAbsent(reader.getString("TotalAbsent"));
+                attendanceModel.setTotalAbsent(reader.getString("TotalAbsent"));
                 attendanceModel.setTotalPresent(reader.getString("TotalPresent"));
             } else {
                 //invalid login
@@ -578,7 +579,6 @@ public class ParseJSON {
     }
 
 
-
     public static ArrayList<CanteenModel> parseCanteenJson(String responseString) {
         ArrayList<CanteenModel> result = new ArrayList<>();
         CanteenModel canteenModel = null;
@@ -665,17 +665,16 @@ public class ParseJSON {
                     JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
                     unitTestModel.setTestDate(jsonChildNode.getString("TestDate"));
 
-                    UnitTestModel.Data data = null;
-                    ArrayList<UnitTestModel.Data> dataArrayList = new ArrayList<>();
+                    Data data = null;
+                    ArrayList<Data> dataArrayList = new ArrayList<>();
                     JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("Data");
                     for (int i = 0; i < jsonChildMainNode.length(); i++) {
-                        data = unitTestModel.new Data();
+                        data = new Data();
                         JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
                         data.setSubject(jsonChildNode1.getString("Subject"));
                         data.setDetail(jsonChildNode1.getString("Detail"));
                         dataArrayList.add(data);
                     }
-
                     unitTestModel.setDataArrayList(dataArrayList);
                     result.add(unitTestModel);
                 }
