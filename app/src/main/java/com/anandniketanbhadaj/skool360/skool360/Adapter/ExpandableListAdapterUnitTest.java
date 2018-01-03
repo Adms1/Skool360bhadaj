@@ -93,17 +93,13 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < childData.size(); i++) {
-                    childData.get(i).setVisible(false);
+                    if (i == childPosition) {
+                        childData.get(childPosition).setVisible(!childData.get(childPosition).getVisible());
+                    } else {
+                        childData.get(i).setVisible(false);
+                    }
                 }
-                childData.get(childPosition).setVisible(!childData.get(childPosition).getVisible());
                 notifyDataSetChanged();
-//                if (visible) {
-//                    syllabus_linear.setVisibility(View.VISIBLE);
-//                    visible = false;
-//                } else {
-//                    syllabus_linear.setVisibility(View.GONE);
-//                    visible = true;
-//                }
             }
         });
 
