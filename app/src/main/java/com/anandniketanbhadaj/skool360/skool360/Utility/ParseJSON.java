@@ -12,10 +12,10 @@ import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PrincipalModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.ResultModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TimetableModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.ResultModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.UnitTestModel;
 
 import org.json.JSONArray;

@@ -29,5 +29,6 @@ public class UnitTestModel {
     public void setDataArrayList(ArrayList<Data> dataArrayList) {
         this.dataArrayList = dataArrayList;
     }
+
 }
 

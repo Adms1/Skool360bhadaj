@@ -8,14 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Models.Data;
-import com.anandniketanbhadaj.skool360.skool360.Models.UnitTestModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,10 +66,10 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
         syllabus_txt = (TextView) convertView.findViewById(R.id.syllabus_txt);
         syllabus_linear = (LinearLayout) convertView.findViewById(R.id.syllabus_linear);
         subject_name_txt.setText(childData.get(childPosition).getSubject());
-
+        visibleArray.put(groupPosition, childPosition);
+        Log.d("position", visibleArray.toString());
         String[] data = childData.get(childPosition).getDetail().split("\\|");
         List<String> stringList = new ArrayList<String>(Arrays.asList(data));
-
         if (syllabus_linear.getChildCount() > 0) {
             syllabus_linear.removeAllViews();
         }
@@ -97,7 +94,7 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 for (int i = 0; i < childData.size(); i++) {
                     if (i == childPosition) {
-                        childData .get(childPosition).setVisible(!childData.get(childPosition).getVisible());
+                        childData.get(childPosition).setVisible(!childData.get(childPosition).getVisible());
                     } else {
                         childData.get(i).setVisible(false);
                     }
