@@ -77,20 +77,12 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         messageMessageLine = childData.get(childPosition).getDescription();
 
         if (childData.get(childPosition).getReadStatus().equalsIgnoreCase("Pending")) {
-            txtSubject.setTypeface(null, Typeface.BOLD);
-            staffattendaceModel.add(messageId+"|"+FromId+"|"+Toid+"|"+messageDate+"|"+messageSubject+"|"+messageMessageLine);
-            Log.d("stringArray", staffattendaceModel.toString());
-            readlistner.readMessageStatus();
+           staffattendaceModel.add(messageId+"|"+FromId+"|"+Toid+"|"+messageDate+"|"+messageSubject+"|"+messageMessageLine);
+        readlistner.readMessageStatus();
 
-        } else
-
-        {
-            txtSubject.setTypeface(null, Typeface.NORMAL);
         }
 
-        txtSubject.setText(childData.get(childPosition).
-
-                getDescription());
+        txtSubject.setText(childData.get(childPosition).getDescription());
         return convertView;
     }
 
@@ -122,6 +114,7 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         String headerTitle1 = headerTitle[0];
         String headerTitle2 = headerTitle[1];
         String headerTitle3 = headerTitle[2];
+        String headerTitle4 = headerTitle[3];
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -137,6 +130,17 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         Student_name_inbox_txt.setText(headerTitle1);
         date_inbox_txt.setText(headerTitle2);
         subject_inbox_txt.setText(headerTitle3);
+        if (headerTitle4.equalsIgnoreCase("Pending")) {
+            Student_name_inbox_txt.setTypeface(null, Typeface.BOLD);
+            date_inbox_txt.setTypeface(null, Typeface.BOLD);
+            subject_inbox_txt.setTypeface(null, Typeface.BOLD);
+            view_inbox_txt.setTypeface(null, Typeface.BOLD);
+        } else {
+            Student_name_inbox_txt.setTypeface(null, Typeface.NORMAL);
+            date_inbox_txt.setTypeface(null, Typeface.NORMAL);
+            subject_inbox_txt.setTypeface(null, Typeface.NORMAL);
+            view_inbox_txt.setTypeface(null, Typeface.NORMAL);
+        }
 
         if (isExpanded) {
             view_inbox_txt.setTextColor(_context.getResources().getColor(R.color.present_header));

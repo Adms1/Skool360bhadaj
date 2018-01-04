@@ -48,7 +48,7 @@ public class CreateFragment extends Fragment {
     String Date, purpose, requestfor, description;
     ArrayList<String> Teacherfield;
     HashMap<Integer, String> spinnerMap;
-
+    String[] spinnerteacherIdArray;
     public CreateFragment() {
     }
 
@@ -106,7 +106,7 @@ public class CreateFragment extends Fragment {
 
                 Log.d("value", name + " " + getid);
                 requestfor = getid.toString();
-                Log.d("requestfor",requestfor);
+                Log.d("requestfor", requestfor);
             }
 
             @Override
@@ -126,6 +126,7 @@ public class CreateFragment extends Fragment {
                 txtDate.setText("DD/MM/YYYY");
                 edtPurpose.setText("");
                 edtDescription.setText("");
+                setSelection();
             }
         });
     }
@@ -136,8 +137,8 @@ public class CreateFragment extends Fragment {
         description = edtDescription.getText().toString();
 
         if (Utility.isNetworkConnected(mContext)) {
-            if (!requestfor.equalsIgnoreCase("") &&!Date.equalsIgnoreCase("DD/MM/YYYY")&&
-                    !purpose.equalsIgnoreCase("")&&!description.equalsIgnoreCase("")) {
+            if (!requestfor.equalsIgnoreCase("") && !Date.equalsIgnoreCase("DD/MM/YYYY") &&
+                    !purpose.equalsIgnoreCase("") && !description.equalsIgnoreCase("")) {
                 progressDialog = new ProgressDialog(mContext);
                 progressDialog.setMessage("Please Wait...");
                 progressDialog.setCancelable(false);
@@ -154,6 +155,7 @@ public class CreateFragment extends Fragment {
                             params.put("MeetingDate", Date);
                             params.put("SubjectLine", purpose);
                             params.put("Description", description);
+                            params.put("Flag", "Student");
 
                             getPTMTeacherStudentInsertDetailAsyncTask = new PTMTeacherStudentInsertDetailAsyncTask(params);
                             mainPtmSentMessageResponse = getPTMTeacherStudentInsertDetailAsyncTask.execute().get();
@@ -161,8 +163,12 @@ public class CreateFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     progressDialog.dismiss();
-                                    if (mainPtmSentMessageResponse.getFinalArray().size() > 0) {
-                                        Utility.ping(mContext, "Save Sucessfully");
+                                    if (mainPtmSentMessageResponse.getSuccess().equalsIgnoreCase("True")) {
+                                        txtDate.setText("DD/MM/YYYY");
+                                        edtPurpose.setText("");
+                                        edtDescription.setText("");
+                                        setSelection();
+                                        Utility.ping(mContext, "Appointment Book Successfully.");
                                     } else {
                                         progressDialog.dismiss();
 
@@ -179,6 +185,17 @@ public class CreateFragment extends Fragment {
             }
         } else {
             Utility.ping(mContext, "Network not available");
+        }
+    }
+
+    public void setSelection() {
+        for (int m = 0; m < spinnerteacherIdArray.length; m++) {
+            if (spinnerteacherIdArray[m].contains("(ClassTeacher)")) {
+                Log.d("spinnerValue", spinnerteacherIdArray[m]);
+                int index = m;
+                Log.d("indexOf", String.valueOf(index));
+                spinRequestFor.setSelection(index);
+            }
         }
     }
 
@@ -241,7 +258,7 @@ public class CreateFragment extends Fragment {
 
         }
         String[] spinnerstaffIdArray = new String[staffId.size()];
-        String[] spinnerteacherIdArray = new String[TeacherId.size()];
+        spinnerteacherIdArray = new String[TeacherId.size()];
 
         spinnerMap = new HashMap<Integer, String>();
         for (int i = 0; i < TeacherId.size(); i++) {
@@ -261,7 +278,7 @@ public class CreateFragment extends Fragment {
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnerteacherIdArray);
         spinRequestFor.setAdapter(adapterYear);
-
+        setSelection();
     }
 
     public static class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {

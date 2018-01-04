@@ -6,6 +6,7 @@ import com.anandniketanbhadaj.skool360.skool360.Models.AttendanceModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CanteenModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.Data;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
@@ -131,6 +132,10 @@ public class ParseJSON {
                     studProfileModel.setTransport_KM(jsonChildNode.getString("Transport_KM"));
                     studProfileModel.setTransport_PicupTime(jsonChildNode.getString("Transport_PicupTime"));
                     studProfileModel.setTransport_DropTime(jsonChildNode.getString("Transport_DropTime"));
+                    studProfileModel.setBusNo(jsonChildNode.getString("Bus No"));
+                    studProfileModel.setRouteName(jsonChildNode.getString("Route Name"));
+                    studProfileModel.setPickupPointName(jsonChildNode.getString("PickupPoint Name"));
+                    studProfileModel.setDropPointName(jsonChildNode.getString("DropPoint Name"));
                     studProfileModel.setGRNO(jsonChildNode.getString("GRNO"));
                     studProfileModel.setStandard(jsonChildNode.getString("Standard"));
                     studProfileModel.setStudClass(jsonChildNode.getString("Class"));
@@ -273,7 +278,7 @@ public class ParseJSON {
                         data.setPayMode(jsonChildNode1.getString("PayMode"));
                         data.setPaidFee(jsonChildNode1.getString("PaidFee"));
                         data.setReceiptNo(jsonChildNode1.getString("ReceiptNo"));
-                        data.setAdmissionFee(jsonChildNode1.getString("AdmissionFee"));
+//                        data.setAdmissionFee(jsonChildNode1.getString("AdmissionFee"));
                         data.setCautionFee(jsonChildNode1.getString("CautionFee"));
                         data.setPreviousFees(jsonChildNode1.getString("PreviousFees"));
                         data.setTuitionFee(jsonChildNode1.getString("TuitionFee"));
@@ -283,6 +288,8 @@ public class ParseJSON {
                         data.setDiscountFee(jsonChildNode1.getString("DiscountFee"));
                         data.setPaidFee(jsonChildNode1.getString("PayPaidFees"));
                         data.setCurrentOutstandingFees(jsonChildNode1.getString("CurrentOutstandingFees"));
+                        data.setBankName(jsonChildNode1.getString("Bank Name"));
+                        data.setChequeNumber(jsonChildNode1.getString("Cheque Number"));
                         dataArrayList.add(data);
                     }
                     paymentLedgerModel.setDataArrayList(dataArrayList);
@@ -454,7 +461,7 @@ public class ParseJSON {
                 }
                 attendanceModel.setEventsList(attendances);
                 result.add(attendanceModel);
-                            attendanceModel.setTotalAbsent(reader.getString("TotalAbsent"));
+                attendanceModel.setTotalAbsent(reader.getString("TotalAbsent"));
                 attendanceModel.setTotalPresent(reader.getString("TotalPresent"));
             } else {
                 //invalid login
@@ -578,7 +585,6 @@ public class ParseJSON {
     }
 
 
-
     public static ArrayList<CanteenModel> parseCanteenJson(String responseString) {
         ArrayList<CanteenModel> result = new ArrayList<>();
         CanteenModel canteenModel = null;
@@ -665,17 +671,16 @@ public class ParseJSON {
                     JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
                     unitTestModel.setTestDate(jsonChildNode.getString("TestDate"));
 
-                    UnitTestModel.Data data = null;
-                    ArrayList<UnitTestModel.Data> dataArrayList = new ArrayList<>();
+                    Data data = null;
+                    ArrayList<Data> dataArrayList = new ArrayList<>();
                     JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("Data");
                     for (int i = 0; i < jsonChildMainNode.length(); i++) {
-                        data = unitTestModel.new Data();
+                        data = new Data();
                         JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
                         data.setSubject(jsonChildNode1.getString("Subject"));
                         data.setDetail(jsonChildNode1.getString("Detail"));
                         dataArrayList.add(data);
                     }
-
                     unitTestModel.setDataArrayList(dataArrayList);
                     result.add(unitTestModel);
                 }

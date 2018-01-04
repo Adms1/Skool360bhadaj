@@ -105,7 +105,7 @@ public class InboxFragment extends Fragment {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("UserID", Utility.getPref(mContext, "studid"));
-                        params.put("UserType", "student");
+                        params.put("UserType", "Student");
                         params.put("MessgaeType", "Inbox");
                         ptmTeacherStudentGetDetailAsyncTask = new PTMTeacherStudentGetDetailAsyncTask(params);
                         response = ptmTeacherStudentGetDetailAsyncTask.execute().get();
@@ -147,14 +147,22 @@ public class InboxFragment extends Fragment {
                                                             params.put("MeetingDate", messageDatestr);
                                                             params.put("SubjectLine", messageSubjectstr);
                                                             params.put("Description", messageMessageLinestr);
+                                                            params.put("Flag", "Staff");
 
                                                             getPTMTeacherStudentInsertDetailAsyncTask = new PTMTeacherStudentInsertDetailAsyncTask(params);
                                                             mainPtmSentMessageResponse = getPTMTeacherStudentInsertDetailAsyncTask.execute().get();
                                                             getActivity().runOnUiThread(new Runnable() {
                                                                 @Override
                                                                 public void run() {
-                                                                    if (mainPtmSentMessageResponse.getFinalArray().size() >= 0) {
+                                                                    if (mainPtmSentMessageResponse.getSuccess().equalsIgnoreCase("True")) {
                                                                         getInboxData();
+//                                                                        for (int j = 0; j < response.getFinalArray().size(); j++) {
+//                                                                            if (response.getFinalArray().get(j).getMessageID().equalsIgnoreCase(messageidstr)) {
+//                                                                                response.getFinalArray().get(j).setReadStatus("Read");
+//                                                                                expandableListAdapterInbox.notifyDataSetChanged();
+//                                                                            }
+//                                                                        }
+
                                                                     } else {
                                                                     }
                                                                 }
@@ -197,7 +205,8 @@ public class InboxFragment extends Fragment {
         for (int j = 0; j < response.getFinalArray().size(); j++) {
             listDataHeader.add(response.getFinalArray().get(j).getUserName() + "|" +
                     response.getFinalArray().get(j).getMeetingDate() + "|" +
-                    response.getFinalArray().get(j).getSubjectLine());
+                    response.getFinalArray().get(j).getSubjectLine()+"|"+
+            response.getFinalArray().get(j).getReadStatus());
 
             ArrayList<FinalArrayInbox> rows = new ArrayList<FinalArrayInbox>();
             rows.add(response.getFinalArray().get(j));

@@ -37,7 +37,7 @@ public class HomeWorkModel {
         private String Objective;
         private String AssessmentQue;
         private String Font;
-
+        private Boolean isVisible = false;
 
         public String getHomework() {
             return Homework;
@@ -86,6 +86,14 @@ public class HomeWorkModel {
 
         public void setFont(String font) {
             Font = font;
+        }
+
+        public Boolean getVisible() {
+            return isVisible;
+        }
+
+        public void setVisible(Boolean visible) {
+            isVisible = visible;
         }
     }
 }

@@ -26,7 +26,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Name"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -57,7 +57,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Date of Birth"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -88,7 +88,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Age"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -119,7 +119,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Gender"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -150,7 +150,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Blood Group"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -181,7 +181,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Birth Place"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -234,7 +234,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Father Name"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -265,8 +265,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:text="Father Phone No."
+                android:layout_weight="1"
+                android:text="Father Mobile No."
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
 
@@ -296,7 +296,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Father Email"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -327,7 +327,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Mother Name"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -358,8 +358,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:text="Mother Phone No."
+                android:layout_weight="1"
+                android:text="Mother Mobile No."
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
 
@@ -389,7 +389,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Mother Email"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -420,7 +420,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="SMS No"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -450,7 +450,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Address"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -501,7 +501,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="City"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -530,7 +530,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Bus No."
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -559,7 +559,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Route No."
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -589,7 +589,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="KM"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -618,7 +618,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Pick Up Point"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -647,7 +647,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Pick Up Time"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -676,7 +676,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Drop Point"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />
@@ -705,7 +705,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:text="Drop Time"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="normal" />

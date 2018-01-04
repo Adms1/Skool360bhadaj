@@ -23,6 +23,10 @@ public class StudProfileModel {
     private String Transport_KM;
     private String Transport_PicupTime;
     private String Transport_DropTime;
+    private String BusNo;
+    private String RouteName;
+    private String PickupPointName;
+    private String DropPointName;
     private String GRNO;
     private String Standard;
     private String StudClass;
@@ -267,5 +271,37 @@ public class StudProfileModel {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public String getBusNo() {
+        return BusNo;
+    }
+
+    public void setBusNo(String busNo) {
+        BusNo = busNo;
+    }
+
+    public String getRouteName() {
+        return RouteName;
+    }
+
+    public void setRouteName(String routeName) {
+        RouteName = routeName;
+    }
+
+    public String getPickupPointName() {
+        return PickupPointName;
+    }
+
+    public void setPickupPointName(String pickupPointName) {
+        PickupPointName = pickupPointName;
+    }
+
+    public String getDropPointName() {
+        return DropPointName;
+    }
+
+    public void setDropPointName(String dropPointName) {
+        DropPointName = dropPointName;
     }
 }

@@ -59,6 +59,8 @@ public class PaymentLedgerModel {
         private String DiscountFee;
         private String PayPaidFees;
         private String CurrentOutstandingFees;
+        private String BankName;
+        private String ChequeNumber;
 
         public String getTerm() {
             return Term;
@@ -186,6 +188,22 @@ public class PaymentLedgerModel {
 
         public void setCurrentOutstandingFees(String currentOutstandingFees) {
             CurrentOutstandingFees = currentOutstandingFees;
+        }
+
+        public String getBankName() {
+            return BankName;
+        }
+
+        public void setBankName(String bankName) {
+            BankName = bankName;
+        }
+
+        public String getChequeNumber() {
+            return ChequeNumber;
+        }
+
+        public void setChequeNumber(String chequeNumber) {
+            ChequeNumber = chequeNumber;
         }
     }
 

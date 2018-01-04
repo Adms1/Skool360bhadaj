@@ -7,5 +7,6 @@
     android:paddingTop="@dimen/_8sdp"
     android:paddingLeft="@dimen/_8sdp"
     android:textColor="#000000"
+    android:singleLine="true"
     android:textSize="@dimen/_10sdp"
     />

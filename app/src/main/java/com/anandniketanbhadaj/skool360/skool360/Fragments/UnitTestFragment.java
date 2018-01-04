@@ -18,6 +18,7 @@ import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterUnitTest;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTestDetailAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.Models.Data;
 import com.anandniketanbhadaj.skool360.skool360.Models.UnitTestModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
@@ -41,7 +42,7 @@ public class UnitTestFragment extends Fragment {
     ExpandableListAdapterUnitTest expandableListAdapterUnitTest;
     ExpandableListView lvExpUnitTest;
     List<String> listDataHeader;
-    HashMap<String, ArrayList<UnitTestModel.Data>> listDataChild;
+    HashMap<String, ArrayList<Data>> listDataChild;
 
 
     public UnitTestFragment() {
@@ -115,7 +116,6 @@ public class UnitTestFragment extends Fragment {
                         params.put("TermID", Utility.getPref(mContext, "TermID"));
                         getTestDetailAsyncTask = new GetTestDetailAsyncTask(params);
                         testdetailModels = getTestDetailAsyncTask.execute().get();
-
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -143,12 +143,12 @@ public class UnitTestFragment extends Fragment {
 
     public void prepaareList() {
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, ArrayList<UnitTestModel.Data>>();
+        listDataChild = new HashMap<String, ArrayList<Data>>();
 
         for (int i = 0; i < testdetailModels.size(); i++) {
             listDataHeader.add(testdetailModels.get(i).getTestDate());
 
-            ArrayList<UnitTestModel.Data> rows = new ArrayList<UnitTestModel.Data>();
+            ArrayList<Data> rows = new ArrayList<Data>();
             for (int j = 0; j < testdetailModels.get(i).getDataArrayList().size(); j++) {
                 rows.add(testdetailModels.get(i).getDataArrayList().get(j));
 

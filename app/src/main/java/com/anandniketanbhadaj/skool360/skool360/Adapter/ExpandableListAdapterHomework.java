@@ -69,10 +69,6 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
         subject_title_txt = (TextView) convertView.findViewById(R.id.subject_title_txt);
         homework_title_txt = (TextView) convertView.findViewById(R.id.homework_title_txt);
 
-
-
-
-
 //        chapter_title_txt = (TextView) convertView.findViewById(R.id.chapter_title_txt);
 //        lblchaptername = (TextView) convertView.findViewById(R.id.lblchaptername);
 //        objective_title_txt = (TextView) convertView.findViewById(R.id.objective_title_txt);
