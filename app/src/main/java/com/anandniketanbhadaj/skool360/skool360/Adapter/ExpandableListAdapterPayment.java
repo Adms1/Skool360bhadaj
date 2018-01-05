@@ -54,8 +54,8 @@ public class ExpandableListAdapterPayment extends BaseExpandableListAdapter {
         final TextView receipe_no_value_txt, mode_of_payment_value_txt, tution_fee_value_txt, transport_fee_value_txt,
                 imprest_value_txt, late_fees_value_txt, waive_off_value_txt, previous_outstanding_value_txt,
                 total_paid_fee_value_txt, current_outstanding_value_txt, bank_name_value_txt, bank_name_txt,
-                term_value_txt,cheque_no_txt,cheque_no_value_txt;
-        final LinearLayout llHeaderRow1_cheque,llHeaderRow1_bankname;
+                term_value_txt, cheque_no_txt, cheque_no_value_txt;
+        final LinearLayout llHeaderRow1_cheque, llHeaderRow1_bankname;
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -74,24 +74,24 @@ public class ExpandableListAdapterPayment extends BaseExpandableListAdapter {
         bank_name_value_txt = (TextView) convertView.findViewById(R.id.bank_name_value_txt);
         bank_name_txt = (TextView) convertView.findViewById(R.id.bank_name_txt);
         term_value_txt = (TextView) convertView.findViewById(R.id.term_value_txt);
-        cheque_no_txt= (TextView) convertView.findViewById(R.id.cheque_no_txt);
-        cheque_no_value_txt= (TextView) convertView.findViewById(R.id.cheque_no_value_txt);
+        cheque_no_txt = (TextView) convertView.findViewById(R.id.cheque_no_txt);
+        cheque_no_value_txt = (TextView) convertView.findViewById(R.id.cheque_no_value_txt);
 
-        llHeaderRow1_cheque=(LinearLayout)convertView.findViewById(R.id.llHeaderRow1_cheque);
-        llHeaderRow1_bankname=(LinearLayout)convertView.findViewById(R.id.llHeaderRow1_bankname);
+        llHeaderRow1_cheque = (LinearLayout) convertView.findViewById(R.id.llHeaderRow1_cheque);
+        llHeaderRow1_bankname = (LinearLayout) convertView.findViewById(R.id.llHeaderRow1_bankname);
 
 
         term_value_txt.setText(childData.get(childPosition).getTermDetail());
         receipe_no_value_txt.setText(childData.get(childPosition).getReceiptNo());
         mode_of_payment_value_txt.setText(childData.get(childPosition).getPayMode());
-        tution_fee_value_txt.setText(childData.get(childPosition).getTuitionFee());
-        transport_fee_value_txt.setText(childData.get(childPosition).getTransport());
-        imprest_value_txt.setText(childData.get(childPosition).getImprestFee());
-        late_fees_value_txt.setText(childData.get(childPosition).getLatesFee());
-        waive_off_value_txt.setText(childData.get(childPosition).getDiscountFee());
-        previous_outstanding_value_txt.setText(childData.get(childPosition).getPreviousFees());
-        total_paid_fee_value_txt.setText(childData.get(childPosition).getPaidFee());
-        current_outstanding_value_txt.setText(childData.get(childPosition).getCurrentOutstandingFees());
+        tution_fee_value_txt.setText("₹" + "" + childData.get(childPosition).getTuitionFee());
+        transport_fee_value_txt.setText("₹" + "" + childData.get(childPosition).getTransport());
+        imprest_value_txt.setText("₹" + "" + childData.get(childPosition).getImprestFee());
+        late_fees_value_txt.setText("₹" + "" + childData.get(childPosition).getLatesFee());
+        waive_off_value_txt.setText("₹" + "" + childData.get(childPosition).getDiscountFee());
+        previous_outstanding_value_txt.setText("₹" + "" + childData.get(childPosition).getPreviousFees());
+        total_paid_fee_value_txt.setText("₹" + "" + childData.get(childPosition).getPaidFee());
+        current_outstanding_value_txt.setText("₹" + "" + childData.get(childPosition).getCurrentOutstandingFees());
 
         if (childData.get(childPosition).getPayMode().equalsIgnoreCase("Cash")) {
             llHeaderRow1_cheque.setVisibility(View.GONE);

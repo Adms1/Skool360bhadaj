@@ -49,6 +49,7 @@ public class CreateFragment extends Fragment {
     ArrayList<String> Teacherfield;
     HashMap<Integer, String> spinnerMap;
     String[] spinnerteacherIdArray;
+
     public CreateFragment() {
     }
 
@@ -79,10 +80,6 @@ public class CreateFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && rootView != null) {
             getSpinnerData();
-            final Calendar calendar = Calendar.getInstance();
-            int yy = calendar.get(Calendar.YEAR);
-            int mm = calendar.get(Calendar.MONTH) + 1;
-            int dd = calendar.get(Calendar.DAY_OF_MONTH);
 
             //load today's data first
             txtDate.setText("DD/MM/YYYY");
@@ -289,7 +286,10 @@ public class CreateFragment extends Fragment {
             int yy = calendar.get(Calendar.YEAR);
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), this, yy, mm, dd);
+            DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, yy, mm, dd);
+            dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
+            return dialog;
         }
 
         public void onDateSet(DatePicker view, int yy, int mm, int dd) {
@@ -297,7 +297,19 @@ public class CreateFragment extends Fragment {
         }
 
         public void populateSetDate(int year, int month, int day) {
-            dateFinal = day + "/" + month + "/" + year;
+            String d, m, y;
+            d = Integer.toString(day);
+            m = Integer.toString(month);
+            y = Integer.toString(year);
+
+            if (day < 10) {
+                d = "0" + d;
+            }
+            if (month < 10) {
+                m = "0" + m;
+            }
+            dateFinal = d + "/" + m + "/" + y;
+
 
             txtDate.setText(dateFinal);
         }
