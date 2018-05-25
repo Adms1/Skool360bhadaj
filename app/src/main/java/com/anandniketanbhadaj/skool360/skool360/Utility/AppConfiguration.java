@@ -29,9 +29,12 @@ public class AppConfiguration {
 
     //Local
     public static String DOMAIN_LOCAL = "";
-    public static String DOMAIN_LIVE = "http://192.168.1.13:8086/MobileApp_Service.asmx/";//use for office only
+    public static String DOMAIN_LIVE = "http://192.168.1.8:8086/MobileApp_Service.asmx/";//use for office only
 //    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
 
+
+    public static String IMAGE_LIVE="http://192.168.1.8:8086/";
+//    public static String IMAGE_LIVE="http://103.24.183.28:8085/";
 
     public static String StudentLogin = "StudentLogin";
     public static String GetUserProfile = "GetUserProfile";
@@ -60,4 +63,9 @@ public class AppConfiguration {
     public static String PTMStudentWiseTeacher = "PTMStudentWiseTeacher";
     public static String GetCircularDetail = "GetCircularDetail";
     public static String DeviceVersion = "DeviceVersion";
+    public static String GetGallery="GetGallery";
+    public static String InsertStudentLeaveRequest="InsertStudentLeaveRequest";
+    public static String GetStudentLeaveRequest="GetStudentLeaveRequest";
+    public static String CreateParentsSuggestion="CreateParentsSuggestion";
+
 }

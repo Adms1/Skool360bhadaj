@@ -131,7 +131,7 @@
                 android:paddingRight="@dimen/_10sdp"
                 android:gravity="center"
                 android:textAllCaps="false"
-                android:text="Edit Profile"
+                android:text="Change Password"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_9sdp" />
 

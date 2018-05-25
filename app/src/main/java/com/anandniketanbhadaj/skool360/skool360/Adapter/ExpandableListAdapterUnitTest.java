@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Models.Data;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,18 +30,18 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
     boolean visible = true;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, ArrayList<Data>> _listDataChild;
+    private HashMap<String, ArrayList<ExamDatum>> _listDataChild;
     private HashMap<Integer, Integer> visibleArray = new HashMap<Integer, Integer>();
 
     public ExpandableListAdapterUnitTest(Context context, List<String> listDataHeader,
-                                         HashMap<String, ArrayList<Data>> listChildData) {
+                                         HashMap<String, ArrayList<ExamDatum>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
     }
 
     @Override
-    public ArrayList<Data> getChild(int groupPosition, int childPosititon) {
+    public ArrayList<ExamDatum> getChild(int groupPosition, int childPosititon) {
         return _listDataChild.get(_listDataHeader.get(groupPosition));
     }
 
@@ -53,7 +54,7 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
     public View getChildView(final int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, final ViewGroup parent) {
 
-        final ArrayList<Data> childData = getChild(groupPosition, childPosition);
+        final ArrayList<ExamDatum> childData = getChild(groupPosition, childPosition);
         final LinearLayout syllabus_linear;
         final TextView subject_name_txt, syllabus_txt;
 

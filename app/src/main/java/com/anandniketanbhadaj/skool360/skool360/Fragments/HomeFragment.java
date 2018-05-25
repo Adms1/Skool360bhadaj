@@ -1,10 +1,12 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,9 +17,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
@@ -32,6 +37,7 @@ import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.DeviceVersionAsyncTas
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetUserProfileAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.DeviceVersionModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -54,6 +60,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class HomeFragment extends Fragment {
 
+    final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 3000; //
+    int NUM_PAGES;
+    int currentPage = 0;
+    Timer timer;
+    DeviceVersionModel deviceVersionModel;
+    // Use for Rating
+    Dialog ratingDialog;
+    TextView rate_it_txt_view, reminde_me_txt, no_thanks_txt;
+
+    //
     private View rootView;
     private Button btnMenu;
     private GridView grid_view;
@@ -63,15 +80,9 @@ public class HomeFragment extends Fragment {
     //    Change Megha 04-09-2017
     private CircleImageView profile_image;
     private ViewPager viewPageAndroid;
-    int NUM_PAGES;
     private int[] sliderImagesId = new int[]{
             R.drawable.banner1,
             R.drawable.banner2, R.drawable.banner3};
-    int currentPage = 0;
-    Timer timer;
-    final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 3000; //
-
     private GetUserProfileAsyncTask getUserProfileAsyncTask = null;
     private ArrayList<StudProfileModel> studDetailList = new ArrayList<>();
     private ProgressDialog progressDialog = null;
@@ -81,7 +92,7 @@ public class HomeFragment extends Fragment {
     private boolean isVersionCodeUpdated = false;
     private int versionCode = 0;
     private DeviceVersionAsyncTask deviceVersionAsyncTask = null;
-    DeviceVersionModel deviceVersionModel;
+
     public HomeFragment() {
     }
 
@@ -154,6 +165,20 @@ public class HomeFragment extends Fragment {
                 .tasksProcessingOrder(QueueProcessingType.LIFO)// .enableLogging()
                 .build();
         imageLoader.init(config.createDefault(mContext));
+
+
+
+        if (Utility.getPref(mContext,"LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())){
+            // Date matches. User has already Launched the app once today. So do nothing.
+        }
+        else
+        {
+            // Display dialog text here......
+            // Do all other actions for first time launch in the day...
+            // Set the last Launched date to today.
+            RatingDialog();
+           Utility.setPref(mContext,"LAST_LAUNCH_DATE",Utility.getTodaysDate());
+        }
     }
 
     public void getRegistrationID() {
@@ -217,8 +242,7 @@ public class HomeFragment extends Fragment {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
-                }
-                else if (position == 1) {
+                } else if (position == 1) {
                     fragment = new HomeworkFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
@@ -237,11 +261,16 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                 } else if (position == 4) {
-                    fragment = new UnitTestFragment();
+                    fragment = new ExamSyllabusFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+//                    fragment = new UnitTestFragment();
+//                    fragmentManager = getFragmentManager();
+//                    fragmentManager.beginTransaction()
+//                            .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
+//                            .replace(R.id.frame_container, fragment).commit();
                 } else if (position == 5) {
                     fragment = new ResultFragment();
                     fragmentManager = getFragmentManager();
@@ -267,25 +296,46 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                 } else if (position == 9) {
-                    fragment = new CanteenFragment();
+                    fragment = new HolidayFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+//                    fragment = new CanteenFragment();
+//                    fragmentManager = getFragmentManager();
+//                    fragmentManager.beginTransaction()
+//                            .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
+//                            .replace(R.id.frame_container, fragment).commit();
                 } else if (position == 10) {
-                    fragment = new PTMMainFragment();
+                    fragment = new ShowLeaveFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+//                    fragment = new PTMMainFragment();
+//                    fragmentManager = getFragmentManager();
+//                    fragmentManager.beginTransaction()
+//                            .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
+//                            .replace(R.id.frame_container, fragment).commit();
                 } else if (position == 11) {
-                    fragment = new PrincipalMessageFragment();
+                    fragment = new CircularFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
-                }else if (position == 12) {
-                    fragment = new CircularFragment();
+//                    fragment = new PrincipalMessageFragment();
+//                    fragmentManager = getFragmentManager();
+//                    fragmentManager.beginTransaction()
+//                            .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
+//                            .replace(R.id.frame_container, fragment).commit();
+                } else if (position == 12) {
+                    fragment = new GalleryFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
+                            .replace(R.id.frame_container, fragment).commit();
+                } else if (position == 13) {
+                    fragment = new SuggestionFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
@@ -312,9 +362,9 @@ public class HomeFragment extends Fragment {
                             imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
                             vehicle_picktime_txt.setText("Pick Up :" + studDetailList.get(0).getTransport_PicupTime());
                             vehicle_droptime_txt.setText("Drop off :" + studDetailList.get(0).getTransport_DropTime());
-                            student_classname_txt.setText("Grade :" + " " + studDetailList.get(0).getStandard() + "  " + "Section :" +" "+ studDetailList.get(0).getStudClass());
+                            student_classname_txt.setText("Grade :" + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass());
                             teacher_name1_txt.setText(studDetailList.get(0).getTeacherName());
-                            admission_txt.setText("Admission No :" + " " + studDetailList.get(0).getGRNO());
+                            admission_txt.setText("GRNo :" + " " + studDetailList.get(0).getGRNO());
                             if (studDetailList.get(0).getTodayAttendance().equalsIgnoreCase("")) {
                                 attendance_txt.setText("Attendance :" + " " + "N/A Today");
                             } else {
@@ -329,6 +379,7 @@ public class HomeFragment extends Fragment {
         }).start();
 
     }
+
     public void getVersionUpdateInfo() {
         if (Utility.isNetworkConnected(mContext)) {
             new Thread(new Runnable() {
@@ -337,7 +388,7 @@ public class HomeFragment extends Fragment {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("UserID", Utility.getPref(mContext, "studid"));
-                        params.put("VersionID",String.valueOf(versionCode));//String.valueOf(versionCode)
+                        params.put("VersionID", String.valueOf(versionCode));//String.valueOf(versionCode)
                         params.put("UserType", "Student");
                         deviceVersionAsyncTask = new DeviceVersionAsyncTask(params);
                         deviceVersionModel = deviceVersionAsyncTask.execute().get();
@@ -385,5 +436,49 @@ public class HomeFragment extends Fragment {
         } else {
             Utility.ping(mContext, "Network not available");
         }
+    }
+
+
+    public void RatingDialog() {
+        ratingDialog = new Dialog(getActivity(), R.style.Theme_Dialog);
+        Window window = ratingDialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        ratingDialog.getWindow().getAttributes().verticalMargin = 0.10f;
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        ratingDialog.getWindow().setBackgroundDrawableResource(R.drawable.session_confirm);
+
+        ratingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ratingDialog.setCancelable(false);
+        ratingDialog.setContentView(R.layout.rating_dialog);
+
+        rate_it_txt_view = (TextView) ratingDialog.findViewById(R.id.rate_it_txt_view);
+        reminde_me_txt = (TextView) ratingDialog.findViewById(R.id.reminde_me_txt);
+        no_thanks_txt = (TextView) ratingDialog.findViewById(R.id.no_thanks_txt);
+
+        rate_it_txt_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.anandniketanbhadaj.skool360"));
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(i);
+                ratingDialog.dismiss();
+            }
+        });
+        reminde_me_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ratingDialog.dismiss();
+            }
+        });
+        no_thanks_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ratingDialog.dismiss();
+            }
+        });
+        ratingDialog.show();
+
     }
 }

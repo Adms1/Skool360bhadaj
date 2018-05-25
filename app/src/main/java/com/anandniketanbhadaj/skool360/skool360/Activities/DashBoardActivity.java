@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -27,22 +26,22 @@ import android.widget.RelativeLayout;
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.menuoptionItemAdapter;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.AttendanceFragment;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.CanteenFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.CircularFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ClassworkFragment;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.CreateFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.ExamSyllabusFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.FeesFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.GalleryFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.HolidayFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeworkFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ImprestFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.NotificationFragment;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.PTMMainFragment;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.PrincipalMessageFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ProfileFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ReportCardFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ResultFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.ShowLeaveFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.SuggestionFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.TimeTableFragment;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.UnitTestFragment;
 import com.anandniketanbhadaj.skool360.skool360.Models.menuoptionItem;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
@@ -51,20 +50,30 @@ import java.util.ArrayList;
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
 public class DashBoardActivity extends FragmentActivity {
+    public static String filename = "Valustoringfile";
     static DrawerLayout mDrawerLayout;
     static ListView mDrawerList;
+    static RelativeLayout leftRl;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     Context mContext;
     ActionBarDrawerToggle mDrawerToggle;
-    static RelativeLayout leftRl;
-    private ArrayList<menuoptionItem> navDrawerItems_main;
-    private menuoptionItemAdapter adapter_menu_item;
     String MenuName[];
     String token;
     int dispPOS = 0;
     SharedPreferences SP;
-    public static String filename = "Valustoringfile";
-    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    Fragment fragment = null;
+    int myid;
+    boolean first_time_trans = true;
+    private ArrayList<menuoptionItem> navDrawerItems_main;
+    private menuoptionItemAdapter adapter_menu_item;
     private String putData = "0";
+    private boolean shouldLoadHomeFragOnBackPress = true;
+
+    public static void onLeft() {
+        // TODO Auto-generated method stub
+        mDrawerList.setSelectionAfterHeaderView();
+        mDrawerLayout.openDrawer(leftRl);
+    }
 
     @SuppressLint("LongLogTag")
     @Override
@@ -194,23 +203,6 @@ public class DashBoardActivity extends FragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * Slide menu item click listener
-     */
-    private class SlideMenuClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            // display view for selected nav drawer item
-            displayView(position);
-        }
-    }
-
-    Fragment fragment = null;
-    int myid;
-    boolean first_time_trans = true;
-
     public void displayView(int position) {
 
         switch (position) {
@@ -245,7 +237,7 @@ public class DashBoardActivity extends FragmentActivity {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
             case 6:
-                fragment = new UnitTestFragment();
+                fragment = new ExamSyllabusFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
@@ -270,26 +262,31 @@ public class DashBoardActivity extends FragmentActivity {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
             case 11:
-                fragment = new CanteenFragment();
+                fragment = new HolidayFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
             case 12:
-                fragment = new PTMMainFragment();
+                fragment = new ShowLeaveFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
             case 13:
-                fragment = new PrincipalMessageFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                break;
-            case 14:
                 fragment = new CircularFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
+            case 14:
+                fragment = new GalleryFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                break;
             case 15:
+                fragment = new SuggestionFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                break;
+            case 16:
                 new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
                         .setCancelable(false)
                         .setTitle("Logout")
@@ -303,6 +300,7 @@ public class DashBoardActivity extends FragmentActivity {
                                 Utility.setPref(mContext, "FamilyID", "");
                                 Utility.setPref(mContext, "standardID", "");
                                 Utility.setPref(mContext, "ClassID", "");
+                                Utility.setPref(mContext, "TermID", "");
                                 Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
                                 startActivity(intentLogin);
                                 finish();
@@ -353,12 +351,6 @@ public class DashBoardActivity extends FragmentActivity {
         }
     }
 
-    public static void onLeft() {
-        // TODO Auto-generated method stub
-        mDrawerList.setSelectionAfterHeaderView();
-        mDrawerLayout.openDrawer(leftRl);
-    }
-
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
@@ -373,5 +365,18 @@ public class DashBoardActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         displayView(0);
+    }
+
+    /**
+     * Slide menu item click listener
+     */
+    private class SlideMenuClickListener implements
+            ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long id) {
+            // display view for selected nav drawer item
+            displayView(position);
+        }
     }
 }

@@ -53,7 +53,7 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Utility.isNetworkConnected(mContext)) {
+                if (Utility.isNetworkConnected(mContext)) {
                     if (!edtUserName.getText().toString().equalsIgnoreCase("")) {
                         if (!edtPassword.getText().toString().equalsIgnoreCase("")) {
                             login();
@@ -65,8 +65,8 @@ public class LoginActivity extends Activity {
                         Utility.pong(mContext, "Please Enter User Name");
                         edtUserName.requestFocus();
                     }
-                }else{
-                    Utility.ping(mContext,"Network not available");
+                } else {
+                    Utility.ping(mContext, "Network not available");
                 }
             }
         });
@@ -100,17 +100,17 @@ public class LoginActivity extends Activity {
                                 if (chkRemember.isChecked()) {
                                     saveUserNamePwd(edtUserName.getText().toString(), edtPassword.getText().toString());
                                 }
-                                Utility.setPref(mContext, "studid",result.get("StudentID"));//
+                                Utility.setPref(mContext, "studid", result.get("StudentID"));//
                                 Utility.setPref(mContext, "FamilyID", result.get("FamilyID"));
                                 Utility.setPref(mContext, "standardID", result.get("StandardID"));
                                 Utility.setPref(mContext, "ClassID", result.get("ClassID"));
-                                Utility.setPref(mContext, "TermID", "4");//result.get("TermID"));
+                                Utility.setPref(mContext, "TermID", result.get("TermID"));//result.get("TermID"));
 
                                 Utility.pong(mContext, "Login Successful");
-                                Intent intentDashboard = new Intent(LoginActivity.this, DashBoardActivity.class);
-                                intentDashboard.putExtra("message",putExtrasData);
+                                Intent intentDashboard = new Intent(LoginActivity.this, SplashScreenActivity.class);
+                                intentDashboard.putExtra("message", putExtrasData);
                                 intentDashboard.putExtra("fromNotification", putExtras);
-                                System.out.println("messageLogin: " +putExtrasData);
+                                System.out.println("messageLogin: " + putExtrasData);
                                 startActivity(intentDashboard);
                                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                                 finish();
@@ -128,8 +128,8 @@ public class LoginActivity extends Activity {
 
     public void checkUnmPwd() {
         if (!Utility.getPref(mContext, "unm").equalsIgnoreCase("")) {
-            Intent intentDashboard = new Intent(LoginActivity.this, DashBoardActivity.class);
-            intentDashboard.putExtra("message",putExtrasData);
+            Intent intentDashboard = new Intent(LoginActivity.this, SplashScreenActivity.class);
+            intentDashboard.putExtra("message", putExtrasData);
             intentDashboard.putExtra("fromNotification", putExtras);
             startActivity(intentDashboard);
             finish();

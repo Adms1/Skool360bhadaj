@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_line1"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:weightSum="5">
+
+            <TextView
+                android:id="@+id/srno_txt"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_weight="0.5"
+                android:background="@color/white"
+                android:gravity="center|center_vertical"
+                android:text="1"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/reason_txt"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_weight="1.2"
+                android:background="@color/white"
+                android:gravity="start|center_vertical"
+                android:text="Test"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/start_date_txt"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_weight="1.2"
+                android:background="@color/white"
+                android:gravity="start|center_vertical"
+                android:text="dd/MM/yyyy"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/end_date_txt"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_weight="1.2"
+                android:background="@color/white"
+                android:gravity="start|center_vertical"
+                android:text="dd/MM/yyyy"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/status_txt"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_weight="0.81"
+                android:background="@color/white"
+                android:gravity="start|center_vertical"
+                android:text="Status"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_10sdp" />
+
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

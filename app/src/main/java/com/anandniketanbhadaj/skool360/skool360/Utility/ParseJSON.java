@@ -7,6 +7,9 @@ import com.anandniketanbhadaj.skool360.skool360.Models.CanteenModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.Data;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
+//import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.FinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
@@ -24,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Harsh on 04-Aug-16.
@@ -45,6 +49,7 @@ public class ParseJSON {
                     result.put("FamilyID", jsonChildNode.getString("FamilyID"));
                     result.put("StandardID", jsonChildNode.getString("StandardID"));
                     result.put("ClassID", jsonChildNode.getString("ClassID"));
+                    result.put("TermID", jsonChildNode.getString("TermID"));
                 }
             } else {
                 //invalid login
@@ -463,6 +468,7 @@ public class ParseJSON {
                 result.add(attendanceModel);
                 attendanceModel.setTotalAbsent(reader.getString("TotalAbsent"));
                 attendanceModel.setTotalPresent(reader.getString("TotalPresent"));
+                attendanceModel.setHolidayCount(reader.getString("HolidayCount"));
             } else {
                 //invalid login
             }
@@ -656,45 +662,49 @@ public class ParseJSON {
         return result;
     }
 
-    public static ArrayList<UnitTestModel> parseTestDetailJson(String responseString) {
-        ArrayList<UnitTestModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            UnitTestModel unitTestModel = null;
-
-            if (data_load_basket.toString().equals("True")) {
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                for (int a = 0; a < jsonMainNode.length(); a++) {
-                    unitTestModel = new UnitTestModel();
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
-                    unitTestModel.setTestDate(jsonChildNode.getString("TestDate"));
-
-                    Data data = null;
-                    ArrayList<Data> dataArrayList = new ArrayList<>();
-                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("Data");
-                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
-                        data = new Data();
-                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
-                        data.setSubject(jsonChildNode1.getString("Subject"));
-                        data.setDetail(jsonChildNode1.getString("Detail"));
-                        dataArrayList.add(data);
-                    }
-                    unitTestModel.setDataArrayList(dataArrayList);
-                    result.add(unitTestModel);
-                }
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
+//    public static List<ExamModel> parseTestDetailJson(String responseString) {
+//        List<ExamModel>finalResult=new ArrayList<>();
+//        List<FinalArray> result = new ArrayList<>();
+//
+//
+//        try {
+//            JSONObject reader = new JSONObject(responseString);
+//            String data_load_basket = reader.getString("Success");
+//            FinalArray unitTestModel = null;
+//
+//            if (data_load_basket.toString().equals("True")) {
+//                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+//                for (int a = 0; a < jsonMainNode.length(); a++) {
+//                    unitTestModel = new FinalArray();
+//                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
+//                    unitTestModel.setTestName(jsonChildNode.getString("TestName"));
+//                    unitTestModel.setTestDate(jsonChildNode.getString("TestDate"));
+//
+//                    ExamDatum data = null;
+//                    List<ExamDatum> dataArrayList = new ArrayList<>();
+//                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("Data");
+//                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
+//                        data = new ExamDatum();
+//                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
+//                        data.setSubject(jsonChildNode1.getString("Subject"));
+//                        data.setDetail(jsonChildNode1.getString("Detail"));
+//                        dataArrayList.add(data);
+//                    }
+//                    unitTestModel.setData(dataArrayList);
+//                    result.add(unitTestModel);
+//                    finalResult.add((ExamModel) result);
+//                }
+//            } else {
+//                //invalid login
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return finalResult;
+//    }
 
 
     public static ArrayList<ReportCardModel> parseReportCardJson(String responseString) {

@@ -6,6 +6,7 @@ public class AttendanceModel {
 
     private String TotalAbsent;
     private String TotalPresent;
+    private String HolidayCount;
     private ArrayList<Attendance> eventsList;
 
     public AttendanceModel() {
@@ -14,6 +15,14 @@ public class AttendanceModel {
 
     public String getTotalAbsent() {
         return TotalAbsent;
+    }
+
+    public String getHolidayCount() {
+        return HolidayCount;
+    }
+
+    public void setHolidayCount(String holidayCount) {
+        HolidayCount = holidayCount;
     }
 
     public void setTotalAbsent(String totalAbsent) {

@@ -163,7 +163,7 @@
     <TextView
         android:id="@+id/txtPercentage"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_23sdp"
+        android:layout_height="@dimen/_25sdp"
         android:layout_weight="1"
         android:gravity="right"
         android:padding="@dimen/_5sdp"

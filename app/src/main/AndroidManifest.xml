@@ -6,52 +6,55 @@
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <activity
-            android:name="com.anandniketanbhadaj.skool360.skool360.Activities.LoginActivity"
+            android:name=".skool360.Activities.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="OPEN_ACTIVITY_1" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity"
+            android:name=".skool360.Activities.DashBoardActivity"
             android:label="@string/title_activity_dash_board"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".skool360.Fragments.NotificationFragment"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".skool360.Fragments.NotificationFragment"
             android:label="Notification"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
-        <!--
-            Defining Services
- -->
-        <service android:name="com.anandniketanbhadaj.skool360.skool360.FCMImplementation.MyFirebaseMessagingService">
+        <!--             Defining Services -->
+        <service android:name=".skool360.FCMImplementation.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <service android:name="com.anandniketanbhadaj.skool360.skool360.FCMImplementation.MyFirebaseInstanceIDService">
+        <service android:name=".skool360.FCMImplementation.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
+        <activity android:name=".skool360.Activities.SplashScreenActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

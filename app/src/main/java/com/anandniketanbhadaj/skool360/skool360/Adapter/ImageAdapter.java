@@ -15,14 +15,18 @@ public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
     public Integer[] mThumbIds = {
-            R.drawable.attendance, R.drawable.home_work, R.drawable.class_work, R.drawable.timetable,
-            R.drawable.unit_test, R.drawable.results, R.drawable.report_card,
-            R.drawable.fees_1, R.drawable.imprest,
-            R.drawable.canteen, R.drawable.ptm, R.drawable.principalmessage,R.drawable.circular
+            R.drawable.attendance, R.drawable.home_work, R.drawable.class_work,
+            R.drawable.timetable, R.drawable.unit_test, R.drawable.results,
+            R.drawable.report_card,R.drawable.fees_1, R.drawable.imprest,
+            R.drawable.canteen, R.drawable.ptm,R.drawable.principalmessage,
+            R.drawable.circular,R.drawable.circular
     };
 
-    public String[] mThumbNames = {"Attendance",  "Homework", "Classwork", "Timetable", "Unit Test", "Results", "Report Card",
-            "Fees", "Imprest", "Canteen", "PTM", "Message","Circular"};
+//    public String[] mThumbNames = {"Attendance",  "Homework", "Classwork", "Timetable", "Unit Test", "Results", "Report Card",
+//            "Fees", "Imprest", "Canteen", "PTM", "Message","Circular"};
+
+    public String[] mThumbNames = {"Attendance",  "Homework", "Classwork", "Timetable", "Exam Syllabus", "Results", "Report Card",
+            "Fees", "Imprest","Holiday","Leave Application","Circular","Gallery","Suggestion"};
 
     // Constructor
     public ImageAdapter(Context c) {

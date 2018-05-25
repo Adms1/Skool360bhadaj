@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class UnitTestModel {
     private String TestDate;
+    private String TestName;
     private ArrayList<Data> dataArrayList;
 
     public UnitTestModel() {
@@ -21,6 +22,13 @@ public class UnitTestModel {
         TestDate = testDate;
     }
 
+    public String getTestName() {
+        return TestName;
+    }
+
+    public void setTestName(String testName) {
+        TestName = testName;
+    }
 
     public ArrayList<Data> getDataArrayList() {
         return dataArrayList;

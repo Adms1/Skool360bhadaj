@@ -3,6 +3,7 @@ package com.anandniketanbhadaj.skool360.skool360.Adapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,10 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
     private HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>> _listDataChild;
     String FontStyle;
     TextView subject_title_txt, homework_title_txt, chapter_title_txt, lblchaptername, objective_title_txt, lblobjective, que_title_txt, lblque;
-    ImageView imgRightSign;
     LinearLayout chapter_linear, objective_linear, que_linear;
     Typeface typeface;
-
+    SpannableStringBuilder  homeworkSpanned;
+    String   homeworkStr;
     public ExpandableListAdapterHomework(Context context, List<String> listDataHeader,
                                          HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>> listChildData) {
         this._context = context;
@@ -92,14 +93,15 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
         subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
         FontStyle = "";
         FontStyle = childData.get(childPosition).getFont();
+        homeworkStr = childData.get(childPosition).getHomework().replaceAll("\\n", "").trim();
 
         if (!FontStyle.equalsIgnoreCase("-")) {
             SetLanguageHomework(FontStyle);
-            homework_title_txt.setText(Html.fromHtml(childData.get(childPosition).getHomework().replaceAll("\\<.*?\\>", "")));
+          setText(homeworkStr);
         } else {
             typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/arial.ttf");
             homework_title_txt.setTypeface(typeface);
-            homework_title_txt.setText(Html.fromHtml(childData.get(childPosition).getHomework().replaceAll("\\<.*?\\>", "")));
+            setText(homeworkStr);
         }
         return convertView;
     }
@@ -207,6 +209,30 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
                 break;
             default:
         }
+    }
+    private void setText(String html) {
+
+        homeworkSpanned = (SpannableStringBuilder) Html.fromHtml(html);
+        homeworkSpanned = trimSpannable(homeworkSpanned);
+
+        homework_title_txt.setText(homeworkSpanned, TextView.BufferType.SPANNABLE);
+
+    }
+
+    private SpannableStringBuilder trimSpannable(SpannableStringBuilder spannable) {
+        int trimStart = 0;
+        int trimEnd = 0;
+        String text = spannable.toString();
+
+        while (text.length() > 0 && text.startsWith("\n")) {
+            text = text.substring(1);
+            trimStart += 1;
+        }
+        while (text.length() > 0 && text.endsWith("\n")) {
+            text = text.substring(0, text.length() - 1);
+            trimEnd += 1;
+        }
+        return spannable.delete(0, trimStart).delete(spannable.length() - trimEnd, spannable.length());
     }
 }
 

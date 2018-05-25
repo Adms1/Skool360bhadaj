@@ -40,15 +40,16 @@
         <item>Homework</item>
         <item>Classwork</item>
         <item>Timetable</item>
-        <item>Unit Test</item>
+        <item>Exam Syllabus</item>
         <item>Results</item>
         <item>Report Card</item>
         <item>Fees</item>
         <item>Imprest</item>
-        <item>Canteen</item>
-        <item>PTM</item>
-        <item>Message</item>
+        <item>Holiday</item>
+        <item>Leave Application</item>
         <item>Circular</item>
+        <item>Gallery</item>
+        <item>Suggestion</item>
         <item>Logout</item>
     </string-array>
 

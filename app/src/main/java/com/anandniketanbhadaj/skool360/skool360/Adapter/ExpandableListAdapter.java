@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     // child data in format of header title, child title
     private HashMap<String, ArrayList<ClassWorkModel.ClassWorkData>> _listDataChild;
     private boolean fromClass = false;
-
+    SpannableStringBuilder  classworkSpanned;
+    String   classworkStr;
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                  HashMap<String, ArrayList<ClassWorkModel.ClassWorkData>> listChildData, boolean fromClass) {
         this._context = context;
@@ -47,7 +49,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     TextView subject_title_txt, classwork_title_txt, chapter_title_txt, lblchaptername, objective_title_txt, lblobjective, que_title_txt, lblque;
-    ;
+
 
 
     @Override
@@ -66,8 +68,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
 
-        classwork_title_txt.setText(Html.fromHtml(childData.get(childPosition).getClasswork().replaceAll("\\<.*?\\>", "")));
-
+        classworkStr=childData.get(childPosition).getClasswork().replaceAll("\\n", "");
+        setText(classworkStr);
 
         return convertView;
     }
@@ -125,5 +127,30 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    private void setText(String html) {
+
+        classworkSpanned = (SpannableStringBuilder) Html.fromHtml(html);
+        classworkSpanned = trimSpannable(classworkSpanned);
+
+        classwork_title_txt.setText(classworkSpanned, TextView.BufferType.SPANNABLE);
+
+    }
+
+    private SpannableStringBuilder trimSpannable(SpannableStringBuilder spannable) {
+        int trimStart = 0;
+        int trimEnd = 0;
+        String text = spannable.toString();
+
+        while (text.length() > 0 && text.startsWith("\n")) {
+            text = text.substring(1);
+            trimStart += 1;
+        }
+        while (text.length() > 0 && text.endsWith("\n")) {
+            text = text.substring(0, text.length() - 1);
+            trimEnd += 1;
+        }
+        return spannable.delete(0, trimStart).delete(spannable.length() - trimEnd, spannable.length());
     }
 }

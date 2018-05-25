@@ -65,7 +65,7 @@ public class UnitTestFragment extends Fragment {
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
         lvExpUnitTest = (ExpandableListView) rootView.findViewById(R.id.lvExpUnitTest);
 
-        getUnitTestData();
+//        getUnitTestData();
     }
 
     public void setListners() {
@@ -99,60 +99,60 @@ public class UnitTestFragment extends Fragment {
         });
     }
 
-    public void getUnitTestData() {
-        if (Utility.isNetworkConnected(mContext)) {
-            progressDialog = new ProgressDialog(mContext);
-            progressDialog.setMessage("Please Wait...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
+//    public void getUnitTestData() {
+//        if (Utility.isNetworkConnected(mContext)) {
+//            progressDialog = new ProgressDialog(mContext);
+//            progressDialog.setMessage("Please Wait...");
+//            progressDialog.setCancelable(false);
+//            progressDialog.show();
+//
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        HashMap<String, String> params = new HashMap<String, String>();
+//                        params.put("StudentID", Utility.getPref(mContext, "studid"));
+//                        params.put("TermID", Utility.getPref(mContext, "TermID"));
+//                        getTestDetailAsyncTask = new GetTestDetailAsyncTask(params);
+//                        testdetailModels = getTestDetailAsyncTask.execute().get();
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (testdetailModels.size() > 0) {
+//                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
+//                                    progressDialog.dismiss();
+//                                    prepaareList();
+//                                    expandableListAdapterUnitTest = new ExpandableListAdapterUnitTest(getActivity(), listDataHeader, listDataChild);
+//                                    lvExpUnitTest.setAdapter(expandableListAdapterUnitTest);
+//                                } else {
+//                                    progressDialog.dismiss();
+//                                    txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+//                                }
+//                            }
+//                        });
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//        } else {
+//            Utility.ping(mContext, "Network not available");
+//        }
+//    }
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("StudentID", Utility.getPref(mContext, "studid"));
-                        params.put("TermID", Utility.getPref(mContext, "TermID"));
-                        getTestDetailAsyncTask = new GetTestDetailAsyncTask(params);
-                        testdetailModels = getTestDetailAsyncTask.execute().get();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (testdetailModels.size() > 0) {
-                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                    progressDialog.dismiss();
-                                    prepaareList();
-                                    expandableListAdapterUnitTest = new ExpandableListAdapterUnitTest(getActivity(), listDataHeader, listDataChild);
-                                    lvExpUnitTest.setAdapter(expandableListAdapterUnitTest);
-                                } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
-                                }
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        } else {
-            Utility.ping(mContext, "Network not available");
-        }
-    }
-
-    public void prepaareList() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, ArrayList<Data>>();
-
-        for (int i = 0; i < testdetailModels.size(); i++) {
-            listDataHeader.add(testdetailModels.get(i).getTestDate());
-
-            ArrayList<Data> rows = new ArrayList<Data>();
-            for (int j = 0; j < testdetailModels.get(i).getDataArrayList().size(); j++) {
-                rows.add(testdetailModels.get(i).getDataArrayList().get(j));
-
-            }
-            listDataChild.put(listDataHeader.get(i), rows);
-        }
-    }
+//    public void prepaareList() {
+//        listDataHeader = new ArrayList<String>();
+//        listDataChild = new HashMap<String, ArrayList<Data>>();
+//
+//        for (int i = 0; i < testdetailModels.size(); i++) {
+//            listDataHeader.add(testdetailModels.get(i).getTestDate());
+//
+//            ArrayList<Data> rows = new ArrayList<Data>();
+//            for (int j = 0; j < testdetailModels.get(i).getDataArrayList().size(); j++) {
+//                rows.add(testdetailModels.get(i).getDataArrayList().get(j));
+//
+//            }
+//            listDataChild.put(listDataHeader.get(i), rows);
+//        }
+//    }
 }
