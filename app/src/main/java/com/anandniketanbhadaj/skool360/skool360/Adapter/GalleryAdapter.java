@@ -76,7 +76,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
 
 
         imageLoader.displayImage(AppConfiguration.IMAGE_LIVE + arrayList.get(position).getImagePath(), holder.event_image_img);
-        holder.pic_name.setText(arrayList.get(position).getTitle());
+//        holder.pic_name.setText(arrayList.get(position).getTitle());
+        holder.pic_name.setVisibility(View.GONE);
         holder.main_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -12,7 +12,7 @@ import com.anandniketanbhadaj.skool360.R;
 import java.util.ArrayList;
 
 /**
- * Created by admsandroid on 9/11/2017.
+ * Created by admsandroid on 9/tha/2017.
  */
 
 public class NotificationMessageListAdapter extends BaseAdapter {

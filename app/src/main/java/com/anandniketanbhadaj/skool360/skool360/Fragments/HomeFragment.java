@@ -2,20 +2,27 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -67,7 +74,7 @@ public class HomeFragment extends Fragment {
     Timer timer;
     DeviceVersionModel deviceVersionModel;
     // Use for Rating
-    Dialog ratingDialog;
+    Dialog ratingDialog,thankyouDialog;
     TextView rate_it_txt_view, reminde_me_txt, no_thanks_txt;
 
     //
@@ -112,7 +119,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void initViews() {
-
+//ThankyouDialog();
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         grid_view = (GridView) rootView.findViewById(R.id.grid_view);
         grid_view.setAdapter(new ImageAdapter(mContext));
@@ -481,4 +488,32 @@ public class HomeFragment extends Fragment {
         ratingDialog.show();
 
     }
+    
+    
+    public void ThankyouDialog(){
+        thankyouDialog = new Dialog(getActivity(), R.style.Theme_Dialog1);
+        Window window = thankyouDialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        thankyouDialog.getWindow().getAttributes().verticalMargin = 0.10f;
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        thankyouDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        thankyouDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        thankyouDialog.setCancelable(false);
+        thankyouDialog.setContentView(R.layout.thankyou_dialog);
+
+
+//        no_thanks_txt = (TextView) thankyouDialog.findViewById(R.id.no_thanks_txt);
+//
+//        no_thanks_txt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                thankyouDialog.dismiss();
+//            }
+//        });
+        thankyouDialog.show();
+    }
+
 }

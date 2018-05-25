@@ -226,7 +226,9 @@ public class GalleryFragment extends Fragment {
             }
         });
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,true);
+//        mLayoutManager.setStackFromEnd(true);
         gallery_list1.setLayoutManager(mLayoutManager);
+        gallery_list1.getLayoutManager().scrollToPosition(photoarrayList.size()-1);
         gallery_list1.addItemDecoration(new EqualSpacingItemDecoration(12, EqualSpacingItemDecoration.HORIZONTAL));
         gallery_list1.setAdapter(galleryAdapter);
     }

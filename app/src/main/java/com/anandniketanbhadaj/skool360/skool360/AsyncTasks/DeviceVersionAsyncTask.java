@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 /**
- * Created by admsandroid on 11/2/2017.
+ * Created by admsandroid on tha/2/2017.
  */
 
 public class DeviceVersionAsyncTask extends AsyncTask<Void, Void, DeviceVersionModel> {

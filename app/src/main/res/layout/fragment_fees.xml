@@ -49,14 +49,15 @@
 
     <TextView
         android:id="@+id/txtNoRecordsUnitTest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:background="@drawable/norecordfound"
         android:gravity="center"
-        android:text="No Records Found..."
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
         android:textColor="@android:color/holo_red_dark"
-        android:textSize="@dimen/_12sdp"
         android:textStyle="bold"
+        android:textSize="@dimen/_12sdp"
         android:visibility="gone" />
 <ScrollView
     android:layout_width="match_parent"
