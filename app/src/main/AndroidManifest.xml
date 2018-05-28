@@ -55,7 +55,8 @@
 
         <activity android:name=".skool360.Activities.SplashScreenActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask"
+            android:theme="@style/Splash"></activity>
     </application>
 
 </manifest>

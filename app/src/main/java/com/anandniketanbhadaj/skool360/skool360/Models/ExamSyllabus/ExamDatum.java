@@ -35,4 +35,40 @@ public class ExamDatum {
         this.detail = detail;
     }
 
+    //==========Holiday==========
+    @SerializedName("StartDate")
+    @Expose
+    private String startDate;
+    @SerializedName("EndDate")
+    @Expose
+    private String endDate;
+    @SerializedName("Holiday")
+    @Expose
+    private String holiday;
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getHoliday() {
+        return holiday;
+    }
+
+    public void setHoliday(String holiday) {
+        this.holiday = holiday;
+    }
+
+    //===========================
 }

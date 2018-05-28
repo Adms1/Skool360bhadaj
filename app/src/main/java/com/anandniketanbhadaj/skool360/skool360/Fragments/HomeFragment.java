@@ -498,7 +498,7 @@ public class HomeFragment extends Fragment {
         wlp.gravity = Gravity.CENTER;
         window.setAttributes(wlp);
 
-        thankyouDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        thankyouDialog.getWindow().setBackgroundDrawableResource(R.drawable.tha);
 
         thankyouDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         thankyouDialog.setCancelable(false);

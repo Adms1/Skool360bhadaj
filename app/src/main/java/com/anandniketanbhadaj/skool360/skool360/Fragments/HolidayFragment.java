@@ -1,109 +1,169 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
+import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.HolidayListAdapter;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.LeaveListAdapter;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetHolidayAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetLeaveDataAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HolidayFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HolidayFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HolidayFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+public class HolidayFragment extends Fragment implements View.OnClickListener {
+    Fragment fragment;
+    FragmentManager fragmentManager;
+    RecyclerView holiday_list;
+    ExamModel holidayDataResponse;
+    HolidayListAdapter holidayListAdapter;
+    List<String> montharrayList;
+    List<ExamDatum> monthwisedata;
+    private View rootView;
+    private Button btnMenu, btnBackCanteen;
+    private TextView txtNoRecordsClasswork;
+    private FloatingActionButton add_leave_fab_btn;
+    private Context mContext;
+    private ProgressDialog progressDialog = null;
+    private GetHolidayAsyncTask holidayAsyncTask = null;
 
     public HolidayFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HolidayFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HolidayFragment newInstance(String param1, String param2) {
-        HolidayFragment fragment = new HolidayFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_holiday, container, false);
+        mContext = getActivity();
+
+        initViews();
+        setListners();
+
+        return rootView;
+    }
+
+    public void initViews() {
+
+        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
+        txtNoRecordsClasswork = (TextView) rootView.findViewById(R.id.txtNoRecordsClasswork);
+        btnBackCanteen = (Button) rootView.findViewById(R.id.btnBackCanteen);
+        holiday_list = (RecyclerView) rootView.findViewById(R.id.holiday_list);
+
+        getLeaveData();
+    }
+
+
+    public void setListners() {
+
+        btnMenu.setOnClickListener(this);
+        btnBackCanteen.setOnClickListener(this);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnMenu:
+                DashBoardActivity.onLeft();
+                break;
+            case R.id.btnBackCanteen:
+                fragment = new HomeFragment();
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+                break;
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_holiday, container, false);
-    }
+    public void getLeaveData() {
+        if (Utility.isNetworkConnected(mContext)) {
+            progressDialog = new ProgressDialog(mContext);
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        holidayAsyncTask = new GetHolidayAsyncTask(params);
+                        holidayDataResponse = holidayAsyncTask.execute().get();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (holidayDataResponse.getSuccess().equalsIgnoreCase("True")) {
+                                    setLeaveDataList();
+                                } else {
+                                    progressDialog.dismiss();
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            Utility.ping(mContext, "Network not available");
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+    public void setLeaveDataList() {
+        montharrayList = new ArrayList<>();
+        monthwisedata = new ArrayList<ExamDatum>();
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        ArrayList<String> image = new ArrayList<>();
+        image.add(String.valueOf(R.drawable.january));
+        image.add(String.valueOf(R.drawable.february));
+        image.add(String.valueOf(R.drawable.march));
+        image.add(String.valueOf(R.drawable.april));
+        image.add(String.valueOf(R.drawable.mmay));
+        image.add(String.valueOf(R.drawable.june));
+        image.add(String.valueOf(R.drawable.july));
+        image.add(String.valueOf(R.drawable.august));
+        image.add(String.valueOf(R.drawable.september));
+        image.add(String.valueOf(R.drawable.october));
+        image.add(String.valueOf(R.drawable.november));
+        image.add(String.valueOf(R.drawable.december));
+
+        for (int i = 0; i < holidayDataResponse.getFinalArray().size(); i++) {
+
+            holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(i));
+        }
+
+        Log.d("monthwise", "" + monthwisedata);
+        holidayListAdapter = new HolidayListAdapter(mContext, holidayDataResponse, monthwisedata);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+        holiday_list.setLayoutManager(mLayoutManager);
+        holiday_list.setItemAnimator(new DefaultItemAnimator());
+        holiday_list.setAdapter(holidayListAdapter);
+
     }
 }

@@ -45,4 +45,10 @@
 
         <!--<item name="@android:textColor">@android:color/primary_text_light</item>-->
     </style>
+    <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

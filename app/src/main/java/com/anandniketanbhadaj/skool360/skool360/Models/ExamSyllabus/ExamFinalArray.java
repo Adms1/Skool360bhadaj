@@ -91,6 +91,31 @@ public class ExamFinalArray {
     }
 
     //    =================
+
+
+    //================Holiday==================
+    @SerializedName("MonthName")
+    @Expose
+    private String monthName;
+    @SerializedName("MonthImage")
+    @Expose
+    private String monthImage;
+    public String getMonthName() {
+        return monthName;
+    }
+    public void setMonthName(String monthName) {
+        this.monthName = monthName;
+    }
+
+    public String getMonthImage() {
+        return monthImage;
+    }
+
+    public void setMonthImage(String monthImage) {
+        this.monthImage = monthImage;
+    }
+
+    //=========================================
     public String getEventName() {
         return eventName;
     }

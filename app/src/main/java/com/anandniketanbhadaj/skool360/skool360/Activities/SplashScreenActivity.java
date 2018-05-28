@@ -1,5 +1,6 @@
 package com.anandniketanbhadaj.skool360.skool360.Activities;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+
         putExtrasData = getIntent().getStringExtra("message");
         putExtras = getIntent().getStringExtra("fromNotification");//getAction();
         System.out.println("Login Extra : " + putExtrasData);

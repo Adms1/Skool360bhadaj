@@ -67,5 +67,6 @@ public class AppConfiguration {
     public static String InsertStudentLeaveRequest="InsertStudentLeaveRequest";
     public static String GetStudentLeaveRequest="GetStudentLeaveRequest";
     public static String CreateParentsSuggestion="CreateParentsSuggestion";
+    public static String GetHoliday="GetHoliday";
 
 }
