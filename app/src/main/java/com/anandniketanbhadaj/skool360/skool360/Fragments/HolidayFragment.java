@@ -164,6 +164,5 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
         holiday_list.setLayoutManager(mLayoutManager);
         holiday_list.setItemAnimator(new DefaultItemAnimator());
         holiday_list.setAdapter(holidayListAdapter);
-
     }
 }

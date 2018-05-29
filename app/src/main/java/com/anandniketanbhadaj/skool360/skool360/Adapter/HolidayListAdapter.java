@@ -3,6 +3,7 @@ package com.anandniketanbhadaj.skool360.skool360.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,17 +27,10 @@ import java.util.zip.Inflater;
 
 public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.MyViewHolder> {
 
-    List<String> montharrayList;
-    List<ExamDatum> monthwisedata;
     ExamModel holidayDataResponse;
     LayoutInflater linf;
     private Context mContext;
-//    public HolidayListAdapter(Context mContext, List<String> montharrayList, List<ExamDatum> monthwisedata) {
-//        this.mContext = mContext;
-//        this.montharrayList = montharrayList;
-//        this.monthwisedata = monthwisedata;
-//
-//    }
+
 
     public HolidayListAdapter(Context mContext, ExamModel holidayDataResponse, List<ExamDatum> monthwisedata) {
         this.mContext = mContext;
@@ -48,57 +42,49 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
         View itemView;
         itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.holiday_listitem, parent, false);
-//        return new HolidayListAdapter.MyViewHolder(itemView);
-
         HolidayListAdapter.MyViewHolder holder = new HolidayListAdapter.MyViewHolder(itemView);
 
-        Log.d("holder", "" + holder.getAdapterPosition());
-        if (holder.getAdapterPosition() != -1) {
-            List<ExamDatum> examData = holidayDataResponse.getFinalArray().get(holder.getAdapterPosition()).getData();
-
-
-            if (examData.size() > 0) {
-                for (int j = 0; j < examData.size(); j++) {
-
-                    LayoutInflater inflater = LayoutInflater.from(mContext);
-
-                    View view = inflater.inflate(R.layout.sub_holiday_item, null);
-
+        if (viewType > 0) {
+            for (int i = 0; i < viewType; i++) {
+                LayoutInflater inflater = LayoutInflater.from(mContext);
+                View view = inflater.inflate(R.layout.sub_holiday_item, null);
+//                List<ExamDatum> examData = holidayDataResponse.getFinalArray().get(holder.getAdapterPosition()).getData();
+//                for (int j = 0; j < examData.size(); j++) {
+////
+//                    LayoutInflater inflater = LayoutInflater.from(mContext);
+//
+//                    View view = inflater.inflate(R.layout.sub_holiday_item, null);
+//
                     LinearLayout LinearData = (LinearLayout) view.findViewById(R.id.linear_click);
                     LinearData.setVisibility(View.VISIBLE);
 
-//                LinearLayout LinearNoData=(LinearLayout)view.findViewById(R.id.norecord_Linear);
-//                LinearNoData.setVisibility(View.GONE);
-
                     TextView norecordtxt = (TextView) view.findViewById(R.id.norecordtxt);
                     norecordtxt.setVisibility(View.GONE);
-
-                    TextView name = (TextView) view.findViewById(R.id.holiday_name_txt);
-                    name.setText(examData.get(j).getHoliday());
-
-                    TextView date = (TextView) view.findViewById(R.id.holiday_date_txt);
-                    date.setText(examData.get(j).getStartDate());
-
-                    holder.main_holiday.addView(view);
-                }
-            } else {
-                LayoutInflater inflater = LayoutInflater.from(mContext);
-
-                View view = inflater.inflate(R.layout.sub_holiday_item, null);
-
-                LinearLayout LinearData = (LinearLayout) view.findViewById(R.id.linear_click);
-                LinearData.setVisibility(View.GONE);
-
-
-                TextView norecordtxt = (TextView) view.findViewById(R.id.norecordtxt);
-                norecordtxt.setVisibility(View.VISIBLE);
-
-
+//
+                     TextView name = (TextView) view.findViewById(R.id.holiday_name_txt);
+//                    name.setText(holidayDataResponse.getFinalArray().get(0).getData().get(0).getHoliday());
+//
+                     TextView date = (TextView) view.findViewById(R.id.holiday_date_txt);
+//                    date.setText(examData.get(j).getStartDate());
+//
                 holder.main_holiday.addView(view);
+//                }
             }
+        } else {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+
+            View view = inflater.inflate(R.layout.sub_holiday_item, null);
+
+            LinearLayout LinearData = (LinearLayout) view.findViewById(R.id.linear_click);
+            LinearData.setVisibility(View.GONE);
+
+
+            TextView norecordtxt = (TextView) view.findViewById(R.id.norecordtxt);
+            norecordtxt.setVisibility(View.VISIBLE);
+
+            holder.main_holiday.addView(view);
         }
         return holder;
-
     }
 
     @Override
@@ -108,62 +94,56 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
 
         holder.month_name.setText(holidayDataResponse.getFinalArray().get(position).getMonthName());
         holder.month_image.setBackgroundResource(Integer.parseInt(holidayDataResponse.getFinalArray().get(position).getMonthImage()));
+
+
+        Log.d("setext",""+holder.main_holiday.getChildCount());
+//        if(holder.main_holiday.getChildCount() == examData.size()){
+        if(examData.size()>0){
+            for(int i=0;i<examData.size();i++){
+                View view = holder.main_holiday.getChildAt(i);
+              TextView name=(TextView)view.findViewById(R.id.holiday_name_txt);
+              name.setText(examData.get(i).getHoliday());
+            }
+        }
+
 //        if (holidayDataResponse.getFinalArray().get(position).getData().size() > 0) {
-////            holder.norecord_Linear.setVisibility(View.GONE);
-////            holder.linear_click.setVisibility(View.VISIBLE);
-//
-//            String nameTxt = "", dateTxt = "";
+
 //            for (int j = 0; j < examData.size(); j++) {
-////                nameTxt +=examData.get(j).getHoliday();
-////                dateTxt +=examData.get(j).getStartDate();
-////                LayoutInflater inflater = LayoutInflater.from(mContext);
-////                View v = inflater.inflate(R.layout.sub_holiday_item, null);
-////                holder.main_holiday.addView(v);
-////                LinearLayout linear = (LinearLayout) holder.main_holiday.findViewById(R.id.norecord_Linear);
-////                LinearLayout linear1 = (LinearLayout) holder.main_holiday.findViewById(R.id.linear_click);
-////                linear1.setVisibility(View.VISIBLE);
-////                linear.setVisibility(View.GONE);
-////                TextView name = (TextView) holder.main_holiday.findViewById(R.id.holiday_name_txt);
-////                TextView date=(TextView)holder.main_holiday.findViewById(R.id.holiday_date_txt);
-////                ImageView image=(ImageView)holder.main_holiday.findViewById(R.id.time_image) ;
-////                date.setText(examData.get(j).getStartDate());
-////                name.setText(examData.get(j).getHoliday());
+//
 //                LayoutInflater inflater = LayoutInflater.from(mContext);
 //
 //                View view = inflater.inflate(R.layout.sub_holiday_item, null);
 //
-//                LinearLayout LinearData=(LinearLayout)view.findViewById(R.id.linear_click);
+//                LinearLayout LinearData = (LinearLayout) view.findViewById(R.id.linear_click);
 //                LinearData.setVisibility(View.VISIBLE);
 //
-////                LinearLayout LinearNoData=(LinearLayout)view.findViewById(R.id.norecord_Linear);
-////                LinearNoData.setVisibility(View.GONE);
-//
-//                TextView norecordtxt=(TextView)view.findViewById(R.id.norecordtxt);
+//                TextView norecordtxt = (TextView) view.findViewById(R.id.norecordtxt);
 //                norecordtxt.setVisibility(View.GONE);
 //
-//                TextView name = (TextView)view.findViewById(R.id.holiday_name_txt);
+//                TextView name = (TextView) view.findViewById(R.id.holiday_name_txt);
 //                name.setText(examData.get(j).getHoliday());
 //
-//                TextView date = (TextView)view.findViewById(R.id.holiday_date_txt);
+//                TextView date = (TextView) view.findViewById(R.id.holiday_date_txt);
 //                date.setText(examData.get(j).getStartDate());
 //
 //                holder.main_holiday.addView(view);
+//
 //            }
-//        } else {
+//        }
+// else {
 //            LayoutInflater inflater = LayoutInflater.from(mContext);
 //
 //            View view = inflater.inflate(R.layout.sub_holiday_item, null);
 //
-//            LinearLayout LinearData=(LinearLayout)view.findViewById(R.id.linear_click);
+//            LinearLayout LinearData = (LinearLayout) view.findViewById(R.id.linear_click);
 //            LinearData.setVisibility(View.GONE);
 //
-//
-//            TextView norecordtxt=(TextView)view.findViewById(R.id.norecordtxt);
+//            TextView norecordtxt = (TextView) view.findViewById(R.id.norecordtxt);
 //            norecordtxt.setVisibility(View.VISIBLE);
-//
 //
 //            holder.main_holiday.addView(view);
 //        }
+
     }
 
     @Override
@@ -178,8 +158,9 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
 
     @Override
     public int getItemViewType(int position) {
-        return position;
+        return holidayDataResponse.getFinalArray().get(position).getData().size();
     }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout month_image, norecord_Linear, linear_click, main_holiday;
@@ -188,12 +169,8 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
 
         public MyViewHolder(View view) {
             super(view);
-//            holiday_date_txt = (TextView) view.findViewById(R.id.holiday_date_txt);
-//            holiday_name_txt = (TextView) view.findViewById(R.id.holiday_name_txt);
             month_name = (TextView) view.findViewById(R.id.month_name);
             month_image = (LinearLayout) view.findViewById(R.id.month_image);
-//            linear_click=(LinearLayout)view.findViewById(R.id.linear_click);
-//            norecord_Linear = (LinearLayout) view.findViewById(R.id.norecord_Linear);
             main_holiday = (LinearLayout) view.findViewById(R.id.main_holiday);
         }
     }
