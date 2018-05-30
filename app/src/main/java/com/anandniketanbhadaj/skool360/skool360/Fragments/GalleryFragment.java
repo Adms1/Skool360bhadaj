@@ -43,7 +43,7 @@ public class GalleryFragment extends Fragment {
     GalleryAdapter galleryAdapter;
     ExamModel galleryResponse;
     String position = "";
-    TextView photo_name;
+    TextView photo_name,event_name_txt;
     private View rootView;
     private Context mContext;
     private ProgressDialog progressDialog = null;
@@ -71,6 +71,7 @@ public class GalleryFragment extends Fragment {
         gallery_list = (RecyclerView) rootView.findViewById(R.id.gallery_list);
         gallery_list1=(RecyclerView)rootView.findViewById(R.id.gallery_list1);
         photo_name = (TextView) rootView.findViewById(R.id.photo_name);
+        event_name_txt=(TextView)rootView.findViewById(R.id.event_name_txt) ;
         getGalleryData();
 
     }
@@ -145,6 +146,7 @@ public class GalleryFragment extends Fragment {
     public void setGalleryData() {
         gallery_list.setVisibility(View.VISIBLE);
         gallery_list1.setVisibility(View.GONE);
+        event_name_txt.setVisibility(View.GONE);
         arrayList = new ArrayList<String>();
         name = new ArrayList<>();
 
@@ -180,13 +182,14 @@ public class GalleryFragment extends Fragment {
     public void setSelectedImage() {
         gallery_list.setVisibility(View.VISIBLE);
         gallery_list1.setVisibility(View.GONE);
+        event_name_txt.setVisibility(View.VISIBLE);
         photoarrayList = new ArrayList<>();
         name = new ArrayList<>();
         displayMode="normal";
         for (int i = 0; i < galleryResponse.getFinalArray().size(); i++) {
             if (position.equalsIgnoreCase(String.valueOf(i))) {
                 name.add(galleryResponse.getFinalArray().get(i).getEventName());
-                photo_name.setText(galleryResponse.getFinalArray().get(i).getEventName());
+                event_name_txt.setText(galleryResponse.getFinalArray().get(i).getEventName());
                 for (int j = 0; j < galleryResponse.getFinalArray().get(i).getPhotos().size(); j++) {
                     photoarrayList.add(galleryResponse.getFinalArray().get(i).getPhotos().get(j));
                 }
@@ -207,13 +210,14 @@ public class GalleryFragment extends Fragment {
     public void setSelectedDetailImage(){
         gallery_list1.setVisibility(View.VISIBLE);
         gallery_list.setVisibility(View.GONE);
+        event_name_txt.setVisibility(View.VISIBLE);
         photoarrayList = new ArrayList<>();
         name = new ArrayList<>();
         displayMode="diffrenet";
         for (int i = 0; i < galleryResponse.getFinalArray().size(); i++) {
             if (position.equalsIgnoreCase(String.valueOf(i))) {
                 name.add(galleryResponse.getFinalArray().get(i).getEventName());
-                photo_name.setText(galleryResponse.getFinalArray().get(i).getEventName());
+                event_name_txt.setText(galleryResponse.getFinalArray().get(i).getEventName());
                 for (int j = 0; j < galleryResponse.getFinalArray().get(i).getPhotos().size(); j++) {
                     photoarrayList.add(galleryResponse.getFinalArray().get(i).getPhotos().get(j));
                 }

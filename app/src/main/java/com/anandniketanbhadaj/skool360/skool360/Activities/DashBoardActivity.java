@@ -364,7 +364,9 @@ public class DashBoardActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
+
         displayView(0);
+
     }
 
     /**

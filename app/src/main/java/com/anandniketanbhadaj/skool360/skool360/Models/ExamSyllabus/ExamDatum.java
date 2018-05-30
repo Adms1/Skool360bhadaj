@@ -35,7 +35,7 @@ public class ExamDatum {
         this.detail = detail;
     }
 
-    //==========Holiday==========
+    //==========holiday==========
     @SerializedName("StartDate")
     @Expose
     private String startDate;

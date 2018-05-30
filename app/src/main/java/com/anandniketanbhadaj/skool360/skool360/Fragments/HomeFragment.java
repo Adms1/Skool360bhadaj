@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
     Timer timer;
     DeviceVersionModel deviceVersionModel;
     // Use for Rating
-    Dialog ratingDialog,thankyouDialog;
+    Dialog ratingDialog;
     TextView rate_it_txt_view, reminde_me_txt, no_thanks_txt;
 
     //
@@ -490,30 +490,6 @@ public class HomeFragment extends Fragment {
     }
     
     
-    public void ThankyouDialog(){
-        thankyouDialog = new Dialog(getActivity(), R.style.Theme_Dialog1);
-        Window window = thankyouDialog.getWindow();
-        WindowManager.LayoutParams wlp = window.getAttributes();
-        thankyouDialog.getWindow().getAttributes().verticalMargin = 0.10f;
-        wlp.gravity = Gravity.CENTER;
-        window.setAttributes(wlp);
 
-        thankyouDialog.getWindow().setBackgroundDrawableResource(R.drawable.tha);
-
-        thankyouDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        thankyouDialog.setCancelable(false);
-        thankyouDialog.setContentView(R.layout.thankyou_dialog);
-
-
-//        no_thanks_txt = (TextView) thankyouDialog.findViewById(R.id.no_thanks_txt);
-//
-//        no_thanks_txt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                thankyouDialog.dismiss();
-//            }
-//        });
-        thankyouDialog.show();
-    }
 
 }

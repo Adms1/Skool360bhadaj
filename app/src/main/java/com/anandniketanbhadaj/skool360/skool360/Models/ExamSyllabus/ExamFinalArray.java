@@ -93,13 +93,16 @@ public class ExamFinalArray {
     //    =================
 
 
-    //================Holiday==================
+    //================holiday==================
     @SerializedName("MonthName")
     @Expose
     private String monthName;
     @SerializedName("MonthImage")
     @Expose
     private String monthImage;
+    @SerializedName("Year")
+    @Expose
+    private String year;
     public String getMonthName() {
         return monthName;
     }
@@ -113,6 +116,14 @@ public class ExamFinalArray {
 
     public void setMonthImage(String monthImage) {
         this.monthImage = monthImage;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     //=========================================

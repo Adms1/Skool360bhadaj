@@ -18,8 +18,8 @@ public class ImageAdapter extends BaseAdapter {
             R.drawable.attendance, R.drawable.home_work, R.drawable.class_work,
             R.drawable.timetable, R.drawable.unit_test, R.drawable.results,
             R.drawable.report_card,R.drawable.fees_1, R.drawable.imprest,
-            R.drawable.canteen, R.drawable.ptm,R.drawable.principalmessage,
-            R.drawable.circular,R.drawable.circular
+            R.drawable.holiday, R.drawable.leave,R.drawable.circular,
+            R.drawable.gallery,R.drawable.suggestion
     };
 
 //    public String[] mThumbNames = {"Attendance",  "Homework", "Classwork", "Timetable", "Unit Test", "Results", "Report Card",

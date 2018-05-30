@@ -191,7 +191,7 @@ public class AttendanceFragment extends Fragment {
             mCaldroidFragment = new CaldroidFragment();
             Bundle args = new Bundle();
             args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.SUNDAY);
-            args.putBoolean(CaldroidFragment.ENABLE_SWIPE, false);
+            args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
             args.putBoolean(CaldroidFragment.SHOW_NAVIGATION_ARROWS, true);
 
 
@@ -245,8 +245,9 @@ public class AttendanceFragment extends Fragment {
                                     total_absent_txt.setText(attendanceModels.get(0).getTotalAbsent());
                                     total_present_txt.setText(attendanceModels.get(0).getTotalPresent());
                                     total_holiday_txt.setText(attendanceModels.get(0).getHolidayCount());
-                                    mCaldroidFragment.moveToDate(stringToDate(attendanceModels.get(0).getEventsList().get(0).getAttendanceDate()));
-
+                                    if (attendanceModels.get(0).getEventsList().size()>0) {
+                                        mCaldroidFragment.moveToDate(stringToDate(attendanceModels.get(0).getEventsList().get(0).getAttendanceDate()));
+                                    }
                                     for (int i = 0; i < attendanceModels.get(0).getEventsList().size(); i++) {
                                         if (attendanceModels.get(0).getEventsList().get(i).getAttendenceStatus().equalsIgnoreCase("Absent")) {
 //                                            absentDates.add(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate());
@@ -254,7 +255,10 @@ public class AttendanceFragment extends Fragment {
                                         } else if (attendanceModels.get(0).getEventsList().get(i).getAttendenceStatus().equalsIgnoreCase("Present")) {
 //                                            presentDates.add(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate());
                                             hm.put(stringToDate(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate()), new ColorDrawable(getResources().getColor(R.color.attendance_present_new)));
+                                        } else if(attendanceModels.get(0).getEventsList().get(i).getAttendenceStatus().equalsIgnoreCase("Holiday")){
+                                            hm.put(stringToDate(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate()),new ColorDrawable(getResources().getColor(R.color.schedule_active)));
                                         }
+//
                                     }
 
                                     if (hm.size() > 0) {

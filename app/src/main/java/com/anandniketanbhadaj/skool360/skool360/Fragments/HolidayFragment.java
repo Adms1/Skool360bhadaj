@@ -1,15 +1,20 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+
+
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,17 +25,19 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+
+import com.anandniketanbhadaj.skool360.skool360.Activities.ParallaxRecyclerView;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.HolidayListAdapter;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.LeaveListAdapter;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.PallaxAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetHolidayAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetLeaveDataAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
-import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,9 +45,10 @@ import java.util.List;
 public class HolidayFragment extends Fragment implements View.OnClickListener {
     Fragment fragment;
     FragmentManager fragmentManager;
-    RecyclerView holiday_list;
+    ParallaxRecyclerView holiday_list;
     ExamModel holidayDataResponse;
     HolidayListAdapter holidayListAdapter;
+//    PallaxAdapter pallaxAdapter;
     List<String> montharrayList;
     List<ExamDatum> monthwisedata;
     private View rootView;
@@ -71,16 +79,17 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsClasswork = (TextView) rootView.findViewById(R.id.txtNoRecordsClasswork);
         btnBackCanteen = (Button) rootView.findViewById(R.id.btnBackCanteen);
-        holiday_list = (RecyclerView) rootView.findViewById(R.id.holiday_list);
+        holiday_list = (ParallaxRecyclerView) rootView.findViewById(R.id.holiday_list);
+
 
         getLeaveData();
     }
-
 
     public void setListners() {
 
         btnMenu.setOnClickListener(this);
         btnBackCanteen.setOnClickListener(this);
+
     }
 
     @Override
@@ -140,18 +149,18 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
         monthwisedata = new ArrayList<ExamDatum>();
 
         ArrayList<String> image = new ArrayList<>();
-        image.add(String.valueOf(R.drawable.january));
-        image.add(String.valueOf(R.drawable.february));
+        image.add(String.valueOf(R.drawable.jan));
+        image.add(String.valueOf(R.drawable.feb));
         image.add(String.valueOf(R.drawable.march));
         image.add(String.valueOf(R.drawable.april));
-        image.add(String.valueOf(R.drawable.mmay));
+        image.add(String.valueOf(R.drawable.may));
         image.add(String.valueOf(R.drawable.june));
         image.add(String.valueOf(R.drawable.july));
-        image.add(String.valueOf(R.drawable.august));
-        image.add(String.valueOf(R.drawable.september));
-        image.add(String.valueOf(R.drawable.october));
-        image.add(String.valueOf(R.drawable.november));
-        image.add(String.valueOf(R.drawable.december));
+        image.add(String.valueOf(R.drawable.aug));
+        image.add(String.valueOf(R.drawable.sep));
+        image.add(String.valueOf(R.drawable.oct));
+        image.add(String.valueOf(R.drawable.nov));
+        image.add(String.valueOf(R.drawable.dec));
 
         for (int i = 0; i < holidayDataResponse.getFinalArray().size(); i++) {
 
@@ -159,10 +168,12 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
         }
 
         Log.d("monthwise", "" + monthwisedata);
-        holidayListAdapter = new HolidayListAdapter(mContext, holidayDataResponse, monthwisedata);
+        holidayListAdapter = new HolidayListAdapter(mContext, holidayDataResponse, monthwisedata, holiday_list.getHeight());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         holiday_list.setLayoutManager(mLayoutManager);
         holiday_list.setItemAnimator(new DefaultItemAnimator());
         holiday_list.setAdapter(holidayListAdapter);
+        holiday_list.setupParallax(mContext);
+
     }
 }

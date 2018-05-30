@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -44,16 +45,17 @@ import java.util.HashMap;
 public class ShowLeaveFragment extends Fragment implements View.OnClickListener {
     Fragment fragment;
     FragmentManager fragmentManager;
+    RecyclerView listLeave;
+    ExamModel leaveDataResponse;
+    LeaveListAdapter leaveListAdapter;
     private View rootView;
     private Button btnMenu, btnBackCanteen;
     private TextView txtNoRecordsClasswork;
+    private LinearLayout header_linear;
     private FloatingActionButton add_leave_fab_btn;
     private Context mContext;
     private ProgressDialog progressDialog = null;
-    RecyclerView listLeave;
-    private GetLeaveDataAsyncTask leaveDataAsyncTask=null;
-    ExamModel leaveDataResponse;
-    LeaveListAdapter leaveListAdapter;
+    private GetLeaveDataAsyncTask leaveDataAsyncTask = null;
 
     public ShowLeaveFragment() {
     }
@@ -77,6 +79,7 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
         btnBackCanteen = (Button) rootView.findViewById(R.id.btnBackCanteen);
         add_leave_fab_btn = (FloatingActionButton) rootView.findViewById(R.id.add_leave_fab_btn);
         listLeave = (RecyclerView) rootView.findViewById(R.id.listLeave);
+        header_linear=(LinearLayout)rootView.findViewById(R.id.header_linear) ;
 
         getLeaveData();
     }
@@ -112,44 +115,48 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
                 break;
         }
     }
+
     public void getLeaveData() {
         if (Utility.isNetworkConnected(mContext)) {
-                progressDialog = new ProgressDialog(mContext);
-                progressDialog.setMessage("Please Wait...");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
+            progressDialog = new ProgressDialog(mContext);
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("StudentID", Utility.getPref(mContext, "studid"));
-                            leaveDataAsyncTask = new GetLeaveDataAsyncTask(params);
-                            leaveDataResponse = leaveDataAsyncTask.execute().get();
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("StudentId", Utility.getPref(mContext, "studid"));
+                        leaveDataAsyncTask = new GetLeaveDataAsyncTask(params);
+                        leaveDataResponse = leaveDataAsyncTask.execute().get();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (leaveDataResponse.getSuccess().equalsIgnoreCase("True")) {
+                                    txtNoRecordsClasswork.setVisibility(View.GONE);
+                                    header_linear.setVisibility(View.VISIBLE);
+                                    setLeaveDataList();
+                                } else {
                                     progressDialog.dismiss();
-                                    if (leaveDataResponse.getSuccess().equalsIgnoreCase("True")) {
-                                        setLeaveDataList();
-                                    } else {
-                                        progressDialog.dismiss();
-
-                                    }
+                                    txtNoRecordsClasswork.setVisibility(View.VISIBLE);
+                                    header_linear.setVisibility(View.GONE);
                                 }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }).start();
+                }
+            }).start();
         } else {
             Utility.ping(mContext, "Network not available");
         }
     }
 
-    public void setLeaveDataList(){
+    public void setLeaveDataList() {
         leaveListAdapter = new LeaveListAdapter(mContext, leaveDataResponse);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         listLeave.setLayoutManager(mLayoutManager);

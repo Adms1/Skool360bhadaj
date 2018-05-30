@@ -150,15 +150,21 @@ public class ExamSyllabusFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (responseExam.getFinalArray().size() > 0) {
-                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                    progressDialog.dismiss();
+                                if(responseExam.getSuccess().equalsIgnoreCase("True")) {
+                                    if (responseExam.getFinalArray().size() > 0) {
+                                        txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                        progressDialog.dismiss();
 //                                    prepaareList();
-                                    fillspinner();
+                                        fillspinner();
 
-                                } else {
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                    }
+                                }else {
                                     progressDialog.dismiss();
                                     txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                    exam_spinner.setVisibility(View.GONE);
                                 }
                             }
                         });

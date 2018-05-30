@@ -29,7 +29,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/_3sdp"
             android:layout_marginRight="@dimen/_10sdp"
-            android:text="Holiday"
+            android:text="HOLIDAY"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp"
             android:textStyle="normal" />
@@ -64,10 +64,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.southernbox.parallaxrecyclerview.ParallaxRecyclerView
+        <com.anandniketanbhadaj.skool360.skool360.Activities.ParallaxRecyclerView
             android:id="@+id/holiday_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"/>
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </LinearLayout>

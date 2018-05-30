@@ -10,14 +10,14 @@
 
     <ImageView
         android:id="@+id/event_image_img"
-        android:layout_width="@dimen/_250sdp"
-        android:layout_height="@dimen/_250sdp"
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="@dimen/_280sdp"
         android:scaleType="fitXY"
         android:src="@drawable/gallery_placeholder" />
 
     <TextView
         android:id="@+id/pic_name"
-        android:layout_width="@dimen/_250sdp"
+        android:layout_width="@dimen/_280sdp"
         android:layout_height="@dimen/_30sdp"
         android:gravity="start|center_vertical"
         android:paddingLeft="@dimen/_5sdp"

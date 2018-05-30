@@ -1,14 +1,10 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Matrix;
-import android.net.Uri;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,20 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
-import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
-import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.zip.Inflater;
 
-public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.MyViewHolder> {
+public class PallaxAdapter extends RecyclerView.Adapter<PallaxAdapter.MyViewHolder> {
 
     ExamModel holidayDataResponse;
 
@@ -37,7 +29,7 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
     private Context mContext;
     private int recyclerViewHeight;
 
-    public HolidayListAdapter(Context mContext, ExamModel holidayDataResponse, List<ExamDatum> monthwisedata, int recyclerViewHeight) {
+    public PallaxAdapter(Context mContext, ExamModel holidayDataResponse, List<ExamDatum> monthwisedata, int recyclerViewHeight) {
         this.mContext = mContext;
         this.holidayDataResponse = holidayDataResponse;
         myViewHoldersList = new ArrayList<>();
@@ -181,7 +173,7 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
             this.recyclerViewHeight = recyclerViewHeight;
             this.itemView = view;
         }
-        //month_image.getMeasuredHeight()
+//month_image.getMeasuredHeight()
         public void translate() {
             float translate = -itemView.getY() * ((float)  month_image.getMeasuredHeight()/ (float) recyclerViewHeight);
             Matrix matrix = new Matrix();
