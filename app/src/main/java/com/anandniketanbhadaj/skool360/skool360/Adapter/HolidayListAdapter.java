@@ -20,6 +20,7 @@ import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
+import com.bumptech.glide.Glide;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -97,8 +98,13 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
 //        holder.month_image.setParallaxStyles(verticalMovingStyle);
 
         holder.translate();
-        holder.month_image.setImageResource(Integer.parseInt(holidayDataResponse.getFinalArray().get(position).getMonthImage()));
+//        holder.month_image.setImageResource(Integer.parseInt(holidayDataResponse.getFinalArray().get(position).getMonthImage()));
+        String url = holidayDataResponse.getFinalArray().get(position).getMonthImage();
+        Log.d("url", url);
 
+        Glide.with(mContext)
+                .load(url)
+                .into(holder.month_image);
         holder.itemView.setTag(holder);
         Log.d("setext", "" + holder.main_holiday.getChildCount());
         if (holder.main_holiday.getChildCount() - 1 == examData.size()) {

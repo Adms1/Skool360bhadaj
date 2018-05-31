@@ -1,13 +1,9 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,16 +24,13 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 
 import com.anandniketanbhadaj.skool360.skool360.Activities.ParallaxRecyclerView;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.HolidayListAdapter;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.PallaxAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetHolidayAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -149,18 +142,34 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
         monthwisedata = new ArrayList<ExamDatum>();
 
         ArrayList<String> image = new ArrayList<>();
-        image.add(String.valueOf(R.drawable.jan));
-        image.add(String.valueOf(R.drawable.feb));
-        image.add(String.valueOf(R.drawable.march));
-        image.add(String.valueOf(R.drawable.april));
-        image.add(String.valueOf(R.drawable.may));
-        image.add(String.valueOf(R.drawable.june));
-        image.add(String.valueOf(R.drawable.july));
-        image.add(String.valueOf(R.drawable.aug));
-        image.add(String.valueOf(R.drawable.sep));
-        image.add(String.valueOf(R.drawable.oct));
-        image.add(String.valueOf(R.drawable.nov));
-        image.add(String.valueOf(R.drawable.dec));
+        image.add(AppConfiguration.IMAGE_LIVE+"april.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"may.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"june.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"july.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"aug.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"sep.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"oct.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"nov.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"dec.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"jan.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"feb.png");
+        image.add(AppConfiguration.IMAGE_LIVE+"march.png");
+
+//        image.add(String.valueOf(R.drawable.april));
+//        image.add(String.valueOf(R.drawable.may));
+//        image.add(String.valueOf(R.drawable.june));
+//        image.add(String.valueOf(R.drawable.july));
+//        image.add(String.valueOf(R.drawable.aug));
+//        image.add(String.valueOf(R.drawable.sep));
+//        image.add(String.valueOf(R.drawable.oct));
+//        image.add(String.valueOf(R.drawable.nov));
+//        image.add(String.valueOf(R.drawable.dec));
+//        image.add(String.valueOf(R.drawable.jan));
+//        image.add(String.valueOf(R.drawable.feb));
+//        image.add(String.valueOf(R.drawable.march));
+
+
+
 
         for (int i = 0; i < holidayDataResponse.getFinalArray().size(); i++) {
 

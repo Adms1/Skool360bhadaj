@@ -3,7 +3,6 @@ package com.anandniketanbhadaj.skool360.skool360.Activities;
 import android.support.v7.widget.RecyclerView;
 
 import com.anandniketanbhadaj.skool360.skool360.Adapter.HolidayListAdapter;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.PallaxAdapter;
 
 /**
  * Created by bobbyadiprabowo on 11/15/15.

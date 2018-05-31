@@ -76,7 +76,7 @@ public class GalleryListAdapter extends RecyclerView.Adapter<GalleryListAdapter.
         image = splitvalue[0];
         name = splitvalue[1];
 
-        imageLoader.displayImage(AppConfiguration.IMAGE_LIVE + image, holder.event_image_img);
+        imageLoader.displayImage(AppConfiguration.GALLARY_LIVE+ image, holder.event_image_img);
         holder.pic_name.setText(name);
 
         holder.main_linear.setOnClickListener(new View.OnClickListener() {

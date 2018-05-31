@@ -3,23 +3,17 @@ package com.anandniketanbhadaj.skool360.skool360.Utility;
 import android.util.Log;
 
 import com.anandniketanbhadaj.skool360.skool360.Models.AttendanceModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.CanteenModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.Data;
-import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
-import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
 //import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.FinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.PrincipalModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ResultModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TimetableModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.UnitTestModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +21,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Harsh on 04-Aug-16.
@@ -557,79 +550,8 @@ public class ParseJSON {
         return result;
     }
 
-    public static ArrayList<PrincipalModel> getPrincipalMessageJson(String responseString) {
-        ArrayList<PrincipalModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-
-                PrincipalModel principalModel = null;
-                for (int i = 0; i < jsonMainNode.length(); i++) {
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    principalModel = new PrincipalModel();
-                    principalModel.setImage(jsonChildNode.getString("Image"));
-                    principalModel.setName(jsonChildNode.getString("Name"));
-                    principalModel.setType(jsonChildNode.getString("Type"));
-                    principalModel.setDiscription(jsonChildNode.getString("Discription"));
-                    principalModel.setOrderNo(jsonChildNode.getString("OrderNo"));
-
-                    result.add(principalModel);
-                }
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
 
 
-    public static ArrayList<CanteenModel> parseCanteenJson(String responseString) {
-        ArrayList<CanteenModel> result = new ArrayList<>();
-        CanteenModel canteenModel = null;
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
-
-                canteenModel = new CanteenModel();
-                canteenModel.setFromDate(reader.getString("FromDate"));
-                canteenModel.setToDate(reader.getString("ToDate"));
-
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                ArrayList<HashMap<String, String>> hashMapArrayList = new ArrayList<>();
-                HashMap<String, String> hashMap = null;
-                for (int i = 0; i < jsonMainNode.length(); i++) {
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    hashMap = new HashMap<>();
-                    hashMap.put("MenuDay", jsonChildNode.getString("MenuDay"));
-                    hashMap.put("MenuDate", jsonChildNode.getString("MenuDate"));
-                    hashMap.put("Breakfast", jsonChildNode.getString("Breakfast"));
-                    hashMap.put("Lunch", jsonChildNode.getString("Lunch"));
-                    hashMap.put("FlvrMilk", jsonChildNode.getString("FlvrMilk"));
-
-                    hashMapArrayList.add(hashMap);
-                }
-                canteenModel.setCanteenData(hashMapArrayList);
-                result.add(canteenModel);
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
 
     public static ArrayList<CircularModel> parseCircularJson(String responseString) {
         ArrayList<CircularModel> result = new ArrayList<>();

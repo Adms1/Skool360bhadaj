@@ -3,9 +3,7 @@ package com.anandniketanbhadaj.skool360.skool360.AsyncTasks;
 import android.os.AsyncTask;
 
 import com.anandniketanbhadaj.skool360.skool360.Models.ImprestResponse.GetImprestDataModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.PTMInboxResponse.MainPtmInboxResponse;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
-import com.anandniketanbhadaj.skool360.skool360.Utility.ParseJSON;
 import com.anandniketanbhadaj.skool360.skool360.WebServicesCall.WebServicesCall;
 import com.google.gson.Gson;
 

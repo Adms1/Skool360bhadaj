@@ -4,29 +4,18 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.MessageListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.NotificationMessageListAdapter;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetPrincipalMessageAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.Models.PrincipalModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class NotificationFragment extends Activity {

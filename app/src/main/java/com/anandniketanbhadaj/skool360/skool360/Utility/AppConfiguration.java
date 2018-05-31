@@ -33,7 +33,10 @@ public class AppConfiguration {
 //    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
 
 
-    public static String IMAGE_LIVE="http://192.168.1.8:8086/";
+    public static String IMAGE_LIVE="http://192.168.1.8:8086/SKOOL360-Category-Images-Android/Student/";
+//    public static String IMAGE_LIVE="http://103.24.183.28:8085/SKOOL360-Category-Images-Android/Student/";
+
+public static String GALLARY_LIVE="http://192.168.1.8:8086/";
 //    public static String IMAGE_LIVE="http://103.24.183.28:8085/";
 
     public static String StudentLogin = "StudentLogin";

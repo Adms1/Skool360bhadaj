@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -119,7 +121,13 @@ public class HomeFragment extends Fragment {
     }
 
     public void initViews() {
-//ThankyouDialog();
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            versionCode = pInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         grid_view = (GridView) rootView.findViewById(R.id.grid_view);
         grid_view.setAdapter(new ImageAdapter(mContext));
@@ -175,17 +183,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        if (Utility.getPref(mContext,"LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())){
-            // Date matches. User has already Launched the app once today. So do nothing.
-        }
-        else
-        {
-            // Display dialog text here......
-            // Do all other actions for first time launch in the day...
-            // Set the last Launched date to today.
-            RatingDialog();
-           Utility.setPref(mContext,"LAST_LAUNCH_DATE",Utility.getTodaysDate());
-        }
+
     }
 
     public void getRegistrationID() {
@@ -377,6 +375,17 @@ public class HomeFragment extends Fragment {
                             } else {
                                 attendance_txt.setText("Attendance :" + " " + studDetailList.get(0).getTodayAttendance());
                             }
+                            if (Utility.getPref(mContext,"LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())){
+                                // Date matches. User has already Launched the app once today. So do nothing.
+                            }
+                            else
+                            {
+                                // Display dialog text here......
+                                // Do all other actions for first time launch in the day...
+                                // Set the last Launched date to today.
+                                RatingDialog();
+                                Utility.setPref(mContext,"LAST_LAUNCH_DATE",Utility.getTodaysDate());
+                            }
                         }
                     });
                 } catch (Exception e) {
@@ -417,8 +426,11 @@ public class HomeFragment extends Fragment {
                                             .setMessage("Please update to a new version of the app.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.anandniketanbhadaj.skool360"));
+                                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.anandniketanbhadaj.skool360"));//"market://details?id=com.anandniketanbhadaj.skool360"));
                                                     getActivity().startActivity(i);
+//                                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.anandniketanbhadaj.skool360"));//"market://details?id=com.anandniketanbhadaj.skool360"));
+//                                                    getActivity().startActivity(i);
+
 
                                                 }
                                             })

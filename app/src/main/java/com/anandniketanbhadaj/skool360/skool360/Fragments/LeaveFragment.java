@@ -20,11 +20,7 @@ import android.widget.TextView;
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.InsertStudentLeaveAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.PTMTeacherStudentInsertDetailAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.MainPtmSentMessageResponse;
-import com.anandniketanbhadaj.skool360.skool360.Models.PTMTeacherResponse.PTMStudentWiseTeacher;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.Calendar;

@@ -18,7 +18,7 @@
             android:id="@+id/month_image"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_130sdp"
-            android:scaleType="fitXY" />
+            android:scaleType="matrix" />
 
         <TextView
             android:id="@+id/month_name"

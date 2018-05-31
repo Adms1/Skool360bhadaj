@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
+import com.bumptech.glide.Glide;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
-    public Integer[] mThumbIds = {
-            R.drawable.attendance, R.drawable.home_work, R.drawable.class_work,
-            R.drawable.timetable, R.drawable.unit_test, R.drawable.results,
-            R.drawable.report_card,R.drawable.fees_1, R.drawable.imprest,
-            R.drawable.holiday, R.drawable.leave,R.drawable.circular,
-            R.drawable.gallery,R.drawable.suggestion
+    public String[] mThumbIds = {
+            AppConfiguration.IMAGE_LIVE+"Attendance.png",
+            AppConfiguration.IMAGE_LIVE+"Home Work.png",
+            AppConfiguration.IMAGE_LIVE+"Class Work.png",
+            AppConfiguration.IMAGE_LIVE+"Time Table.png",
+            AppConfiguration.IMAGE_LIVE+"Exam Syllabus.png",
+            AppConfiguration.IMAGE_LIVE+"Results.png",
+            AppConfiguration.IMAGE_LIVE+"Report Card.png",
+            AppConfiguration.IMAGE_LIVE+"Fees.png",
+            AppConfiguration.IMAGE_LIVE+"Imprest.png",
+            AppConfiguration.IMAGE_LIVE+"Holiday.png",
+            AppConfiguration.IMAGE_LIVE+"Leave Application.png",
+            AppConfiguration.IMAGE_LIVE+"Circular.png",
+            AppConfiguration.IMAGE_LIVE+"Gallery.png",
+            AppConfiguration.IMAGE_LIVE+"Suggestion.png",
+
+
+
+//            R.drawable.attendance, R.drawable.home_work, R.drawable.class_work,
+//            R.drawable.timetable, R.drawable.unit_test, R.drawable.results,
+//            R.drawable.report_card,R.drawable.fees_1, R.drawable.imprest,
+//            R.drawable.holiday, R.drawable.leave,R.drawable.circular,
+//            R.drawable.gallery,R.drawable.suggestion
     };
 
 //    public String[] mThumbNames = {"Attendance",  "Homework", "Classwork", "Timetable", "Unit Test", "Results", "Report Card",
@@ -59,9 +79,16 @@ public class ImageAdapter extends BaseAdapter {
         imgGridOptions = (ImageView) convertView.findViewById(R.id.imgGridOptions);
         txtGridOptionsName = (TextView) convertView.findViewById(R.id.txtGridOptionsName);
 
-        imgGridOptions.setImageResource(mThumbIds[position]);
+        String url = mThumbIds[position];
+//        Log.d("url", url);
+
+        Glide.with(mContext)
+                .load(url)
+                .fitCenter()
+                .into(imgGridOptions);
         txtGridOptionsName.setText(mThumbNames[position]);
         return convertView;
+
     }
 
 }

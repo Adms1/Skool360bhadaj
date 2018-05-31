@@ -26,7 +26,6 @@ import com.anandniketanbhadaj.skool360.skool360.Models.Data;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.PTMTeacherResponse.FinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.UnitTestModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 

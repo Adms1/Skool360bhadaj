@@ -29,6 +29,7 @@ public class LoginActivity extends Activity {
     private String putExtras = "0";
     private String putExtrasData = "0";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class LoginActivity extends Activity {
         mContext = this;
         putExtrasData = getIntent().getStringExtra("message");
         putExtras = getIntent().getStringExtra("fromNotification");//getAction();
+
         System.out.println("Login Extra : " + putExtrasData);
         checkUnmPwd();
         initViews();
@@ -128,11 +130,11 @@ public class LoginActivity extends Activity {
 
     public void checkUnmPwd() {
         if (!Utility.getPref(mContext, "unm").equalsIgnoreCase("")) {
-            Intent intentDashboard = new Intent(LoginActivity.this, SplashScreenActivity.class);
-            intentDashboard.putExtra("message", putExtrasData);
-            intentDashboard.putExtra("fromNotification", putExtras);
-            startActivity(intentDashboard);
-            finish();
+                Intent intentDashboard = new Intent(LoginActivity.this, SplashScreenActivity.class);
+                intentDashboard.putExtra("message", putExtrasData);
+                intentDashboard.putExtra("fromNotification", putExtras);
+                startActivity(intentDashboard);
+                finish();
         }
     }
 

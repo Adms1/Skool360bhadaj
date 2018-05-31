@@ -58,26 +58,28 @@ public class AttendanceFragment extends Fragment {
 
         @Override
         public void onSelectDate(Date date, View view) {
-            for (int i = 0; i < attendanceModels.get(0).getEventsList().size(); i++) {
-                if (dateToString(date).equalsIgnoreCase(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate())) {
-                    String comments = attendanceModels.get(0).getEventsList().get(i).getComment().toString();
-                    if (!comments.equalsIgnoreCase("")) {
-                        AlertDialog ad = new AlertDialog.Builder(view.getContext()).create();
-                        ad.setCancelable(false);
-                        ad.setTitle("Comment");
-                        ad.setMessage(comments);
-                        ad.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            if(attendanceModels.size() > 0) {
+                for (int i = 0; i < attendanceModels.get(0).getEventsList().size(); i++) {
+                    if (dateToString(date).equalsIgnoreCase(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate())) {
+                        String comments = attendanceModels.get(0).getEventsList().get(i).getComment().toString();
+                        if (!comments.equalsIgnoreCase("")) {
+                            AlertDialog ad = new AlertDialog.Builder(view.getContext()).create();
+                            ad.setCancelable(false);
+                            ad.setTitle("Comment");
+                            ad.setMessage(comments);
+                            ad.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
 
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        ad.show();
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            ad.show();
 
 //                        showAlert();
                         /*FragmentTransaction ft = getFragmentManager().beginTransaction();
                         SomeDialog newFragment = new SomeDialog ("Comment", comments);
                         newFragment.show(ft, "dialog");*/
+                        }
                     }
                 }
             }
@@ -128,12 +130,12 @@ public class AttendanceFragment extends Fragment {
         Getnextandpreviousyear();
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBackAttendance = (Button) rootView.findViewById(R.id.btnBackAttendance);
-        btnFilterAttendance = (Button) rootView.findViewById(R.id.btnFilterAttendance);
-        txtTotalPresent = (TextView) rootView.findViewById(R.id.txtTotalPresent);
-        txtTotalAbsent = (TextView) rootView.findViewById(R.id.txtTotalAbsent);
+//        btnFilterAttendance = (Button) rootView.findViewById(R.id.btnFilterAttendance);
+//        txtTotalPresent = (TextView) rootView.findViewById(R.id.txtTotalPresent);
+//        txtTotalAbsent = (TextView) rootView.findViewById(R.id.txtTotalAbsent);
         txtNoRecordsHomework = (TextView) rootView.findViewById(R.id.txtNoRecordsHomework);
         rlCalender = (RelativeLayout) rootView.findViewById(R.id.rlCalender);
-        spinMonth = (Spinner) rootView.findViewById(R.id.spinMonth);
+//        spinMonth = (Spinner) rootView.findViewById(R.id.spinMonth);
 
         total_present_txt = (TextView) rootView.findViewById(R.id.total_present_txt);
         total_absent_txt = (TextView) rootView.findViewById(R.id.total_absent_txt);
@@ -141,51 +143,51 @@ public class AttendanceFragment extends Fragment {
 
         Collections.sort(year1);
         System.out.println("Sorted ArrayList in Java - Ascending order : " + year1);
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-
-            // Get private mPopup member variable and try cast to ListPopupWindow
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinMonth);
-
-            popupWindow.setHeight(getResources().getStringArray(R.array.month).length > 5 ? 500 : getResources().getStringArray(R.array.month).length * 100);
-        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-            // silently fail...
-        }
-        ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, getResources().getStringArray(R.array.month));
-        spinMonth.setAdapter(adapterMonth);
-
-        spinYear = (Spinner) rootView.findViewById(R.id.spinYear);
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-
-            // Get private mPopup member variable and try cast to ListPopupWindow
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinYear);
-
-            popupWindow.setHeight(year1.size() > 5 ? 500 : year1.size() * 100);
-        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-            // silently fail...
-        }
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, year1);
-        spinYear.setAdapter(adapterYear);
+//        try {
+//            Field popup = Spinner.class.getDeclaredField("mPopup");
+//            popup.setAccessible(true);
+//
+//            // Get private mPopup member variable and try cast to ListPopupWindow
+//            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinMonth);
+//
+//            popupWindow.setHeight(getResources().getStringArray(R.array.month).length > 5 ? 500 : getResources().getStringArray(R.array.month).length * 100);
+//        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+//            // silently fail...
+//        }
+//        ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, getResources().getStringArray(R.array.month));
+//        spinMonth.setAdapter(adapterMonth);
+//
+//        spinYear = (Spinner) rootView.findViewById(R.id.spinYear);
+//        try {
+//            Field popup = Spinner.class.getDeclaredField("mPopup");
+//            popup.setAccessible(true);
+//
+//            // Get private mPopup member variable and try cast to ListPopupWindow
+//            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinYear);
+//
+//            popupWindow.setHeight(year1.size() > 5 ? 500 : year1.size() * 100);
+//        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+//            // silently fail...
+//        }
+//        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, year1);
+//        spinYear.setAdapter(adapterYear);
 
         final Calendar calendar = Calendar.getInstance();
         int yy = calendar.get(Calendar.YEAR);
         int mm = calendar.get(Calendar.MONTH) + 1;
         int dd = calendar.get(Calendar.DAY_OF_MONTH);
 
-        ArrayList<String> months = new ArrayList<>();
-        for (int i = 0; i < getResources().getStringArray(R.array.month).length; i++) {
-            months.add(getResources().getStringArray(R.array.month)[i]);
-        }
-        spinMonth.setSelection(months.indexOf(months.get(mm - 1)));
-
-        ArrayList<String> year2 = new ArrayList<>();
-        for (int i = 0; i < year1.size(); i++) {
-            year2.add(year1.get(i));
-        }
-        spinYear.setSelection(year2.indexOf(String.valueOf(yy)));
+//        ArrayList<String> months = new ArrayList<>();
+//        for (int i = 0; i < getResources().getStringArray(R.array.month).length; i++) {
+//            months.add(getResources().getStringArray(R.array.month)[i]);
+//        }
+//        spinMonth.setSelection(months.indexOf(months.get(mm - 1)));
+//
+//        ArrayList<String> year2 = new ArrayList<>();
+//        for (int i = 0; i < year1.size(); i++) {
+//            year2.add(year1.get(i));
+//        }
+//        spinYear.setSelection(year2.indexOf(String.valueOf(yy)));
 
         try {
             mCaldroidFragment = new CaldroidFragment();
@@ -236,10 +238,10 @@ public class AttendanceFragment extends Fragment {
                                 absentDates.clear();
                                 HashMap hm = new HashMap();
                                 if (attendanceModels.size() > 0) {
-                                    txtNoRecordsHomework.setVisibility(View.GONE);
+//                                    txtNoRecordsHomework.setVisibility(View.GONE);
                                     rlCalender.setVisibility(View.VISIBLE);
-                                    txtTotalPresent.setText(attendanceModels.get(0).getTotalPresent());
-                                    txtTotalAbsent.setText(attendanceModels.get(0).getTotalAbsent());
+//                                    txtTotalPresent.setText(attendanceModels.get(0).getTotalPresent());
+//                                    txtTotalAbsent.setText(attendanceModels.get(0).getTotalAbsent());
 
 
                                     total_absent_txt.setText(attendanceModels.get(0).getTotalAbsent());
@@ -269,8 +271,7 @@ public class AttendanceFragment extends Fragment {
                                     progressDialog.dismiss();
                                     txtNoRecordsHomework.setVisibility(View.GONE);
                                     rlCalender.setVisibility(View.VISIBLE);
-                                    txtTotalPresent.setText("0");
-                                    txtTotalAbsent.setText("0");
+
 
                                     total_absent_txt.setText("0");
                                     total_present_txt.setText("0");
@@ -309,34 +310,12 @@ public class AttendanceFragment extends Fragment {
             }
         });
 
-        btnFilterAttendance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getAttendance();
-            }
-        });
-    }
-
-    public void showAlert() {
-        final AlertDialog.Builder alertbox = new AlertDialog.Builder(getActivity());
-
-        alertbox.setTitle("Do you want To exit ?");
-        alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface arg0, int arg1) {
-                // finish used for destroyed activity
-                arg0.dismiss();
-            }
-        });
-
-        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface arg0, int arg1) {
-                // Nothing will be happened when clicked on no button
-                // of Dialog
-            }
-        });
-
-        alertbox.show();
-
+//        btnFilterAttendance.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getAttendance();
+//            }
+//        });
     }
 
     public Date stringToDate(String stirngDate) {

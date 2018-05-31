@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -234,6 +236,8 @@ public class GalleryFragment extends Fragment {
         gallery_list1.setLayoutManager(mLayoutManager);
         gallery_list1.getLayoutManager().scrollToPosition(photoarrayList.size()-1);
         gallery_list1.addItemDecoration(new EqualSpacingItemDecoration(12, EqualSpacingItemDecoration.HORIZONTAL));
+        SnapHelper helper = new LinearSnapHelper();
+        helper.attachToRecyclerView(gallery_list1);
         gallery_list1.setAdapter(galleryAdapter);
     }
 }

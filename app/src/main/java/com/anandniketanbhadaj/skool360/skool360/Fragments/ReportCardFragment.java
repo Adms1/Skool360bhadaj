@@ -74,7 +74,7 @@ public class ReportCardFragment extends Fragment {
         termrg = (RadioGroup) rootView.findViewById(R.id.termrg);
         term1rb = (RadioButton) rootView.findViewById(R.id.term1_rb);
         term2rb = (RadioButton) rootView.findViewById(R.id.term2_rb);
-
+//        txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview_report_card.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webview_report_card.getSettings().setUseWideViewPort(true);

@@ -20,7 +20,6 @@ import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterPay
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesDetailsAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetPaymentLedgerAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.PTMInboxResponse.FinalArrayInbox;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 

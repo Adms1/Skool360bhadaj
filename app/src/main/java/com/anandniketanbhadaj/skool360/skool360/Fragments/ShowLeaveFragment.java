@@ -2,7 +2,6 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,31 +13,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.CanteenListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.LeaveListAdapter;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.CanteenAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetLeaveDataAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.InsertStudentLeaveAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.Models.CanteenModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
-import java.lang.reflect.Field;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 
 
