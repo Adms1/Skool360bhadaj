@@ -43,6 +43,7 @@ import com.anandniketanbhadaj.skool360.skool360.Fragments.ShowLeaveFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.SuggestionFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.TimeTableFragment;
 import com.anandniketanbhadaj.skool360.skool360.Models.menuoptionItem;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class DashBoardActivity extends FragmentActivity {
     private ArrayList<menuoptionItem> navDrawerItems_main;
     private menuoptionItemAdapter adapter_menu_item;
     private String putData = "0";
-    private boolean shouldLoadHomeFragOnBackPress = true;
+
 
     public static void onLeft() {
         // TODO Auto-generated method stub
@@ -100,7 +101,7 @@ public class DashBoardActivity extends FragmentActivity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+        AppConfiguration.firsttimeback = true;
         displayView(dispPOS);
 //        String fromWhere = getIntent().getStringExtra("fromNotification");
 
@@ -210,78 +211,94 @@ public class DashBoardActivity extends FragmentActivity {
                 fragment = new HomeFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                AppConfiguration.firsttimeback  = true;
                 break;
             case 1:
                 fragment = new ProfileFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                AppConfiguration.firsttimeback = true;
                 break;
             case 2:
                 fragment = new AttendanceFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 3:
                 fragment = new HomeworkFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 4:
                 fragment = new ClassworkFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 5:
                 fragment = new TimeTableFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 6:
                 fragment = new ExamSyllabusFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 7:
                 fragment = new ResultFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 8:
                 fragment = new ReportCardFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 9:
                 fragment = new FeesFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 10:
                 fragment = new ImprestFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 11:
                 fragment = new HolidayFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 12:
                 fragment = new ShowLeaveFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 13:
                 fragment = new CircularFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 14:
                 fragment = new GalleryFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                  AppConfiguration.firsttimeback = true;
                 break;
             case 15:
+                  AppConfiguration.firsttimeback = true;
                 fragment = new SuggestionFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -364,9 +381,13 @@ public class DashBoardActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-
-        displayView(0);
-
+        if (AppConfiguration.firsttimeback) {
+            displayView(0);
+              AppConfiguration.firsttimeback = false;
+        } else {
+            finish();
+            System.exit(0);
+        }
     }
 
     /**

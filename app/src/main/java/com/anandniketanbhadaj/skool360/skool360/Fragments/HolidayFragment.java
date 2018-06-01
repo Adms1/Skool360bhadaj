@@ -142,31 +142,31 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
         monthwisedata = new ArrayList<ExamDatum>();
 
         ArrayList<String> image = new ArrayList<>();
-        image.add(AppConfiguration.IMAGE_LIVE+"april.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"may.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"june.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"july.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"aug.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"sep.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"oct.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"nov.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"dec.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"jan.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"feb.png");
-        image.add(AppConfiguration.IMAGE_LIVE+"march.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"april.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"may.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"june.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"july.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"aug.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"sep.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"oct.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"nov.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"dec.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"jan.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"feb.png");
+//        image.add(AppConfiguration.IMAGE_LIVE+"march.png");
 
-//        image.add(String.valueOf(R.drawable.april));
-//        image.add(String.valueOf(R.drawable.may));
-//        image.add(String.valueOf(R.drawable.june));
-//        image.add(String.valueOf(R.drawable.july));
-//        image.add(String.valueOf(R.drawable.aug));
-//        image.add(String.valueOf(R.drawable.sep));
-//        image.add(String.valueOf(R.drawable.oct));
-//        image.add(String.valueOf(R.drawable.nov));
-//        image.add(String.valueOf(R.drawable.dec));
-//        image.add(String.valueOf(R.drawable.jan));
-//        image.add(String.valueOf(R.drawable.feb));
-//        image.add(String.valueOf(R.drawable.march));
+        image.add(String.valueOf(R.drawable.april));
+        image.add(String.valueOf(R.drawable.may));
+        image.add(String.valueOf(R.drawable.june));
+        image.add(String.valueOf(R.drawable.july));
+        image.add(String.valueOf(R.drawable.aug));
+        image.add(String.valueOf(R.drawable.sep));
+        image.add(String.valueOf(R.drawable.oct));
+        image.add(String.valueOf(R.drawable.nov));
+        image.add(String.valueOf(R.drawable.dec));
+        image.add(String.valueOf(R.drawable.jan));
+        image.add(String.valueOf(R.drawable.feb));
+        image.add(String.valueOf(R.drawable.march));
 
 
 

@@ -247,30 +247,35 @@ public class HomeFragment extends Fragment {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 } else if (position == 1) {
                     fragment = new HomeworkFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 } else if (position == 2) {
                     fragment = new ClassworkFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 } else if (position == 3) {
                     fragment = new TimeTableFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 } else if (position == 4) {
                     fragment = new ExamSyllabusFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
 //                    fragment = new UnitTestFragment();
 //                    fragmentManager = getFragmentManager();
 //                    fragmentManager.beginTransaction()
@@ -282,30 +287,35 @@ public class HomeFragment extends Fragment {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 } else if (position == 6) {
                     fragment = new ReportCardFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 } else if (position == 7) {
                     fragment = new FeesFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 } else if (position == 8) {
                     fragment = new ImprestFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 } else if (position == 9) {
                     fragment = new HolidayFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
 //                    fragment = new CanteenFragment();
 //                    fragmentManager = getFragmentManager();
 //                    fragmentManager.beginTransaction()
@@ -317,6 +327,7 @@ public class HomeFragment extends Fragment {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
 //                    fragment = new PTMMainFragment();
 //                    fragmentManager = getFragmentManager();
 //                    fragmentManager.beginTransaction()
@@ -328,6 +339,7 @@ public class HomeFragment extends Fragment {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
 //                    fragment = new PrincipalMessageFragment();
 //                    fragmentManager = getFragmentManager();
 //                    fragmentManager.beginTransaction()
@@ -339,12 +351,14 @@ public class HomeFragment extends Fragment {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 } else if (position == 13) {
                     fragment = new SuggestionFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
+                    AppConfiguration.firsttimeback = true;
                 }
             }
         });

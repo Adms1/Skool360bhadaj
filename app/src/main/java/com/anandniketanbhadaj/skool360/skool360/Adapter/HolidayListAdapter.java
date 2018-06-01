@@ -98,13 +98,13 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
 //        holder.month_image.setParallaxStyles(verticalMovingStyle);
 
         holder.translate();
-//        holder.month_image.setImageResource(Integer.parseInt(holidayDataResponse.getFinalArray().get(position).getMonthImage()));
-        String url = holidayDataResponse.getFinalArray().get(position).getMonthImage();
-        Log.d("url", url);
-
-        Glide.with(mContext)
-                .load(url)
-                .into(holder.month_image);
+        holder.month_image.setImageResource(Integer.parseInt(holidayDataResponse.getFinalArray().get(position).getMonthImage()));
+//        String url = holidayDataResponse.getFinalArray().get(position).getMonthImage();
+//        Log.d("url", url);
+//
+//        Glide.with(mContext)
+//                .load(url)
+//                .into(holder.month_image);
         holder.itemView.setTag(holder);
         Log.d("setext", "" + holder.main_holiday.getChildCount());
         if (holder.main_holiday.getChildCount() - 1 == examData.size()) {

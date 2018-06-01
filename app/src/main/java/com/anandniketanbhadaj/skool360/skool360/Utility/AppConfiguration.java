@@ -39,6 +39,8 @@ public class AppConfiguration {
 public static String GALLARY_LIVE="http://192.168.1.8:8086/";
 //    public static String IMAGE_LIVE="http://103.24.183.28:8085/";
 
+    public static boolean   firsttimeback;
+
     public static String StudentLogin = "StudentLogin";
     public static String GetUserProfile = "GetUserProfile";
     public static String ChangePassword = "ChangePassword";
