@@ -172,12 +172,14 @@ public class HomeworkFragment extends Fragment {
                                 progressDialog.dismiss();
                                 if (homeWorkModels.size() > 0) {
                                     txtNoRecordsHomework.setVisibility(View.GONE);
+                                    lvExpHomework.setVisibility(View.VISIBLE);
                                     prepaareList();
                                     listAdapter = new ExpandableListAdapterHomework(getActivity(), listDataHeader, listDataChild);
                                     lvExpHomework.setAdapter(listAdapter);
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordsHomework.setVisibility(View.VISIBLE);
+                                    lvExpHomework.setVisibility(View.GONE);
                                 }
                             }
                         });
