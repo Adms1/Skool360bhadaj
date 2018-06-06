@@ -3,6 +3,7 @@ package com.anandniketanbhadaj.skool360.skool360.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -186,6 +187,7 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
             main_holiday = (LinearLayout) view.findViewById(R.id.main_holiday);
             this.recyclerViewHeight = recyclerViewHeight;
             this.itemView = view;
+
         }
         //month_image.getMeasuredHeight()
         public void translate() {

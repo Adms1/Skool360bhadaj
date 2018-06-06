@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
     ParallaxRecyclerView holiday_list;
     ExamModel holidayDataResponse;
     HolidayListAdapter holidayListAdapter;
-//    PallaxAdapter pallaxAdapter;
+    //    PallaxAdapter pallaxAdapter;
     List<String> montharrayList;
     List<ExamDatum> monthwisedata;
     private View rootView;
@@ -154,21 +155,39 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
 //        image.add(AppConfiguration.IMAGE_LIVE+"jan.png");
 //        image.add(AppConfiguration.IMAGE_LIVE+"feb.png");
 //        image.add(AppConfiguration.IMAGE_LIVE+"march.png");
-
-        image.add(String.valueOf(R.drawable.april));
-        image.add(String.valueOf(R.drawable.may));
-        image.add(String.valueOf(R.drawable.june));
-        image.add(String.valueOf(R.drawable.july));
-        image.add(String.valueOf(R.drawable.aug));
-        image.add(String.valueOf(R.drawable.sep));
-        image.add(String.valueOf(R.drawable.oct));
-        image.add(String.valueOf(R.drawable.nov));
-        image.add(String.valueOf(R.drawable.dec));
-        image.add(String.valueOf(R.drawable.jan));
-        image.add(String.valueOf(R.drawable.feb));
-        image.add(String.valueOf(R.drawable.march));
-
-
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        float yInches = metrics.heightPixels / metrics.ydpi;
+        float xInches = metrics.widthPixels / metrics.xdpi;
+        double diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
+        if (diagonalInches >= 6.5 ){
+            image.add(String.valueOf(R.drawable.april_t6));
+            image.add(String.valueOf(R.drawable.may_t6));
+            image.add(String.valueOf(R.drawable.june_t6));
+            image.add(String.valueOf(R.drawable.july_t6));
+            image.add(String.valueOf(R.drawable.aug_t6));
+            image.add(String.valueOf(R.drawable.sep_t6));
+            image.add(String.valueOf(R.drawable.oct_t6));
+            image.add(String.valueOf(R.drawable.nov_t6));
+            image.add(String.valueOf(R.drawable.dec_t6));
+            image.add(String.valueOf(R.drawable.jan_t6));
+            image.add(String.valueOf(R.drawable.feb_t6));
+            image.add(String.valueOf(R.drawable.march_t6));
+        } else {
+            // smaller device
+            image.add(String.valueOf(R.drawable.april_mobile));
+            image.add(String.valueOf(R.drawable.may_mobile));
+            image.add(String.valueOf(R.drawable.june_mobile));
+            image.add(String.valueOf(R.drawable.july_mobile));
+            image.add(String.valueOf(R.drawable.aug_mobile));
+            image.add(String.valueOf(R.drawable.sep_mobile));
+            image.add(String.valueOf(R.drawable.oct_mobile));
+            image.add(String.valueOf(R.drawable.nov_mobile));
+            image.add(String.valueOf(R.drawable.dec_mobile));
+            image.add(String.valueOf(R.drawable.jan_mobile));
+            image.add(String.valueOf(R.drawable.feb_mobile));
+            image.add(String.valueOf(R.drawable.march_mobile));
+        }
 
 
         for (int i = 0; i < holidayDataResponse.getFinalArray().size(); i++) {

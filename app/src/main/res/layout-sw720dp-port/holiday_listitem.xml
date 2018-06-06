@@ -16,18 +16,21 @@
 
         <ImageView
             android:id="@+id/month_image"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_295sdp"
             android:layout_height="@dimen/_130sdp"
-            android:scaleType="fitXY" />
+            android:layout_margin="@dimen/_1sdp"
+            android:scaleType="matrix"
+            android:src="@drawable/april"/>
 
         <TextView
             android:id="@+id/month_name"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_295sdp"
+            android:layout_height="@dimen/_130sdp"
             android:layout_gravity="center|center_vertical"
-            android:layout_marginTop="-200dp"
             android:gravity="center"
             android:text="January"
+            android:layout_marginTop="-340dp"
+            android:background="@color/bg_color"
             android:textColor="@color/white"
             android:textSize="@dimen/_17sdp"
             android:textStyle="bold" />

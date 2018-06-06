@@ -23,6 +23,7 @@ import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterHom
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudHomeworkAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -149,10 +150,12 @@ public class HomeworkFragment extends Fragment {
     public void getHomeworkData(final String fromDate, final String toDate) {
 
         if(Utility.isNetworkConnected(mContext)) {
-            progressDialog = new ProgressDialog(mContext);
-            progressDialog.setMessage("Please Wait...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
+//            progressDialog = new ProgressDialog(mContext);
+//            progressDialog.setMessage("Please Wait...");
+//            progressDialog.setContentView(R.layout.progressbar_dialog);
+//            progressDialog.setCancelable(false);
+//            progressDialog.show();
+            Utility.showDialog(mContext);
 
             new Thread(new Runnable() {
                 @Override
@@ -169,7 +172,7 @@ public class HomeworkFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                progressDialog.dismiss();
+                                Utility.dismissDialog();
                                 if (homeWorkModels.size() > 0) {
                                     txtNoRecordsHomework.setVisibility(View.GONE);
                                     lvExpHomework.setVisibility(View.VISIBLE);
@@ -177,7 +180,7 @@ public class HomeworkFragment extends Fragment {
                                     listAdapter = new ExpandableListAdapterHomework(getActivity(), listDataHeader, listDataChild);
                                     lvExpHomework.setAdapter(listAdapter);
                                 } else {
-                                    progressDialog.dismiss();
+                                    Utility.dismissDialog();
                                     txtNoRecordsHomework.setVisibility(View.VISIBLE);
                                     lvExpHomework.setVisibility(View.GONE);
                                 }
@@ -216,6 +219,8 @@ public class HomeworkFragment extends Fragment {
             int yy = calendar.get(Calendar.YEAR);
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
+//
+
             return new DatePickerDialog(getActivity(), this, yy, mm, dd);
         }
 

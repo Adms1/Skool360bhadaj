@@ -1,11 +1,17 @@
 package com.anandniketanbhadaj.skool360.skool360.Utility;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
+import android.view.Window;
 import android.widget.Toast;
+
+import com.anandniketanbhadaj.skool360.R;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +33,8 @@ public class Utility {
     public static String parentFolderName = "Skool 360 Shilaj";
     public static String childAnnouncementFolderName = "Announcement";
     public static String childCircularFolderName = "Circular";
+    public static Dialog dialog;
+    public static AVLoadingIndicatorView avi;
 
     public static boolean isNetworkConnected(Context ctxt) {
         ConnectivityManager cm = (ConnectivityManager) ctxt
@@ -138,5 +146,31 @@ public class Utility {
         }
 
         return mDAY + "/" + mMONTH + "/" + mYEAR;
+    }
+
+    public static void showDialog(Context context) {
+        dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.progressbar_dialog);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        avi=(AVLoadingIndicatorView)dialog.findViewById(R.id.avi) ;
+      avi.show();
+        dialog.show();
+    }
+
+    public static void dismissDialog() {
+        if (dialog != null && dialog.isShowing())
+            try {
+            avi.hide();
+                dialog.dismiss();
+            } catch (final IllegalArgumentException e) {
+                // Do nothing.
+            } catch (final Exception e) {
+                // Do nothing.
+            } finally {
+                dialog = null;
+            }
     }
 }
