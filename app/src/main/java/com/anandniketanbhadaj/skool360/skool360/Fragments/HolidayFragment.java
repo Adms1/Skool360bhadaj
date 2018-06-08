@@ -188,6 +188,34 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
             image.add(String.valueOf(R.drawable.feb_mobile));
             image.add(String.valueOf(R.drawable.march_mobile));
         }
+//        if (diagonalInches >= 6.5) {
+//            image.add(AppConfiguration.IMAGE_LIVE + "april_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "may_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "june_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "july_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "aug_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "sep_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "oct_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "nov_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "dec_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "jan_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "feb_t6.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "march_t6.png");
+//        } else {
+//            // smaller device
+//            image.add(AppConfiguration.IMAGE_LIVE + "april_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "may_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "june_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "july_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "aug_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "sep_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "oct_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "nov_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "dec_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "jan_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "feb_mobile.png");
+//            image.add(AppConfiguration.IMAGE_LIVE + "march_mobile.png");
+//        }
 
 
         for (int i = 0; i < holidayDataResponse.getFinalArray().size(); i++) {

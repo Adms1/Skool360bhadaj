@@ -20,7 +20,7 @@
             android:layout_height="@dimen/_130sdp"
             android:layout_margin="@dimen/_1sdp"
             android:scaleType="matrix"
-            android:src="@drawable/april"/>
+            android:src="@drawable/april_t6"/>
 
         <TextView
             android:id="@+id/month_name"

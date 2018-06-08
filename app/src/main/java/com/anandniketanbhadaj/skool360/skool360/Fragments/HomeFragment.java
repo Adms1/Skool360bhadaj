@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
     // Use for Rating
     Dialog ratingDialog;
     TextView rate_it_txt_view, reminde_me_txt, no_thanks_txt;
-
+    String putData;
     //
     private View rootView;
     private Button btnMenu;
@@ -121,6 +121,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void initViews() {
+
         PackageInfo pInfo = null;
         try {
             pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
@@ -180,8 +181,6 @@ public class HomeFragment extends Fragment {
                 .tasksProcessingOrder(QueueProcessingType.LIFO)// .enableLogging()
                 .build();
         imageLoader.init(config.createDefault(mContext));
-
-
 
 
     }
@@ -249,14 +248,22 @@ public class HomeFragment extends Fragment {
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
                 } else if (position == 1) {
+                    putData = "test";
                     fragment = new HomeworkFragment();
+                    Bundle args = new Bundle();
+                    args.putString("message", putData);
+                    fragment.setArguments(args);
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
                 } else if (position == 2) {
+                    putData = "test";
                     fragment = new ClassworkFragment();
+                    Bundle args = new Bundle();
+                    args.putString("message", putData);
+                    fragment.setArguments(args);
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
@@ -389,16 +396,14 @@ public class HomeFragment extends Fragment {
                             } else {
                                 attendance_txt.setText("Attendance :" + " " + studDetailList.get(0).getTodayAttendance());
                             }
-                            if (Utility.getPref(mContext,"LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())){
+                            if (Utility.getPref(mContext, "LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())) {
                                 // Date matches. User has already Launched the app once today. So do nothing.
-                            }
-                            else
-                            {
+                            } else {
                                 // Display dialog text here......
                                 // Do all other actions for first time launch in the day...
                                 // Set the last Launched date to today.
                                 RatingDialog();
-                                Utility.setPref(mContext,"LAST_LAUNCH_DATE",Utility.getTodaysDate());
+                                Utility.setPref(mContext, "LAST_LAUNCH_DATE", Utility.getTodaysDate());
                             }
                         }
                     });
@@ -441,7 +446,8 @@ public class HomeFragment extends Fragment {
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.anandniketanbhadaj.skool360"));//"market://details?id=com.anandniketanbhadaj.skool360"));
-                                                    getActivity().startActivity(i);
+                                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    mContext.startActivity(i);
 //                                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.anandniketanbhadaj.skool360"));//"market://details?id=com.anandniketanbhadaj.skool360"));
 //                                                    getActivity().startActivity(i);
 
@@ -514,8 +520,6 @@ public class HomeFragment extends Fragment {
         ratingDialog.show();
 
     }
-    
-    
 
 
 }

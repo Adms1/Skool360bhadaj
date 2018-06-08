@@ -79,7 +79,7 @@
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/textbox_color"
+        android:background="@color/white"
         android:stretchColumns="*">
 
         <TableRow
@@ -94,12 +94,13 @@
                 android:layout_marginRight="0.2dp"
                 android:layout_marginTop="0.2dp"
                 android:layout_weight="1.6"
-                android:background="@color/white"
+                android:background="@color/present_header"
                 android:gravity="start|center_vertical"
                 android:paddingLeft="@dimen/_10sdp"
                 android:text="Total Present"
-                android:textColor="@color/present_header"
-                android:textSize="@dimen/_12sdp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -108,12 +109,13 @@
                 android:layout_marginRight="0.2dp"
                 android:layout_marginTop="0.2dp"
                 android:layout_weight="1.6"
-                android:background="@color/white"
+                android:background="@color/absent_bg"
                 android:gravity="start|center_vertical"
                 android:paddingLeft="@dimen/_10sdp"
                 android:text="Total Absent"
-                android:textColor="@color/absent_header"
-                android:textSize="@dimen/_12sdp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -121,12 +123,13 @@
                 android:layout_marginLeft="0.2dp"
                 android:layout_marginTop="0.2dp"
                 android:layout_weight="1.6"
-                android:background="@color/white"
+                android:background="@color/schedule_active"
                 android:gravity="start|center_vertical"
                 android:paddingLeft="@dimen/_10sdp"
                 android:text="Total Holiday"
-                android:textColor="@color/schedule_active"
-                android:textSize="@dimen/_12sdp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"/>
         </TableRow>
 
         <TableRow
@@ -142,11 +145,12 @@
                 android:layout_marginRight="0.2dp"
                 android:layout_marginBottom="0.2dp"
                 android:layout_weight="1"
-                android:background="@color/app_bg"
+                android:background="@color/present_header"
                 android:gravity="center"
                 android:text="-"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/total_absent_txt"
@@ -156,11 +160,12 @@
                 android:layout_marginRight="0.2dp"
                 android:layout_marginBottom="0.2dp"
                 android:layout_weight="1"
-                android:background="@color/app_bg"
+                android:background="@color/absent_bg"
                 android:gravity="center"
                 android:text="-"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/total_holiday_txt"
@@ -170,11 +175,12 @@
                 android:layout_marginRight="0.2dp"
                 android:layout_marginBottom="0.2dp"
                 android:layout_weight="1"
-                android:background="@color/app_bg"
+                android:background="@color/schedule_active"
                 android:gravity="center"
                 android:text="-"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"/>
 
         </TableRow>
     </TableLayout>

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,11 @@ import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,23 +38,23 @@ import java.util.List;
  * Created by Harsh on 04-Aug-16.
  */
 public class HomeworkFragment extends Fragment {
-    private View rootView;
-    private Button btnMenu, btnFilterHomework, btnBackHomework;
     private static TextView fromDate, toDate;
-    private TextView txtNoRecordsHomework;
     private static String dateFinal;
-    private Context mContext;
-    private GetStudHomeworkAsyncTask getStudHomeworkAsyncTask = null;
-    private ArrayList<HomeWorkModel> homeWorkModels = new ArrayList<>();
-    private ProgressDialog progressDialog = null;
     private static boolean isFromDate = false;
-    private int lastExpandedPosition = -1;
-
     ExpandableListAdapterHomework listAdapter;
     ExpandableListView lvExpHomework;
     List<String> listDataHeader;
     HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>> listDataChild;
-
+    String putData,formatedate;
+    String[] spiltdata;
+    private View rootView;
+    private Button btnMenu, btnFilterHomework, btnBackHomework;
+    private TextView txtNoRecordsHomework;
+    private Context mContext;
+    private GetStudHomeworkAsyncTask getStudHomeworkAsyncTask = null;
+    private ArrayList<HomeWorkModel> homeWorkModels = new ArrayList<>();
+    private ProgressDialog progressDialog = null;
+    private int lastExpandedPosition = -1;
 
     public HomeworkFragment() {
     }
@@ -68,6 +72,7 @@ public class HomeworkFragment extends Fragment {
     }
 
     public void initViews() {
+
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         fromDate = (TextView) rootView.findViewById(R.id.fromDate);
         toDate = (TextView) rootView.findViewById(R.id.toDate);
@@ -76,8 +81,27 @@ public class HomeworkFragment extends Fragment {
         btnBackHomework = (Button) rootView.findViewById(R.id.btnBackHomework);
         lvExpHomework = (ExpandableListView) rootView.findViewById(R.id.lvExpHomework);
 
-        fromDate.setText(Utility.getTodaysDate());
-        toDate.setText(Utility.getTodaysDate());
+        if (!getArguments().getString("message").equalsIgnoreCase("test")) {
+            putData = getArguments().getString("message");
+            spiltdata = putData.split("\\-");
+            fromDate.setText(spiltdata[1]);
+            toDate.setText(spiltdata[1]);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat output = new SimpleDateFormat("dd/MMM EEEE");
+            Date d = null;
+            try {
+                d = sdf.parse(spiltdata[1]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            formatedate = output.format(d);
+            Log.d("date",formatedate);
+        } else {
+            putData = getArguments().getString("message");
+            fromDate.setText(Utility.getTodaysDate());
+            toDate.setText(Utility.getTodaysDate());
+        }
         getHomeworkData(fromDate.getText().toString(), toDate.getText().toString());
     }
 
@@ -128,6 +152,9 @@ public class HomeworkFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new HomeFragment();
+                Bundle args = new Bundle();
+                args.putString("message", putData);
+                fragment.setArguments(args);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -149,13 +176,13 @@ public class HomeworkFragment extends Fragment {
 
     public void getHomeworkData(final String fromDate, final String toDate) {
 
-        if(Utility.isNetworkConnected(mContext)) {
-//            progressDialog = new ProgressDialog(mContext);
-//            progressDialog.setMessage("Please Wait...");
+        if (Utility.isNetworkConnected(mContext)) {
+            progressDialog = new ProgressDialog(mContext);
+            progressDialog.setMessage("Please Wait...");
 //            progressDialog.setContentView(R.layout.progressbar_dialog);
-//            progressDialog.setCancelable(false);
-//            progressDialog.show();
-            Utility.showDialog(mContext);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+//            Utility.showDialog(mContext);
 
             new Thread(new Runnable() {
                 @Override
@@ -172,7 +199,8 @@ public class HomeworkFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Utility.dismissDialog();
+//                                Utility.dismissDialog();
+                                progressDialog.dismiss();
                                 if (homeWorkModels.size() > 0) {
                                     txtNoRecordsHomework.setVisibility(View.GONE);
                                     lvExpHomework.setVisibility(View.VISIBLE);
@@ -180,7 +208,8 @@ public class HomeworkFragment extends Fragment {
                                     listAdapter = new ExpandableListAdapterHomework(getActivity(), listDataHeader, listDataChild);
                                     lvExpHomework.setAdapter(listAdapter);
                                 } else {
-                                    Utility.dismissDialog();
+//                                    Utility.dismissDialog();
+                                    progressDialog.dismiss();
                                     txtNoRecordsHomework.setVisibility(View.VISIBLE);
                                     lvExpHomework.setVisibility(View.GONE);
                                 }
@@ -191,8 +220,8 @@ public class HomeworkFragment extends Fragment {
                     }
                 }
             }).start();
-        }else{
-            Utility.ping(mContext,"Network not available");
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
 
@@ -200,14 +229,35 @@ public class HomeworkFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>>();
 
-        for (int i = 0; i < homeWorkModels.size(); i++) {
-            listDataHeader.add(homeWorkModels.get(i).getHomeWorkDate());
 
-            ArrayList<HomeWorkModel.HomeWorkData> rows = new ArrayList<HomeWorkModel.HomeWorkData>();
-            for (int j = 0; j < homeWorkModels.get(i).getHomeWorkDatas().size(); j++) {
-                rows.add(homeWorkModels.get(i).getHomeWorkDatas().get(j));
+
+
+        if (!getArguments().getString("message").equalsIgnoreCase("test")) {
+            spiltdata = putData.split("\\-");
+            for (int i = 0; i < homeWorkModels.size(); i++) {
+                if (homeWorkModels.get(i).getHomeWorkDate().equalsIgnoreCase(formatedate)) {
+                    listDataHeader.add(homeWorkModels.get(i).getHomeWorkDate());
+
+                    ArrayList<HomeWorkModel.HomeWorkData> rows = new ArrayList<HomeWorkModel.HomeWorkData>();
+                    for (int j = 0; j < homeWorkModels.get(i).getHomeWorkDatas().size(); j++) {
+                        if (homeWorkModels.get(i).getHomeWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
+                            rows.add(homeWorkModels.get(i).getHomeWorkDatas().get(j));
+                        }
+                    }
+
+                    listDataChild.put(listDataHeader.get(i), rows);
+                }
             }
-            listDataChild.put(listDataHeader.get(i), rows);
+        } else {
+            for (int i = 0; i < homeWorkModels.size(); i++) {
+                listDataHeader.add(homeWorkModels.get(i).getHomeWorkDate());
+
+                ArrayList<HomeWorkModel.HomeWorkData> rows = new ArrayList<HomeWorkModel.HomeWorkData>();
+                for (int j = 0; j < homeWorkModels.get(i).getHomeWorkDatas().size(); j++) {
+                    rows.add(homeWorkModels.get(i).getHomeWorkDatas().get(j));
+                }
+                listDataChild.put(listDataHeader.get(i), rows);
+            }
         }
     }
 

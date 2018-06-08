@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,8 @@ import android.widget.RelativeLayout;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.menuoptionItemAdapter;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.DeleteDeviceDetailAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.InsertStudentLeaveAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.AttendanceFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.CircularFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ClassworkFragment;
@@ -42,11 +45,13 @@ import com.anandniketanbhadaj.skool360.skool360.Fragments.ResultFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ShowLeaveFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.SuggestionFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.TimeTableFragment;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.menuoptionItem;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
@@ -65,10 +70,12 @@ public class DashBoardActivity extends FragmentActivity {
     Fragment fragment = null;
     int myid;
     boolean first_time_trans = true;
+    CreateLeaveModel logoutResponse;
     private ArrayList<menuoptionItem> navDrawerItems_main;
     private menuoptionItemAdapter adapter_menu_item;
     private String putData = "0";
-
+    private DeleteDeviceDetailAsyncTask deleteDeviceDetailAsyncTask = null;
+    private ProgressDialog progressDialog = null;
 
     public static void onLeft() {
         // TODO Auto-generated method stub
@@ -209,9 +216,23 @@ public class DashBoardActivity extends FragmentActivity {
         switch (position) {
             case 0:
                 fragment = new HomeFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                AppConfiguration.firsttimeback  = true;
+                if (getIntent().getStringExtra("message") != null) {
+                    putData = getIntent().getStringExtra("message").toString();
+                    Bundle args = new Bundle();
+                    args.putString("message", putData);
+                    fragment.setArguments(args);
+                    myid = fragment.getId();
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    AppConfiguration.firsttimeback = true;
+                } else {
+                    putData = "test";
+                    Bundle args = new Bundle();
+                    args.putString("message", putData);
+                    fragment.setArguments(args);
+                    myid = fragment.getId();
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    AppConfiguration.firsttimeback = true;
+                }
                 break;
             case 1:
                 fragment = new ProfileFragment();
@@ -223,82 +244,110 @@ public class DashBoardActivity extends FragmentActivity {
                 fragment = new AttendanceFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 3:
                 fragment = new HomeworkFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                if (getIntent().getStringExtra("message") != null) {
+                    putData = getIntent().getStringExtra("message").toString();
+                    Bundle args = new Bundle();
+                    args.putString("message", putData);
+                    fragment.setArguments(args);
+                    myid = fragment.getId();
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    AppConfiguration.firsttimeback = true;
+                } else {
+                    putData = "test";
+                    Bundle args = new Bundle();
+                    args.putString("message", putData);
+                    fragment.setArguments(args);
+                    myid = fragment.getId();
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    AppConfiguration.firsttimeback = true;
+                }
                 break;
             case 4:
                 fragment = new ClassworkFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                if (getIntent().getStringExtra("message") != null) {
+                    putData = getIntent().getStringExtra("message").toString();
+                    Bundle args = new Bundle();
+                    args.putString("message", putData);
+                    fragment.setArguments(args);
+                    myid = fragment.getId();
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    AppConfiguration.firsttimeback = true;
+                } else {
+                    putData = "test";
+                    Bundle args = new Bundle();
+                    args.putString("message", putData);
+                    fragment.setArguments(args);
+                    myid = fragment.getId();
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    AppConfiguration.firsttimeback = true;
+                }
                 break;
             case 5:
                 fragment = new TimeTableFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 6:
                 fragment = new ExamSyllabusFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 7:
                 fragment = new ResultFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 8:
                 fragment = new ReportCardFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 9:
                 fragment = new FeesFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 10:
                 fragment = new ImprestFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 11:
                 fragment = new HolidayFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 12:
                 fragment = new ShowLeaveFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 13:
                 fragment = new CircularFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 14:
                 fragment = new GalleryFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 break;
             case 15:
-                  AppConfiguration.firsttimeback = true;
+                AppConfiguration.firsttimeback = true;
                 fragment = new SuggestionFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -311,16 +360,7 @@ public class DashBoardActivity extends FragmentActivity {
                         .setMessage("Are you sure you want to logout?")
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Utility.setPref(mContext, "unm", "");
-                                Utility.setPref(mContext, "pwd", "");
-                                Utility.setPref(mContext, "studid", "");
-                                Utility.setPref(mContext, "FamilyID", "");
-                                Utility.setPref(mContext, "standardID", "");
-                                Utility.setPref(mContext, "ClassID", "");
-                                Utility.setPref(mContext, "TermID", "");
-                                Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
-                                startActivity(intentLogin);
-                                finish();
+                                getDeleteDeviceData();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -383,10 +423,56 @@ public class DashBoardActivity extends FragmentActivity {
     public void onBackPressed() {
         if (AppConfiguration.firsttimeback) {
             displayView(0);
-              AppConfiguration.firsttimeback = false;
+            AppConfiguration.firsttimeback = false;
         } else {
             finish();
             System.exit(0);
+        }
+    }
+
+    public void getDeleteDeviceData() {
+        if (Utility.isNetworkConnected(mContext)) {
+            progressDialog = new ProgressDialog(mContext);
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("StudentID", Utility.getPref(mContext, "studid"));
+                        deleteDeviceDetailAsyncTask = new DeleteDeviceDetailAsyncTask(params);
+                        logoutResponse = deleteDeviceDetailAsyncTask.execute().get();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (logoutResponse.getSuccess().equalsIgnoreCase("True")) {
+                                    Utility.setPref(mContext, "unm", "");
+                                    Utility.setPref(mContext, "pwd", "");
+                                    Utility.setPref(mContext, "studid", "");
+                                    Utility.setPref(mContext, "FamilyID", "");
+                                    Utility.setPref(mContext, "standardID", "");
+                                    Utility.setPref(mContext, "ClassID", "");
+                                    Utility.setPref(mContext, "TermID", "");
+                                    Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
+                                    startActivity(intentLogin);
+                                    finish();
+                                } else {
+                                    progressDialog.dismiss();
+
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
 
@@ -402,4 +488,5 @@ public class DashBoardActivity extends FragmentActivity {
             displayView(position);
         }
     }
+
 }

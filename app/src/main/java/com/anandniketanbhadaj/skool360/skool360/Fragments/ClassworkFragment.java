@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,14 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudClassworkAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,7 +49,8 @@ public class ClassworkFragment extends Fragment {
     private ArrayList<ClassWorkModel> classWorkModels = new ArrayList<>();
     private static boolean isFromDate = false;
     private int lastExpandedPosition = -1;
-
+    String putData,formatedate;
+    String[] spiltdata;
     ExpandableListAdapter listAdapter;
     ExpandableListView lvExpClassWork;
     List<String> listDataHeader;
@@ -76,9 +82,27 @@ public class ClassworkFragment extends Fragment {
 
 
 
-        //load today's data first
-        fromDate.setText(Utility.getTodaysDate());
-        toDate.setText(Utility.getTodaysDate());
+        if (!getArguments().getString("message").equalsIgnoreCase("test")) {
+            putData = getArguments().getString("message");
+            spiltdata = putData.split("\\-");
+            fromDate.setText(spiltdata[1]);
+            toDate.setText(spiltdata[1]);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat output = new SimpleDateFormat("dd/MMM EEEE");
+            Date d = null;
+            try {
+                d = sdf.parse(spiltdata[1]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            formatedate = output.format(d);
+            Log.d("date",formatedate);
+        } else {
+            putData = getArguments().getString("message");
+            fromDate.setText(Utility.getTodaysDate());
+            toDate.setText(Utility.getTodaysDate());
+        }
         getClassworkData(fromDate.getText().toString(), toDate.getText().toString());
     }
 
@@ -129,6 +153,9 @@ public class ClassworkFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new HomeFragment();
+                Bundle args = new Bundle();
+                args.putString("message", putData);
+                fragment.setArguments(args);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -200,18 +227,33 @@ public class ClassworkFragment extends Fragment {
     public void prepaareList(){
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String,ArrayList<ClassWorkModel.ClassWorkData>>();
+        if (!getArguments().getString("message").equalsIgnoreCase("test")) {
+            spiltdata = putData.split("\\-");
+            for (int i = 0; i < classWorkModels.size(); i++) {
+                if (classWorkModels.get(i).getClassWorkDate().equalsIgnoreCase(formatedate)) {
+                    listDataHeader.add(classWorkModels.get(i).getClassWorkDate());
 
-        for(int i = 0;i < classWorkModels.size();i++){
-            listDataHeader.add(classWorkModels.get(i).getClassWorkDate());
-            ArrayList<ClassWorkModel.ClassWorkData> rows = new ArrayList<ClassWorkModel.ClassWorkData>();
-            for(int j = 0;j < classWorkModels.get(i).getClassWorkDatas().size();j++){
-                rows.add(classWorkModels.get(i).getClassWorkDatas().get(j));
-//                if(!(classWorkModels.get(i).getClassWorkDatas().get(j).getProxyStatus().equalsIgnoreCase("-") || classWorkModels.get(i).getClassWorkDatas().get(j).getProxyStatus().equalsIgnoreCase("0"))){
-//                    rows.add(classWorkModels.get(i).getClassWorkDatas().get(j).getProxyStatus());
-//                }
-                listDataChild.put(listDataHeader.get(i), rows);
+                    ArrayList<ClassWorkModel.ClassWorkData> rows = new ArrayList<ClassWorkModel.ClassWorkData>();
+                    for (int j = 0; j < classWorkModels.get(i).getClassWorkDatas().size(); j++) {
+                        if (classWorkModels.get(i).getClassWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
+                            rows.add(classWorkModels.get(i).getClassWorkDatas().get(j));
+                        }
+                    }
+
+                    listDataChild.put(listDataHeader.get(i), rows);
+                }
+            }
+        } else {
+            for(int i = 0;i < classWorkModels.size();i++){
+                listDataHeader.add(classWorkModels.get(i).getClassWorkDate());
+                ArrayList<ClassWorkModel.ClassWorkData> rows = new ArrayList<ClassWorkModel.ClassWorkData>();
+                for(int j = 0;j < classWorkModels.get(i).getClassWorkDatas().size();j++){
+                    rows.add(classWorkModels.get(i).getClassWorkDatas().get(j));
+                    listDataChild.put(listDataHeader.get(i), rows);
+                }
             }
         }
+
     }
 
     public static class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {

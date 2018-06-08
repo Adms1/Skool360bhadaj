@@ -13,14 +13,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
         android:orientation="vertical">
-
-
             <ImageView
                 android:id="@+id/month_image"
                 android:layout_width="@dimen/_287sdp"
                 android:layout_height="@dimen/_130sdp"
                 android:scaleType="matrix"
-                android:src="@drawable/aug"/>
+                android:src="@drawable/aug_t6"/>
 
         <TextView
             android:id="@+id/month_name"

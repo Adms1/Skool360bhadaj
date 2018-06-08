@@ -63,8 +63,8 @@
                 android:layout_width="@dimen/_76sdp"
                 android:layout_height="@dimen/_76sdp"
                 android:src="@drawable/profile_pic_holder"
-                app:border_color="#003d71"
-                app:border_width="@dimen/_2sdp"
+                app:civ_border_color="#003d71"
+                app:civ_border_width="@dimen/_2sdp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
 
