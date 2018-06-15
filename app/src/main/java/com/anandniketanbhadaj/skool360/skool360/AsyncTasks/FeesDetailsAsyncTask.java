@@ -2,19 +2,18 @@ package com.anandniketanbhadaj.skool360.skool360.AsyncTasks;
 
 import android.os.AsyncTask;
 
-import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesMainResponse;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
-import com.anandniketanbhadaj.skool360.skool360.Utility.ParseJSON;
 import com.anandniketanbhadaj.skool360.skool360.WebServicesCall.WebServicesCall;
+import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by admsandroid on 9/6/2017.
  */
 
-public class FeesDetailsAsyncTask extends AsyncTask<Void, Void, ArrayList<FeesModel>> {
+public class FeesDetailsAsyncTask extends AsyncTask<Void, Void,FeesMainResponse> {
     HashMap<String, String> param = new HashMap<String, String>();
 
     public FeesDetailsAsyncTask(HashMap<String, String> param) {
@@ -27,12 +26,13 @@ public class FeesDetailsAsyncTask extends AsyncTask<Void, Void, ArrayList<FeesMo
     }
 
     @Override
-    protected ArrayList<FeesModel> doInBackground(Void... params) {
+    protected FeesMainResponse doInBackground(Void... params) {
         String responseString = null;
-        ArrayList<FeesModel> result = null;
+        FeesMainResponse result = null;
         try {
             responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetFeesStatus), param);
-            result = ParseJSON.parseFeesDetailsJson(responseString);
+            Gson gson = new Gson();
+            result = gson.fromJson(responseString, FeesMainResponse.class);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -41,7 +41,7 @@ public class FeesDetailsAsyncTask extends AsyncTask<Void, Void, ArrayList<FeesMo
     }
 
     @Override
-    protected void onPostExecute(ArrayList<FeesModel> result) {
+    protected void onPostExecute(FeesMainResponse result) {
         super.onPostExecute(result);
     }
 }

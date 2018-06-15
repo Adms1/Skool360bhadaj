@@ -46,7 +46,6 @@ public class ImprestFragment extends Fragment {
     private Spinner spinYear;
     private TableRow tblRowBalance, tblRowOpeningBalance;
     private ExpandableListView listImprestData;
-    //    private LinearLayout llListTitle;
     private Context mContext;
     private GetTermAsyncTask getTermAsyncTask = null;
     private GetImprestDataAsyncTask getImprestDataAsyncTask = null;
@@ -84,7 +83,6 @@ public class ImprestFragment extends Fragment {
         txtOpeningBalaceTop = (TextView) rootView.findViewById(R.id.txtOpeningBalaceTop);
         txtNoRecordsImprest = (TextView) rootView.findViewById(R.id.txtNoRecordsImprest);
         listImprestData = (ExpandableListView) rootView.findViewById(R.id.listImprestData);
-//        llListTitle = (LinearLayout) rootView.findViewById(R.id.llListTitle);
     }
 
     public void setListners() {
@@ -176,7 +174,7 @@ public class ImprestFragment extends Fragment {
                                         // Get private mPopup member variable and try cast to ListPopupWindow
                                         android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinYear);
 
-                                        popupWindow.setHeight(termText.size() > 5 ? 500 : termText.size() * 100);
+                                        popupWindow.setHeight(termText.size() > 1 ? 200 : termText.size() * 100);
                                     } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
                                         // silently fail...
                                     }
@@ -241,12 +239,18 @@ public class ImprestFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (getImprestResponse.getFinalArray().size() > 0) {
-                                    txtNoRecordsImprest.setVisibility(View.GONE);
+
+                                if(getImprestResponse.getSuccess().equalsIgnoreCase("True")){
                                     tblRowBalance.setVisibility(View.VISIBLE);
                                     tblRowOpeningBalance.setVisibility(View.VISIBLE);
                                     txtMyBalance.setText(getImprestResponse.getMyBalance());
                                     txtOpeningBalaceTop.setText(getImprestResponse.getOpeningBalance());
+                                }else{
+                                    tblRowBalance.setVisibility(View.GONE);
+                                    tblRowOpeningBalance.setVisibility(View.GONE);
+                                }
+                                if (getImprestResponse.getFinalArray().size() > 0) {
+                                    txtNoRecordsImprest.setVisibility(View.GONE);
                                     listImprestData.setVisibility(View.VISIBLE);
                                     if (getImprestResponse.getFinalArray().size() > 0 && getImprestResponse.getMyBalance() != null) {
                                         prepaareList();
@@ -255,8 +259,6 @@ public class ImprestFragment extends Fragment {
                                     }
                                 } else {
                                     progressDialog.dismiss();
-                                    tblRowBalance.setVisibility(View.GONE);
-                                    tblRowOpeningBalance.setVisibility(View.GONE);
                                     txtNoRecordsImprest.setVisibility(View.VISIBLE);
                                     listImprestData.setVisibility(View.GONE);
                                 }

@@ -185,7 +185,6 @@ public class LeaveFragment extends Fragment {
         }
     }
 
-
     public static class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         @Override

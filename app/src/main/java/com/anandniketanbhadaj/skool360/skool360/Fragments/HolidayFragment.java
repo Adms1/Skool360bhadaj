@@ -42,7 +42,6 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
     ParallaxRecyclerView holiday_list;
     ExamModel holidayDataResponse;
     HolidayListAdapter holidayListAdapter;
-    //    PallaxAdapter pallaxAdapter;
     List<String> montharrayList;
     List<ExamDatum> monthwisedata;
     private View rootView;
@@ -69,21 +68,16 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
     }
 
     public void initViews() {
-
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsClasswork = (TextView) rootView.findViewById(R.id.txtNoRecordsClasswork);
         btnBackCanteen = (Button) rootView.findViewById(R.id.btnBackCanteen);
         holiday_list = (ParallaxRecyclerView) rootView.findViewById(R.id.holiday_list);
-
-
         getLeaveData();
     }
 
     public void setListners() {
-
         btnMenu.setOnClickListener(this);
         btnBackCanteen.setOnClickListener(this);
-
     }
 
     @Override
@@ -143,18 +137,6 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
         monthwisedata = new ArrayList<ExamDatum>();
 
         ArrayList<String> image = new ArrayList<>();
-//        image.add(AppConfiguration.IMAGE_LIVE+"april.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"may.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"june.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"july.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"aug.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"sep.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"oct.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"nov.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"dec.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"jan.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"feb.png");
-//        image.add(AppConfiguration.IMAGE_LIVE+"march.png");
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float yInches = metrics.heightPixels / metrics.ydpi;
@@ -217,12 +199,9 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
 //            image.add(AppConfiguration.IMAGE_LIVE + "march_mobile.png");
 //        }
 
-
         for (int i = 0; i < holidayDataResponse.getFinalArray().size(); i++) {
-
             holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(i));
         }
-
         Log.d("monthwise", "" + monthwisedata);
         holidayListAdapter = new HolidayListAdapter(mContext, holidayDataResponse, monthwisedata, holiday_list.getHeight());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);

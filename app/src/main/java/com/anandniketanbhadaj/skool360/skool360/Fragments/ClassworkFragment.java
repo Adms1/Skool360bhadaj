@@ -188,7 +188,6 @@ public class ClassworkFragment extends Fragment {
                 public void run() {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
-//                    params.put("StudentID", "1027");
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("ClassWorkFromDate", fromDate);
                         params.put("ClassWorkToDate", toDate);

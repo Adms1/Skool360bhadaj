@@ -18,14 +18,14 @@ import android.widget.TextView;
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesMainResponse;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class FeesFragment extends Fragment {
+    FeesMainResponse feesMainResponse;
     private View rootView;
     private Button btnMenu, btnBackUnitTest, more_detail_btn;
     private TextView txtNoRecordsUnitTest, payment_total_amount_txt,
@@ -34,8 +34,7 @@ public class FeesFragment extends Fragment {
     private FragmentManager fragmentManager = null;
     private ProgressDialog progressDialog = null;
     private FeesAsyncTask getFeesAsyncTask = null;
-    private ArrayList<FeesModel> feesdetailModels = new ArrayList<>();
-    private LinearLayout linear, linear_right, fees_main_linear;
+    private LinearLayout linear_right, fees_main_linear;
 
     public FeesFragment() {
     }
@@ -65,7 +64,6 @@ public class FeesFragment extends Fragment {
         linear_right = (LinearLayout) rootView.findViewById(R.id.linear_right);
         fees_main_linear = (LinearLayout) rootView.findViewById(R.id.fees_main_linear);
     }
-
 
     public void setListners() {
         btnMenu.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +97,7 @@ public class FeesFragment extends Fragment {
     }
 
     public void getFeesData() {
-        if(Utility.isNetworkConnected(mContext)) {
+        if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
@@ -110,28 +108,34 @@ public class FeesFragment extends Fragment {
                 public void run() {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("studentid", Utility.getPref(mContext, "studid"));
+                        params.put("StudentID", Utility.getPref(mContext, "studid"));
+                        params.put("Term", Utility.getPref(mContext, "TermID"));
+                        params.put("StandardID", Utility.getPref(mContext, "standardID"));
 
                         getFeesAsyncTask = new FeesAsyncTask(params);
-                        feesdetailModels = getFeesAsyncTask.execute().get();
+                        feesMainResponse = getFeesAsyncTask.execute().get();
 
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (feesdetailModels.size() > 0) {
+                                if (feesMainResponse.getSuccess().equalsIgnoreCase("True")) {
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
                                     fees_main_linear.setVisibility(View.VISIBLE);
                                     progressDialog.dismiss();
-                                    payment_total_amount_txt.setText("₹" + " " + feesdetailModels.get(0).getTermPaid());
-                                    total_fee_txt.setText("Total" + "\n" + "₹" + " " + Html.fromHtml(feesdetailModels.get(0).getTermTotal()));
-                                    due_fee_txt.setText("Due" + "\n" + "₹" + " " + Html.fromHtml(feesdetailModels.get(0).getTermDuePay()));
-                                    discount_fee_txt.setText("Discount" + "\n" + "₹" + " " + Html.fromHtml(feesdetailModels.get(0).getTermDiscount()));
+                                    payment_total_amount_txt.setText("₹" + " " + feesMainResponse.getTermPaid());
+                                    total_fee_txt.setText("Total" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermTotal()));
+                                    due_fee_txt.setText("Due" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermDuePay()));
+                                    discount_fee_txt.setText("Discount" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermDiscount()));
                                     linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
 
                                 } else {
                                     progressDialog.dismiss();
-                                    txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
-                                    fees_main_linear.setVisibility(View.GONE);
+                                    payment_total_amount_txt.setText("₹" + " " + "0");
+                                    total_fee_txt.setText("Total" + "\n" + "₹" + " " + "0");
+                                    due_fee_txt.setText("Due" + "\n" + "₹" + " " + "0");
+                                    discount_fee_txt.setText("Discount" + "\n" + "₹" + " " +"0");
+                                    linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
+                                    Utility.ping(mContext,"Payment Detail are not available.");
                                 }
                             }
                         });
@@ -140,10 +144,9 @@ public class FeesFragment extends Fragment {
                     }
                 }
             }).start();
-        }else {
-            Utility.ping(mContext,"Network not available");
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
-
 
 }

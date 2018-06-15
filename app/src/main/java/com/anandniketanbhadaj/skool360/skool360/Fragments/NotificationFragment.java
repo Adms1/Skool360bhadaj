@@ -29,7 +29,6 @@ public class NotificationFragment extends Activity {
     private String putExtras = "0";
     ArrayList<String> message = new ArrayList<String>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

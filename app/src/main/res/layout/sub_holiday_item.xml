@@ -110,7 +110,7 @@
             android:layout_marginLeft="@dimen/_5sdp"
             android:layout_marginRight="@dimen/_5sdp"
             android:gravity="center"
-            android:text="No Any Holiday in this Month."
+            android:text="No Holiday available in this month."
             android:textColor="@color/absent_header"
             android:textSize="@dimen/_12sdp"
             android:visibility="gone"/>

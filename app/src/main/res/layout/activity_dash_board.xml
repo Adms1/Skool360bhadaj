@@ -19,18 +19,68 @@
         android:id="@+id/whatYouWantInLeftDrawer"
         android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:layout_gravity="right" >
+        android:layout_gravity="right">
 
         <!--<ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@drawable/drawer_title" />-->
+        <LinearLayout
+            android:id="@+id/rlProfile"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:src="@drawable/profile_pic_holder"
+                app:civ_border_color="@color/blue"
+                app:civ_border_width="@dimen/_1sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/studName"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/profile_image"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center|center_vertical"
+                    android:layout_marginLeft="@dimen/_40sdp"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:singleLine="true"
+                    android:text="Siddharth Karnik"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_12sdp" />
+
+                <ImageView
+                    android:id="@+id/viewprofile_img"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/viewprofile" />
+            </LinearLayout>
+        </LinearLayout>
 
         <ListView
             android:id="@+id/list_slidermenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_130sdp"
             android:background="#323232"
             android:choiceMode="singleChoice"
             android:divider="#3d3d3d"

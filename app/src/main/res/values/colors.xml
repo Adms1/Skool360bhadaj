@@ -27,7 +27,7 @@
     <color name="dividercolor">#801791d8</color>
 
     <!-- #49C1E8 -->
-<color name="headercolor">#ff9623</color>
+    <color name="headercolor">#ff9623</color>
     <color name="attendance_present_old">#b5e61d</color>
     <color name="attendance_absent_old">#ed1c24</color>
     <color name="attendance_present_new">#86c129</color>
@@ -80,4 +80,5 @@
     <color name="black_transfer">#8C000000</color>
     <color name="bg_color">#80000000</color>
     <color name="absent_bg">#ff3232</color>
+    <color name="search_class">#4Dffffff</color>
 </resources>

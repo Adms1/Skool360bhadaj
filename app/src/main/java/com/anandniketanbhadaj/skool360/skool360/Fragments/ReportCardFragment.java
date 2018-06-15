@@ -24,7 +24,9 @@ import android.widget.TextView;
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetReportcardAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTermAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
@@ -32,13 +34,15 @@ import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 
 
 public class ReportCardFragment extends Fragment {
     WebView webview_report_card;
-    HashMap<Integer, String> spinnerTermDetailIdMap;
-    String FinalTermDetailIdStr;
+    HashMap<Integer, String> spinnerTermIdMap;
+    String FinalTermDetailIdStr="1", FinalTermIdStr;
     private View rootView;
     private Button btnMenu, btnBackUnitTest;
     private TextView txtNoRecordsUnitTest;
@@ -49,6 +53,8 @@ public class ReportCardFragment extends Fragment {
     private ProgressDialog progressDialog = null;
     private GetReportcardAsyncTask getReportCardAsyncTask = null;
     private ArrayList<ReportCardModel> reportModels = new ArrayList<>();
+    private GetTermAsyncTask getTermAsyncTask = null;
+    private ArrayList<TermModel> termModels = new ArrayList<>();
 
     public ReportCardFragment() {
     }
@@ -61,7 +67,7 @@ public class ReportCardFragment extends Fragment {
 
         initViews();
         setListners();
-
+        fillspinYear();
         return rootView;
     }
 
@@ -74,7 +80,6 @@ public class ReportCardFragment extends Fragment {
         termrg = (RadioGroup) rootView.findViewById(R.id.termrg);
         term1rb = (RadioButton) rootView.findViewById(R.id.term1_rb);
         term2rb = (RadioButton) rootView.findViewById(R.id.term2_rb);
-//        txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview_report_card.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webview_report_card.getSettings().setUseWideViewPort(true);
@@ -83,7 +88,6 @@ public class ReportCardFragment extends Fragment {
         // Force links and redirects to open in the WebView instead of in a browser
         webview_report_card.setWebViewClient(new WebViewClient());
 
-//        fillTermDetailSpinner();
     }
 
     public void setListners() {
@@ -108,36 +112,36 @@ public class ReportCardFragment extends Fragment {
         termrg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int radioButtonID=termrg.getCheckedRadioButtonId();
-                switch (radioButtonID){
+                int radioButtonID = termrg.getCheckedRadioButtonId();
+                switch (radioButtonID) {
                     case R.id.term1_rb:
-                        FinalTermDetailIdStr="1";
+                        FinalTermDetailIdStr = "1";
                         break;
                     case R.id.term2_rb:
-                        FinalTermDetailIdStr="2";
+                        FinalTermDetailIdStr = "2";
                         break;
                 }
                 getReportData();
 
             }
         });
-//        term_detail_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                String name = term_detail_spinner.getSelectedItem().toString();
-//                String getid = spinnerTermDetailIdMap.get(term_detail_spinner.getSelectedItemPosition());
-//
-//                Log.d("TermDetailValue", name + "" + getid);
-//                FinalTermDetailIdStr = getid.toString();
-//                Log.d("FInalTermDetailId", FinalTermDetailIdStr);
-//                getReportData();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        term_detail_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String name = term_detail_spinner.getSelectedItem().toString();
+                String getid = spinnerTermIdMap.get(term_detail_spinner.getSelectedItemPosition());
+
+                Log.d("TermDetailValue", name + "" + getid);
+                FinalTermIdStr = getid.toString();
+                Log.d("FinalTermIdStr", FinalTermIdStr);
+                getReportData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -154,7 +158,7 @@ public class ReportCardFragment extends Fragment {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("Studentid", Utility.getPref(mContext, "studid"));
-                        params.put("TermID", Utility.getPref(mContext, "TermID"));
+                        params.put("TermID", FinalTermIdStr);
                         params.put("TermDetailID", FinalTermDetailIdStr);
                         getReportCardAsyncTask = new GetReportcardAsyncTask(params);
                         reportModels = getReportCardAsyncTask.execute().get();
@@ -182,39 +186,79 @@ public class ReportCardFragment extends Fragment {
         }
     }
 
-    //Use for Fill TermDetail Spinner
-    public void fillTermDetailSpinner() {
-        ArrayList<Integer> termdetailId = new ArrayList<>();
-        termdetailId.add(1);
-        termdetailId.add(2);
+    public void fillspinYear() {
+        if (Utility.isNetworkConnected(mContext)) {
+            progressDialog = new ProgressDialog(mContext);
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
 
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        getTermAsyncTask = new GetTermAsyncTask(params);
+                        termModels = getTermAsyncTask.execute().get();
 
-        ArrayList<String> termdetail = new ArrayList<>();
-        termdetail.add("Term 1");
-        termdetail.add("Term 2");
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (termModels.size() > 0) {
+                                    ArrayList<String> termText = new ArrayList<String>();
+                                    ArrayList<String> termId = new ArrayList<>();
 
+                                    for (int i = 0; i < termModels.size(); i++) {
+                                        termText.add(termModels.get(i).getTerm());
+                                        termId.add(termModels.get(i).getTermId());
+                                    }
+                                    Collections.sort(termId);
+                                    Collections.sort(termText);
+                                    String[] spinnertermdetailIdArray = new String[termId.size()];
 
-        String[] spinnertermdetailIdArray = new String[termdetailId.size()];
+                                    spinnerTermIdMap = new HashMap<Integer, String>();
+                                    for (int i = 0; i < termId.size(); i++) {
+                                        spinnerTermIdMap.put(i, String.valueOf(termId.get(i)));
+                                        spinnertermdetailIdArray[i] = termText.get(i).trim();
+                                    }
+                                    System.out.println("Sorted ArrayList in Java - Ascending order : " + spinnertermdetailIdArray);
+                                    try {
+                                        Field popup = Spinner.class.getDeclaredField("mPopup");
+                                        popup.setAccessible(true);
 
-        spinnerTermDetailIdMap = new HashMap<Integer, String>();
-        for (int i = 0; i < termdetailId.size(); i++) {
-            spinnerTermDetailIdMap.put(i, String.valueOf(termdetailId.get(i)));
-            spinnertermdetailIdArray[i] = termdetail.get(i).trim();
+                                        // Get private mPopup member variable and try cast to ListPopupWindow
+                                        android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(term_detail_spinner);
+
+                                        popupWindow.setHeight(spinnertermdetailIdArray.length > 1 ? 200 : spinnertermdetailIdArray.length * 100);
+                                    } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+                                        // silently fail...
+                                    }
+                                    ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnertermdetailIdArray);
+                                    term_detail_spinner.setAdapter(adapterSpinYear);
+
+                                    final Calendar calendar = Calendar.getInstance();
+                                    int yy = calendar.get(Calendar.YEAR);
+
+                                    String CurrentYear= String.valueOf(yy);
+                                    for (int i=0;i<spinnertermdetailIdArray.length;i++){
+                                        if(spinnertermdetailIdArray[i].contains(CurrentYear)){
+                                            term_detail_spinner.setSelection(i);
+                                        }
+                                    }
+
+                                } else {
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-
-            // Get private mPopup member variable and try cast to ListPopupWindow
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(term_detail_spinner);
-
-            popupWindow.setHeight(spinnertermdetailIdArray.length > 2 ? 500 : spinnertermdetailIdArray.length * 100);
-        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-            // silently fail...
-        }
-
-        ArrayAdapter<String> adapterTermdetail = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnertermdetailIdArray);
-        term_detail_spinner.setAdapter(adapterTermdetail);
-        Log.d("termDetailSpinner", String.valueOf(Arrays.asList(spinnertermdetailIdArray)));
     }
 }

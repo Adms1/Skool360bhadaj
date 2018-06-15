@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -19,7 +21,8 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterPayment;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesDetailsAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetPaymentLedgerAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesFinalResponse;
+import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesMainResponse;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
@@ -29,32 +32,27 @@ import java.util.List;
 
 
 public class PaymentFragment extends Fragment {
-    private View rootView;
-    private Button btnMenu, btnBackUnitTest;
-    private TextView txtNoRecordsUnitTest, previous_balance_term1_txt, previous_balance_term2_txt,
-            tutionfees_term2_txt, tutionfees_term1_txt, transportfees_term1_txt, transportfees_term2_txt,
-            imprest_term1_txt, imprest_term2_txt, latefees_term1_txt, latefees_term2_txt, totalpayablefees_term1_txt,
-            totalpayablefees_term2_txt, paidfees_term1_txt, paidfees_term2_txt, paynow_term1_txt, paynow_term2_txt,
-            admission_fees_term1_txt, admission_fees_term2_txt, caution_fees_term1_txt, caution_fees_term2_txt, discount_fee_term1_txt, discount_fee_term2_txt,
-            balance_term1_txt, balance_term2_txt, payment_history, term_fees_term1_txt, term_fees_term2_txt;
-    private Context mContext;
-    private FragmentManager fragmentManager = null;
-    private ProgressDialog progressDialog = null;
-    private FeesDetailsAsyncTask getFeesDetailsAsyncTask = null;
-    private ArrayList<FeesModel> feesdetailModels = new ArrayList<>();
-    ArrayList<FeesModel.Data> feesData = new ArrayList<>();
+    FeesMainResponse feesMainResponse;
     List<String> termheader;
     ArrayList<String> listDataChild;
-
     ExpandableListView lvExpPayment;
+    ExpandableListAdapterPayment expandableListAdapterPayment;
+    ArrayList<String> listDataHeader;
+    HashMap<String, ArrayList<PaymentLedgerModel.Data>> listDataChildPayment;
+    TableRow tableRow13;
+    Fragment fragment;
+    private TextView paynow_term1_txt, paynow_term2_txt, payment_history;
+    private View rootView;
+    private Button btnMenu, btnBackUnitTest;
+    private TextView txtNoRecordsUnitTest;
+    private Context mContext;
+    private ProgressDialog progressDialog = null;
+    private FeesDetailsAsyncTask getFeesDetailsAsyncTask = null;
     private int lastExpandedPosition = -1;
     private GetPaymentLedgerAsyncTask getPaymentLedgerAsyncTask = null;
     private ArrayList<PaymentLedgerModel> paymentdetailsModel = new ArrayList<>();
-    ExpandableListAdapterPayment expandableListAdapterPayment;
-    //    LinkedList<String> listDataHeader;
-    ArrayList<String> listDataHeader;
-    HashMap<String, ArrayList<PaymentLedgerModel.Data>> listDataChildPayment;
-
+    private FragmentManager fragmentManager = null;
+    private TableLayout table_layout;
 
     public PaymentFragment() {
     }
@@ -77,35 +75,12 @@ public class PaymentFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
-        previous_balance_term1_txt = (TextView) rootView.findViewById(R.id.previous_balance_term1_txt);
-        previous_balance_term2_txt = (TextView) rootView.findViewById(R.id.previous_balance_term2_txt);
-        tutionfees_term2_txt = (TextView) rootView.findViewById(R.id.tutionfees_term2_txt);
-        tutionfees_term1_txt = (TextView) rootView.findViewById(R.id.tutionfees_term1_txt);
-        transportfees_term1_txt = (TextView) rootView.findViewById(R.id.transportfees_term1_txt);
-        transportfees_term2_txt = (TextView) rootView.findViewById(R.id.transportfees_term2_txt);
-        imprest_term1_txt = (TextView) rootView.findViewById(R.id.imprest_term1_txt);
-        imprest_term2_txt = (TextView) rootView.findViewById(R.id.imprest_term2_txt);
-        latefees_term1_txt = (TextView) rootView.findViewById(R.id.latefees_term1_txt);
-        latefees_term2_txt = (TextView) rootView.findViewById(R.id.latefees_term2_txt);
-        totalpayablefees_term1_txt = (TextView) rootView.findViewById(R.id.totalpayablefees_term1_txt);
-        totalpayablefees_term2_txt = (TextView) rootView.findViewById(R.id.totalpayablefees_term2_txt);
-        paidfees_term1_txt = (TextView) rootView.findViewById(R.id.paidfees_term1_txt);
-        paidfees_term2_txt = (TextView) rootView.findViewById(R.id.paidfees_term2_txt);
         paynow_term1_txt = (TextView) rootView.findViewById(R.id.paynow_term1_txt);
         paynow_term2_txt = (TextView) rootView.findViewById(R.id.paynow_term2_txt);
         lvExpPayment = (ExpandableListView) rootView.findViewById(R.id.lvExpPayment);
-        balance_term1_txt = (TextView) rootView.findViewById(R.id.balance_term1_txt);
-        balance_term2_txt = (TextView) rootView.findViewById(R.id.balance_term2_txt);
-        admission_fees_term1_txt = (TextView) rootView.findViewById(R.id.admission_fees_term1_txt);
-        admission_fees_term2_txt = (TextView) rootView.findViewById(R.id.admission_fees_term2_txt);
-        caution_fees_term1_txt = (TextView) rootView.findViewById(R.id.caution_fees_term1_txt);
-        caution_fees_term2_txt = (TextView) rootView.findViewById(R.id.caution_fees_term2_txt);
-        discount_fee_term1_txt = (TextView) rootView.findViewById(R.id.discount_fee_term1_txt);
-        discount_fee_term2_txt = (TextView) rootView.findViewById(R.id.discount_fee_term2_txt);
         payment_history = (TextView) rootView.findViewById(R.id.payment_history);
-        term_fees_term1_txt = (TextView) rootView.findViewById(R.id.term_fees_term1_txt);
-        term_fees_term2_txt = (TextView) rootView.findViewById(R.id.term_fees_term2_txt);
-
+        tableRow13 = (TableRow) rootView.findViewById(R.id.tableRow13);
+        table_layout = (TableLayout) rootView.findViewById(R.id.table_layout);
     }
 
     public void setListners() {
@@ -119,8 +94,8 @@ public class PaymentFragment extends Fragment {
         btnBackUnitTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new FeesFragment();
-                FragmentManager fragmentManager = getFragmentManager();
+                fragment = new FeesFragment();
+                fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                         .replace(R.id.frame_container, fragment).commit();
@@ -136,6 +111,32 @@ public class PaymentFragment extends Fragment {
 
                 }
                 lastExpandedPosition = groupPosition;
+            }
+        });
+        paynow_term1_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new PayOnlineFragment();
+                Bundle args = new Bundle();
+                args.putString("url", feesMainResponse.getTerm1URL());
+                fragment.setArguments(args);
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
+        paynow_term2_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new PayOnlineFragment();
+                Bundle args = new Bundle();
+                args.putString("url", feesMainResponse.getTerm2URL());
+                fragment.setArguments(args);
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
             }
         });
     }
@@ -154,13 +155,16 @@ public class PaymentFragment extends Fragment {
 
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
+                        params.put("Term", Utility.getPref(mContext, "TermID"));
+                        params.put("StandardID", Utility.getPref(mContext, "standardID"));
+
                         getFeesDetailsAsyncTask = new FeesDetailsAsyncTask(params);
-                        feesdetailModels = getFeesDetailsAsyncTask.execute().get();
+                        feesMainResponse = getFeesDetailsAsyncTask.execute().get();
 
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (feesdetailModels.size() > 0) {
+                                if (feesMainResponse.getFinalArray().size() > 0) {
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
                                     progressDialog.dismiss();
                                     setData();
@@ -184,57 +188,71 @@ public class PaymentFragment extends Fragment {
     public void setData() {
         termheader = new ArrayList<String>();
         listDataChild = new ArrayList<>();
-        ArrayList<FeesModel.Data> rows = new ArrayList<FeesModel.Data>();
-        for (int i = 0; i < feesdetailModels.size(); i++) {
-            for (int j = 0; j < feesdetailModels.get(i).getDataArrayList().size(); j++) {
-                rows.add(feesdetailModels.get(i).getDataArrayList().get(j));
-            }
-        }
-        for (int k = 0; k < rows.size(); k++) {
-            previous_balance_term1_txt.setText("₹" + "" + rows.get(0).getPreviousBalance());
-            tutionfees_term1_txt.setText("₹" + "" + rows.get(0).getTutionFees());
-            transportfees_term1_txt.setText("₹" + "" + rows.get(0).getTransportFees());
-            imprest_term1_txt.setText("₹" + "" + rows.get(0).getImprest());
-            latefees_term1_txt.setText("₹" + "" + rows.get(0).getLateFees());
-            totalpayablefees_term1_txt.setText("₹" + "" + rows.get(0).getTotalPayableFees());
-            paidfees_term1_txt.setText("₹" + "" + rows.get(0).getPaidFees());
-            balance_term1_txt.setText("₹" + "" + rows.get(0).getTotalFees());
-            admission_fees_term1_txt.setText("₹" + "" + rows.get(0).getAdmissionFees());
-            caution_fees_term1_txt.setText("₹" + "" + rows.get(0).getCautionFees());
-            discount_fee_term1_txt.setText("₹" + "" + rows.get(0).getDiscount());
-            term_fees_term1_txt.setText("₹" + "" + rows.get(0).getTermFees());
-
-            previous_balance_term2_txt.setText("₹" + "" + rows.get(1).getPreviousBalance());
-            tutionfees_term2_txt.setText("₹" + "" + rows.get(1).getTutionFees());
-            transportfees_term2_txt.setText("₹" + "" + rows.get(1).getTransportFees());
-            imprest_term2_txt.setText("₹" + "" + rows.get(1).getImprest());
-            latefees_term2_txt.setText("₹" + "" + rows.get(1).getLateFees());
-            totalpayablefees_term2_txt.setText("₹" + "" + rows.get(1).getTotalPayableFees());
-            paidfees_term2_txt.setText("₹" + "" + rows.get(1).getPaidFees());
-            balance_term2_txt.setText("₹" + "" + rows.get(1).getTotalFees());
-            admission_fees_term2_txt.setText("₹" + "" + rows.get(1).getAdmissionFees());
-            caution_fees_term2_txt.setText("₹" + "" + rows.get(1).getCautionFees());
-            discount_fee_term2_txt.setText("₹" + "" + rows.get(1).getDiscount());
-            term_fees_term2_txt.setText("₹" + "" + rows.get(0).getTermFees());
+        if (feesMainResponse.getTerm1Btn().equals(false)) {
+            paynow_term1_txt.setVisibility(View.GONE);
+        } else {
+            paynow_term1_txt.setVisibility(View.VISIBLE);
         }
 
-//        if (totalpayablefees_term1_txt.getText().toString().equalsIgnoreCase("0.00")) {
-//            paidfees_term1_txt.setBackgroundColor(getResources().getColor(R.color.green));
-//        }
-//
-//        if (!totalpayablefees_term2_txt.getText().toString().equalsIgnoreCase("0.00")) {
-//            totalpayablefees_term2_txt.setBackgroundColor(getResources().getColor(R.color.red));
-//        }
-//        if (buttonvalue1.equalsIgnoreCase("true")) {
-//            paynow_term1_txt.setVisibility(View.VISIBLE);
-//        } else {
-//            paynow_term1_txt.setVisibility(View.GONE);
-//        }
-//        if (buttonvalue2.equalsIgnoreCase("true")) {
-//            paynow_term2_txt.setVisibility(View.VISIBLE);
-//        } else {
-//            paynow_term2_txt.setVisibility(View.GONE);
-//        }
+        if (feesMainResponse.getTerm2Btn().equals(false)) {
+            paynow_term2_txt.setVisibility(View.GONE);
+        } else {
+            paynow_term2_txt.setVisibility(View.VISIBLE);
+        }
+
+
+        for (int i = 0; i < feesMainResponse.getFinalArray().size(); i++) {
+//            int count=feesMainResponse.getFinalArray().get(i);
+
+            TableRow row1 = new TableRow(mContext);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+            params.bottomMargin = 1;
+            params.topMargin = 1;
+            params.rightMargin = 1;
+            params.leftMargin = 1;
+            row1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            TextView a = new TextView(mContext);
+            TextView b = new TextView(mContext);
+            TextView c = new TextView(mContext);
+
+            a.setLayoutParams(params);
+            b.setLayoutParams(params);
+            c.setLayoutParams(params);
+
+            a.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL);
+            b.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL);
+            c.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL);
+
+            a.setWidth(90);
+            b.setWidth(90);
+            c.setWidth(90);
+
+            a.setHeight(50);
+            b.setHeight(50);
+            c.setHeight(50);
+
+            a.setTextSize(14f);
+            b.setTextSize(14f);
+            c.setTextSize(14f);
+
+            a.setBackgroundColor(getResources().getColor(R.color.white));
+            b.setBackgroundColor(getResources().getColor(R.color.white));
+            c.setBackgroundColor(getResources().getColor(R.color.white));
+
+            a.setTextColor(getResources().getColor(R.color.text_color));
+            b.setTextColor(getResources().getColor(R.color.text_color));
+            c.setTextColor(getResources().getColor(R.color.text_color));
+
+            a.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());
+            b.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
+            c.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
+
+            row1.addView(a);
+            row1.addView(b);
+            row1.addView(c);
+            table_layout.addView(row1);
+
+        }
 
     }
 

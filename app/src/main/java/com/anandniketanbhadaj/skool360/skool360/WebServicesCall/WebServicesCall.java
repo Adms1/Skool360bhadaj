@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.anandniketanbhadaj.skool360.skool360.WebServicesCall;
 
@@ -47,7 +47,7 @@ public class WebServicesCall {
 			conn.setRequestMethod("POST");
 			conn.setUseCaches(false);
 			conn.setRequestProperty("User-Agent", USER_AGENT);
-			conn.setRequestProperty("Content-Type", 
+			conn.setRequestProperty("Content-Type",
 					"application/x-www-form-urlencoded");
 
 			conn.setDoInput(true);
@@ -77,7 +77,7 @@ public class WebServicesCall {
 			else {
 				response="";
 			}
-			
+
 			System.out.println("Response :" +response);
 		} catch (IOException e1) {
 			e1.printStackTrace();

@@ -36,6 +36,7 @@
     <string-array name="menuoption1">
         <item>Home</item>
         <item>My Profile</item>
+        <item>Announcement</item>
         <item>Attendance</item>
         <item>Homework</item>
         <item>Classwork</item>

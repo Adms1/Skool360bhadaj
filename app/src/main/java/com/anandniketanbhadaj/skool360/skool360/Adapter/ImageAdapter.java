@@ -18,6 +18,7 @@ public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
     public String[] mThumbIds = {
+            String.valueOf(R.drawable.annoucement),
             AppConfiguration.IMAGE_LIVE+"Attendance.png",
             AppConfiguration.IMAGE_LIVE+"Home Work.png",
             AppConfiguration.IMAGE_LIVE+"Class Work.png",
@@ -45,7 +46,7 @@ public class ImageAdapter extends BaseAdapter {
 //    public String[] mThumbNames = {"Attendance",  "Homework", "Classwork", "Timetable", "Unit Test", "Results", "Report Card",
 //            "Fees", "Imprest", "Canteen", "PTM", "Message","Circular"};
 
-    public String[] mThumbNames = {"Attendance",  "Homework", "Classwork", "Timetable", "Exam Syllabus", "Results", "Report Card",
+    public String[] mThumbNames = {"Announcement","Attendance",  "Homework", "Classwork", "Timetable", "Exam Syllabus", "Results", "Report Card",
             "Fees", "Imprest","Holiday","Leave Application","Circular","Gallery","Suggestion"};
 
     // Constructor

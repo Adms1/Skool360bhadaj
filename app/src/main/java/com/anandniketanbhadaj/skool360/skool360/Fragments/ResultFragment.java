@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -34,12 +36,13 @@ public class ResultFragment extends Fragment {
     private GetStudentResultAsyncTask getStudentResultAsyncTask = null;
     private ArrayList<ResultModel> resultModels = new ArrayList<>();
     private int lastExpandedPosition = -1;
-
+    private RadioGroup termrg;
+    private RadioButton term1rb, term2rb;
     ExpandableListAdapterResult expandableListAdapterResult;
     ExpandableListView lvExpResult;
     List<String> listDataHeader;
     HashMap<String, ArrayList<ResultModel.Data>> listDataChild;
-
+    String FinalTermDetailIdStr="1";
 
     public ResultFragment() {
     }
@@ -61,7 +64,9 @@ public class ResultFragment extends Fragment {
         txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
         lvExpResult = (ExpandableListView) rootView.findViewById(R.id.lvExpResult);
-
+        termrg = (RadioGroup) rootView.findViewById(R.id.termrg);
+        term1rb = (RadioButton) rootView.findViewById(R.id.term1_rb);
+        term2rb = (RadioButton) rootView.findViewById(R.id.term2_rb);
         getUnitTestData();
     }
 
@@ -94,6 +99,22 @@ public class ResultFragment extends Fragment {
                 lastExpandedPosition = groupPosition;
             }
         });
+        termrg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int radioButtonID = termrg.getCheckedRadioButtonId();
+                switch (radioButtonID) {
+                    case R.id.term1_rb:
+                        FinalTermDetailIdStr = "1";
+                        break;
+                    case R.id.term2_rb:
+                        FinalTermDetailIdStr = "2";
+                        break;
+                }
+                getUnitTestData();
+
+            }
+        });
     }
 
     public void getUnitTestData() {
@@ -109,7 +130,8 @@ public class ResultFragment extends Fragment {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
-                        params.put("TermID", "4"); //Utility.getPref(mContext, "TermID")
+                        params.put("TermID", Utility.getPref(mContext, "TermID")); //4
+                        params.put("TermDetailId",FinalTermDetailIdStr);
                         getStudentResultAsyncTask = new GetStudentResultAsyncTask(params);
                         resultModels = getStudentResultAsyncTask.execute().get();
 

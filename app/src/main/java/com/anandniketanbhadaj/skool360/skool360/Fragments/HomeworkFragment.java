@@ -179,17 +179,14 @@ public class HomeworkFragment extends Fragment {
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
-//            progressDialog.setContentView(R.layout.progressbar_dialog);
             progressDialog.setCancelable(false);
             progressDialog.show();
-//            Utility.showDialog(mContext);
 
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
-//                    params.put("StudentID", "1027");
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("HomeWorkFromDate", fromDate);
                         params.put("HomeWorkToDate", toDate);
@@ -199,7 +196,6 @@ public class HomeworkFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-//                                Utility.dismissDialog();
                                 progressDialog.dismiss();
                                 if (homeWorkModels.size() > 0) {
                                     txtNoRecordsHomework.setVisibility(View.GONE);
@@ -208,7 +204,6 @@ public class HomeworkFragment extends Fragment {
                                     listAdapter = new ExpandableListAdapterHomework(getActivity(), listDataHeader, listDataChild);
                                     lvExpHomework.setAdapter(listAdapter);
                                 } else {
-//                                    Utility.dismissDialog();
                                     progressDialog.dismiss();
                                     txtNoRecordsHomework.setVisibility(View.VISIBLE);
                                     lvExpHomework.setVisibility(View.GONE);
@@ -229,9 +224,6 @@ public class HomeworkFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>>();
 
-
-
-
         if (!getArguments().getString("message").equalsIgnoreCase("test")) {
             spiltdata = putData.split("\\-");
             for (int i = 0; i < homeWorkModels.size(); i++) {
@@ -244,7 +236,6 @@ public class HomeworkFragment extends Fragment {
                             rows.add(homeWorkModels.get(i).getHomeWorkDatas().get(j));
                         }
                     }
-
                     listDataChild.put(listDataHeader.get(i), rows);
                 }
             }
@@ -262,14 +253,12 @@ public class HomeworkFragment extends Fragment {
     }
 
     public static class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Calendar calendar = Calendar.getInstance();
             int yy = calendar.get(Calendar.YEAR);
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
-//
 
             return new DatePickerDialog(getActivity(), this, yy, mm, dd);
         }

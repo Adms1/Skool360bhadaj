@@ -76,7 +76,6 @@ public class LoginActivity extends Activity {
     }
 
     public void login() {
-
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -91,14 +90,12 @@ public class LoginActivity extends Activity {
                 try {
                     verifyLoginAsyncTask = new VerifyLoginAsyncTask(param);
                     result = verifyLoginAsyncTask.execute().get();
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             progressDialog.dismiss();
                             if (result.size() > 0) {
 //                              TODO: Store result values for future use
-
                                 if (chkRemember.isChecked()) {
                                     saveUserNamePwd(edtUserName.getText().toString(), edtPassword.getText().toString());
                                 }

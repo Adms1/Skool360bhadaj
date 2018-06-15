@@ -21,13 +21,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.menuoptionItemAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.DeleteDeviceDetailAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetUserProfileAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.InsertStudentLeaveAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.AnnouncmentFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.AttendanceFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.CircularFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ClassworkFragment;
@@ -46,12 +50,22 @@ import com.anandniketanbhadaj.skool360.skool360.Fragments.ShowLeaveFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.SuggestionFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.TimeTableFragment;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.menuoptionItem;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
@@ -60,6 +74,7 @@ public class DashBoardActivity extends FragmentActivity {
     static DrawerLayout mDrawerLayout;
     static ListView mDrawerList;
     static RelativeLayout leftRl;
+    ImageView viewprofile_img;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     Context mContext;
     ActionBarDrawerToggle mDrawerToggle;
@@ -76,6 +91,13 @@ public class DashBoardActivity extends FragmentActivity {
     private String putData = "0";
     private DeleteDeviceDetailAsyncTask deleteDeviceDetailAsyncTask = null;
     private ProgressDialog progressDialog = null;
+    private GetUserProfileAsyncTask getUserProfileAsyncTask = null;
+    private ArrayList<StudProfileModel> studDetailList = new ArrayList<>();
+    private ImageLoader imageLoader;
+    private CircleImageView profile_image;
+    private TextView studName;
+
+
 
     public static void onLeft() {
         // TODO Auto-generated method stub
@@ -109,7 +131,7 @@ public class DashBoardActivity extends FragmentActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         AppConfiguration.firsttimeback = true;
-        displayView(dispPOS);
+//        displayView(dispPOS);
 //        String fromWhere = getIntent().getStringExtra("fromNotification");
 
         /*if(fromWhere.equalsIgnoreCase("android.intent.action.MAIN")){
@@ -129,15 +151,13 @@ public class DashBoardActivity extends FragmentActivity {
             String key = getIntent().getStringExtra("fromNotification").toString();
             Log.d("key", key);
             if (key.equalsIgnoreCase("HW")) {
-                displayView(3);
-            } else if (key.equalsIgnoreCase("CW")) {
                 displayView(4);
+            } else if (key.equalsIgnoreCase("CW")) {
+                displayView(5);
             } else if (key.equalsIgnoreCase("Attendance")) {
-                displayView(2);
+                displayView(3);
             } else if (key.equalsIgnoreCase("Announcement")) {
-                Intent is = new Intent(DashBoardActivity.this, NotificationFragment.class);
-                is.putExtra("message", putData);
-                startActivity(is);
+                displayView(2);
             }
         } else {
             displayView(0);
@@ -150,6 +170,9 @@ public class DashBoardActivity extends FragmentActivity {
     private void Initialize() {
         // TODO Auto-generated method stub
         MenuName = getResources().getStringArray(R.array.menuoption1);
+        viewprofile_img=(ImageView)findViewById(R.id.viewprofile_img) ;
+        studName=(TextView)findViewById(R.id.studName);
+        profile_image=(CircleImageView)findViewById(R.id.profile_image);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         leftRl = (RelativeLayout) findViewById(R.id.whatYouWantInLeftDrawer);
@@ -161,6 +184,32 @@ public class DashBoardActivity extends FragmentActivity {
         }
         mDrawerList.setAdapter(adapter_menu_item);
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+
+        viewprofile_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayView(1);
+            }
+        });
+
+        imageLoader = ImageLoader.getInstance();
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300))
+                .build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                mContext)
+                .threadPriority(Thread.MAX_PRIORITY)
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .denyCacheImageMultipleSizesInMemory()
+                .tasksProcessingOrder(QueueProcessingType.LIFO)// .enableLogging()
+                .build();
+        imageLoader.init(config.createDefault(mContext));
+
+        getUserProfile();
     }
 
     @Override
@@ -212,7 +261,6 @@ public class DashBoardActivity extends FragmentActivity {
     }
 
     public void displayView(int position) {
-
         switch (position) {
             case 0:
                 fragment = new HomeFragment();
@@ -241,12 +289,18 @@ public class DashBoardActivity extends FragmentActivity {
                 AppConfiguration.firsttimeback = true;
                 break;
             case 2:
-                fragment = new AttendanceFragment();
+                fragment = new AnnouncmentFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
             case 3:
+                fragment = new AttendanceFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                AppConfiguration.firsttimeback = true;
+                break;
+            case 4:
                 fragment = new HomeworkFragment();
                 if (getIntent().getStringExtra("message") != null) {
                     putData = getIntent().getStringExtra("message").toString();
@@ -266,7 +320,7 @@ public class DashBoardActivity extends FragmentActivity {
                     AppConfiguration.firsttimeback = true;
                 }
                 break;
-            case 4:
+            case 5:
                 fragment = new ClassworkFragment();
                 if (getIntent().getStringExtra("message") != null) {
                     putData = getIntent().getStringExtra("message").toString();
@@ -286,73 +340,73 @@ public class DashBoardActivity extends FragmentActivity {
                     AppConfiguration.firsttimeback = true;
                 }
                 break;
-            case 5:
+            case 6:
                 fragment = new TimeTableFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 6:
+            case 7:
                 fragment = new ExamSyllabusFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 7:
+            case 8:
                 fragment = new ResultFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 8:
+            case 9:
                 fragment = new ReportCardFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 9:
+            case 10:
                 fragment = new FeesFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 10:
+            case 11:
                 fragment = new ImprestFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 11:
+            case 12:
                 fragment = new HolidayFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 12:
+            case 13:
                 fragment = new ShowLeaveFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 13:
+            case 14:
                 fragment = new CircularFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 14:
+            case 15:
                 fragment = new GalleryFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 15:
+            case 16:
                 AppConfiguration.firsttimeback = true;
                 fragment = new SuggestionFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
-            case 16:
+            case 17:
                 new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
                         .setCancelable(false)
                         .setTitle("Logout")
@@ -371,8 +425,6 @@ public class DashBoardActivity extends FragmentActivity {
                         })
                         .setIcon(R.drawable.ic_launcher)
                         .show();
-
-
                 break;
         }
 
@@ -443,6 +495,7 @@ public class DashBoardActivity extends FragmentActivity {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
+                        params.put("DeviceID",Utility.getPref(mContext,"deviceId"));
                         deleteDeviceDetailAsyncTask = new DeleteDeviceDetailAsyncTask(params);
                         logoutResponse = deleteDeviceDetailAsyncTask.execute().get();
                         runOnUiThread(new Runnable() {
@@ -457,6 +510,7 @@ public class DashBoardActivity extends FragmentActivity {
                                     Utility.setPref(mContext, "standardID", "");
                                     Utility.setPref(mContext, "ClassID", "");
                                     Utility.setPref(mContext, "TermID", "");
+                                    Utility.setPref(mContext,"deviceId","");
                                     Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
                                     startActivity(intentLogin);
                                     finish();
@@ -474,6 +528,31 @@ public class DashBoardActivity extends FragmentActivity {
         } else {
             Utility.ping(mContext, "Network not available");
         }
+    }
+    public void getUserProfile() {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    HashMap<String, String> params = new HashMap<String, String>();
+                    params.put("StudentID", Utility.getPref(mContext, "studid"));
+                    getUserProfileAsyncTask = new GetUserProfileAsyncTask(params);
+                    studDetailList = getUserProfileAsyncTask.execute().get();
+                   runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
+                            studName.setText(studDetailList.get(0).getStudentName());
+
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
     /**

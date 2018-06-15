@@ -24,21 +24,21 @@ public class AppConfiguration {
                 break;
         }
         return url;
-        
+
     }
 
 
     //Local
     public static String DOMAIN_LOCAL = "";
-//    public static String DOMAIN_LIVE = "http://192.168.1.8:8086/MobileApp_Service.asmx/";//use for office only
-    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
+    public static String DOMAIN_LIVE = "http://192.168.1.22:8086/MobileApp_Service.asmx/";//use for office only
+//    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
 
 
-//    public static String IMAGE_LIVE="http://192.168.1.8:8086/SKOOL360-Category-Images-Android/Student/";
-    public static String IMAGE_LIVE="http://103.24.183.28:8085/SKOOL360-Category-Images-Android/Student/";
+    public static String IMAGE_LIVE="http://192.168.1.22:8086/SKOOL360-Category-Images-Android/Student/";
+//    public static String IMAGE_LIVE="http://103.24.183.28:8085/SKOOL360-Category-Images-Android/Student/";
 
-//public static String GALLARY_LIVE="http://192.168.1.8:8086/";
-    public static String GALLARY_LIVE="http://103.24.183.28:8085/";
+    public static String GALLARY_LIVE="http://192.168.1.22:8086/";
+//    public static String GALLARY_LIVE="http://103.24.183.28:8085/";
 
     public static boolean   firsttimeback;
 

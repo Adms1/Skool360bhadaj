@@ -62,7 +62,6 @@ public class SuggestionFragment extends Fragment {
     }
 
     public void initViews() {
-
         edtSubject = (EditText) rootView.findViewById(R.id.edtSubject);
         edtSuggestion = (EditText) rootView.findViewById(R.id.edtSuggestion);
         btnSave = (Button) rootView.findViewById(R.id.btnSave);
@@ -133,7 +132,6 @@ public class SuggestionFragment extends Fragment {
                                     if (suggestionResponse.getSuccess().equalsIgnoreCase("True")) {
                                         edtSubject.setText("");
                                         edtSuggestion.setText("");
-//                                        Utility.ping(mContext, "suggestion send Successfully.");
                                         ThankyouDialog();
                                     } else {
                                         progressDialog.dismiss();

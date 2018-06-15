@@ -145,7 +145,6 @@ public class GalleryFragment extends Fragment {
         }
     }
 
-
     public void setGalleryData() {
         gallery_list.setVisibility(View.VISIBLE);
         gallery_list1.setVisibility(View.GONE);

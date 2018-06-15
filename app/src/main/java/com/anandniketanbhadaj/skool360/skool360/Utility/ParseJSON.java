@@ -1,12 +1,9 @@
 package com.anandniketanbhadaj.skool360.skool360.Utility;
 
-import android.util.Log;
-
 import com.anandniketanbhadaj.skool360.skool360.Models.AttendanceModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
 //import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.FinalArray;
-import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
@@ -305,61 +302,6 @@ public class ParseJSON {
         return result;
     }
 
-    public static ArrayList<FeesModel> parseFeesDetailsJson(String responseString) {
-        ArrayList<FeesModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            FeesModel feesModel = null;
-
-            if (data_load_basket.toString().equals("True")) {
-
-
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                for (int a = 0; a < jsonMainNode.length(); a++) {
-                    feesModel = new FeesModel();
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
-                    feesModel.setTerm(jsonChildNode.getString("Term"));
-
-                    FeesModel.Data data = null;
-                    ArrayList<FeesModel.Data> dataArrayList = new ArrayList<>();
-                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("Data");
-                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
-                        data = feesModel.new Data();
-
-                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
-                        data.setPreviousBalance(jsonChildNode1.getString("PreviousBalance"));
-                        data.setAdmissionFees(jsonChildNode1.getString("FoodFees"));
-                        data.setCautionFees(jsonChildNode1.getString("CautionMoney"));
-                        data.setTutionFees(jsonChildNode1.getString("TutionFees"));
-                        data.setTransportFees(jsonChildNode1.getString("TransportFees"));
-                        data.setImprest(jsonChildNode1.getString("Imprest"));
-                        data.setLateFees(jsonChildNode1.getString("LateFees"));
-                        data.setDiscount(jsonChildNode1.getString("Discount"));
-                        data.setTermFees(jsonChildNode1.getString("TermFees"));
-                        data.setTotalFees(jsonChildNode1.getString("Balance"));
-                        data.setPaidFees(jsonChildNode1.getString("PaidFees"));
-                        data.setTotalPayableFees(jsonChildNode1.getString("TotalPayableFees"));
-                        data.setURL(jsonChildNode1.getString("URL"));
-                        data.setButtonVisiblity(jsonChildNode1.getString("ButtonVisiblity"));
-                        dataArrayList.add(data);
-                    }
-                    feesModel.setDataArrayList(dataArrayList);
-                    result.add(feesModel);
-                }
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.d("megha", result.get(0).getDataArrayList().get(0).getImprest());
-        return result;
-    }
-
     public static ArrayList<HomeWorkModel> parseStudHomeworkJson(String responseString) {
         ArrayList<HomeWorkModel> result = new ArrayList<>();
 
@@ -404,35 +346,6 @@ public class ParseJSON {
         }
 
         return result;
-    }
-
-    public static ArrayList<FeesModel> parseFeesJson(String responseString) {
-        ArrayList<FeesModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            FeesModel feesModel = null;
-
-            if (data_load_basket.toString().equals("True")) {
-                feesModel = new FeesModel();
-                feesModel.setTermTotal(reader.getString("TermTotal"));
-                feesModel.setTermPaid(reader.getString("TermPaid"));
-                feesModel.setTermDuePay(reader.getString("TermDuePay"));
-                feesModel.setTermDiscount(reader.getString("TermDiscount"));
-                feesModel.setTermLateFee(reader.getString("TermLateFee"));
-
-                result.add(feesModel);
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-
     }
 
     public static ArrayList<AttendanceModel> parseAttendanceJson(String responseString) {
@@ -550,9 +463,6 @@ public class ParseJSON {
         return result;
     }
 
-
-
-
     public static ArrayList<CircularModel> parseCircularJson(String responseString) {
         ArrayList<CircularModel> result = new ArrayList<>();
 
@@ -568,7 +478,7 @@ public class ParseJSON {
                     circularModel = new CircularModel();
                     circularModel.setDate(jsonChildNode.getString("Date"));
                     circularModel.setSubject(jsonChildNode.getString("Subject"));
-                    circularModel.setDiscription(jsonChildNode.getString("Discription"));
+                    circularModel.setDiscription(jsonChildNode.getString("Description"));
 
                     result.add(circularModel);
                 }
@@ -583,51 +493,6 @@ public class ParseJSON {
 
         return result;
     }
-
-//    public static List<ExamModel> parseTestDetailJson(String responseString) {
-//        List<ExamModel>finalResult=new ArrayList<>();
-//        List<FinalArray> result = new ArrayList<>();
-//
-//
-//        try {
-//            JSONObject reader = new JSONObject(responseString);
-//            String data_load_basket = reader.getString("Success");
-//            FinalArray unitTestModel = null;
-//
-//            if (data_load_basket.toString().equals("True")) {
-//                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-//                for (int a = 0; a < jsonMainNode.length(); a++) {
-//                    unitTestModel = new FinalArray();
-//                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
-//                    unitTestModel.setTestName(jsonChildNode.getString("TestName"));
-//                    unitTestModel.setTestDate(jsonChildNode.getString("TestDate"));
-//
-//                    ExamDatum data = null;
-//                    List<ExamDatum> dataArrayList = new ArrayList<>();
-//                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("Data");
-//                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
-//                        data = new ExamDatum();
-//                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
-//                        data.setSubject(jsonChildNode1.getString("Subject"));
-//                        data.setDetail(jsonChildNode1.getString("Detail"));
-//                        dataArrayList.add(data);
-//                    }
-//                    unitTestModel.setData(dataArrayList);
-//                    result.add(unitTestModel);
-//                    finalResult.add((ExamModel) result);
-//                }
-//            } else {
-//                //invalid login
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return finalResult;
-//    }
-
 
     public static ArrayList<ReportCardModel> parseReportCardJson(String responseString) {
         ArrayList<ReportCardModel> result = new ArrayList<>();

@@ -129,7 +129,6 @@ public class ExamSyllabusFragment extends Fragment {
         });
     }
 
-
     public void getUnitTestData() {
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
@@ -153,9 +152,7 @@ public class ExamSyllabusFragment extends Fragment {
                                     if (responseExam.getFinalArray().size() > 0) {
                                         txtNoRecordsUnitTest.setVisibility(View.GONE);
                                         progressDialog.dismiss();
-//                                    prepaareList();
                                         fillspinner();
-
                                     } else {
                                         progressDialog.dismiss();
                                         txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
@@ -204,7 +201,6 @@ public class ExamSyllabusFragment extends Fragment {
         expandableListAdapterUnitTest = new ExpandableListAdapterUnitTest(getActivity(), listDataHeader, listDataChild);
         lvExpUnitTest.setAdapter(expandableListAdapterUnitTest);
     }
-
 
     public void fillspinner() {
         ArrayList<String> row = new ArrayList<String>();

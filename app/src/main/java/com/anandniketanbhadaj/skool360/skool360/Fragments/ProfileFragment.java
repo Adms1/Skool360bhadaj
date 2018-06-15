@@ -74,7 +74,6 @@ public class ProfileFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBackProfile = (Button) rootView.findViewById(R.id.btnBackProfile);
         btnPersonalDetail = (Button) rootView.findViewById(R.id.btnPersonalDetail);
-//        btnPersonalDetail.setBackgroundResource(R.drawable.white_dropshadow);
         btnPersonalDetail.setBackgroundColor(getResources().getColor(R.color.profile_lite));
         btnEducationalDetail = (Button) rootView.findViewById(R.id.btnEducationalDetail);
         btnEditProfile = (Button) rootView.findViewById(R.id.btnEditProfile);

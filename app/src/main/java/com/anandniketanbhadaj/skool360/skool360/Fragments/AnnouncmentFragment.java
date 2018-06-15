@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterCircular;
@@ -25,14 +25,12 @@ import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Harsh on 04-Aug-16.
- */
-public class CircularFragment extends Fragment {
+
+public class AnnouncmentFragment extends Fragment {
     private View rootView;
-    private Button btnMenu, btnBackCircular;
-    private ExpandableListView listCircular;
-    private TextView txtNoRecordsCircular;
+    private Button btnMenu, btnBack;
+    private ExpandableListView listannouncment;
+    private TextView txtNoRecords;
     private Context mContext;
     private GetCircularAsyncTask getCircularAsyncTask = null;
     private ExpandableListAdapterCircular circularListAdapter = null;
@@ -41,13 +39,13 @@ public class CircularFragment extends Fragment {
     ArrayList<String> listDataHeader;
     HashMap<String, ArrayList<CircularModel>> listDataChildCircular;
     private int lastExpandedPosition = -1;
-    public CircularFragment() {
+    public AnnouncmentFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.circular_fragment, container, false);
+        rootView = inflater.inflate(R.layout.fragment_announcment, container, false);
         mContext = getActivity();
 
         initViews();
@@ -59,9 +57,9 @@ public class CircularFragment extends Fragment {
 
     public void initViews() {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecordsCircular = (TextView) rootView.findViewById(R.id.txtNoRecordsCircular);
-        btnBackCircular = (Button) rootView.findViewById(R.id.btnBackCircular);
-        listCircular = (ExpandableListView) rootView.findViewById(R.id.listCircular);
+        txtNoRecords = (TextView) rootView.findViewById(R.id.txtNoRecords);
+        btnBack = (Button) rootView.findViewById(R.id.btnBack);
+        listannouncment = (ExpandableListView) rootView.findViewById(R.id.listannouncment);
     }
 
     public void setListners() {
@@ -73,18 +71,18 @@ public class CircularFragment extends Fragment {
             }
         });
 
-        listCircular.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+        listannouncment.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
             public void onGroupExpand(int groupPosition) {
                 if (lastExpandedPosition != -1
                         && groupPosition != lastExpandedPosition) {
-                    listCircular.collapseGroup(lastExpandedPosition);
+                    listannouncment.collapseGroup(lastExpandedPosition);
                 }
                 lastExpandedPosition = groupPosition;
             }
         });
-        btnBackCircular.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new HomeFragment();
@@ -116,15 +114,15 @@ public class CircularFragment extends Fragment {
                             public void run() {
                                 progressDialog.dismiss();
                                 if (circularModels.size() > 0) {
-                                    txtNoRecordsCircular.setVisibility(View.GONE);
+                                    txtNoRecords.setVisibility(View.GONE);
 
                                     prepaareList();
                                     circularListAdapter = new ExpandableListAdapterCircular(getActivity(),listDataHeader,listDataChildCircular);
-                                    listCircular.setAdapter(circularListAdapter);
+                                    listannouncment.setAdapter(circularListAdapter);
 
                                 } else {
                                     progressDialog.dismiss();
-                                    txtNoRecordsCircular.setVisibility(View.VISIBLE);
+                                    txtNoRecords.setVisibility(View.VISIBLE);
                                 }
                             }
                         });
@@ -141,22 +139,5 @@ public class CircularFragment extends Fragment {
     public void prepaareList() {
         listDataHeader = new ArrayList<>();
         listDataChildCircular = new HashMap<String, ArrayList<CircularModel>>();
-
-        for (int i = 0; i < circularModels.size(); i++) {
-            Circulardemo cdemo = new Circulardemo();
-            cdemo.Date = circularModels.get(i).getDate().toString();
-            cdemo.Subject = circularModels.get(i).getSubject().toString();
-            listDataHeader.add(cdemo.Subject.toString() + "|" + cdemo.Date);
-            Log.d("displaypositiondata", listDataHeader.get(0));
-
-            ArrayList<CircularModel> rows = new ArrayList<CircularModel>();
-                rows.add(circularModels.get(i));
-            listDataChildCircular.put(listDataHeader.get(i), rows);
-        }
-    }
-
-    public class Circulardemo {
-        private String Date;
-        private String Subject;
     }
 }

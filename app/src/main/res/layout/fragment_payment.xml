@@ -69,18 +69,18 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_margin="0.3dp"
                         android:layout_weight="1.6"
                         android:background="@color/payment_screen"
                         android:gravity="center"
-                        android:layout_margin="0.3dp"
                         android:text="DETAILS"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp" />
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_margin="0.3dp"
                         android:layout_weight="1.6"
                         android:background="@color/payment_screen"
@@ -91,7 +91,7 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_margin="0.3dp"
                         android:layout_weight="1.6"
                         android:background="@color/payment_screen"
@@ -100,536 +100,44 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp" />
                 </TableRow>
+            </TableLayout>
 
-                <TableRow
-                    android:id="@+id/tableRow2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+            <TableLayout
+                android:id="@+id/table_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/textbox_color"
+                android:stretchColumns="*"></TableLayout>
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Previous Balance"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/previous_balance_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/previous_balance_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Caution Fees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/caution_fees_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/caution_fees_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Tution Fees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/tutionfees_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/tutionfees_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Transport Fees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/transportfees_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/transportfees_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Imprest"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/imprest_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/imprest_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Food Fees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/admission_fees_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/admission_fees_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Term Fees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/term_fees_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/term_fees_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-
-                <TableRow
-                    android:id="@+id/tableRow8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Late Fees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/latefees_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/latefees_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Discount Fees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/discount_fee_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/discount_fee_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Total Payable Fees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/totalpayablefees_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/totalpayablefees_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Paid Fees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/paidfees_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/paidfees_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="Balance"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/balance_term1_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/balance_term2_txt"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_margin="0.3dp"
-                        android:layout_weight="1"
-                        android:background="@color/app_bg"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
-
-                </TableRow>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/textbox_color"
+                android:stretchColumns="*">
 
                 <TableRow
                     android:id="@+id/tableRow13"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_45sdp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
+                        android:id="@+id/pay_now_txtView"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_margin="0.3dp"
-                        android:layout_weight="1.6"
+                        android:layout_weight="1"
                         android:background="@color/app_bg"
-                        android:gravity="center"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="@dimen/_10sdp"
                         android:text=""
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_margin="0.3dp"
                         android:layout_weight="1"
                         android:background="@color/app_bg">
@@ -637,19 +145,20 @@
                         <TextView
                             android:id="@+id/paynow_term1_txt"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/_20sdp"
+                            android:layout_height="@dimen/_25sdp"
                             android:layout_margin="@dimen/_3sdp"
                             android:layout_weight="1"
                             android:background="#3D89CB"
                             android:gravity="center"
                             android:text="PAY NOW"
+
                             android:textColor="@color/white"
                             android:textSize="@dimen/_10sdp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_20sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_margin="0.3dp"
                         android:layout_weight="1"
                         android:background="@color/app_bg">
@@ -657,7 +166,7 @@
                         <TextView
                             android:id="@+id/paynow_term2_txt"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/_20sdp"
+                            android:layout_height="@dimen/_25sdp"
                             android:layout_margin="@dimen/_3sdp"
                             android:layout_weight="1"
                             android:background="#3D89CB"
@@ -673,22 +182,22 @@
                 android:id="@+id/txtNoRecordsUnitTest"
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_200sdp"
-                android:background="@drawable/norecordfound"
-                android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/norecordfound"
+                android:gravity="center"
                 android:textColor="@android:color/holo_red_dark"
-                android:textStyle="bold"
                 android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/payment_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:gravity="left"
                 android:text="Payment Summary"
