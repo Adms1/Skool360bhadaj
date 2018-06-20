@@ -17,13 +17,21 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterAnnouncement;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterCircular;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterUnitTest;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.AnnouncmentAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetCircularAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTestDetailAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
+import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class AnnouncmentFragment extends Fragment {
@@ -32,13 +40,14 @@ public class AnnouncmentFragment extends Fragment {
     private ExpandableListView listannouncment;
     private TextView txtNoRecords;
     private Context mContext;
-    private GetCircularAsyncTask getCircularAsyncTask = null;
-    private ExpandableListAdapterCircular circularListAdapter = null;
-    private ProgressDialog progressDialog = null;
-    private ArrayList<CircularModel> circularModels = new ArrayList<>();
-    ArrayList<String> listDataHeader;
-    HashMap<String, ArrayList<CircularModel>> listDataChildCircular;
     private int lastExpandedPosition = -1;
+    private AnnouncmentAsyncTask announcmentAsyncTask=null;
+    ExamModel announcmentmodelReponse;
+    private ProgressDialog progressDialog = null;
+    List<String> listDataHeader;
+    HashMap<String, ArrayList<ExamFinalArray>> listDataChild;
+ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
+
     public AnnouncmentFragment() {
     }
 
@@ -50,8 +59,6 @@ public class AnnouncmentFragment extends Fragment {
 
         initViews();
         setListners();
-        getCircularData();
-
         return rootView;
     }
 
@@ -60,6 +67,10 @@ public class AnnouncmentFragment extends Fragment {
         txtNoRecords = (TextView) rootView.findViewById(R.id.txtNoRecords);
         btnBack = (Button) rootView.findViewById(R.id.btnBack);
         listannouncment = (ExpandableListView) rootView.findViewById(R.id.listannouncment);
+        if (Utility.checkAndRequestPermissions(mContext)) {
+        }
+        getUnitTestData();
+
     }
 
     public void setListners() {
@@ -94,9 +105,8 @@ public class AnnouncmentFragment extends Fragment {
         });
 
     }
-
-    public void getCircularData(){
-        if(Utility.isNetworkConnected(mContext)) {
+    public void getUnitTestData() {
+        if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
@@ -107,22 +117,25 @@ public class AnnouncmentFragment extends Fragment {
                 public void run() {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
-                        getCircularAsyncTask = new GetCircularAsyncTask(params);
-                        circularModels = getCircularAsyncTask.execute().get();
+                        params.put("StandardID", Utility.getPref(mContext, "standardID"));
+                        announcmentAsyncTask = new AnnouncmentAsyncTask(params);
+                        announcmentmodelReponse = announcmentAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                progressDialog.dismiss();
-                                if (circularModels.size() > 0) {
-                                    txtNoRecords.setVisibility(View.GONE);
-
-                                    prepaareList();
-                                    circularListAdapter = new ExpandableListAdapterCircular(getActivity(),listDataHeader,listDataChildCircular);
-                                    listannouncment.setAdapter(circularListAdapter);
-
-                                } else {
+                                if(announcmentmodelReponse.getSuccess().equalsIgnoreCase("True")) {
+                                    if (announcmentmodelReponse.getFinalArray().size() > 0) {
+                                        txtNoRecords.setVisibility(View.GONE);
+                                        progressDialog.dismiss();
+                                        prepaareList();
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecords.setVisibility(View.VISIBLE);
+                                    }
+                                }else {
                                     progressDialog.dismiss();
                                     txtNoRecords.setVisibility(View.VISIBLE);
+
                                 }
                             }
                         });
@@ -131,13 +144,26 @@ public class AnnouncmentFragment extends Fragment {
                     }
                 }
             }).start();
-        }else{
-            Utility.ping(mContext,"Network not avialable");
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
-
     public void prepaareList() {
         listDataHeader = new ArrayList<>();
-        listDataChildCircular = new HashMap<String, ArrayList<CircularModel>>();
+        listDataChild = new HashMap<String, ArrayList<ExamFinalArray>>();
+
+        for (int i = 0; i < announcmentmodelReponse.getFinalArray().size(); i++) {
+            listDataHeader.add(announcmentmodelReponse.getFinalArray().get(i).getCreateDate()+"|"+
+                    announcmentmodelReponse.getFinalArray().get(i).getSubject()+"|"+
+                    announcmentmodelReponse.getFinalArray().get(i).getAnnoucementDescription()+"|"+
+                    announcmentmodelReponse.getFinalArray().get(i).getAnnoucementPDF());
+
+            ArrayList<ExamFinalArray> rows = new ArrayList<ExamFinalArray>();
+            rows.add(announcmentmodelReponse.getFinalArray().get(i));
+            listDataChild.put(listDataHeader.get(i), rows);
+        }
+
+        expandableListAdapterAnnouncement = new ExpandableListAdapterAnnouncement(getActivity(), listDataHeader, listDataChild);
+        listannouncment.setAdapter(expandableListAdapterAnnouncement);
     }
 }

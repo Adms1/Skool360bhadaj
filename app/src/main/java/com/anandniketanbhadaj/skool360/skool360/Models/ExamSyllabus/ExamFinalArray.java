@@ -166,4 +166,54 @@ public class ExamFinalArray {
     public void setData(List<ExamDatum> data) {
         this.data = data;
     }
+
+
+    //================Announcement=======================
+
+    @SerializedName("CreateDate")
+    @Expose
+    private String createDate;
+    @SerializedName("Subject")
+    @Expose
+    private String subject;
+    @SerializedName("AnnoucementDescription")
+    @Expose
+    private String annoucementDescription;
+    @SerializedName("AnnoucementPDF")
+    @Expose
+    private String annoucementPDF;
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getAnnoucementDescription() {
+        return annoucementDescription;
+    }
+
+    public void setAnnoucementDescription(String annoucementDescription) {
+        this.annoucementDescription = annoucementDescription;
+    }
+
+    public String getAnnoucementPDF() {
+        return annoucementPDF;
+    }
+
+    public void setAnnoucementPDF(String annoucementPDF) {
+        this.annoucementPDF = annoucementPDF;
+    }
+
+    //===================================================
 }

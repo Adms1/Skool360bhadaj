@@ -1,12 +1,17 @@
 package com.anandniketanbhadaj.skool360.skool360.Utility;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -21,7 +26,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Harsh on 04-Aug-16.
@@ -30,7 +37,7 @@ public class Utility {
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static SharedPreferences sharedpreferences;
     private static final int  MEGABYTE = 1024 * 1024;
-    public static String parentFolderName = "Skool 360 Shilaj";
+    public static String parentFolderName = "Skool 360 Bhadaj";
     public static String childAnnouncementFolderName = "Announcement";
     public static String childCircularFolderName = "Circular";
     public static Dialog dialog;
@@ -172,5 +179,30 @@ public class Utility {
             } finally {
                 dialog = null;
             }
+    }
+
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+
+    public static boolean checkAndRequestPermissions(final Context context) {
+        int readExternalStorage = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int writeExternalStorage = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+
+        if (readExternalStorage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (writeExternalStorage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions((Activity) context,
+                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
     }
 }

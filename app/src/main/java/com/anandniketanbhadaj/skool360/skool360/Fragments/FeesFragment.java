@@ -136,6 +136,8 @@ public class FeesFragment extends Fragment {
                                     discount_fee_txt.setText("Discount" + "\n" + "₹" + " " +"0");
                                     linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
                                     Utility.ping(mContext,"Payment Detail are not available.");
+                                    more_detail_btn.setEnabled(false);
+                                    more_detail_btn.setAlpha(1);
                                 }
                             }
                         });

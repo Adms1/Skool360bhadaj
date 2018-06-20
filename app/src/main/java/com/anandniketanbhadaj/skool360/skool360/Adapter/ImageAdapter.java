@@ -18,7 +18,7 @@ public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
     public String[] mThumbIds = {
-            String.valueOf(R.drawable.annoucement),
+            AppConfiguration.IMAGE_LIVE+"Announcement.png",
             AppConfiguration.IMAGE_LIVE+"Attendance.png",
             AppConfiguration.IMAGE_LIVE+"Home Work.png",
             AppConfiguration.IMAGE_LIVE+"Class Work.png",

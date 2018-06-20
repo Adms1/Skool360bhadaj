@@ -44,18 +44,7 @@
             android:background="@drawable/back_btn" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/txtNoRecordsUnitTest"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_200sdp"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:background="@drawable/norecordfound"
-        android:gravity="center"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="@dimen/_12sdp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+
 
     <LinearLayout
         android:id="@+id/linear_term"
@@ -130,7 +119,18 @@
                 android:textSize="@dimen/_12sdp" />
         </RadioGroup>
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/txtNoRecordsUnitTest"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/norecordfound"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        android:visibility="gone" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -158,6 +158,8 @@ public class DashBoardActivity extends FragmentActivity {
                 displayView(3);
             } else if (key.equalsIgnoreCase("Announcement")) {
                 displayView(2);
+            }else if(key.equalsIgnoreCase("Circular")){
+                displayView(14);
             }
         } else {
             displayView(0);
