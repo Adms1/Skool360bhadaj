@@ -478,7 +478,7 @@ public class ParseJSON {
                     circularModel = new CircularModel();
                     circularModel.setDate(jsonChildNode.getString("Date"));
                     circularModel.setSubject(jsonChildNode.getString("Subject"));
-                    circularModel.setDiscription(jsonChildNode.getString("Description"));
+                    circularModel.setDiscription(jsonChildNode.getString("Discription"));
 
                     result.add(circularModel);
                 }

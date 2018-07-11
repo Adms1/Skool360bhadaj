@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,23 +46,33 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
 //        final String childText = (String) getChild(groupPosition, childPosition);
-
+        LayoutInflater infalInflater = null;
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
+            infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_item_timetable, null);
         }
+        //if (childPosition > 0) {
 
-        TextView txtLecture, txtSubject, txtTeacher;
+            TextView txtLecture, txtSubject, txtTeacher;
 
-        txtLecture = (TextView) convertView.findViewById(R.id.txtLecture);
-        txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
-        txtTeacher = (TextView) convertView.findViewById(R.id.txtTeacher);
+            txtLecture = (TextView) convertView.findViewById(R.id.txtLecture);
+            txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
+            txtTeacher = (TextView) convertView.findViewById(R.id.txtTeacher);
 
-        txtLecture.setText("Lecture: "+getChild(groupPosition, childPosition).getLecture());
-        txtSubject.setText(getChild(groupPosition, childPosition).getSubject());
-        txtTeacher.setText(getChild(groupPosition, childPosition).getTeacher());
-
+//            if (getChild(groupPosition, childPosition-1).getLecture().contains("|")) {
+//                String[] lectstring = getChild(groupPosition, childPosition-1).getLecture().split("\\|");
+//                txtLecture.setText(Html.fromHtml(lectstring[0].trim() + ":" + lectstring[1].trim()));
+//            } else {
+                txtLecture.setText("Lecture:"+getChild(groupPosition, childPosition).getLecture().trim());
+//            }
+            txtSubject.setText(getChild(groupPosition, childPosition).getSubject());
+            txtTeacher.setText(getChild(groupPosition, childPosition).getTeacher());
+//        } else {
+//            infalInflater = (LayoutInflater) this._context
+//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            convertView = infalInflater.inflate(R.layout.timetable_header, null);
+//        }
         return convertView;
     }
 
@@ -96,9 +107,9 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_group_timetable, null);
         }
 
-        if(isExpanded){
+        if (isExpanded) {
             convertView.setBackgroundResource(R.color.orange);
-        }else{
+        } else {
             convertView.setBackgroundResource(R.color.gray);
         }
 

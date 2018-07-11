@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
@@ -27,20 +28,23 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter {
 
+    File filepdf;
+    String file1;
     private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, ArrayList<ExamFinalArray>> _listDataChild;
-    File filepdf;
-    String file1;
 
 
     public ExpandableListAdapterAnnouncement(Context context, List<String> listDataHeader,
@@ -66,70 +70,16 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
                              boolean isLastChild, View convertView, final ViewGroup parent) {
 
         final ArrayList<ExamFinalArray> childData = getChild(groupPosition, childPosition);
-        final TextView description_title_txt,show_file;
+        final TextView description_title_txt, show_file;
 
         if (convertView == null) {
             LayoutInflater infalInflater = LayoutInflater.from(_context);
             convertView = infalInflater.inflate(R.layout.announcement_listitem, null);
         }
         description_title_txt = (TextView) convertView.findViewById(R.id.description_title_txt);
-        show_file=(TextView)convertView.findViewById(R.id.show_file);
+        show_file = (TextView) convertView.findViewById(R.id.show_file);
         if (childData.get(childPosition).getAnnoucementDescription().equalsIgnoreCase("")) {
-            String extStorageDirectory = "";
-            String saveFilePath = null;
-            long currentTime = Calendar.getInstance().getTimeInMillis();
-            Log.d("date", "" + currentTime);
-            Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
-            Boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
-            final String fileName = childData.get(childPosition).getAnnoucementPDF().substring(childData.get(childPosition).getAnnoucementPDF().lastIndexOf('/') + 1);
-            if (isSDSupportedDevice && isSDPresent) {
-                // yes SD-card is present
-                Utility.ping(_context, "present");
-                extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                saveFilePath = String.valueOf(new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childAnnouncementFolderName + "/" + fileName).getPath());
 
-            } else {
-                // Sorry
-//                            Utility.ping(mContext, "notpresent");
-//
-                File cDir = _context.getExternalFilesDir(null);
-                saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + fileName));
-                Log.d("path", saveFilePath);
-
-            }
-//
-            Log.d("path", extStorageDirectory);
-
-            String fileURL = childData.get(childPosition).getAnnoucementPDF();
-            Log.d("URL", fileURL);
-            if (Utility.isNetworkConnected(_context)) {
-
-                Ion.with(_context)
-                        .load(fileURL)  // download url
-                        .write(new File(saveFilePath))  // File no path
-                        .setCallback(new FutureCallback<File>() {
-                            //                                    @Override
-                            public void onCompleted(Exception e, File file) {
-
-                                if (file.length() > 0) {
-
-                                    //Utility.ping(_context, "Download complete.");
-                                    file1 = file.getPath();
-                                    filepdf = file.getAbsoluteFile();
-                                    Log.d("file11", "" + filepdf);
-                                    description_title_txt.setText(String.valueOf(filepdf));
-                                    show_file.setVisibility(View.VISIBLE);
-                                } else {
-                                    Utility.ping(_context, "Something error");
-                                    show_file.setVisibility(View.GONE);
-                                }
-                            }
-
-
-                        });
-            } else {
-                Utility.ping(_context, "Network not available");
-            }
         } else {
             show_file.setVisibility(View.GONE);
             description_title_txt.setText(childData.get(childPosition).getAnnoucementDescription());
@@ -138,16 +88,72 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
         show_file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File file = new File(file1);
-                Log.d("DownloadfilePath", "File to download = " + String.valueOf(file));
-                MimeTypeMap mime = MimeTypeMap.getSingleton();
-                String ext = file.getName().substring(file.getName().indexOf(".") + 1);
-                String type = mime.getMimeTypeFromExtension(ext);
-                Log.d("type", type);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(file), type);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                _context.startActivity(intent);
+                String extStorageDirectory = "";
+                String saveFilePath = null;
+                long currentTime = Calendar.getInstance().getTimeInMillis();
+                Log.d("date", "" + currentTime);
+                Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+                Boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
+                final String fileName = childData.get(childPosition).getAnnoucementPDF().substring(childData.get(childPosition).getAnnoucementPDF().lastIndexOf('/') + 1);
+                if (isSDSupportedDevice && isSDPresent) {
+                    // yes SD-card is present
+                    Utility.ping(_context, "present");
+                    extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                    saveFilePath = String.valueOf(new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childAnnouncementFolderName + "/" + fileName).getPath());
+
+                } else {
+                    // Sorry
+//                            Utility.ping(mContext, "notpresent");
+//
+                    File cDir = _context.getExternalFilesDir(null);
+                    saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + fileName));
+                    Log.d("path", saveFilePath);
+
+                }
+//
+                Log.d("path", extStorageDirectory);
+
+                String fileURL = childData.get(childPosition).getAnnoucementPDF();
+                Log.d("URL", fileURL);
+                if (Utility.isNetworkConnected(_context)) {
+
+                    Ion.with(_context)
+                            .load(fileURL)  // download url
+                            .write(new File(saveFilePath))  // File no path
+                            .setCallback(new FutureCallback<File>() {
+                                //                                    @Override
+                                public void onCompleted(Exception e, File file) {
+                                    if (file != null) {
+                                        if (file.length() > 0) {
+                                            //Utility.ping(_context, "Download complete.");
+                                            file1 = file.getPath();
+                                            filepdf = file.getAbsoluteFile();
+                                            Log.d("file11", "" + filepdf);
+                                            description_title_txt.setText(String.valueOf(filepdf));
+                                            show_file.setVisibility(View.VISIBLE);
+                                        } else {
+                                            Utility.ping(_context, "Something error");
+                                            show_file.setVisibility(View.GONE);
+                                        }
+                                    }
+                                }
+
+                            });
+                } else {
+                    Utility.ping(_context, "Network not available");
+                }
+                if (file1 != null) {
+                    File file = new File(file1);
+                    Log.d("DownloadfilePath", "File to download = " + String.valueOf(file));
+                    MimeTypeMap mime = MimeTypeMap.getSingleton();
+                    String ext = file.getName().substring(file.getName().indexOf(".") + 1);
+                    String type = mime.getMimeTypeFromExtension(ext);
+                    Log.d("type", type);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(file), type);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    _context.startActivity(intent);
+                }
             }
         });
         return convertView;
@@ -175,7 +181,8 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(int groupPosition, boolean isExpanded, View
+            convertView, ViewGroup parent) {
         String[] headerTemp = getGroup(groupPosition).toString().split("\\|");
 
         if (convertView == null) {
@@ -188,7 +195,7 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
         imgAnnIcon = (ImageView) convertView.findViewById(R.id.imgAnnIcon);
         txtAnnText = (TextView) convertView.findViewById(R.id.txtAnnText);
         txtDate = (TextView) convertView.findViewById(R.id.txtDate);
-        txtDate.setText(headerTemp[0]);
+//        txtDate.setText(headerTemp[0]);
         if (headerTemp[2].equalsIgnoreCase("")) {
             imgAnnIcon.setImageResource(R.drawable.ann_download_img);
             txtAnnText.setText(headerTemp[1]);
@@ -196,7 +203,45 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
             imgAnnIcon.setImageResource(R.drawable.ann_text_img);
             txtAnnText.setText(headerTemp[1]);
         }
+        String inputPattern = "dd/MM/yyyy";
+        String outputPattern = "dd,MMMM yyyy";
 
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null, startdateTime = null, enddateTime = null;
+        String str = null, StartTimeStr = null, EndTimeStr = null;
+
+        try {
+            date = inputFormat.parse(headerTemp[0]);
+            str = outputFormat.format(date);
+            txtDate.setText(str);
+
+            Log.i("mini", "Converted Date Today:" + StartTimeStr + "=" + EndTimeStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (isExpanded) {
+            convertView.setBackgroundResource(R.color.orange);
+            txtDate.setTextColor(Color.WHITE);
+            txtAnnText.setTextColor(Color.WHITE);
+            if (headerTemp[2].equalsIgnoreCase("")) {
+                imgAnnIcon.setColorFilter(imgAnnIcon.getContext().getResources().getColor(R.color.attendance_present_old));
+            } else {
+                imgAnnIcon.setColorFilter(imgAnnIcon.getContext().getResources().getColor(R.color.white));
+            }
+        } else {
+            convertView.setBackgroundResource(R.color.white);
+            convertView.setBackgroundResource(R.drawable.linear_shape);
+            txtDate.setTextColor(txtDate.getContext().getResources().getColor(R.color.blue));
+            txtAnnText.setTextColor(txtAnnText.getContext().getResources().getColor(R.color.appointment_text));
+            if (headerTemp[2].equalsIgnoreCase("")) {
+                imgAnnIcon.setColorFilter(imgAnnIcon.getContext().getResources().getColor(R.color.attendance_present_old));
+            } else {
+                imgAnnIcon.setColorFilter(imgAnnIcon.getContext().getResources().getColor(R.color.appointment_text));
+            }
+
+        }
 
         return convertView;
     }

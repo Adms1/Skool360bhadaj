@@ -148,6 +148,7 @@ public class DashBoardActivity extends FragmentActivity {
             Log.d("Dashboard : notificationData", putData);
         }
         if (getIntent().getStringExtra("fromNotification") != null) {
+            AppConfiguration.Notification="1";
             String key = getIntent().getStringExtra("fromNotification").toString();
             Log.d("key", key);
             if (key.equalsIgnoreCase("HW")) {
@@ -162,6 +163,7 @@ public class DashBoardActivity extends FragmentActivity {
                 displayView(14);
             }
         } else {
+            AppConfiguration.Notification="0";
             displayView(0);
         }
         System.out.println("Dashboard Message :" + getIntent().getStringExtra("message"));

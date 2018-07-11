@@ -20,6 +20,7 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterCircular;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetCircularAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ import java.util.HashMap;
  * Created by Harsh on 04-Aug-16.
  */
 public class CircularFragment extends Fragment {
+    ArrayList<String> listDataHeader;
+    HashMap<String, ArrayList<CircularModel>> listDataChildCircular;
     private View rootView;
     private Button btnMenu, btnBackCircular;
     private ExpandableListView listCircular;
@@ -38,9 +41,8 @@ public class CircularFragment extends Fragment {
     private ExpandableListAdapterCircular circularListAdapter = null;
     private ProgressDialog progressDialog = null;
     private ArrayList<CircularModel> circularModels = new ArrayList<>();
-    ArrayList<String> listDataHeader;
-    HashMap<String, ArrayList<CircularModel>> listDataChildCircular;
     private int lastExpandedPosition = -1;
+
     public CircularFragment() {
     }
 
@@ -69,6 +71,7 @@ public class CircularFragment extends Fragment {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.Notification = "0";
                 DashBoardActivity.onLeft();
             }
         });
@@ -87,6 +90,7 @@ public class CircularFragment extends Fragment {
         btnBackCircular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.Notification = "0";
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
@@ -97,8 +101,8 @@ public class CircularFragment extends Fragment {
 
     }
 
-    public void getCircularData(){
-        if(Utility.isNetworkConnected(mContext)) {
+    public void getCircularData() {
+        if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
@@ -119,9 +123,11 @@ public class CircularFragment extends Fragment {
                                     txtNoRecordsCircular.setVisibility(View.GONE);
 
                                     prepaareList();
-                                    circularListAdapter = new ExpandableListAdapterCircular(getActivity(),listDataHeader,listDataChildCircular);
+                                    circularListAdapter = new ExpandableListAdapterCircular(getActivity(), listDataHeader, listDataChildCircular);
                                     listCircular.setAdapter(circularListAdapter);
-
+                                    if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
+                                        listCircular.expandGroup(0);
+                                    }
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordsCircular.setVisibility(View.VISIBLE);
@@ -133,8 +139,8 @@ public class CircularFragment extends Fragment {
                     }
                 }
             }).start();
-        }else{
-            Utility.ping(mContext,"Network not avialable");
+        } else {
+            Utility.ping(mContext, "Network not avialable");
         }
     }
 
@@ -150,7 +156,7 @@ public class CircularFragment extends Fragment {
             Log.d("displaypositiondata", listDataHeader.get(0));
 
             ArrayList<CircularModel> rows = new ArrayList<CircularModel>();
-                rows.add(circularModels.get(i));
+            rows.add(circularModels.get(i));
             listDataChildCircular.put(listDataHeader.get(i), rows);
         }
     }

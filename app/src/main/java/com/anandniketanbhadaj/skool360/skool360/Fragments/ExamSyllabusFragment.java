@@ -223,7 +223,7 @@ public class ExamSyllabusFragment extends Fragment {
             // Get private mPopup member variable and try cast to ListPopupWindow
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(exam_spinner);
 
-            popupWindow.setHeight(row.size() > 5 ? 500 : row.size() * 100);
+            popupWindow.setHeight(row.size() > 5 ? 500 : row.size() * 70);
         } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }

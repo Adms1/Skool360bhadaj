@@ -27,6 +27,7 @@ import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
@@ -35,18 +36,18 @@ import java.util.List;
 
 
 public class AnnouncmentFragment extends Fragment {
+    ExamModel announcmentmodelReponse;
+    List<String> listDataHeader;
+    HashMap<String, ArrayList<ExamFinalArray>> listDataChild;
+    ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
     private View rootView;
     private Button btnMenu, btnBack;
     private ExpandableListView listannouncment;
     private TextView txtNoRecords;
     private Context mContext;
     private int lastExpandedPosition = -1;
-    private AnnouncmentAsyncTask announcmentAsyncTask=null;
-    ExamModel announcmentmodelReponse;
+    private AnnouncmentAsyncTask announcmentAsyncTask = null;
     private ProgressDialog progressDialog = null;
-    List<String> listDataHeader;
-    HashMap<String, ArrayList<ExamFinalArray>> listDataChild;
-ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
 
     public AnnouncmentFragment() {
     }
@@ -78,6 +79,7 @@ ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.Notification = "0";
                 DashBoardActivity.onLeft();
             }
         });
@@ -96,6 +98,7 @@ ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.Notification = "0";
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
@@ -105,6 +108,7 @@ ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
         });
 
     }
+
     public void getUnitTestData() {
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
@@ -123,7 +127,7 @@ ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(announcmentmodelReponse.getSuccess().equalsIgnoreCase("True")) {
+                                if (announcmentmodelReponse.getSuccess().equalsIgnoreCase("True")) {
                                     if (announcmentmodelReponse.getFinalArray().size() > 0) {
                                         txtNoRecords.setVisibility(View.GONE);
                                         progressDialog.dismiss();
@@ -132,7 +136,7 @@ ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
                                         progressDialog.dismiss();
                                         txtNoRecords.setVisibility(View.VISIBLE);
                                     }
-                                }else {
+                                } else {
                                     progressDialog.dismiss();
                                     txtNoRecords.setVisibility(View.VISIBLE);
 
@@ -148,14 +152,15 @@ ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
             Utility.ping(mContext, "Network not available");
         }
     }
+
     public void prepaareList() {
         listDataHeader = new ArrayList<>();
         listDataChild = new HashMap<String, ArrayList<ExamFinalArray>>();
 
         for (int i = 0; i < announcmentmodelReponse.getFinalArray().size(); i++) {
-            listDataHeader.add(announcmentmodelReponse.getFinalArray().get(i).getCreateDate()+"|"+
-                    announcmentmodelReponse.getFinalArray().get(i).getSubject()+"|"+
-                    announcmentmodelReponse.getFinalArray().get(i).getAnnoucementDescription()+"|"+
+            listDataHeader.add(announcmentmodelReponse.getFinalArray().get(i).getCreateDate() + "|" +
+                    announcmentmodelReponse.getFinalArray().get(i).getSubject() + "|" +
+                    announcmentmodelReponse.getFinalArray().get(i).getAnnoucementDescription() + "|" +
                     announcmentmodelReponse.getFinalArray().get(i).getAnnoucementPDF());
 
             ArrayList<ExamFinalArray> rows = new ArrayList<ExamFinalArray>();
@@ -165,5 +170,8 @@ ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
 
         expandableListAdapterAnnouncement = new ExpandableListAdapterAnnouncement(getActivity(), listDataHeader, listDataChild);
         listannouncment.setAdapter(expandableListAdapterAnnouncement);
+        if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
+            listannouncment.expandGroup(0);
+        }
     }
 }

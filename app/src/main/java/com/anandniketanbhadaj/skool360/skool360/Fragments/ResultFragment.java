@@ -140,6 +140,7 @@ public class ResultFragment extends Fragment {
                             public void run() {
                                 if (resultModels.size() > 0) {
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                    lvExpResult.setVisibility(View.VISIBLE);
                                     progressDialog.dismiss();
                                     prepaareList();
                                     expandableListAdapterResult = new ExpandableListAdapterResult(getActivity(), listDataHeader, listDataChild);
@@ -147,6 +148,7 @@ public class ResultFragment extends Fragment {
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                    lvExpResult.setVisibility(View.GONE);
                                 }
                             }
                         });

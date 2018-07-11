@@ -75,7 +75,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setTicker(remoteMessage.getNotification().getBody())
                 .setWhen(System.currentTimeMillis())
-                .setContentTitle("Skool 360 Bhadaj")
+                .setContentTitle("Skool 360")//Bhadaj
                 .setContentText(remoteMessage.getNotification().getBody())//remoteMessage.getNotification().getBody()
                 .setContentIntent(pendingNotificationIntent)
                 .setAutoCancel(true).build();
