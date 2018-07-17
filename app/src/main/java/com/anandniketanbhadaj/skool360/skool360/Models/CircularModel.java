@@ -5,6 +5,16 @@ public class CircularModel {
     private String Subject;
     private String Date;
     private String Discription;
+    private String CircularPDF;
+
+    public String getCircularPDF() {
+        return CircularPDF;
+    }
+
+    public void setCircularPDF(String circularPDF) {
+        CircularPDF = circularPDF;
+    }
+
     public CircularModel() {
     }
 

@@ -1,12 +1,16 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.BaseExpandableListAdapter;
@@ -17,8 +21,13 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,14 +37,16 @@ import java.util.List;
 
 public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
 
-    private Context _context;
     boolean visible = true;
-    private List<String> _listDataHeader; // header titles
-    // child data in format of header title, child title
-    private HashMap<String, ArrayList<CircularModel>> _listDataChildcircular;
     TextView txtCircularSubject, txtCircularDate;
     LinearLayout llHeaderRow;
     ImageView imgBulletCircular;
+    private Context _context;
+    File filepdf;
+    String file1;
+    private List<String> _listDataHeader; // header titles
+    // child data in format of header title, child title
+    private HashMap<String, ArrayList<CircularModel>> _listDataChildcircular;
 
     public ExpandableListAdapterCircular(Context context, List<String> listDataHeader,
                                          HashMap<String, ArrayList<CircularModel>> listDataChildcircular) {
@@ -60,15 +71,93 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
 
         final ArrayList<CircularModel> childData = getChild(groupPosition, 0);
         WebView circular_description_webview;
+        TextView showfile;
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_circular_row, null);
         }
         circular_description_webview = (WebView) convertView.findViewById(R.id.circular_description_webview);
-        circular_description_webview.loadData(childData.get(childPosition).getDiscription(), "text/html", "UTF-8");
-        WebSettings webSettings=circular_description_webview.getSettings();
-        webSettings.setTextSize(WebSettings.TextSize.SMALLER);
-        Log.d("webview",childData.get(childPosition).getDiscription());
+        showfile = (TextView) convertView.findViewById(R.id.show_file);
+
+        if (childData.get(childPosition).getCircularPDF().equalsIgnoreCase("")) {
+            circular_description_webview.setVisibility(View.VISIBLE);
+            showfile.setVisibility(View.GONE);
+            circular_description_webview.loadData(childData.get(childPosition).getDiscription(), "text/html", "UTF-8");
+            WebSettings webSettings = circular_description_webview.getSettings();
+            webSettings.setTextSize(WebSettings.TextSize.SMALLER);
+            Log.d("webview", childData.get(childPosition).getDiscription());
+        } else {
+            showfile.setVisibility(View.VISIBLE);
+            circular_description_webview.setVisibility(View.GONE);
+            showfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String extStorageDirectory = "";
+                    String saveFilePath = null;
+                    long currentTime = Calendar.getInstance().getTimeInMillis();
+                    Log.d("date", "" + currentTime);
+                    Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+                    Boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
+                    final String fileName = childData.get(childPosition).getCircularPDF().substring(childData.get(childPosition).getCircularPDF().lastIndexOf('/') + 1);
+                    if (isSDSupportedDevice && isSDPresent) {
+                        // yes SD-card is present
+                        Utility.ping(_context, "present");
+                        extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                        saveFilePath = String.valueOf(new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childAnnouncementFolderName + "/" + fileName).getPath());
+
+                    } else {
+                        // Sorry
+//                            Utility.ping(mContext, "notpresent");
+//
+                        File cDir = _context.getExternalFilesDir(null);
+                        saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + fileName));
+                        Log.d("path", saveFilePath);
+
+                    }
+//
+                    Log.d("path", extStorageDirectory);
+
+                    String fileURL = childData.get(childPosition).getCircularPDF();
+                    Log.d("URL", fileURL);
+                    if (Utility.isNetworkConnected(_context)) {
+
+                        Ion.with(_context)
+                                .load(fileURL)  // download url
+                                .write(new File(saveFilePath))  // File no path
+                                .setCallback(new FutureCallback<File>() {
+                                    //                                    @Override
+                                    public void onCompleted(Exception e, File file) {
+                                        if (file != null) {
+                                            if (file.length() > 0) {
+                                                //Utility.ping(_context, "Download complete.");
+                                                file1 = file.getPath();
+                                                filepdf = file.getAbsoluteFile();
+                                                Log.d("file11", "" + filepdf);
+                                            } else {
+                                                Utility.ping(_context, "Something error");
+                                            }
+                                        }
+                                    }
+
+                                });
+                    } else {
+                        Utility.ping(_context, "Network not available");
+                    }
+                    if (file1 != null) {
+                        File file = new File(file1);
+                        Log.d("DownloadfilePath", "File to download = " + String.valueOf(file));
+                        MimeTypeMap mime = MimeTypeMap.getSingleton();
+                        String ext = file.getName().substring(file.getName().indexOf(".") + 1);
+                        String type = mime.getMimeTypeFromExtension(ext);
+                        Log.d("type", type);
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(file), type);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        _context.startActivity(intent);
+                    }
+                }
+            });
+        }
 
         return convertView;
     }
@@ -114,7 +203,7 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
         txtCircularSubject.setTypeface(null, Typeface.BOLD);
         txtCircularSubject.setText(headerTitle);
         txtCircularDate.setTypeface(null, Typeface.BOLD);
-        txtCircularDate.setText("("+headerTitle1+")"+"");
+        txtCircularDate.setText("(" + headerTitle1 + ")" + "");
 
         if (isExpanded) {
             txtCircularSubject.setBackgroundColor(Color.parseColor("#86c129"));

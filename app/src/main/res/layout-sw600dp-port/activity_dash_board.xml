@@ -17,7 +17,7 @@
          the container. -->
     <RelativeLayout
         android:id="@+id/whatYouWantInLeftDrawer"
-        android:layout_width="220dp"
+        android:layout_width="270dp"
         android:layout_height="match_parent"
         android:layout_gravity="right">
 
@@ -29,14 +29,14 @@
         <LinearLayout
             android:id="@+id/rlProfile"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="240dp"
             android:background="@color/white"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_70sdp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center|center_vertical"

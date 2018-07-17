@@ -204,7 +204,7 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
             txtAnnText.setText(headerTemp[1]);
         }
         String inputPattern = "dd/MM/yyyy";
-        String outputPattern = "dd,MMMM yyyy";
+        String outputPattern = "dd MMMM yyyy";
 
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);

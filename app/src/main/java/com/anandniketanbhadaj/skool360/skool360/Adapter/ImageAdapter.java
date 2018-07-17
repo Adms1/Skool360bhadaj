@@ -27,8 +27,8 @@ public class ImageAdapter extends BaseAdapter {
             AppConfiguration.IMAGE_LIVE+"Results.png",
             AppConfiguration.IMAGE_LIVE+"Report Card.png",
             AppConfiguration.IMAGE_LIVE+"Fees.png",
-            AppConfiguration.IMAGE_LIVE+"Imprest.png",
-            AppConfiguration.IMAGE_LIVE+"Holiday.png",
+//            AppConfiguration.IMAGE_LIVE+"Imprest.png",
+            AppConfiguration.IMAGE_LIVE+"Planner.png",
             AppConfiguration.IMAGE_LIVE+"Leave Application.png",
             AppConfiguration.IMAGE_LIVE+"Circular.png",
             AppConfiguration.IMAGE_LIVE+"Gallery.png",
@@ -47,8 +47,8 @@ public class ImageAdapter extends BaseAdapter {
 //            "Fees", "Imprest", "Canteen", "PTM", "Message","Circular"};
 
     public String[] mThumbNames = {"Announcement","Attendance",  "Homework", "Classwork", "Timetable", "Exam Syllabus", "Results", "Report Card",
-            "Fees", "Imprest","Holiday","Leave Application","Circular","Gallery","Suggestion"};
-
+            "Fees","Planner","Leave Application","Circular","Gallery","Suggestion"};
+//                    "Imprest",
     // Constructor
     public ImageAdapter(Context c) {
         mContext = c;

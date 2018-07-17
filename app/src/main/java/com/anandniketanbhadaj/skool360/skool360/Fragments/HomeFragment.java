@@ -34,14 +34,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.LoginActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.SplashScreenActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.HomeImageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ImageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.AddDeviceDetailAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.ChangePasswordAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.DeviceVersionAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetUserProfileAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.DeviceVersionModel;
@@ -79,7 +83,7 @@ public class HomeFragment extends Fragment {
     Dialog ratingDialog;
     TextView rate_it_txt_view, reminde_me_txt, no_thanks_txt;
     String putData;
-    //
+
     private View rootView;
     private Button btnMenu;
     private GridView grid_view;
@@ -101,6 +105,12 @@ public class HomeFragment extends Fragment {
     private boolean isVersionCodeUpdated = false;
     private int versionCode = 0;
     private DeviceVersionAsyncTask deviceVersionAsyncTask = null;
+    //Use for dialog
+    Dialog changeDialog;
+    EditText edtnewpassword, edtconfirmpassword, edtcurrentpassword;
+    Button changepwd_btn;
+    String passWordStr, confirmpassWordStr;
+    private ChangePasswordAsyncTask changePasswordAsyncTask = null;
 
     public HomeFragment() {
     }
@@ -214,7 +224,7 @@ public class HomeFragment extends Fragment {
 
 
     private void sendRegistrationToServer(String token, String uniqueID) {
-        Utility.setPref(mContext,"deviceId",uniqueID);
+        Utility.setPref(mContext, "deviceId", uniqueID);
         try {
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put("StudentID", Utility.getPref(getActivity(), "studid"));
@@ -310,42 +320,44 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
-                } else if (position == 9) {
-                    fragment = new ImprestFragment();
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
-                            .replace(R.id.frame_container, fragment).commit();
-                    AppConfiguration.firsttimeback = true;
-                } else if (position == 10) {
+                }
+//                else if (position == 9) {
+//                    fragment = new ImprestFragment();
+//                    fragmentManager = getFragmentManager();
+//                    fragmentManager.beginTransaction()
+//                            .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
+//                            .replace(R.id.frame_container, fragment).commit();
+//                    AppConfiguration.firsttimeback = true;
+//                }
+                else if (position == 9) {
                     fragment = new HolidayFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
-                } else if (position == 11) {
+                } else if (position == 10) {
                     fragment = new ShowLeaveFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
-                } else if (position == 12) {
+                } else if (position == 11) {
                     fragment = new CircularFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
-                } else if (position == 13) {
+                } else if (position == 12) {
                     fragment = new GalleryFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
-                } else if (position == 14) {
+                } else if (position == 13) {
                     fragment = new SuggestionFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
@@ -382,11 +394,16 @@ public class HomeFragment extends Fragment {
                             } else {
                                 attendance_txt.setText("Attendance :" + " " + studDetailList.get(0).getTodayAttendance());
                             }
-                            if (Utility.getPref(mContext, "LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())) {
-                                // Date matches. User has already Launched the app once today. So do nothing.
+                            if (Utility.getPref(mContext, "RegisterStatus").equalsIgnoreCase("false")) {
+                                changePasswordDialog();
                             } else {
-                                RatingDialog();
-                                Utility.setPref(mContext, "LAST_LAUNCH_DATE", Utility.getTodaysDate());
+                                getRegistrationID();
+                                if (Utility.getPref(mContext, "LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())) {
+                                    // Date matches. User has already Launched the app once today. So do nothing.
+                                } else {
+                                    RatingDialog();
+                                    Utility.setPref(mContext, "LAST_LAUNCH_DATE", Utility.getTodaysDate());
+                                }
                             }
                         }
                     });
@@ -416,7 +433,7 @@ public class HomeFragment extends Fragment {
                                 if (deviceVersionModel.getSuccess().equalsIgnoreCase("True")) {
                                     isVersionCodeUpdated = true;
                                     Log.d("hellotrue", "" + isVersionCodeUpdated);
-                                    getRegistrationID();
+                                   // getRegistrationID();
                                     getUserProfile();
                                 } else {
                                     isVersionCodeUpdated = false;
@@ -498,6 +515,98 @@ public class HomeFragment extends Fragment {
         ratingDialog.show();
 
     }
+    public void changePasswordDialog() {
+        changeDialog = new Dialog(getActivity(), R.style.Theme_Dialog);
+        Window window = changeDialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        changeDialog.getWindow().getAttributes().verticalMargin = 0.0f;
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
 
+        changeDialog.getWindow().setBackgroundDrawableResource(R.drawable.session_confirm);
+//        changeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        changeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        changeDialog.setCancelable(false);
+        changeDialog.setContentView(R.layout.change_password_dialog);
+
+        changepwd_btn = (Button) changeDialog.findViewById(R.id.changepwd_btn);
+        edtconfirmpassword = (EditText) changeDialog.findViewById(R.id.edtconfirmpassword);
+        edtnewpassword = (EditText) changeDialog.findViewById(R.id.edtnewpassword);
+
+
+        changepwd_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmpassWordStr = edtconfirmpassword.getText().toString();
+                passWordStr = edtnewpassword.getText().toString();
+                if (!passWordStr.equalsIgnoreCase("")) {
+                    if (passWordStr.equalsIgnoreCase(confirmpassWordStr)) {
+                        callChangePasswordApi();
+                    } else {
+                        edtconfirmpassword.setError("Confirm password does not match");
+                    }
+                } else {
+//                    Utils.ping(mContex, "Confirm Password does not match.");
+                    edtnewpassword.setError("Please enter password");
+                    edtnewpassword.setText("");
+                    edtnewpassword.setText("");
+                }
+
+            }
+        });
+        changeDialog.show();
+
+    }
+
+    public void callChangePasswordApi() {
+        if (Utility.isNetworkConnected(getActivity())) {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("StudentID", Utility.getPref(mContext, "studid"));
+                        params.put("OldPassword", Utility.getPref(mContext, "pwd"));
+                        params.put("NewPassword", edtnewpassword.getText().toString());
+                        changePasswordAsyncTask = new ChangePasswordAsyncTask(params);
+                        final Boolean result = changePasswordAsyncTask.execute().get();
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (result == true) {
+                                    changeDialog.dismiss();
+                                    Utility.setPref(mContext, "RegisterStatus", "true");
+                                    Utility.pong(mContext, "Password Updated Successfully");
+                                    if (!Utility.getPref(mContext, "pwd").equalsIgnoreCase("")) {
+                                        Utility.setPref(mContext, "pwd", edtnewpassword.getText().toString());
+                                        //  getUserProfile();
+                                    }
+                                    getRegistrationID();
+                                    if (Utility.getPref(mContext, "LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())) {
+                                        // Date matches. User has already Launched the app once today. So do nothing.
+                                    } else {
+                                        RatingDialog();
+                                        Utility.setPref(mContext, "LAST_LAUNCH_DATE", Utility.getTodaysDate());
+                                    }
+                                }
+                            }
+                        });
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Utility.ping(mContext, "NEtwork not available");
+        }
+    }
 
 }

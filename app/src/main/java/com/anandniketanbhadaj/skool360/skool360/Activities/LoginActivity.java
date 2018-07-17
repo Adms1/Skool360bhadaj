@@ -1,22 +1,28 @@
 package com.anandniketanbhadaj.skool360.skool360.Activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.anandniketanbhadaj.skool360.R;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.ChangePasswordAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.VerifyLoginAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.HashMap;
 
 public class LoginActivity extends Activity {
+
 
     private EditText edtUserName, edtPassword;
     private Button btnLogin;
@@ -28,7 +34,6 @@ public class LoginActivity extends Activity {
     private HashMap<String, String> param = new HashMap<String, String>();
     private String putExtras = "0";
     private String putExtrasData = "0";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,15 +109,17 @@ public class LoginActivity extends Activity {
                                 Utility.setPref(mContext, "standardID", result.get("StandardID"));
                                 Utility.setPref(mContext, "ClassID", result.get("ClassID"));
                                 Utility.setPref(mContext, "TermID", result.get("TermID"));//result.get("TermID"));
+                                Utility.setPref(mContext, "RegisterStatus", result.get("RegisterStatus"));
 
                                 Utility.pong(mContext, "Login Successful");
-                                Intent intentDashboard = new Intent(LoginActivity.this, SplashScreenActivity.class);
-                                intentDashboard.putExtra("message", putExtrasData);
-                                intentDashboard.putExtra("fromNotification", putExtras);
-                                System.out.println("messageLogin: " + putExtrasData);
-                                startActivity(intentDashboard);
-                                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                                finish();
+                                    Intent intentDashboard = new Intent(LoginActivity.this,DashBoardActivity .class);//SplashScreenActivity
+                                    intentDashboard.putExtra("message", putExtrasData);
+                                    intentDashboard.putExtra("fromNotification", putExtras);
+                                    System.out.println("messageLogin: " + putExtrasData);
+                                    startActivity(intentDashboard);
+                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                                    finish();
+
                             } else {
                                 Utility.pong(mContext, "Invalid Username/ password");
                             }
@@ -127,7 +134,8 @@ public class LoginActivity extends Activity {
 
     public void checkUnmPwd() {
         if (!Utility.getPref(mContext, "unm").equalsIgnoreCase("")) {
-                Intent intentDashboard = new Intent(LoginActivity.this, SplashScreenActivity.class);
+
+                Intent intentDashboard = new Intent(LoginActivity.this, DashBoardActivity.class);
                 intentDashboard.putExtra("message", putExtrasData);
                 intentDashboard.putExtra("fromNotification", putExtras);
                 startActivity(intentDashboard);
@@ -139,5 +147,6 @@ public class LoginActivity extends Activity {
         Utility.setPref(mContext, "unm", unm);
         Utility.setPref(mContext, "pwd", pwd);
     }
+
 
 }

@@ -133,7 +133,29 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
                     if (!examData.get(i).getStartDate().equalsIgnoreCase(examData.get(i).getEndDate())) {
                         TextView date_txt = (TextView) view.findViewById(R.id.date_txt);
                         date_txt.setVisibility(View.VISIBLE);
-                        date_txt.setText(examData.get(i).getStartDate() + " to " + examData.get(i).getEndDate());
+                        String inputPattern = "dd/MM/yyyy";
+                        String outputPattern1 = "dd MMMM";
+                        String outputPattern2="dd MMMM";
+
+                        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern1);
+                        SimpleDateFormat outputFormat1 = new SimpleDateFormat(outputPattern2);
+
+                        Date  startdateTime = null, enddateTime = null;
+                        String str = null, StartTimeStr = null, EndTimeStr = null;
+
+                        try {
+                            startdateTime = inputFormat.parse(examData.get(i).getStartDate());
+                            enddateTime=inFormat.parse(examData.get(i).getEndDate());
+                            StartTimeStr = outputFormat.format(startdateTime);
+                            EndTimeStr=outputFormat1.format(enddateTime);
+
+                            Log.i("mini", "Converted Date Today:" + StartTimeStr + "=" + EndTimeStr);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        date_txt.setText(StartTimeStr + " - " + EndTimeStr);
+
                     } else {
                         TextView date_txt = (TextView) view.findViewById(R.id.date_txt);
                         date_txt.setVisibility(View.GONE);

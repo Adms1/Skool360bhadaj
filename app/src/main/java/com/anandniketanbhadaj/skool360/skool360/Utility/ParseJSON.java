@@ -40,6 +40,7 @@ public class ParseJSON {
                     result.put("StandardID", jsonChildNode.getString("StandardID"));
                     result.put("ClassID", jsonChildNode.getString("ClassID"));
                     result.put("TermID", jsonChildNode.getString("TermID"));
+                    result.put("RegisterStatus",jsonChildNode.getString("RegisterStatus"));
                 }
             } else {
                 //invalid login
@@ -479,6 +480,7 @@ public class ParseJSON {
                     circularModel.setDate(jsonChildNode.getString("Date"));
                     circularModel.setSubject(jsonChildNode.getString("Subject"));
                     circularModel.setDiscription(jsonChildNode.getString("Discription"));
+                    circularModel.setCircularPDF(jsonChildNode.getString("CircularPDF"));
 
                     result.add(circularModel);
                 }

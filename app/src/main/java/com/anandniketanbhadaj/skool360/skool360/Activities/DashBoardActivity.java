@@ -74,8 +74,8 @@ public class DashBoardActivity extends FragmentActivity {
     static DrawerLayout mDrawerLayout;
     static ListView mDrawerList;
     static RelativeLayout leftRl;
-    ImageView viewprofile_img;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    ImageView viewprofile_img;
     Context mContext;
     ActionBarDrawerToggle mDrawerToggle;
     String MenuName[];
@@ -95,8 +95,7 @@ public class DashBoardActivity extends FragmentActivity {
     private ArrayList<StudProfileModel> studDetailList = new ArrayList<>();
     private ImageLoader imageLoader;
     private CircleImageView profile_image;
-    private TextView studName;
-
+    private TextView studName, grade, grno;
 
 
     public static void onLeft() {
@@ -148,7 +147,7 @@ public class DashBoardActivity extends FragmentActivity {
             Log.d("Dashboard : notificationData", putData);
         }
         if (getIntent().getStringExtra("fromNotification") != null) {
-            AppConfiguration.Notification="1";
+            AppConfiguration.Notification = "1";
             String key = getIntent().getStringExtra("fromNotification").toString();
             Log.d("key", key);
             if (key.equalsIgnoreCase("HW")) {
@@ -159,11 +158,11 @@ public class DashBoardActivity extends FragmentActivity {
                 displayView(3);
             } else if (key.equalsIgnoreCase("Announcement")) {
                 displayView(2);
-            }else if(key.equalsIgnoreCase("Circular")){
-                displayView(14);
+            } else if (key.equalsIgnoreCase("Circular")) {
+                displayView(13);
             }
         } else {
-            AppConfiguration.Notification="0";
+            AppConfiguration.Notification = "0";
             displayView(0);
         }
         System.out.println("Dashboard Message :" + getIntent().getStringExtra("message"));
@@ -174,9 +173,11 @@ public class DashBoardActivity extends FragmentActivity {
     private void Initialize() {
         // TODO Auto-generated method stub
         MenuName = getResources().getStringArray(R.array.menuoption1);
-        viewprofile_img=(ImageView)findViewById(R.id.viewprofile_img) ;
-        studName=(TextView)findViewById(R.id.studName);
-        profile_image=(CircleImageView)findViewById(R.id.profile_image);
+        viewprofile_img = (ImageView) findViewById(R.id.viewprofile_img);
+        studName = (TextView) findViewById(R.id.studName);
+        profile_image = (CircleImageView) findViewById(R.id.profile_image);
+        grade = (TextView) findViewById(R.id.grade);
+        //grno = (TextView) findViewById(R.id.grno);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         leftRl = (RelativeLayout) findViewById(R.id.whatYouWantInLeftDrawer);
@@ -374,43 +375,43 @@ public class DashBoardActivity extends FragmentActivity {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
+//            case 11:
+//                fragment = new ImprestFragment();
+//                myid = fragment.getId();
+//                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//                AppConfiguration.firsttimeback = true;
+//                break;
             case 11:
-                fragment = new ImprestFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                AppConfiguration.firsttimeback = true;
-                break;
-            case 12:
                 fragment = new HolidayFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 13:
+            case 12:
                 fragment = new ShowLeaveFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 14:
+            case 13:
                 fragment = new CircularFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 15:
+            case 14:
                 fragment = new GalleryFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
                 break;
-            case 16:
+            case 15:
                 AppConfiguration.firsttimeback = true;
                 fragment = new SuggestionFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
-            case 17:
+            case 16:
                 new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
                         .setCancelable(false)
                         .setTitle("Logout")
@@ -480,6 +481,7 @@ public class DashBoardActivity extends FragmentActivity {
         if (AppConfiguration.firsttimeback) {
             displayView(0);
             AppConfiguration.firsttimeback = false;
+            Utility.ping(mContext, "Press again to exit");
         } else {
             finish();
             System.exit(0);
@@ -499,7 +501,7 @@ public class DashBoardActivity extends FragmentActivity {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
-                        params.put("DeviceID",Utility.getPref(mContext,"deviceId"));
+                        params.put("DeviceID", Utility.getPref(mContext, "deviceId"));
                         deleteDeviceDetailAsyncTask = new DeleteDeviceDetailAsyncTask(params);
                         logoutResponse = deleteDeviceDetailAsyncTask.execute().get();
                         runOnUiThread(new Runnable() {
@@ -514,7 +516,7 @@ public class DashBoardActivity extends FragmentActivity {
                                     Utility.setPref(mContext, "standardID", "");
                                     Utility.setPref(mContext, "ClassID", "");
                                     Utility.setPref(mContext, "TermID", "");
-                                    Utility.setPref(mContext,"deviceId","");
+                                    Utility.setPref(mContext, "deviceId", "");
                                     Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
                                     startActivity(intentLogin);
                                     finish();
@@ -533,6 +535,7 @@ public class DashBoardActivity extends FragmentActivity {
             Utility.ping(mContext, "Network not available");
         }
     }
+
     public void getUserProfile() {
 
         new Thread(new Runnable() {
@@ -543,12 +546,16 @@ public class DashBoardActivity extends FragmentActivity {
                     params.put("StudentID", Utility.getPref(mContext, "studid"));
                     getUserProfileAsyncTask = new GetUserProfileAsyncTask(params);
                     studDetailList = getUserProfileAsyncTask.execute().get();
-                   runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
-                            studName.setText(studDetailList.get(0).getStudentName());
+                            if (studDetailList.size() > 0) {
+                                imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
+                                studName.setText(studDetailList.get(0).getStudentName() + " (" + studDetailList.get(0).getGRNO() + ")");
+                                grade.setText(studDetailList.get(0).getStandard() + "-" + studDetailList.get(0).getStudClass());
+                                // grno.setText("GRNo :" + " " + studDetailList.get(0).getGRNO());
 
+                            }
                         }
                     });
                 } catch (Exception e) {

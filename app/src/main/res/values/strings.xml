@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Skool360Bhadaj</string>
+    <string name="app_name">Skool 360</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -45,8 +45,8 @@
         <item>Results</item>
         <item>Report Card</item>
         <item>Fees</item>
-        <item>Imprest</item>
-        <item>Holiday</item>
+        <!--<item>Imprest</item>-->
+        <item>Planner</item>
         <item>Leave Application</item>
         <item>Circular</item>
         <item>Gallery</item>
@@ -90,4 +90,10 @@
     <string name="view"><u>View</u></string>
 
     <string name="lec">Lecture 1</string>
+
+    <!--Change Passsword String-->
+    <string name="newPassword">Enter new password</string>
+    <string name="changPassword">Your password changed succesfully</string>
+    <string name="confirmpassword">Confirm new password</string>
+    <string name="currentpassword">Enter current password</string>
 </resources>

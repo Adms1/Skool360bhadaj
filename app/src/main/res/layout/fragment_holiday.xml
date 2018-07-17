@@ -29,7 +29,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/_3sdp"
             android:layout_marginRight="@dimen/_10sdp"
-            android:text="HOLIDAY"
+            android:text="PLANNER"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp"
             android:textStyle="normal" />

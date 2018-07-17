@@ -18,7 +18,22 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_25sdp"
             android:padding="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"></WebView>
+            android:layout_marginTop="@dimen/_5sdp"
+            android:visibility="gone"></WebView>
+
+        <TextView
+            android:id="@+id/show_file"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:text="Click here to download"
+            android:textColor="@color/blue"
+            android:layout_marginLeft="@dimen/_25sdp"
+            android:layout_gravity="start"
+            android:background="@drawable/blue_line"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </RelativeLayout>

@@ -64,6 +64,8 @@ public class CircularFragment extends Fragment {
         txtNoRecordsCircular = (TextView) rootView.findViewById(R.id.txtNoRecordsCircular);
         btnBackCircular = (Button) rootView.findViewById(R.id.btnBackCircular);
         listCircular = (ExpandableListView) rootView.findViewById(R.id.listCircular);
+        if (Utility.checkAndRequestPermissions(mContext)) {
+        }
     }
 
     public void setListners() {

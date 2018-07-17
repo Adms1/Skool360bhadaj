@@ -19,8 +19,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
 
-        putExtrasData = getIntent().getStringExtra("message");
-        putExtras = getIntent().getStringExtra("fromNotification");//getAction();
+//        putExtrasData = getIntent().getStringExtra("message");
+//        putExtras = getIntent().getStringExtra("fromNotification");//getAction();
         System.out.println("Login Extra : " + putExtrasData);
         new Handler().postDelayed(new Runnable() {
 
@@ -33,10 +33,10 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
-                i.putExtra("message",putExtrasData);
-                i.putExtra("fromNotification", putExtras);
-                System.out.println("messageLogin: " +putExtrasData);
+                Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
+//                i.putExtra("message",putExtrasData);
+//                i.putExtra("fromNotification", putExtras);
+//                System.out.println("messageLogin: " +putExtrasData);
                 startActivity(i);
 
                 // close this activity

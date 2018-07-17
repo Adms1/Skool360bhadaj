@@ -33,6 +33,7 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
 }
 
 dependencies {
