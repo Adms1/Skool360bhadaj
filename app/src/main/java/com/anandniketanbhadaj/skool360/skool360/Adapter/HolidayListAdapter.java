@@ -115,50 +115,123 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
                     TextView name = (TextView) view.findViewById(R.id.holiday_name_txt);
                     name.setText(examData.get(i).getHoliday());
                     TextView date = (TextView) view.findViewById(R.id.holiday_date_txt);
-                    String[] dateStr = examData.get(i).getStartDate().split("\\/");
-                    date.setText(dateStr[0]);
+                    LinearLayout event_linear = (LinearLayout) view.findViewById(R.id.event_linear);
+                    LinearLayout holiday_linear = (LinearLayout) view.findViewById(R.id.holiday_linear);
+
                     TextView day = (TextView) view.findViewById(R.id.holiday_day);
+                    TextView event_name_txt = (TextView) view.findViewById(R.id.event_name_txt);
+                    event_name_txt.setText(examData.get(i).getEvent());
 
-                    SimpleDateFormat inFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date1 = null;
-                    try {
-                        date1 = inFormat.parse(examData.get(i).getStartDate());
-                        SimpleDateFormat outFormat = new SimpleDateFormat("EE");
-                        String goal = outFormat.format(date1);
-                        Log.d("day", goal);
-                        day.setText(goal);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    if (!examData.get(i).getStartDate().equalsIgnoreCase(examData.get(i).getEndDate())) {
-                        TextView date_txt = (TextView) view.findViewById(R.id.date_txt);
-                        date_txt.setVisibility(View.VISIBLE);
-                        String inputPattern = "dd/MM/yyyy";
-                        String outputPattern1 = "dd MMMM";
-                        String outputPattern2="dd MMMM";
-
-                        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-                        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern1);
-                        SimpleDateFormat outputFormat1 = new SimpleDateFormat(outputPattern2);
-
-                        Date  startdateTime = null, enddateTime = null;
-                        String str = null, StartTimeStr = null, EndTimeStr = null;
-
+                    if (!examData.get(i).getHolidayDate().equalsIgnoreCase("-")) {
+                        String[] dateStr = examData.get(i).getHolidayDate().split("\\-");
+                        String[] datesplit = dateStr[0].split("\\/");
+                        date.setText(datesplit[0]);
+                        SimpleDateFormat inFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        Date date1 = null;
                         try {
-                            startdateTime = inputFormat.parse(examData.get(i).getStartDate());
-                            enddateTime=inFormat.parse(examData.get(i).getEndDate());
-                            StartTimeStr = outputFormat.format(startdateTime);
-                            EndTimeStr=outputFormat1.format(enddateTime);
-
-                            Log.i("mini", "Converted Date Today:" + StartTimeStr + "=" + EndTimeStr);
+                            date1 = inFormat.parse(dateStr[0]);
+                            SimpleDateFormat outFormat = new SimpleDateFormat("EE");
+                            String goal = outFormat.format(date1);
+                            Log.d("day", goal);
+                            day.setText(goal);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        date_txt.setText(StartTimeStr + " - " + EndTimeStr);
-
+                    }else{
+                        String[] dateStr = examData.get(i).getEventDate().split("\\-");
+                        String[] datesplit = dateStr[0].split("\\/");
+                        date.setText(datesplit[0]);
+                        SimpleDateFormat inFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        Date date1 = null;
+                        try {
+                            date1 = inFormat.parse(dateStr[0]);
+                            SimpleDateFormat outFormat = new SimpleDateFormat("EE");
+                            String goal = outFormat.format(date1);
+                            Log.d("day", goal);
+                            day.setText(goal);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (!examData.get(i).getEvent().equalsIgnoreCase("")) {
+                        event_linear.setVisibility(View.VISIBLE);
                     } else {
-                        TextView date_txt = (TextView) view.findViewById(R.id.date_txt);
-                        date_txt.setVisibility(View.GONE);
+                        event_linear.setVisibility(View.GONE);
+                    }
+                    if (!examData.get(i).getHoliday().equalsIgnoreCase("")) {
+                        holiday_linear.setVisibility(View.VISIBLE);
+                    } else {
+                        holiday_linear.setVisibility(View.GONE);
+                    }
+
+                    if (!examData.get(i).getHolidayDate().equalsIgnoreCase("-")) {
+
+
+                        String[] holidayDatesplit = examData.get(i).getHolidayDate().split("\\-");
+
+                        if (!holidayDatesplit[0].equalsIgnoreCase(holidayDatesplit[1])) {
+                            TextView date_txt = (TextView) view.findViewById(R.id.date_txt);
+                            date_txt.setVisibility(View.VISIBLE);
+                            String inputPattern = "dd/MM/yyyy";
+                            String outputPattern1 = "dd MMM";
+                            String outputPattern2 = "dd MMM";
+
+                            SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                            SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern1);
+                            SimpleDateFormat outputFormat1 = new SimpleDateFormat(outputPattern2);
+
+                            Date startdateTime = null, enddateTime = null;
+                            String str = null, StartTimeStr = null, EndTimeStr = null;
+
+                            try {
+                                startdateTime = inputFormat.parse(holidayDatesplit[0]);
+                                enddateTime = inputFormat.parse(holidayDatesplit[1]);
+                                StartTimeStr = outputFormat.format(startdateTime);
+                                EndTimeStr = outputFormat1.format(enddateTime);
+
+                                Log.i("mini", "Converted Date Today:" + StartTimeStr + "=" + EndTimeStr);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            date_txt.setText(StartTimeStr + " - " + EndTimeStr);
+
+                        } else {
+                            TextView date_txt = (TextView) view.findViewById(R.id.date_txt);
+                            date_txt.setVisibility(View.GONE);
+                        }
+                    }
+                    if (!examData.get(i).getEventDate().equalsIgnoreCase("-")) {
+                        String[] eventDatesplit = examData.get(i).getEventDate().split("\\-");
+                        if (!eventDatesplit[0].equalsIgnoreCase(eventDatesplit[1])) {
+                            TextView edate_txt = (TextView) view.findViewById(R.id.edate_txt);
+                            edate_txt.setVisibility(View.VISIBLE);
+                            String inputPattern = "dd/MM/yyyy";
+                            String outputPattern1 = "dd MMM";
+                            String outputPattern2 = "dd MMM";
+
+                            SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                            SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern1);
+                            SimpleDateFormat outputFormat1 = new SimpleDateFormat(outputPattern2);
+
+                            Date startdateTime = null, enddateTime = null;
+                            String str = null, StartTimeStr = null, EndTimeStr = null;
+
+                            try {
+                                startdateTime = inputFormat.parse(eventDatesplit[0]);
+                                enddateTime = inputFormat.parse(eventDatesplit[1]);
+                                StartTimeStr = outputFormat.format(startdateTime);
+                                EndTimeStr = outputFormat1.format(enddateTime);
+
+                                Log.i("mini", "Converted Date Today:" + StartTimeStr + "=" + EndTimeStr);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            edate_txt.setText(StartTimeStr + " - " + EndTimeStr);
+
+                        } else {
+                            TextView edate_txt = (TextView) view.findViewById(R.id.edate_txt);
+                            edate_txt.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
@@ -211,9 +284,10 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
             this.itemView = view;
 
         }
+
         //month_image.getMeasuredHeight()
         public void translate() {
-            float translate = -itemView.getY() * ((float)  month_image.getMeasuredHeight()/ (float) recyclerViewHeight);
+            float translate = -itemView.getY() * ((float) month_image.getMeasuredHeight() / (float) recyclerViewHeight);
             Matrix matrix = new Matrix();
             matrix.postTranslate(0, translate);
 

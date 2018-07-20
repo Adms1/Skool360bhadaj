@@ -46,6 +46,15 @@ public class ExamDatum {
     @Expose
     private String holiday;
 
+    @SerializedName("HolidayDate")
+    @Expose
+    private String holidayDate;
+    @SerializedName("Event")
+    @Expose
+    private String event;
+    @SerializedName("EventDate")
+    @Expose
+    private String eventDate;
     public String getStartDate() {
         return startDate;
     }
@@ -68,6 +77,30 @@ public class ExamDatum {
 
     public void setHoliday(String holiday) {
         this.holiday = holiday;
+    }
+
+    public String getHolidayDate() {
+        return holidayDate;
+    }
+
+    public void setHolidayDate(String holidayDate) {
+        this.holidayDate = holidayDate;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
 
     //===========================

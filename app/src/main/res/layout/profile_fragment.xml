@@ -24,12 +24,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PROFILE"
+            android:text="MY PROFILE"
             android:layout_marginRight="@dimen/_10sdp"
             android:textSize="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_4sdp"
             android:textColor="@android:color/white"
-            android:textStyle="normal"
+            android:textStyle="bold"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 

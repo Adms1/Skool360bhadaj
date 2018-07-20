@@ -31,7 +31,7 @@
             android:layout_marginBottom="@dimen/_4sdp"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp"
-            android:textStyle="normal"/>
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/btnBackHomework"

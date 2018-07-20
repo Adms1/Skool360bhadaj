@@ -30,7 +30,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         if(!old_token.equalsIgnoreCase(refreshedToken)){
             Utility.setPref(getApplicationContext(), "registration_id", refreshedToken);
-//            sendRegistrationToServer(refreshedToken);
+           // sendRegistrationToServer(refreshedToken);
         }
         //Displaying token on logcat
         Log.d(TAG, "Refreshed token from sevice: " + refreshedToken);

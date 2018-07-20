@@ -28,7 +28,7 @@
             android:layout_height="@dimen/_130sdp"
             android:layout_gravity="center|center_vertical"
             android:gravity="center"
-            android:text="January"
+            android:text="August"
             android:layout_marginTop="-340dp"
             android:background="@color/bg_color"
             android:textColor="@color/white"

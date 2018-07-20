@@ -46,7 +46,7 @@ public class ImageAdapter extends BaseAdapter {
 //    public String[] mThumbNames = {"Attendance",  "Homework", "Classwork", "Timetable", "Unit Test", "Results", "Report Card",
 //            "Fees", "Imprest", "Canteen", "PTM", "Message","Circular"};
 
-    public String[] mThumbNames = {"Announcement","Attendance",  "Homework", "Classwork", "Timetable", "Exam Syllabus", "Results", "Report Card",
+    public String[] mThumbNames = {"Announcement","Attendance",  "Home Work", "Class Work", "Time Table", "Exam Syllabus", "Results", "Report Card",
             "Fees","Planner","Leave Application","Circular","Gallery","Suggestion"};
 //                    "Imprest",
     // Constructor

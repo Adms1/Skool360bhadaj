@@ -83,7 +83,11 @@ public class HomeFragment extends Fragment {
     Dialog ratingDialog;
     TextView rate_it_txt_view, reminde_me_txt, no_thanks_txt;
     String putData;
-
+    //Use for dialog
+    Dialog changeDialog;
+    EditText edtnewpassword, edtconfirmpassword, edtcurrentpassword;
+    Button changepwd_btn;
+    String passWordStr, confirmpassWordStr;
     private View rootView;
     private Button btnMenu;
     private GridView grid_view;
@@ -105,11 +109,6 @@ public class HomeFragment extends Fragment {
     private boolean isVersionCodeUpdated = false;
     private int versionCode = 0;
     private DeviceVersionAsyncTask deviceVersionAsyncTask = null;
-    //Use for dialog
-    Dialog changeDialog;
-    EditText edtnewpassword, edtconfirmpassword, edtcurrentpassword;
-    Button changepwd_btn;
-    String passWordStr, confirmpassWordStr;
     private ChangePasswordAsyncTask changePasswordAsyncTask = null;
 
     public HomeFragment() {
@@ -230,6 +229,7 @@ public class HomeFragment extends Fragment {
             hashMap.put("StudentID", Utility.getPref(getActivity(), "studid"));
             hashMap.put("DeviceId", uniqueID); // uniqueID
             hashMap.put("TokenId", token); //token
+            hashMap.put("DeviceType", "A");
             AddDeviceDetailAsyncTask addDeviceDetailAsyncTask = new AddDeviceDetailAsyncTask(hashMap);
             boolean result = addDeviceDetailAsyncTask.execute().get();
         } catch (Exception e) {
@@ -256,6 +256,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 1;
                 } else if (position == 1) {
                     fragment = new AttendanceFragment();
                     fragmentManager = getFragmentManager();
@@ -263,6 +264,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 2;
                 } else if (position == 2) {
                     putData = "test";
                     fragment = new HomeworkFragment();
@@ -274,6 +276,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 3;
                 } else if (position == 3) {
                     putData = "test";
                     fragment = new ClassworkFragment();
@@ -285,6 +288,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 4;
                 } else if (position == 4) {
                     fragment = new TimeTableFragment();
                     fragmentManager = getFragmentManager();
@@ -292,6 +296,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 5;
                 } else if (position == 5) {
                     fragment = new ExamSyllabusFragment();
                     fragmentManager = getFragmentManager();
@@ -299,6 +304,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 6;
                 } else if (position == 6) {
                     fragment = new ResultFragment();
                     fragmentManager = getFragmentManager();
@@ -306,6 +312,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 7;
                 } else if (position == 7) {
                     fragment = new ReportCardFragment();
                     fragmentManager = getFragmentManager();
@@ -313,6 +320,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 8;
                 } else if (position == 8) {
                     fragment = new FeesFragment();
                     fragmentManager = getFragmentManager();
@@ -320,6 +328,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 9;
                 }
 //                else if (position == 9) {
 //                    fragment = new ImprestFragment();
@@ -336,6 +345,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 10;
                 } else if (position == 10) {
                     fragment = new ShowLeaveFragment();
                     fragmentManager = getFragmentManager();
@@ -343,6 +353,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 11;
                 } else if (position == 11) {
                     fragment = new CircularFragment();
                     fragmentManager = getFragmentManager();
@@ -350,6 +361,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 12;
                 } else if (position == 12) {
                     fragment = new GalleryFragment();
                     fragmentManager = getFragmentManager();
@@ -357,6 +369,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 13;
                 } else if (position == 13) {
                     fragment = new SuggestionFragment();
                     fragmentManager = getFragmentManager();
@@ -364,6 +377,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 14;
                 }
             }
         });
@@ -382,12 +396,14 @@ public class HomeFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+//                            student_name_txt.setText("Bhadresh Jadav");
                             student_name_txt.setText(studDetailList.get(0).getStudentName());
                             imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
-                            vehicle_picktime_txt.setText("Pick Up :" + studDetailList.get(0).getTransport_PicupTime());
-                            vehicle_droptime_txt.setText("Drop off :" + studDetailList.get(0).getTransport_DropTime());
-                            student_classname_txt.setText("Grade :" + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass());
+                            vehicle_picktime_txt.setText("Pick Up : " + studDetailList.get(0).getTransport_PicupTime());
+                            vehicle_droptime_txt.setText("Drop Off : " + studDetailList.get(0).getTransport_DropTime());
+                            student_classname_txt.setText("Grade : " + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass());
                             teacher_name1_txt.setText(studDetailList.get(0).getTeacherName());
+//                            teacher_name1_txt.setText("Sourabh Pachouri");
                             admission_txt.setText("GRNo :" + " " + studDetailList.get(0).getGRNO());
                             if (studDetailList.get(0).getTodayAttendance().equalsIgnoreCase("")) {
                                 attendance_txt.setText("Attendance :" + " " + "N/A Today");
@@ -433,7 +449,7 @@ public class HomeFragment extends Fragment {
                                 if (deviceVersionModel.getSuccess().equalsIgnoreCase("True")) {
                                     isVersionCodeUpdated = true;
                                     Log.d("hellotrue", "" + isVersionCodeUpdated);
-                                   // getRegistrationID();
+                                    // getRegistrationID();
                                     getUserProfile();
                                 } else {
                                     isVersionCodeUpdated = false;
@@ -515,6 +531,7 @@ public class HomeFragment extends Fragment {
         ratingDialog.show();
 
     }
+
     public void changePasswordDialog() {
         changeDialog = new Dialog(getActivity(), R.style.Theme_Dialog);
         Window window = changeDialog.getWindow();

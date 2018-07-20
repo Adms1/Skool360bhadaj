@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Skool 360</string>
+    <string name="app_name">Skool 360 Bhadaj</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -38,9 +38,9 @@
         <item>My Profile</item>
         <item>Announcement</item>
         <item>Attendance</item>
-        <item>Homework</item>
-        <item>Classwork</item>
-        <item>Timetable</item>
+        <item>Home Work</item>
+        <item>Class Work</item>
+        <item>Time Table</item>
         <item>Exam Syllabus</item>
         <item>Results</item>
         <item>Report Card</item>

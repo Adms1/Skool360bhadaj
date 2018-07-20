@@ -108,6 +108,7 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
                 public void run() {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("StandardID",Utility.getPref(mContext, "standardID"));
                         holidayAsyncTask = new GetHolidayAsyncTask(params);
                         holidayDataResponse = holidayAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {

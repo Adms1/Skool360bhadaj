@@ -64,7 +64,8 @@
                     android:singleLine="true"
                     android:text="Siddharth Karnik"
                     android:textColor="@color/blue"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"/>
 
                 <ImageView
                     android:id="@+id/viewprofile_img"

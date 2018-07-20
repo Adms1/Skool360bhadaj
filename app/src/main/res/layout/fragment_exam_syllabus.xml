@@ -29,7 +29,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginRight="@dimen/_10sdp"
             android:textSize="@dimen/_12sdp"
-            android:textStyle="normal"
+            android:textStyle="bold"
             android:layout_marginBottom="@dimen/_4sdp"
             android:textColor="@android:color/white"/>
 

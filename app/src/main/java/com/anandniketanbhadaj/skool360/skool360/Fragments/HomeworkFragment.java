@@ -23,6 +23,7 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterHomework;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudHomeworkAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -203,6 +204,9 @@ public class HomeworkFragment extends Fragment {
                                     prepaareList();
                                     listAdapter = new ExpandableListAdapterHomework(getActivity(), listDataHeader, listDataChild);
                                     lvExpHomework.setAdapter(listAdapter);
+                                    if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
+                                        lvExpHomework.expandGroup(0);
+                                    }
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordsHomework.setVisibility(View.VISIBLE);

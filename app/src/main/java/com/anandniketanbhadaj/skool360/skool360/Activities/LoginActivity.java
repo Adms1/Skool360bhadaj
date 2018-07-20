@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -44,6 +45,8 @@ public class LoginActivity extends Activity {
         putExtras = getIntent().getStringExtra("fromNotification");//getAction();
 
         System.out.println("Login Extra : " + putExtrasData);
+        Log.d("Data",Utility.getPref(mContext,"data"));
+        Log.d("message",Utility.getPref(mContext,"message"));
         checkUnmPwd();
         initViews();
         setListners();

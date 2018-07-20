@@ -24,6 +24,7 @@ import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudClassworkAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.text.ParseException;
@@ -204,7 +205,9 @@ public class ClassworkFragment extends Fragment {
                                     lvExpClassWork.setVisibility(View.VISIBLE);
                                     listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild, true);
                                     lvExpClassWork.setAdapter(listAdapter);
-
+                                    if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
+                                        lvExpClassWork.expandGroup(0);
+                                    }
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordsClasswork.setVisibility(View.VISIBLE);

@@ -31,7 +31,7 @@
             android:text="Pay Online"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnBackUnitTest"

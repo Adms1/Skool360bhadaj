@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.anandniketanbhadaj.skool360.R;
+import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 public class SplashScreenActivity extends AppCompatActivity {
     // Splash screen timer
@@ -18,7 +20,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-
+        Log.d("Data", Utility.getPref(this,"data"));
+        Log.d("message",Utility.getPref(this,"message"));
 //        putExtrasData = getIntent().getStringExtra("message");
 //        putExtras = getIntent().getStringExtra("fromNotification");//getAction();
         System.out.println("Login Extra : " + putExtrasData);

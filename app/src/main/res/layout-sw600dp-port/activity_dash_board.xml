@@ -59,7 +59,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center|center_vertical"
-
+                    android:textStyle="bold"
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="Siddharth Karnik"

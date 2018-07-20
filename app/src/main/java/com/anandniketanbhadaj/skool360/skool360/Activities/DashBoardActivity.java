@@ -130,6 +130,11 @@ public class DashBoardActivity extends FragmentActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         AppConfiguration.firsttimeback = true;
+
+//        Log.d("Data123", Utility.getPref(mContext, "data"));
+//        Log.d("messagekill", Utility.getPref(mContext, "message"));
+
+
 //        displayView(dispPOS);
 //        String fromWhere = getIntent().getStringExtra("fromNotification");
 
@@ -142,6 +147,10 @@ public class DashBoardActivity extends FragmentActivity {
 
 //        Log.d("Dashboard : fromNotification", fromWhere);
 //        onNewIntent(getIntent());
+
+//        Log.d("Data",Utility.getPref(mContext,"data"));
+//        Log.d("message",Utility.getPref(mContext,"message"));
+
         if (getIntent().getStringExtra("message") != null) {
             putData = getIntent().getStringExtra("message").toString();
             Log.d("Dashboard : notificationData", putData);
@@ -165,6 +174,49 @@ public class DashBoardActivity extends FragmentActivity {
             AppConfiguration.Notification = "0";
             displayView(0);
         }
+//        if (!AppConfiguration.dataNOtification.equalsIgnoreCase("")) {
+//            Log.d("dataNotification", AppConfiguration.dataNOtification);
+//            Log.d("dataMessage", AppConfiguration.messageNotification);
+//        }
+
+//        if (Utility.getPref(mContext, "data") != null) {
+//            AppConfiguration.Notification = "1";
+//            if (!Utility.getPref(mContext, "data").equalsIgnoreCase("")) {
+//                //   String[] split = Utility.getPref(mContext, "data").split("\\=");
+//                String key = Utility.getPref(mContext, "data");//.substring(0, split[1].length() - 1);
+//                Log.d("key", key);
+//                if (key.equalsIgnoreCase("Homework")) {
+//                    key = "HW";
+//                }
+//                if (key.equalsIgnoreCase("Classwork")) {
+//                    key = "CW";
+//                }
+//                if (key.equalsIgnoreCase("HW")) {
+//                    displayView(4);
+//                } else if (key.equalsIgnoreCase("CW")) {
+//                    displayView(5);
+//                } else if (key.equalsIgnoreCase("Attendance")) {
+//                    displayView(3);
+//                } else if (key.equalsIgnoreCase("Announcement")) {
+//                    displayView(2);
+//                } else if (key.equalsIgnoreCase("Circular")) {
+//                    displayView(13);
+//                }
+//                Utility.setPref(mContext, "data", "");
+//                Utility.setPref(mContext, "message", "");
+//                Log.d("Data123", Utility.getPref(mContext, "data"));
+//                Log.d("message123", Utility.getPref(mContext, "message"));
+//            } else {
+//                AppConfiguration.Notification = "0";
+//                displayView(0);
+//            }
+
+//        } else {
+//            AppConfiguration.Notification = "0";
+//            displayView(0);
+//        }
+
+
         System.out.println("Dashboard Message :" + getIntent().getStringExtra("message"));
         System.out.println("Dashboard Extra : " + getIntent().getStringExtra("fromNotification"));
 
@@ -286,24 +338,28 @@ public class DashBoardActivity extends FragmentActivity {
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     AppConfiguration.firsttimeback = true;
                 }
+                AppConfiguration.position = 0;
                 break;
             case 1:
                 fragment = new ProfileFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 1;
                 break;
             case 2:
                 fragment = new AnnouncmentFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 2;
                 break;
             case 3:
                 fragment = new AttendanceFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 3;
                 break;
             case 4:
                 fragment = new HomeworkFragment();
@@ -324,6 +380,7 @@ public class DashBoardActivity extends FragmentActivity {
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     AppConfiguration.firsttimeback = true;
                 }
+                AppConfiguration.position = 4;
                 break;
             case 5:
                 fragment = new ClassworkFragment();
@@ -343,6 +400,7 @@ public class DashBoardActivity extends FragmentActivity {
                     myid = fragment.getId();
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     AppConfiguration.firsttimeback = true;
+                    AppConfiguration.position = 5;
                 }
                 break;
             case 6:
@@ -350,30 +408,35 @@ public class DashBoardActivity extends FragmentActivity {
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 6;
                 break;
             case 7:
                 fragment = new ExamSyllabusFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 7;
                 break;
             case 8:
                 fragment = new ResultFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 8;
                 break;
             case 9:
                 fragment = new ReportCardFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 9;
                 break;
             case 10:
                 fragment = new FeesFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 10;
                 break;
 //            case 11:
 //                fragment = new ImprestFragment();
@@ -386,32 +449,38 @@ public class DashBoardActivity extends FragmentActivity {
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 11;
                 break;
             case 12:
                 fragment = new ShowLeaveFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 12;
                 break;
             case 13:
                 fragment = new CircularFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 13;
                 break;
             case 14:
                 fragment = new GalleryFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 14;
                 break;
             case 15:
                 AppConfiguration.firsttimeback = true;
                 fragment = new SuggestionFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                AppConfiguration.position = 15;
                 break;
             case 16:
+                AppConfiguration.position = 16;
                 new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
                         .setCancelable(false)
                         .setTitle("Logout")
@@ -479,7 +548,9 @@ public class DashBoardActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         if (AppConfiguration.firsttimeback) {
-            displayView(0);
+            if (AppConfiguration.position != 0) {
+                displayView(0);
+            }
             AppConfiguration.firsttimeback = false;
             Utility.ping(mContext, "Press again to exit");
         } else {

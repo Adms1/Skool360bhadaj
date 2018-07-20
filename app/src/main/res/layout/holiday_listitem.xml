@@ -31,7 +31,7 @@
             android:layout_marginTop="-156dp"
             android:background="@color/bg_color"
             android:gravity="center"
-            android:text="January"
+            android:text="August"
             android:textColor="@color/white"
             android:textSize="@dimen/_17sdp"
             android:textStyle="bold" />
