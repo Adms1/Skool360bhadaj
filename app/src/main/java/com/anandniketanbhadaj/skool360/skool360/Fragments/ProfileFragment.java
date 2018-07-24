@@ -18,6 +18,7 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.ChangePasswordAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetUserProfileAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -139,6 +140,8 @@ public class ProfileFragment extends Fragment {
         btnBackProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()

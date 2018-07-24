@@ -82,7 +82,7 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
             txtInvisibleView.setVisibility(View.INVISIBLE);
             txtTotalMarksGained.setVisibility(View.VISIBLE);
             txtTotalMarks.setVisibility(View.VISIBLE);
-            txtPercentage.setVisibility(View.VISIBLE);
+            txtPercentage.setVisibility(View.GONE);
             String[] headerTemp = getGroup(groupPosition).toString().split("\\|");
             txtTotalMarksGained.setText(headerTemp[1]);
             txtTotalMarks.setText(headerTemp[2]);

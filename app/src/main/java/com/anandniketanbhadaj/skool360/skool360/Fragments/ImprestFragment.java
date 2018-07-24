@@ -27,6 +27,7 @@ import com.anandniketanbhadaj.skool360.skool360.Models.ImprestResponse.Datum;
 import com.anandniketanbhadaj.skool360.skool360.Models.ImprestResponse.FinalArrayImprest;
 import com.anandniketanbhadaj.skool360.skool360.Models.ImprestResponse.GetImprestDataModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.lang.reflect.Field;
@@ -108,6 +109,8 @@ public class ImprestFragment extends Fragment {
         btnBackImprest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()

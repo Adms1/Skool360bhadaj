@@ -87,6 +87,8 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
                 DashBoardActivity.onLeft();
                 break;
             case R.id.btnBackCanteen:
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 fragment = new HomeFragment();
                 fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()

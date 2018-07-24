@@ -28,6 +28,7 @@ import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GalleryAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.PhotoModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
@@ -83,6 +84,8 @@ public class GalleryFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 if(position.equalsIgnoreCase("")) {
                     fragment = new HomeFragment();
                     fragmentManager = getFragmentManager();

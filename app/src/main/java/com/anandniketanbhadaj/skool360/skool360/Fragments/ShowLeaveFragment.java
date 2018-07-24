@@ -22,6 +22,7 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.LeaveListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetLeaveDataAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.HashMap;
@@ -92,6 +93,8 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
                 DashBoardActivity.onLeft();
                 break;
             case R.id.btnBackCanteen:
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 fragment = new HomeFragment();
                 fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()

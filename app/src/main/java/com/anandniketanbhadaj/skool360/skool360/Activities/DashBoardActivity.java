@@ -551,8 +551,10 @@ public class DashBoardActivity extends FragmentActivity {
             if (AppConfiguration.position != 0) {
                 displayView(0);
             }
+//            else {
+//                Utility.ping(mContext, "Press again to exit");
+//            }
             AppConfiguration.firsttimeback = false;
-            Utility.ping(mContext, "Press again to exit");
         } else {
             finish();
             System.exit(0);

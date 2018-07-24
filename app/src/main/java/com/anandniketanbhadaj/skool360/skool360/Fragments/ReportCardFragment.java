@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetReportcardAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetResultPermissionAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTermAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
@@ -42,9 +43,9 @@ import java.util.HashMap;
 public class ReportCardFragment extends Fragment {
     WebView webview_report_card;
     HashMap<Integer, String> spinnerTermIdMap;
-    String FinalTermDetailIdStr="1", FinalTermIdStr;
+    String FinalTermDetailIdStr = "1", FinalTermIdStr;
     private View rootView;
-    private Button btnMenu, btnBackUnitTest;
+    private Button btnMenu, btnBackUnitTest, btnshow;
     private TextView txtNoRecordsUnitTest;
     private Context mContext;
     private Spinner term_detail_spinner;
@@ -52,6 +53,7 @@ public class ReportCardFragment extends Fragment {
     private RadioButton term1rb, term2rb;
     private ProgressDialog progressDialog = null;
     private GetReportcardAsyncTask getReportCardAsyncTask = null;
+    private GetResultPermissionAsyncTask getResultPermissionAsyncTask = null;
     private ArrayList<ReportCardModel> reportModels = new ArrayList<>();
     private GetTermAsyncTask getTermAsyncTask = null;
     private ArrayList<TermModel> termModels = new ArrayList<>();
@@ -80,6 +82,7 @@ public class ReportCardFragment extends Fragment {
         termrg = (RadioGroup) rootView.findViewById(R.id.termrg);
         term1rb = (RadioButton) rootView.findViewById(R.id.term1_rb);
         term2rb = (RadioButton) rootView.findViewById(R.id.term2_rb);
+        btnshow = (Button) rootView.findViewById(R.id.btnshow);
         WebSettings webSettings = webview_report_card.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webview_report_card.getSettings().setUseWideViewPort(true);
@@ -91,6 +94,12 @@ public class ReportCardFragment extends Fragment {
     }
 
     public void setListners() {
+        btnshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getReportData();
+            }
+        });
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +110,8 @@ public class ReportCardFragment extends Fragment {
         btnBackUnitTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
@@ -115,13 +126,16 @@ public class ReportCardFragment extends Fragment {
                 int radioButtonID = termrg.getCheckedRadioButtonId();
                 switch (radioButtonID) {
                     case R.id.term1_rb:
+                        // webview_report_card.setVisibility(View.GONE);
                         FinalTermDetailIdStr = "1";
                         break;
                     case R.id.term2_rb:
+                        // webview_report_card.setVisibility(View.GONE);
                         FinalTermDetailIdStr = "2";
                         break;
                 }
                 getReportData();
+                //getReportPermission();
 
             }
         });
@@ -135,6 +149,7 @@ public class ReportCardFragment extends Fragment {
                 FinalTermIdStr = getid.toString();
                 Log.d("FinalTermIdStr", FinalTermIdStr);
                 getReportData();
+                // getReportPermission();
             }
 
             @Override
@@ -170,9 +185,60 @@ public class ReportCardFragment extends Fragment {
                                     progressDialog.dismiss();
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
                                     webview_report_card.loadUrl(reportModels.get(0).getURL());
+                                    if (reportModels.get(0).getURL().equalsIgnoreCase("")) {
+                                        webview_report_card.setVisibility(View.GONE);
+                                        txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                    } else {
+                                        webview_report_card.setVisibility(View.VISIBLE);
+                                        txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                    }
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Utility.ping(mContext, "Network not available");
+        }
+    }
+
+    public void getReportPermission() {
+        if (Utility.isNetworkConnected(mContext)) {
+            progressDialog = new ProgressDialog(mContext);
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("StandardId", Utility.getPref(mContext, "standardID"));
+                        params.put("TermID", FinalTermIdStr);
+                        getResultPermissionAsyncTask = new GetResultPermissionAsyncTask(params);
+                        reportModels = getResultPermissionAsyncTask.execute().get();
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (reportModels.get(0).getStatus().equalsIgnoreCase("True")) {
+                                    progressDialog.dismiss();
+                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                    webview_report_card.setVisibility(View.VISIBLE);
+                                    btnshow.setVisibility(View.VISIBLE);
+                                } else {
+                                    progressDialog.dismiss();
+                                    //  txtNoRecordsUnitTest.setText("");
+                                    txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                    webview_report_card.setVisibility(View.GONE);
+                                    btnshow.setVisibility(View.GONE);
                                 }
                             }
                         });
@@ -240,9 +306,9 @@ public class ReportCardFragment extends Fragment {
                                     final Calendar calendar = Calendar.getInstance();
                                     int yy = calendar.get(Calendar.YEAR);
 
-                                    String CurrentYear= String.valueOf(yy);
-                                    for (int i=0;i<spinnertermdetailIdArray.length;i++){
-                                        if(spinnertermdetailIdArray[i].contains(CurrentYear)){
+                                    String CurrentYear = String.valueOf(yy);
+                                    for (int i = 0; i < spinnertermdetailIdArray.length; i++) {
+                                        if (spinnertermdetailIdArray[i].contains(CurrentYear)) {
                                             term_detail_spinner.setSelection(i);
                                         }
                                     }

@@ -99,6 +99,8 @@ public class AnnouncmentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AppConfiguration.Notification = "0";
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()

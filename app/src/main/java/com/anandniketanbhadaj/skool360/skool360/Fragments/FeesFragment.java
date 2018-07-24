@@ -19,6 +19,7 @@ import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesMainResponse;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.HashMap;
@@ -76,6 +77,8 @@ public class FeesFragment extends Fragment {
         btnBackUnitTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()

@@ -522,4 +522,31 @@ public class ParseJSON {
         }
         return result;
     }
+
+    public static ArrayList<ReportCardModel> parseReportCardPermissionJson(String responseString) {
+        ArrayList<ReportCardModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            ReportCardModel reportCardModel = null;
+
+            if (data_load_basket.toString().equals("True")) {
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                for (int a = 0; a < jsonMainNode.length(); a++) {
+                    reportCardModel = new ReportCardModel();
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
+                    reportCardModel.setStatus(jsonChildNode.getString("Status"));
+                    result.add(reportCardModel);
+                }
+            } else {
+                //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

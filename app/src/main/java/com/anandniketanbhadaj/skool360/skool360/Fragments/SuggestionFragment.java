@@ -27,6 +27,7 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.CreateSuggestionAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.InsertStudentLeaveAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.Calendar;
@@ -81,6 +82,8 @@ public class SuggestionFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 fragment = new HomeFragment();
                 fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()

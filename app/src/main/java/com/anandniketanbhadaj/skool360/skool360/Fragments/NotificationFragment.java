@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.NotificationMessageListAdapter;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 
 import java.util.ArrayList;
 
@@ -63,6 +64,8 @@ public class NotificationFragment extends Activity {
         btnBackNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Intent i = new Intent(mContext, DashBoardActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);

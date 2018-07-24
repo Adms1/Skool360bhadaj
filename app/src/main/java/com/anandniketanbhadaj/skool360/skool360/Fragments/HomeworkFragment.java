@@ -152,6 +152,8 @@ public class HomeworkFragment extends Fragment {
         btnBackHomework.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
                 Bundle args = new Bundle();
                 args.putString("message", putData);
@@ -236,9 +238,9 @@ public class HomeworkFragment extends Fragment {
 
                     ArrayList<HomeWorkModel.HomeWorkData> rows = new ArrayList<HomeWorkModel.HomeWorkData>();
                     for (int j = 0; j < homeWorkModels.get(i).getHomeWorkDatas().size(); j++) {
-                        if (homeWorkModels.get(i).getHomeWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
+                       // if (homeWorkModels.get(i).getHomeWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
                             rows.add(homeWorkModels.get(i).getHomeWorkDatas().get(j));
-                        }
+                       // }
                     }
                     listDataChild.put(listDataHeader.get(i), rows);
                 }

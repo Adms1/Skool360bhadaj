@@ -153,6 +153,8 @@ public class ClassworkFragment extends Fragment {
         btnBackClasswork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
                 Bundle args = new Bundle();
                 args.putString("message", putData);
@@ -230,16 +232,16 @@ public class ClassworkFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String,ArrayList<ClassWorkModel.ClassWorkData>>();
         if (!getArguments().getString("message").equalsIgnoreCase("test")) {
-            spiltdata = putData.split("\\-");
+            //spiltdata = putData.split("\\-");
             for (int i = 0; i < classWorkModels.size(); i++) {
                 if (classWorkModels.get(i).getClassWorkDate().equalsIgnoreCase(formatedate)) {
                     listDataHeader.add(classWorkModels.get(i).getClassWorkDate());
 
                     ArrayList<ClassWorkModel.ClassWorkData> rows = new ArrayList<ClassWorkModel.ClassWorkData>();
                     for (int j = 0; j < classWorkModels.get(i).getClassWorkDatas().size(); j++) {
-                        if (classWorkModels.get(i).getClassWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
+                       // if (classWorkModels.get(i).getClassWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
                             rows.add(classWorkModels.get(i).getClassWorkDatas().get(j));
-                        }
+                       // }
                     }
 
                     listDataChild.put(listDataHeader.get(i), rows);

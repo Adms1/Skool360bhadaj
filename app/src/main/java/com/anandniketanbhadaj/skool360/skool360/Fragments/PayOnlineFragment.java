@@ -28,6 +28,7 @@ import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetReportcardAsyncTas
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTermAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.lang.reflect.Field;

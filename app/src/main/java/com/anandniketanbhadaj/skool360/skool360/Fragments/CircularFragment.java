@@ -92,6 +92,8 @@ public class CircularFragment extends Fragment {
         btnBackCircular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 AppConfiguration.Notification = "0";
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();

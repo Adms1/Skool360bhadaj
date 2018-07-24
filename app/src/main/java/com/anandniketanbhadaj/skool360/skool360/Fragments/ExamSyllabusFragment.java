@@ -27,6 +27,7 @@ import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.UnitTestModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.lang.reflect.Field;
@@ -90,6 +91,8 @@ public class ExamSyllabusFragment extends Fragment {
         btnBackUnitTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()

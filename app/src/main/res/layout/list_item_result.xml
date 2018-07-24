@@ -172,6 +172,7 @@
         android:textAllCaps="false"
         android:textStyle="bold"
         android:textColor="@color/selectedButton"
-        android:textSize="@dimen/_11sdp" />
+        android:textSize="@dimen/_11sdp"
+        android:visibility="gone"/>
 
 </RelativeLayout>

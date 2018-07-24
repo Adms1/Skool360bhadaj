@@ -88,7 +88,7 @@
 
         <RadioGroup
             android:id="@+id/termrg"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginBottom="@dimen/_1sdp"
             android:layout_marginLeft="@dimen/_1sdp"
@@ -111,13 +111,25 @@
                 android:id="@+id/term2_rb"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_28sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_1sdp"
                 android:paddingLeft="@dimen/_5sdp"
                 android:button="@drawable/absent_radio_type"
                 android:text="Term 2"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_12sdp" />
         </RadioGroup>
+        <Button
+            android:id="@+id/btnshow"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:text="Get Result"
+            android:background="@drawable/profile_button"
+            android:textColor="@android:color/white"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_12sdp"
+            android:padding="@dimen/_4sdp"
+            android:visibility="gone"/>
     </LinearLayout>
     <TextView
         android:id="@+id/txtNoRecordsUnitTest"

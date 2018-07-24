@@ -18,6 +18,7 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterTimeTable;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTimetableAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.TimetableModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
@@ -78,6 +79,8 @@ public class TimeTableFragment extends Fragment {
         btnBackTimeTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
