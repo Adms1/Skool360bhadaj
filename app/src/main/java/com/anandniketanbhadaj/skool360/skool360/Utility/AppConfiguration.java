@@ -9,7 +9,7 @@ public class AppConfiguration {
         LIVE, LOCAL
     }
 
-    static Domain domain = Domain.LIVE;//only Change this for changing environment
+    static Domain domain = Domain.LOCAL;//only Change this for changing environment
 
     public static String getUrl(String methodName) {
         String url = "";
@@ -29,10 +29,10 @@ public class AppConfiguration {
 
 
     //Local
-    public static String DOMAIN_LOCAL = "";
-//    public static String DOMAIN_LIVE = "http://192.168.1.25:8086/MobileApp_Service.asmx/";//use for office only
-//public static String DOMAIN_LIVE = "http://192.168.1.187:8089/MobileApp_Service.asmx/";//client for office only
-    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
+    public static String DOMAIN_LIVE = "";
+     public static String DOMAIN_LOCAL = "http://192.168.1.25:8086/MobileApp_Service.asmx/";//use for office only
+   //public static String DOMAIN_LIVE = "http://192.168.1.187:8089/MobileApp_Service.asmx/";//client for office only
+    //public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
 
 
 //    public static String IMAGE_LIVE="http://192.168.1.25:8086/SKOOL360-Category-Images-Android/Student/";
