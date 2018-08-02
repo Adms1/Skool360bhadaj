@@ -36,7 +36,7 @@ public class FeesFragment extends Fragment {
     private ProgressDialog progressDialog = null;
     private FeesAsyncTask getFeesAsyncTask = null;
     private LinearLayout linear_right, fees_main_linear;
-
+LinearLayout linearBack;
     public FeesFragment() {
     }
 
@@ -56,6 +56,7 @@ public class FeesFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
         payment_total_amount_txt = (TextView) rootView.findViewById(R.id.payment_total_amount_txt);
         payment_total_amount_status_txt = (TextView) rootView.findViewById(R.id.payment_total_amount_status_txt);
         total_fee_txt = (TextView) rootView.findViewById(R.id.total_fee_txt);
@@ -77,6 +78,18 @@ public class FeesFragment extends Fragment {
         btnBackUnitTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 AppConfiguration.firsttimeback = true;
                 AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();

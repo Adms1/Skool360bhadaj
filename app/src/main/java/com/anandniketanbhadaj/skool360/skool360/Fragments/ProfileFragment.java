@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -53,6 +54,7 @@ public class ProfileFragment extends Fragment {
     private ArrayList<StudProfileModel> studDetailList = new ArrayList<>();
     private ProgressDialog progressDialog = null;
     private ImageLoader imageLoader;
+    LinearLayout linearBack;
 
     public ProfileFragment() {
     }
@@ -74,6 +76,7 @@ public class ProfileFragment extends Fragment {
         studName = (TextView) rootView.findViewById(R.id.studName);
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBackProfile = (Button) rootView.findViewById(R.id.btnBackProfile);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
         btnPersonalDetail = (Button) rootView.findViewById(R.id.btnPersonalDetail);
         btnPersonalDetail.setBackgroundColor(getResources().getColor(R.color.profile_lite));
         btnEducationalDetail = (Button) rootView.findViewById(R.id.btnEducationalDetail);
@@ -140,6 +143,18 @@ public class ProfileFragment extends Fragment {
         btnBackProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 AppConfiguration.firsttimeback = true;
                 AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
@@ -224,42 +239,46 @@ public class ProfileFragment extends Fragment {
                     if (edtPassword.getVisibility() == View.VISIBLE) {
                         if (!edtPassword.getText().toString().equalsIgnoreCase("")) {
                             if (!edtPassword.getText().toString().equalsIgnoreCase(studDetailList.get(0).getPassword())) {
-                                progressDialog = new ProgressDialog(mContext);
-                                progressDialog.setCancelable(false);
-                                progressDialog.setMessage("Please wait...");
-                                progressDialog.show();
+                                if (edtPassword.getText().toString().length()>=4 && edtPassword.getText().toString().length()<=12) {
+                                    progressDialog = new ProgressDialog(mContext);
+                                    progressDialog.setCancelable(false);
+                                    progressDialog.setMessage("Please wait...");
+                                    progressDialog.show();
 
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            HashMap<String, String> params = new HashMap<String, String>();
-                                            params.put("StudentID", Utility.getPref(mContext, "studid"));
-                                            params.put("OldPassword", studDetailList.get(0).getPassword());
-                                            params.put("NewPassword", edtPassword.getText().toString());
-                                            changePasswordAsyncTask = new ChangePasswordAsyncTask(params);
-                                            final Boolean result = changePasswordAsyncTask.execute().get();
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                HashMap<String, String> params = new HashMap<String, String>();
+                                                params.put("StudentID", Utility.getPref(mContext, "studid"));
+                                                params.put("OldPassword", studDetailList.get(0).getPassword());
+                                                params.put("NewPassword", edtPassword.getText().toString());
+                                                changePasswordAsyncTask = new ChangePasswordAsyncTask(params);
+                                                final Boolean result = changePasswordAsyncTask.execute().get();
 
-                                            getActivity().runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    progressDialog.dismiss();
-                                                    if (result == true) {
-                                                        Utility.pong(mContext, "Password Updated Successfully");
-                                                        if (!Utility.getPref(mContext, "pwd").equalsIgnoreCase("")) {
-                                                            Utility.setPref(mContext, "pwd", edtPassword.getText().toString());
-                                                            getUserProfile();
-                                                            txtEdit.performClick();
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        progressDialog.dismiss();
+                                                        if (result == true) {
+                                                            Utility.pong(mContext, "Password Updated Successfully");
+                                                            if (!Utility.getPref(mContext, "pwd").equalsIgnoreCase("")) {
+                                                                Utility.setPref(mContext, "pwd", edtPassword.getText().toString());
+                                                                getUserProfile();
+                                                                txtEdit.performClick();
+                                                            }
                                                         }
                                                     }
-                                                }
-                                            });
+                                                });
 
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
                                         }
-                                    }
-                                }).start();
+                                    }).start();
+                                }else{
+                                    Utility.pong(mContext, "Password must be 4-12 Characters.");
+                                }
                             } else {
                                 Utility.pong(mContext, "New password cant be same as old password");
                             }

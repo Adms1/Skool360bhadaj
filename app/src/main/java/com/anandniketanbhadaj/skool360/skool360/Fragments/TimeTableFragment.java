@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -42,7 +43,7 @@ public class TimeTableFragment extends Fragment {
     ExpandableListView lvExpTimeTable;
     List<String> listDataHeader;
     HashMap<String, ArrayList<TimetableModel.Timetable.TimetableData>> listDataChild;
-
+LinearLayout linearBack;
 
     public TimeTableFragment() {
     }
@@ -63,6 +64,7 @@ public class TimeTableFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsTimetable = (TextView) rootView.findViewById(R.id.txtNoRecordsTimetable);
         btnBackTimeTable = (Button) rootView.findViewById(R.id.btnBackTimeTable);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
         lvExpTimeTable = (ExpandableListView) rootView.findViewById(R.id.lvExpTimeTable);
 
         getTimeTableData();
@@ -79,6 +81,18 @@ public class TimeTableFragment extends Fragment {
         btnBackTimeTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 AppConfiguration.firsttimeback = true;
                 AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();

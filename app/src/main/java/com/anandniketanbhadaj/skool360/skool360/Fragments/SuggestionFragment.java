@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -46,6 +47,7 @@ public class SuggestionFragment extends Fragment {
     private Button btnSave, btnCancel, btnMenu, btnBack;
     private ProgressDialog progressDialog = null;
     private CreateSuggestionAsyncTask createSuggestionAsyncTask = null;
+    LinearLayout linearBack;
 
     public SuggestionFragment() {
     }
@@ -69,6 +71,7 @@ public class SuggestionFragment extends Fragment {
         btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBack = (Button) rootView.findViewById(R.id.btnBack);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
 
     }
 
@@ -80,6 +83,18 @@ public class SuggestionFragment extends Fragment {
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                fragment = new HomeFragment();
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
+        linearBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppConfiguration.firsttimeback = true;

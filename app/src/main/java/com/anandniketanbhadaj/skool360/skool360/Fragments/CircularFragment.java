@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -42,7 +43,7 @@ public class CircularFragment extends Fragment {
     private ProgressDialog progressDialog = null;
     private ArrayList<CircularModel> circularModels = new ArrayList<>();
     private int lastExpandedPosition = -1;
-
+LinearLayout linearBack;
     public CircularFragment() {
     }
 
@@ -63,6 +64,7 @@ public class CircularFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsCircular = (TextView) rootView.findViewById(R.id.txtNoRecordsCircular);
         btnBackCircular = (Button) rootView.findViewById(R.id.btnBackCircular);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
         listCircular = (ExpandableListView) rootView.findViewById(R.id.listCircular);
         if (Utility.checkAndRequestPermissions(mContext)) {
         }
@@ -102,7 +104,18 @@ public class CircularFragment extends Fragment {
                         .replace(R.id.frame_container, fragment).commit();
             }
         });
-
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
     }
 
     public void getCircularData() {

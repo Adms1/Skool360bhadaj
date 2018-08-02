@@ -11,6 +11,7 @@ import com.anandniketanbhadaj.skool360.skool360.Models.ResultModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TimetableModel;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -243,7 +244,6 @@ public class ParseJSON {
 
         return result;
     }
-
     public static ArrayList<PaymentLedgerModel> parsePaymentLedgerJson(String responseString) {
         ArrayList<PaymentLedgerModel> result = new ArrayList<>();
 
@@ -259,36 +259,12 @@ public class ParseJSON {
                 for (int a = 0; a < jsonMainNode.length(); a++) {
                     paymentLedgerModel = new PaymentLedgerModel();
                     JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
-                    paymentLedgerModel.setPayDate(jsonChildNode.getString("PayDate"));
-                    paymentLedgerModel.setPaid(jsonChildNode.getString("Paid"));
+                    paymentLedgerModel.setPaymentType(jsonChildNode.getString("Payment Type"));
+                    paymentLedgerModel.setDate(jsonChildNode.getString("Date"));
+                    paymentLedgerModel.setTerm(jsonChildNode.getString("Term"));
+                    paymentLedgerModel.setAmount(jsonChildNode.getString("Amount"));
+                    paymentLedgerModel.setURL(jsonChildNode.getString("URL"));
 
-                    PaymentLedgerModel.Data data = null;
-                    ArrayList<PaymentLedgerModel.Data> dataArrayList = new ArrayList<>();
-                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("Data");
-                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
-                        data = paymentLedgerModel.new Data();
-                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
-                        data.setTerm(jsonChildNode1.getString("Term"));
-                        data.setTermDetail(jsonChildNode1.getString("TermDetail"));
-                        data.setGRNO(jsonChildNode1.getString("GRNO"));
-                        data.setPayMode(jsonChildNode1.getString("PayMode"));
-                        data.setPaidFee(jsonChildNode1.getString("PaidFee"));
-                        data.setReceiptNo(jsonChildNode1.getString("ReceiptNo"));
-//                        data.setAdmissionFee(jsonChildNode1.getString("AdmissionFee"));
-                        data.setCautionFee(jsonChildNode1.getString("CautionFee"));
-                        data.setPreviousFees(jsonChildNode1.getString("PreviousFees"));
-                        data.setTuitionFee(jsonChildNode1.getString("TuitionFee"));
-                        data.setTransport(jsonChildNode1.getString("Transport"));
-                        data.setImprestFee(jsonChildNode1.getString("ImprestFee"));
-                        data.setLatesFee(jsonChildNode1.getString("LatesFee"));
-                        data.setDiscountFee(jsonChildNode1.getString("DiscountFee"));
-                        data.setPaidFee(jsonChildNode1.getString("PayPaidFees"));
-                        data.setCurrentOutstandingFees(jsonChildNode1.getString("CurrentOutstandingFees"));
-                        data.setBankName(jsonChildNode1.getString("Bank Name"));
-                        data.setChequeNumber(jsonChildNode1.getString("Cheque Number"));
-                        dataArrayList.add(data);
-                    }
-                    paymentLedgerModel.setDataArrayList(dataArrayList);
                     result.add(paymentLedgerModel);
                 }
             } else {
@@ -302,6 +278,64 @@ public class ParseJSON {
 
         return result;
     }
+//    public static ArrayList<PaymentLedgerModel> parsePaymentLedgerJson(String responseString) {
+//        ArrayList<PaymentLedgerModel> result = new ArrayList<>();
+//
+//        try {
+//            JSONObject reader = new JSONObject(responseString);
+//            String data_load_basket = reader.getString("Success");
+//            PaymentLedgerModel paymentLedgerModel = null;
+//
+//            if (data_load_basket.toString().equals("True")) {
+//
+//
+//                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+//                for (int a = 0; a < jsonMainNode.length(); a++) {
+//                    paymentLedgerModel = new PaymentLedgerModel();
+//                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
+//                    paymentLedgerModel.setPayDate(jsonChildNode.getString("PayDate"));
+//                    paymentLedgerModel.setPaid(jsonChildNode.getString("Paid"));
+//
+//                    PaymentLedgerModel.Data data = null;
+//                    ArrayList<PaymentLedgerModel.Data> dataArrayList = new ArrayList<>();
+//                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("Data");
+//                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
+//                        data = paymentLedgerModel.new Data();
+//                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
+//                        data.setTerm(jsonChildNode1.getString("Term"));
+//                        data.setTermDetail(jsonChildNode1.getString("TermDetail"));
+//                        data.setGRNO(jsonChildNode1.getString("GRNO"));
+//                        data.setPayMode(jsonChildNode1.getString("PayMode"));
+//                        data.setPaidFee(jsonChildNode1.getString("PaidFee"));
+//                        data.setReceiptNo(jsonChildNode1.getString("ReceiptNo"));
+////                        data.setAdmissionFee(jsonChildNode1.getString("AdmissionFee"));
+//                        data.setCautionFee(jsonChildNode1.getString("CautionFee"));
+//                        data.setPreviousFees(jsonChildNode1.getString("PreviousFees"));
+//                        data.setTuitionFee(jsonChildNode1.getString("TuitionFee"));
+//                        data.setTransport(jsonChildNode1.getString("Transport"));
+//                        data.setImprestFee(jsonChildNode1.getString("ImprestFee"));
+//                        data.setLatesFee(jsonChildNode1.getString("LatesFee"));
+//                        data.setDiscountFee(jsonChildNode1.getString("DiscountFee"));
+//                        data.setPaidFee(jsonChildNode1.getString("PayPaidFees"));
+//                        data.setCurrentOutstandingFees(jsonChildNode1.getString("CurrentOutstandingFees"));
+//                        data.setBankName(jsonChildNode1.getString("Bank Name"));
+//                        data.setChequeNumber(jsonChildNode1.getString("Cheque Number"));
+//                        dataArrayList.add(data);
+//                    }
+//                    paymentLedgerModel.setDataArrayList(dataArrayList);
+//                    result.add(paymentLedgerModel);
+//                }
+//            } else {
+//                //invalid login
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return result;
+//    }
 
     public static ArrayList<HomeWorkModel> parseStudHomeworkJson(String responseString) {
         ArrayList<HomeWorkModel> result = new ArrayList<>();
@@ -328,6 +362,7 @@ public class ParseJSON {
                         homeWorkData.setHomework(jsonChildNode1.getString("HomeWork"));
                         homeWorkData.setChapterName(jsonChildNode1.getString("ProxyStatus"));
                         homeWorkData.setFont(jsonChildNode1.getString("Font"));
+                        homeWorkData.setHomeWorkStatus(jsonChildNode1.getString("HomeWorkStatus"));
 //                        homeWorkData.setObjective(jsonChildNode1.getString("Objective"));
 //                        homeWorkData.setAssessmentQue(jsonChildNode1.getString("AssessmentQue"));
 
@@ -360,6 +395,7 @@ public class ParseJSON {
 
             if (data_load_basket.toString().equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                JSONArray jsonMainNode1=reader.optJSONArray("HolidayArray");
                 AttendanceModel.Attendance attendance = null;
                 ArrayList<AttendanceModel.Attendance> attendances = new ArrayList<>();
                 for (int i = 0; i < jsonMainNode.length(); i++) {
@@ -376,6 +412,20 @@ public class ParseJSON {
                 attendanceModel.setTotalAbsent(reader.getString("TotalAbsent"));
                 attendanceModel.setTotalPresent(reader.getString("TotalPresent"));
                 attendanceModel.setHolidayCount(reader.getString("HolidayCount"));
+
+                AttendanceModel.HolidayAtt holidayatt = null;
+                ArrayList<AttendanceModel.HolidayAtt> holidayatts = new ArrayList<>();
+                for (int i = 0; i < jsonMainNode1.length(); i++) {
+                    JSONObject jsonChildNode1 = jsonMainNode1.getJSONObject(i);
+                    holidayatt = attendanceModel.new HolidayAtt();
+                    holidayatt.setHolidayName(jsonChildNode1.getString("HolidayName"));
+                    holidayatt.setDate(jsonChildNode1.getString("Date"));
+                    holidayatt.setCount(jsonChildNode1.getString("Count"));
+
+                    holidayatts.add(holidayatt);
+                }
+                attendanceModel.setHolidayAtt(holidayatts);
+                result.add(attendanceModel);
             } else {
                 //invalid login
             }

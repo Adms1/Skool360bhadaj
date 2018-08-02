@@ -9,6 +9,12 @@ import java.util.ArrayList;
 public class PaymentLedgerModel {
     private String PayDate;
     private String Paid;
+    private String PaymentType;
+    private String Date;
+    private String Term;
+    private String Amount;
+    private String URL;
+
     private ArrayList<Data> dataArrayList;
 
     public PaymentLedgerModel() {
@@ -30,6 +36,46 @@ public class PaymentLedgerModel {
         Paid = paid;
     }
 
+    public String getPaymentType() {
+        return PaymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        PaymentType = paymentType;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public String getTerm() {
+        return Term;
+    }
+
+    public void setTerm(String term) {
+        Term = term;
+    }
+
+    public String getAmount() {
+        return Amount;
+    }
+
+    public void setAmount(String amount) {
+        Amount = amount;
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
+    }
+
     public ArrayList<Data> getDataArrayList() {
         return dataArrayList;
     }
@@ -39,9 +85,6 @@ public class PaymentLedgerModel {
     }
 
     public class Data {
-
-        public Data() {
-        }
 
         private String Term;
         private String TermDetail;
@@ -61,6 +104,9 @@ public class PaymentLedgerModel {
         private String CurrentOutstandingFees;
         private String BankName;
         private String ChequeNumber;
+
+        public Data() {
+        }
 
         public String getTerm() {
             return Term;

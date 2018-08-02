@@ -9,6 +9,9 @@ public class ExamModel {
     @SerializedName("Success")
     @Expose
     private String success;
+    @SerializedName("Message")
+    @Expose
+    private String message;
     @SerializedName("FinalArray")
     @Expose
     private List<ExamFinalArray> finalArray = null;
@@ -29,4 +32,11 @@ public class ExamModel {
         this.finalArray = finalArray;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

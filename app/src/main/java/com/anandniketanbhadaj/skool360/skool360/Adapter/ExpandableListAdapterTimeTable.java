@@ -61,10 +61,10 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
             txtTeacher = (TextView) convertView.findViewById(R.id.txtTeacher);
 
 //            if (getChild(groupPosition, childPosition-1).getLecture().contains("|")) {
-//                String[] lectstring = getChild(groupPosition, childPosition-1).getLecture().split("\\|");
-//                txtLecture.setText(Html.fromHtml(lectstring[0].trim() + ":" + lectstring[1].trim()));
+                String[] lectstring = getChild(groupPosition, childPosition).getLecture().split("\\s+");
+                //txtLecture.setText(Html.fromHtml(lectstring[0].trim() + ":" + lectstring[1].trim()));
 //            } else {
-                txtLecture.setText("Lecture:"+getChild(groupPosition, childPosition).getLecture().trim());
+                txtLecture.setText("Lecture "+lectstring[0].trim());
 //            }
             txtSubject.setText(getChild(groupPosition, childPosition).getSubject());
             txtTeacher.setText(getChild(groupPosition, childPosition).getTeacher());

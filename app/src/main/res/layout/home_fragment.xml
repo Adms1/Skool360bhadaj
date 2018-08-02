@@ -112,7 +112,7 @@
                     android:layout_alignLeft="@+id/student_classname_txt"
                     android:layout_alignStart="@+id/student_classname_txt"
                     android:layout_below="@+id/student_classname_txt"
-                    android:text="Class Teacher"
+                    android:text="GRNo"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_11sdp"
                     android:textStyle="normal" />
@@ -124,7 +124,7 @@
                     android:layout_alignLeft="@+id/student_classname_txt"
                     android:layout_alignStart="@+id/student_classname_txt"
                     android:layout_below="@+id/admission_txt"
-                    android:text="Class Teacher"
+                    android:text="Attendance"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_11sdp"
                     android:textStyle="normal" />

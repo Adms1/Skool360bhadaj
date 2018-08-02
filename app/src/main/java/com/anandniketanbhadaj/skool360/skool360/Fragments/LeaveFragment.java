@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -29,20 +30,20 @@ import java.util.HashMap;
 
 
 public class LeaveFragment extends Fragment {
-    private View rootView;
-    private Context mContext;
-    private static TextView txtDate,txtendDate;
-    private EditText edtPurpose, edtDescription;
-    private Button btnSave, btnCancel,btnMenu,btnBack;
-    private ProgressDialog progressDialog = null;
-    private InsertStudentLeaveAsyncTask insertStudentLeaveAsyncTask = null;
-    CreateLeaveModel leaveResponse;
+    private static TextView txtDate, txtendDate;
     private static String dateFinal;
-    String startDate,endDate, purpose, requestfor, description;
     private static boolean isFromDate = false;
-
+    CreateLeaveModel leaveResponse;
+    String startDate, endDate, purpose, requestfor, description;
     Fragment fragment;
     FragmentManager fragmentManager;
+    LinearLayout linearBack;
+    private View rootView;
+    private Context mContext;
+    private EditText edtPurpose, edtDescription;
+    private Button btnSave, btnCancel, btnMenu, btnBack;
+    private ProgressDialog progressDialog = null;
+    private InsertStudentLeaveAsyncTask insertStudentLeaveAsyncTask = null;
 
     public LeaveFragment() {
     }
@@ -65,9 +66,10 @@ public class LeaveFragment extends Fragment {
         edtDescription = (EditText) rootView.findViewById(R.id.edtDescription);
         btnSave = (Button) rootView.findViewById(R.id.btnSave);
         btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
-        btnMenu=(Button)rootView.findViewById(R.id.btnMenu);
-        btnBack=(Button)rootView.findViewById(R.id.btnBack);
-        txtendDate=(TextView)rootView.findViewById(R.id.txtendDate);
+        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
+        btnBack = (Button) rootView.findViewById(R.id.btnBack);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        txtendDate = (TextView) rootView.findViewById(R.id.txtendDate);
 
 
         //load today's data first
@@ -80,6 +82,16 @@ public class LeaveFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DashBoardActivity.onLeft();
+            }
+        });
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new ShowLeaveFragment();
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +137,8 @@ public class LeaveFragment extends Fragment {
     }
 
     public void getsendAppoimentData() {
-        startDate =txtDate.getText().toString();
-        endDate=txtendDate.getText().toString();
+        startDate = txtDate.getText().toString();
+        endDate = txtendDate.getText().toString();
         purpose = edtPurpose.getText().toString();
         description = edtDescription.getText().toString();
 
@@ -134,50 +146,54 @@ public class LeaveFragment extends Fragment {
             if (!startDate.equalsIgnoreCase("DD/MM/YYYY") &&
                     !endDate.equalsIgnoreCase("DD/MM/YYYY") &&
                     !purpose.equalsIgnoreCase("")) {
-                progressDialog = new ProgressDialog(mContext);
-                progressDialog.setMessage("Please Wait...");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
+                if (Utility.CheckDates(startDate, endDate) == true) {
+                    progressDialog = new ProgressDialog(mContext);
+                    progressDialog.setMessage("Please Wait...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("FromDate",startDate);
-                            params.put("ToDate", endDate);
-                            params.put("studentId", Utility.getPref(mContext, "studid"));
-                            params.put("Reason", purpose);
-                            params.put("Comment", description);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                HashMap<String, String> params = new HashMap<String, String>();
+                                params.put("FromDate", startDate);
+                                params.put("ToDate", endDate);
+                                params.put("studentId", Utility.getPref(mContext, "studid"));
+                                params.put("Reason", purpose);
+                                params.put("Comment", description);
 
-                            insertStudentLeaveAsyncTask = new InsertStudentLeaveAsyncTask(params);
-                            leaveResponse = insertStudentLeaveAsyncTask.execute().get();
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressDialog.dismiss();
-                                    if (leaveResponse.getSuccess().equalsIgnoreCase("True")) {
-                                        txtDate.setText("DD/MM/YYYY");
-                                        txtendDate.setText("DD/MM/YYYY");
-                                        edtPurpose.setText("");
-                                        edtDescription.setText("");
-                                        Utility.ping(mContext, "Leave Request send Successfully.");
-                                        fragment = new ShowLeaveFragment();
-                                        fragmentManager = getFragmentManager();
-                                        fragmentManager.beginTransaction()
-                                                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                                                .replace(R.id.frame_container, fragment).commit();
-                                    } else {
+                                insertStudentLeaveAsyncTask = new InsertStudentLeaveAsyncTask(params);
+                                leaveResponse = insertStudentLeaveAsyncTask.execute().get();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
                                         progressDialog.dismiss();
+                                        if (leaveResponse.getSuccess().equalsIgnoreCase("True")) {
+                                            txtDate.setText("DD/MM/YYYY");
+                                            txtendDate.setText("DD/MM/YYYY");
+                                            edtPurpose.setText("");
+                                            edtDescription.setText("");
+                                            Utility.ping(mContext, "Leave Request send Successfully.");
+                                            fragment = new ShowLeaveFragment();
+                                            fragmentManager = getFragmentManager();
+                                            fragmentManager.beginTransaction()
+                                                    .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                                    .replace(R.id.frame_container, fragment).commit();
+                                        } else {
+                                            progressDialog.dismiss();
 
+                                        }
                                     }
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+                } else {
+                    Utility.pong(mContext, "Please select proper date.");
+                }
             } else {
                 Utility.ping(mContext, "Blank field not allowed.");
             }

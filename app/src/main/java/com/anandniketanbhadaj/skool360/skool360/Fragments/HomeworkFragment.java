@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -46,7 +47,7 @@ public class HomeworkFragment extends Fragment {
     ExpandableListView lvExpHomework;
     List<String> listDataHeader;
     HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>> listDataChild;
-    String putData,formatedate;
+    String putData, formatedate;
     String[] spiltdata;
     private View rootView;
     private Button btnMenu, btnFilterHomework, btnBackHomework;
@@ -56,6 +57,7 @@ public class HomeworkFragment extends Fragment {
     private ArrayList<HomeWorkModel> homeWorkModels = new ArrayList<>();
     private ProgressDialog progressDialog = null;
     private int lastExpandedPosition = -1;
+    LinearLayout linearBack;
 
     public HomeworkFragment() {
     }
@@ -80,6 +82,7 @@ public class HomeworkFragment extends Fragment {
         btnFilterHomework = (Button) rootView.findViewById(R.id.btnFilterHomework);
         txtNoRecordsHomework = (TextView) rootView.findViewById(R.id.txtNoRecordsHomework);
         btnBackHomework = (Button) rootView.findViewById(R.id.btnBackHomework);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
         lvExpHomework = (ExpandableListView) rootView.findViewById(R.id.lvExpHomework);
 
         if (!getArguments().getString("message").equalsIgnoreCase("test")) {
@@ -97,7 +100,7 @@ public class HomeworkFragment extends Fragment {
                 e.printStackTrace();
             }
             formatedate = output.format(d);
-            Log.d("date",formatedate);
+            Log.d("date", formatedate);
         } else {
             putData = getArguments().getString("message");
             fromDate.setText(Utility.getTodaysDate());
@@ -137,9 +140,11 @@ public class HomeworkFragment extends Fragment {
             public void onClick(View v) {
                 if (!fromDate.getText().toString().equalsIgnoreCase("")) {
                     if (!toDate.getText().toString().equalsIgnoreCase("")) {
-
-                        getHomeworkData(fromDate.getText().toString(), toDate.getText().toString());
-
+                        if (Utility.CheckDates(fromDate.getText().toString(), toDate.getText().toString()) == true) {
+                            getHomeworkData(fromDate.getText().toString(), toDate.getText().toString());
+                        }else{
+                            Utility.pong(mContext, "Please select proper date.");
+                        }
                     } else {
                         Utility.pong(mContext, "You need to select a to date");
                     }
@@ -152,6 +157,21 @@ public class HomeworkFragment extends Fragment {
         btnBackHomework.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                Fragment fragment = new HomeFragment();
+                Bundle args = new Bundle();
+                args.putString("message", putData);
+                fragment.setArguments(args);
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 AppConfiguration.firsttimeback = true;
                 AppConfiguration.position = 0;
                 Fragment fragment = new HomeFragment();
@@ -238,9 +258,9 @@ public class HomeworkFragment extends Fragment {
 
                     ArrayList<HomeWorkModel.HomeWorkData> rows = new ArrayList<HomeWorkModel.HomeWorkData>();
                     for (int j = 0; j < homeWorkModels.get(i).getHomeWorkDatas().size(); j++) {
-                       // if (homeWorkModels.get(i).getHomeWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
-                            rows.add(homeWorkModels.get(i).getHomeWorkDatas().get(j));
-                       // }
+                        // if (homeWorkModels.get(i).getHomeWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
+                        rows.add(homeWorkModels.get(i).getHomeWorkDatas().get(j));
+                        // }
                     }
                     listDataChild.put(listDataHeader.get(i), rows);
                 }
@@ -265,8 +285,9 @@ public class HomeworkFragment extends Fragment {
             int yy = calendar.get(Calendar.YEAR);
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
-
-            return new DatePickerDialog(getActivity(), this, yy, mm, dd);
+            DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, yy, mm, dd);
+            dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+            return dialog;
         }
 
         public void onDateSet(DatePicker view, int yy, int mm, int dd) {
@@ -295,4 +316,6 @@ public class HomeworkFragment extends Fragment {
             }
         }
     }
+
+
 }

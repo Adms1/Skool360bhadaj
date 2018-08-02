@@ -9,7 +9,7 @@ public class AppConfiguration {
         LIVE, LOCAL
     }
 
-    static Domain domain = Domain.LOCAL;//only Change this for changing environment
+    static Domain domain = Domain.LIVE;//only Change this for changing environment
 
     public static String getUrl(String methodName) {
         String url = "";
@@ -29,17 +29,17 @@ public class AppConfiguration {
 
 
     //Local
-    public static String DOMAIN_LIVE = "";
-     public static String DOMAIN_LOCAL = "http://192.168.1.25:8086/MobileApp_Service.asmx/";//use for office only
-   //public static String DOMAIN_LIVE = "http://192.168.1.187:8089/MobileApp_Service.asmx/";//client for office only
-    //public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
+    public static String DOMAIN_LOCAL = "";
+//     public static String DOMAIN_LIVE = "http://192.168.1.10:8086/MobileApp_Service.asmx/";//use for office only
+//   public static String DOMAIN_LIVE = "http://192.168.1.187:8089/MobileApp_Service.asmx/";//client for office only
+    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
 
 
-//    public static String IMAGE_LIVE="http://192.168.1.25:8086/SKOOL360-Category-Images-Android/Student/";
+//    public static String IMAGE_LIVE="http://192.168.1.10:8086/SKOOL360-Category-Images-Android/Student/";
 //public static String IMAGE_LIVE="http://192.168.1.187:8089/SKOOL360-Category-Images-Android/Student/";
     public static String IMAGE_LIVE="http://103.24.183.28:8085/SKOOL360-Category-Images-Android/Student/";
 
-//    public static String GALLARY_LIVE="http://192.168.1.25:8086/";
+//    public static String GALLARY_LIVE="http://192.168.1.10:8086/";
 //public static String GALLARY_LIVE="http://192.168.1.187:8089/";
     public static String GALLARY_LIVE="http://103.24.183.28:8085/";
 
@@ -83,7 +83,16 @@ public static String messageNotification="";
     public static String CreateParentsSuggestion="CreateParentsSuggestion";
     public static String GetHoliday="GetHoliday";
     public static String DeleteDeviceDetail="DeleteDeviceDetail";
-
+    public static String ForgetIDPassword="ForgetIDPassword";
     public static String Notification;
 
+
+    public static String UserImage="";
+    public static String UserName="";
+    public static String UserGrade="";
+    public static String UserGrNo="";
+    public static String UserAttendance="";
+    public static String UserTeacherName="";
+    public static String UserDropTime="";
+    public static String UserPickTime="";
 }

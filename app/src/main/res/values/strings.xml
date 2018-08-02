@@ -96,4 +96,12 @@
     <string name="changPassword">Your password changed succesfully</string>
     <string name="confirmpassword">Confirm new password</string>
     <string name="currentpassword">Enter current password</string>
+    <string name="communication">Enter Communication No</string>
+
+    <!--Payment List String-->
+    <string name="index">No</string>
+    <string name="payment_type">Payment Type</string>
+    <string name="date">Date</string>
+    <string name="term">Term</string>
+    <string name="amount">Amount</string>
 </resources>

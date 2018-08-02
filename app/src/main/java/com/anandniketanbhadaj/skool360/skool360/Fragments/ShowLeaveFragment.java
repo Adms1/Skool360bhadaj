@@ -42,6 +42,7 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
     private Context mContext;
     private ProgressDialog progressDialog = null;
     private GetLeaveDataAsyncTask leaveDataAsyncTask = null;
+    LinearLayout linearBack;
 
     public ShowLeaveFragment() {
     }
@@ -63,6 +64,7 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsClasswork = (TextView) rootView.findViewById(R.id.txtNoRecordsClasswork);
         btnBackCanteen = (Button) rootView.findViewById(R.id.btnBackCanteen);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
         add_leave_fab_btn = (FloatingActionButton) rootView.findViewById(R.id.add_leave_fab_btn);
         listLeave = (RecyclerView) rootView.findViewById(R.id.listLeave);
         header_linear=(LinearLayout)rootView.findViewById(R.id.header_linear) ;
@@ -76,6 +78,7 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
         btnMenu.setOnClickListener(this);
         add_leave_fab_btn.setOnClickListener(this);
         btnBackCanteen.setOnClickListener(this);
+        linearBack.setOnClickListener(this);
     }
 
     @Override
@@ -93,6 +96,15 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
                 DashBoardActivity.onLeft();
                 break;
             case R.id.btnBackCanteen:
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                fragment = new HomeFragment();
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+                break;
+            case R.id.linearBack:
                 AppConfiguration.firsttimeback = true;
                 AppConfiguration.position = 0;
                 fragment = new HomeFragment();

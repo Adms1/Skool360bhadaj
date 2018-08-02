@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:paddingTop="@dimen/_5sdp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_5sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,26 +23,32 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RESULTS"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:text="RESULTS"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"/>
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnBackUnitTest"
-            android:layout_width="@dimen/_13sdp"
-            android:layout_height="@dimen/_13sdp"
-            android:layout_alignParentLeft="true"
+        <LinearLayout
+            android:id="@+id/linearBack"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_23sdp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:background="@drawable/back_btn" />
+            android:layout_alignParentLeft="true">
 
+            <Button
+                android:id="@+id/btnBackUnitTest"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:background="@drawable/back_btn" />
+        </LinearLayout>
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,10 +78,10 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_marginLeft="@dimen/_1sdp"
-                android:checked="true"
-                android:text="Term 1"
-                android:paddingLeft="@dimen/_5sdp"
                 android:button="@drawable/absent_radio_type"
+                android:checked="true"
+                android:paddingLeft="@dimen/_5sdp"
+                android:text="Term 1"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_12sdp" />
 
@@ -84,8 +90,8 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
-                android:paddingLeft="@dimen/_5sdp"
                 android:button="@drawable/absent_radio_type"
+                android:paddingLeft="@dimen/_5sdp"
                 android:text="Term 2"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_12sdp" />
@@ -96,24 +102,24 @@
         android:id="@+id/txtNoRecordsUnitTest"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_200sdp"
-        android:background="@drawable/norecordfound"
-        android:gravity="center"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/norecordfound"
+        android:gravity="center"
         android:textColor="@android:color/holo_red_dark"
-        android:textStyle="bold"
         android:textSize="@dimen/_12sdp"
-        android:visibility="gone"/>
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <ExpandableListView
         android:id="@+id/lvExpResult"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:dividerHeight="@dimen/_5sdp"
-        android:divider="@android:color/white"
-        android:childDivider="@android:color/transparent"
-        android:groupIndicator="@null"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/_10sdp"
-        android:scrollbars="none"/>
+        android:childDivider="@android:color/transparent"
+        android:divider="@android:color/white"
+        android:dividerHeight="@dimen/_5sdp"
+        android:groupIndicator="@null"
+        android:scrollbars="none" />
 
 </LinearLayout>

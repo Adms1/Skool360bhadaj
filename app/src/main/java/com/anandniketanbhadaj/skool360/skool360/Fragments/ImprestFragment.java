@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -41,6 +42,10 @@ import java.util.List;
  * Created by Harsh on 04-Aug-16.
  */
 public class ImprestFragment extends Fragment {
+    GetImprestDataModel getImprestResponse;
+    List<String> listDataHeader;
+    HashMap<String, ArrayList<Datum>> listDataChild;
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnBackImprest;
     private TextView txtMyBalance, txtOpeningBalaceTop, txtNoRecordsImprest;
@@ -51,11 +56,8 @@ public class ImprestFragment extends Fragment {
     private GetTermAsyncTask getTermAsyncTask = null;
     private GetImprestDataAsyncTask getImprestDataAsyncTask = null;
     private ArrayList<TermModel> termModels = new ArrayList<>();
-    GetImprestDataModel getImprestResponse;
     private ImprestListAdapter imprestListAdapter = null;
     private ProgressDialog progressDialog = null;
-    List<String> listDataHeader;
-    HashMap<String, ArrayList<Datum>> listDataChild;
     private int lastExpandedPosition = -1;
 
     public ImprestFragment() {
@@ -77,6 +79,7 @@ public class ImprestFragment extends Fragment {
     public void initViews() {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBackImprest = (Button) rootView.findViewById(R.id.btnBackImprest);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         spinYear = (Spinner) rootView.findViewById(R.id.spinYear);
         tblRowBalance = (TableRow) rootView.findViewById(R.id.tblRowBalance);
         tblRowOpeningBalance = (TableRow) rootView.findViewById(R.id.tblRowOpeningBalance);
@@ -105,7 +108,18 @@ public class ImprestFragment extends Fragment {
                 DashBoardActivity.onLeft();
             }
         });
-
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
         btnBackImprest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,12 +257,12 @@ public class ImprestFragment extends Fragment {
                             public void run() {
                                 progressDialog.dismiss();
 
-                                if(getImprestResponse.getSuccess().equalsIgnoreCase("True")){
+                                if (getImprestResponse.getSuccess().equalsIgnoreCase("True")) {
                                     tblRowBalance.setVisibility(View.VISIBLE);
                                     tblRowOpeningBalance.setVisibility(View.VISIBLE);
                                     txtMyBalance.setText(getImprestResponse.getMyBalance());
                                     txtOpeningBalaceTop.setText(getImprestResponse.getOpeningBalance());
-                                }else{
+                                } else {
                                     tblRowBalance.setVisibility(View.GONE);
                                     tblRowOpeningBalance.setVisibility(View.GONE);
                                 }

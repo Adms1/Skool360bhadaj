@@ -2,16 +2,21 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -19,8 +24,10 @@ import android.widget.TextView;
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterPayment;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.PaymentListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesDetailsAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetPaymentLedgerAsyncTask;
+import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesFinalResponse;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesMainResponse;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
@@ -42,6 +49,7 @@ public class PaymentFragment extends Fragment {
     HashMap<String, ArrayList<PaymentLedgerModel.Data>> listDataChildPayment;
     TableRow tableRow13;
     Fragment fragment;
+    PaymentListAdapter paymentListAdapter;
     private TextView paynow_term1_txt, paynow_term2_txt, payment_history;
     private View rootView;
     private Button btnMenu, btnBackUnitTest;
@@ -54,6 +62,10 @@ public class PaymentFragment extends Fragment {
     private ArrayList<PaymentLedgerModel> paymentdetailsModel = new ArrayList<>();
     private FragmentManager fragmentManager = null;
     private TableLayout table_layout;
+    private RecyclerView payment_report_list;
+    private LinearLayout lv_header;
+    LinearLayout linearBack;
+
 
     public PaymentFragment() {
     }
@@ -76,12 +88,15 @@ public class PaymentFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
         paynow_term1_txt = (TextView) rootView.findViewById(R.id.paynow_term1_txt);
         paynow_term2_txt = (TextView) rootView.findViewById(R.id.paynow_term2_txt);
-        lvExpPayment = (ExpandableListView) rootView.findViewById(R.id.lvExpPayment);
+        //lvExpPayment = (ExpandableListView) rootView.findViewById(R.id.lvExpPayment);
         payment_history = (TextView) rootView.findViewById(R.id.payment_history);
         tableRow13 = (TableRow) rootView.findViewById(R.id.tableRow13);
         table_layout = (TableLayout) rootView.findViewById(R.id.table_layout);
+        payment_report_list = (RecyclerView) rootView.findViewById(R.id.payment_report_list);
+        lv_header = (LinearLayout) rootView.findViewById(R.id.lv_header);
     }
 
     public void setListners() {
@@ -102,18 +117,28 @@ public class PaymentFragment extends Fragment {
                         .replace(R.id.frame_container, fragment).commit();
             }
         });
-        lvExpPayment.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
+        linearBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onGroupExpand(int groupPosition) {
-                if (lastExpandedPosition != -1
-                        && groupPosition != lastExpandedPosition) {
-                    lvExpPayment.collapseGroup(lastExpandedPosition);
-
-                }
-                lastExpandedPosition = groupPosition;
+            public void onClick(View view) {
+                fragment = new FeesFragment();
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
             }
         });
+//        lvExpPayment.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+//
+//            @Override
+//            public void onGroupExpand(int groupPosition) {
+//                if (lastExpandedPosition != -1
+//                        && groupPosition != lastExpandedPosition) {
+//                    lvExpPayment.collapseGroup(lastExpandedPosition);
+//
+//                }
+//                lastExpandedPosition = groupPosition;
+//            }
+//        });
         paynow_term1_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -220,17 +245,21 @@ public class PaymentFragment extends Fragment {
             b.setLayoutParams(params);
             c.setLayoutParams(params);
 
-            a.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL);
-            b.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL);
-            c.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL);
+            a.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+            b.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+            c.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+
+            a.setPadding(5,0,0,0);
+            b.setPadding(0,0,5,0);
+            c.setPadding(0,0,5,0);
 
             a.setWidth(90);
             b.setWidth(90);
             c.setWidth(90);
 
-            a.setHeight(50);
-            b.setHeight(50);
-            c.setHeight(50);
+            a.setHeight(90);
+            b.setHeight(90);
+            c.setHeight(90);
 
             a.setTextSize(14f);
             b.setTextSize(14f);
@@ -244,7 +273,7 @@ public class PaymentFragment extends Fragment {
             b.setTextColor(getResources().getColor(R.color.text_color));
             c.setTextColor(getResources().getColor(R.color.text_color));
 
-            a.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());
+            a.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
             b.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
             c.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
 
@@ -275,12 +304,35 @@ public class PaymentFragment extends Fragment {
                                 if (paymentdetailsModel.size() > 0) {
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
                                     payment_history.setVisibility(View.VISIBLE);
-                                    prepaareList();
-                                    expandableListAdapterPayment = new ExpandableListAdapterPayment(getActivity(), listDataHeader, listDataChildPayment);
-                                    lvExpPayment.setAdapter(expandableListAdapterPayment);
+                                    lv_header.setVisibility(View.VISIBLE);
+                                    payment_report_list.setVisibility(View.VISIBLE);
+                                    paymentListAdapter = new PaymentListAdapter(mContext, paymentdetailsModel, new onViewClick() {
+                                        @Override
+                                        public void getViewClick() {
+                                            String ReceiptUrl;
+                                            ReceiptUrl= String.valueOf(paymentListAdapter.getRowValue());
+                                            fragment=new ReceiptFragment();
+                                            Bundle args = new Bundle();
+                                            args.putString("url",ReceiptUrl);
+                                            fragment.setArguments(args);
+                                            fragmentManager = getFragmentManager();
+                                            fragmentManager.beginTransaction()
+                                                    .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                                    .replace(R.id.frame_container, fragment).commit();
+                                        }
+                                    });
+                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                                    payment_report_list.setLayoutManager(mLayoutManager);
+                                    payment_report_list.setItemAnimator(new DefaultItemAnimator());
+                                    payment_report_list.setAdapter(paymentListAdapter);
+//                                    prepaareList();
+//                                    expandableListAdapterPayment = new ExpandableListAdapterPayment(getActivity(), listDataHeader, listDataChildPayment);
+//                                    lvExpPayment.setAdapter(expandableListAdapterPayment);
                                 } else {
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
                                     payment_history.setVisibility(View.GONE);
+                                    lv_header.setVisibility(View.GONE);
+                                    payment_report_list.setVisibility(View.GONE);
                                 }
                             }
                         });

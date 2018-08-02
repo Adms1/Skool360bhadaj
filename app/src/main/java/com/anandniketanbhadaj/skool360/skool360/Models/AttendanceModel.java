@@ -8,6 +8,7 @@ public class AttendanceModel {
     private String TotalPresent;
     private String HolidayCount;
     private ArrayList<Attendance> eventsList;
+    private ArrayList<HolidayAtt> holidayAtt;
 
     public AttendanceModel() {
 
@@ -45,6 +46,14 @@ public class AttendanceModel {
         this.eventsList = eventsList;
     }
 
+    public ArrayList<HolidayAtt> getHolidayAtt() {
+        return holidayAtt;
+    }
+
+    public void setHolidayAtt(ArrayList<HolidayAtt> holidayAtt) {
+        this.holidayAtt = holidayAtt;
+    }
+
     public class Attendance {
 
         private String AttendanceDate;
@@ -76,6 +85,36 @@ public class AttendanceModel {
         }
 
         public Attendance() {
+        }
+    }
+
+    public class HolidayAtt{
+        private String HolidayName;
+        private String Date;
+        private String Count;
+
+        public String getHolidayName() {
+            return HolidayName;
+        }
+
+        public void setHolidayName(String holidayName) {
+            HolidayName = holidayName;
+        }
+
+        public String getDate() {
+            return Date;
+        }
+
+        public void setDate(String date) {
+            Date = date;
+        }
+
+        public String getCount() {
+            return Count;
+        }
+
+        public void setCount(String count) {
+            Count = count;
         }
     }
 }

@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -40,11 +41,12 @@ import java.util.HashMap;
 
 public class PayOnlineFragment extends Fragment {
     WebView webview_report_card;
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnBackUnitTest;
     private TextView txtNoRecordsUnitTest;
     private Context mContext;
-private String url;
+    private String url;
 
     public PayOnlineFragment() {
     }
@@ -61,11 +63,12 @@ private String url;
     }
 
     public void initViews() {
-        url=getArguments().getString("url");
+        url = getArguments().getString("url");
 
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         webview_report_card = (WebView) rootView.findViewById(R.id.webview);
         WebSettings webSettings = webview_report_card.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -77,10 +80,20 @@ private String url;
         webview_report_card.loadUrl(url);
     }
 
-    public void setListner(){
+    public void setListner() {
         btnBackUnitTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fragment fragment = new PaymentFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Fragment fragment = new PaymentFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_holiday"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:tag="cards main container">
+
+        <LinearLayout
+            android:id="@+id/holiday_event_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/holiday_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+                <!--android:background="@drawable/list_line_right"-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/list_line_right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/holiday_date_txt"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:gravity="center|center_vertical"
+                        android:text=""
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/holiday_name_txt"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/_5sdp"
+                            android:text=""
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/date_txt"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:gravity="center_vertical|right"
+                            android:paddingLeft="@dimen/_5sdp"
+                            android:text="29/05/2018"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_8sdp"
+                            android:textStyle="normal"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/event_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/event_date_txt"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:gravity="center|center_vertical"
+                        android:text=""
+                        android:padding="@dimen/_5sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/event_name_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center_vertical"
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/_5sdp"
+                            android:text=""
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/edate_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:gravity="center_vertical|right"
+                            android:paddingLeft="@dimen/_5sdp"
+                            android:text="29/05/2018"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_8sdp"
+                            android:textStyle="normal"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>

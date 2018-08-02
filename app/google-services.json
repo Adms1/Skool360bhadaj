@@ -8,6 +8,57 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1071538701368:android:0dc0fcacb558be4b",
+        "android_client_info": {
+          "package_name": "com.anandniketanbhadaj.skool360"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071538701368-1ja53835hfivbilf8ov7k0lskun6149j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anandniketanbhadaj.skool360",
+            "certificate_hash": "2e7ea14cee48fae927bd2ac8fe5a9bb128956db3"
+          }
+        },
+        {
+          "client_id": "1071538701368-bfr4okujdtei24lmk5grcrrc0o0m25uc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7TBcqKyW0J0C6tH3jolkEW3GGe1Zg20g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071538701368-bfr4okujdtei24lmk5grcrrc0o0m25uc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1071538701368-c65db9h1jfk3bojef0ahmvvmo91upfc8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ADMS.Skool360-Bhadaj"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1071538701368:android:23986fbc1bde06e7",
         "android_client_info": {
           "package_name": "com.example.admsandroid.newchatdemo"
@@ -42,39 +93,15 @@
             {
               "client_id": "1071538701368-bfr4okujdtei24lmk5grcrrc0o0m25uc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1071538701368-c65db9h1jfk3bojef0ahmvvmo91upfc8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ADMS.Skool360-Bhadaj"
+              }
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1071538701368:android:0dc0fcacb558be4b",
-        "android_client_info": {
-          "package_name": "com.anandniketanbhadaj.skool360"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1071538701368-bfr4okujdtei24lmk5grcrrc0o0m25uc.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC7TBcqKyW0J0C6tH3jolkEW3GGe1Zg20g"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

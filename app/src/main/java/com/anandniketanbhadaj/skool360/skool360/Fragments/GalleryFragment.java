@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -41,18 +42,19 @@ public class GalleryFragment extends Fragment {
     ArrayList<String> arrayList;
     ArrayList<PhotoModel> photoarrayList;
     ArrayList<String> name;
-    RecyclerView gallery_list,gallery_list1;
+    RecyclerView gallery_list, gallery_list1;
     Button btnMenu, btnBack;
     GalleryListAdapter galleryListAdapter;
     GalleryAdapter galleryAdapter;
     ExamModel galleryResponse;
     String position = "";
-    TextView photo_name,event_name_txt;
+    TextView photo_name, event_name_txt;
+    String displayMode;
+    LinearLayout linearBack;
     private View rootView;
     private Context mContext;
     private ProgressDialog progressDialog = null;
     private GalleryAsyncTask galleryAsyncTask = null;
-    String displayMode;
 
     public GalleryFragment() {
     }
@@ -72,10 +74,11 @@ public class GalleryFragment extends Fragment {
     public void initViews() {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBack = (Button) rootView.findViewById(R.id.btnBack);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
         gallery_list = (RecyclerView) rootView.findViewById(R.id.gallery_list);
-        gallery_list1=(RecyclerView)rootView.findViewById(R.id.gallery_list1);
+        gallery_list1 = (RecyclerView) rootView.findViewById(R.id.gallery_list1);
         photo_name = (TextView) rootView.findViewById(R.id.photo_name);
-        event_name_txt=(TextView)rootView.findViewById(R.id.event_name_txt) ;
+        event_name_txt = (TextView) rootView.findViewById(R.id.event_name_txt);
         getGalleryData();
 
     }
@@ -86,13 +89,33 @@ public class GalleryFragment extends Fragment {
             public void onClick(View view) {
                 AppConfiguration.firsttimeback = true;
                 AppConfiguration.position = 0;
-                if(position.equalsIgnoreCase("")) {
+                if (position.equalsIgnoreCase("")) {
                     fragment = new HomeFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                             .replace(R.id.frame_container, fragment).commit();
-                }else{
+                } else {
+                    fragment = new GalleryFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.frame_container, fragment).commit();
+                }
+            }
+        });
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                if (position.equalsIgnoreCase("")) {
+                    fragment = new HomeFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.frame_container, fragment).commit();
+                } else {
                     fragment = new GalleryFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
@@ -190,7 +213,7 @@ public class GalleryFragment extends Fragment {
         event_name_txt.setVisibility(View.VISIBLE);
         photoarrayList = new ArrayList<>();
         name = new ArrayList<>();
-        displayMode="normal";
+        displayMode = "normal";
         for (int i = 0; i < galleryResponse.getFinalArray().size(); i++) {
             if (position.equalsIgnoreCase(String.valueOf(i))) {
                 name.add(galleryResponse.getFinalArray().get(i).getEventName());
@@ -200,7 +223,7 @@ public class GalleryFragment extends Fragment {
                 }
             }
         }
-        galleryAdapter = new GalleryAdapter(mContext, name, photoarrayList,displayMode, new onViewClick() {
+        galleryAdapter = new GalleryAdapter(mContext, name, photoarrayList, displayMode, new onViewClick() {
             @Override
             public void getViewClick() {
                 setSelectedDetailImage();
@@ -212,13 +235,13 @@ public class GalleryFragment extends Fragment {
         gallery_list.setAdapter(galleryAdapter);
     }
 
-    public void setSelectedDetailImage(){
+    public void setSelectedDetailImage() {
         gallery_list1.setVisibility(View.VISIBLE);
         gallery_list.setVisibility(View.GONE);
         event_name_txt.setVisibility(View.VISIBLE);
         photoarrayList = new ArrayList<>();
         name = new ArrayList<>();
-        displayMode="diffrenet";
+        displayMode = "diffrenet";
         for (int i = 0; i < galleryResponse.getFinalArray().size(); i++) {
             if (position.equalsIgnoreCase(String.valueOf(i))) {
                 name.add(galleryResponse.getFinalArray().get(i).getEventName());
@@ -234,10 +257,10 @@ public class GalleryFragment extends Fragment {
 
             }
         });
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true);
 //        mLayoutManager.setStackFromEnd(true);
         gallery_list1.setLayoutManager(mLayoutManager);
-        gallery_list1.getLayoutManager().scrollToPosition(photoarrayList.size()-1);
+        gallery_list1.getLayoutManager().scrollToPosition(photoarrayList.size() - 1);
         gallery_list1.addItemDecoration(new EqualSpacingItemDecoration(12, EqualSpacingItemDecoration.HORIZONTAL));
         SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(gallery_list1);

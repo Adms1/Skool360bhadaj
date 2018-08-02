@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,15 +27,16 @@ public class NotificationFragment extends Activity {
     Context mContext;
     NotificationMessageListAdapter notificationMessageListAdapter = null;
     ListView listMessageNotificationData;
+    ArrayList<String> message = new ArrayList<String>();
+    LinearLayout linearBack;
     private ProgressDialog progressDialog = null;
     private String putExtras = "0";
-    ArrayList<String> message = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_notification);
-        mContext=NotificationFragment.this;
+        mContext = NotificationFragment.this;
         putExtras = getIntent().getStringExtra("message");
         Log.d("MEghaData", putExtras);
         message.add(putExtras);
@@ -46,6 +48,7 @@ public class NotificationFragment extends Activity {
         btnMenu = (Button) findViewById(R.id.btnMenu);
         txtNoRecordsNotification = (TextView) findViewById(R.id.txtNoRecordsNotification);
         btnBackNotification = (Button) findViewById(R.id.btnBackNotification);
+        linearBack=(LinearLayout)findViewById(R.id.linearBack);
         listMessageNotificationData = (ListView) findViewById(R.id.listMessageNotificationData);
         notificationMessageListAdapter = new NotificationMessageListAdapter(mContext, message);
         listMessageNotificationData.setAdapter(notificationMessageListAdapter);
@@ -73,6 +76,17 @@ public class NotificationFragment extends Activity {
             }
         });
 
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                Intent i = new Intent(mContext, DashBoardActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
 }

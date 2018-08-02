@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:paddingTop="@dimen/_5sdp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_5sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,32 +16,38 @@
             android:layout_width="@dimen/_23sdp"
             android:layout_height="@dimen/_23sdp"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/_1sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_1sdp"
-            android:layout_marginBottom="@dimen/_1sdp"
             android:background="@drawable/menu_btn_blue" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MY PROFILE"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:textSize="@dimen/_12sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:text="MY PROFILE"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnBackProfile"
-            android:layout_width="@dimen/_13sdp"
-            android:layout_height="@dimen/_13sdp"
-            android:layout_alignParentLeft="true"
+        <LinearLayout
+            android:id="@+id/linearBack"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_23sdp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:background="@drawable/back_btn" />
+            android:layout_alignParentLeft="true">
+
+            <Button
+                android:id="@+id/btnBackProfile"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:background="@drawable/back_btn" />
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -62,11 +68,11 @@
                 android:id="@+id/profile_image"
                 android:layout_width="@dimen/_76sdp"
                 android:layout_height="@dimen/_76sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:src="@drawable/profile_pic_holder"
                 app:civ_border_color="#003d71"
-                app:civ_border_width="@dimen/_2sdp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                app:civ_border_width="@dimen/_2sdp" />
 
             <TextView
                 android:id="@+id/studName"
@@ -74,11 +80,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profile_image"
                 android:layout_marginTop="@dimen/_7sdp"
-                android:singleLine="true"
                 android:gravity="center"
-                android:textSize="@dimen/_12sdp"
+                android:singleLine="true"
                 android:text="Siddharth Karnik"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp" />
 
         </RelativeLayout>
 
@@ -108,16 +114,16 @@
                 android:id="@+id/btnEducationalDetail"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:layout_marginRight="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:background="@color/profile_dark"
                 android:gravity="center"
-                android:layout_marginLeft="@dimen/_1sdp"
-                android:layout_marginRight="@dimen/_1sdp"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
                 android:singleLine="true"
-                android:textAllCaps="false"
                 android:text="Educational Details"
+                android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_9sdp" />
 
@@ -127,11 +133,11 @@
                 android:layout_height="@dimen/_35sdp"
                 android:layout_weight="1"
                 android:background="@color/profile_dark"
+                android:gravity="center"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
-                android:gravity="center"
-                android:textAllCaps="false"
                 android:text="Change Password"
+                android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_9sdp" />
 
@@ -149,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_7sdp"
                 android:layout_weight="1"
-                android:background="@drawable/shadow_view"/>
+                android:background="@drawable/shadow_view" />
 
             <View
                 android:id="@+id/viewShadow2"
@@ -158,14 +164,14 @@
                 android:layout_marginLeft="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_1sdp"
                 android:layout_weight="1"
-                android:background="@drawable/shadow_view"/>
+                android:background="@drawable/shadow_view" />
 
             <View
                 android:id="@+id/viewShadow3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_7sdp"
                 android:layout_weight="1"
-                android:background="@drawable/shadow_view"/>
+                android:background="@drawable/shadow_view" />
 
         </LinearLayout>
 
@@ -182,27 +188,27 @@
 
                 <include
                     android:id="@+id/includePersonalDetail"
+                    layout="@layout/layout_personal_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    layout="@layout/layout_personal_detail"
                     android:visibility="visible">
 
                 </include>
 
                 <include
                     android:id="@+id/includeEducationalDetail"
+                    layout="@layout/layout_educational_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    layout="@layout/layout_educational_detail"
                     android:visibility="gone">
 
                 </include>
 
                 <include
                     android:id="@+id/includeEditProfileDetail"
+                    layout="@layout/layout_edit_profile_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    layout="@layout/layout_edit_profile_detail"
                     android:visibility="gone">
 
                 </include>

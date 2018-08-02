@@ -43,6 +43,7 @@ import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeworkFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ImprestFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.NotificationFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.PlannerFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ProfileFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ReportCardFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ResultFragment;
@@ -110,6 +111,7 @@ public class DashBoardActivity extends FragmentActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+       // FirebaseCrash.report(new Exception("My first Android non-fatal error"));
         mContext = this;
         Initialize();
         dispPOS = getIntent().getIntExtra("POS", 0);
@@ -445,7 +447,7 @@ public class DashBoardActivity extends FragmentActivity {
 //                AppConfiguration.firsttimeback = true;
 //                break;
             case 11:
-                fragment = new HolidayFragment();
+                fragment = new PlannerFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
@@ -590,6 +592,7 @@ public class DashBoardActivity extends FragmentActivity {
                                     Utility.setPref(mContext, "ClassID", "");
                                     Utility.setPref(mContext, "TermID", "");
                                     Utility.setPref(mContext, "deviceId", "");
+                                    Utility.setPref(mContext, "image", "");
                                     Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
                                     startActivity(intentLogin);
                                     finish();

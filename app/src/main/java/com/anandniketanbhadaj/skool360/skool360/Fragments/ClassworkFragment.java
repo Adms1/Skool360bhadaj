@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -56,7 +57,7 @@ public class ClassworkFragment extends Fragment {
     ExpandableListView lvExpClassWork;
     List<String> listDataHeader;
     HashMap<String, ArrayList<ClassWorkModel.ClassWorkData>> listDataChild;
-
+LinearLayout linearBack;
     public ClassworkFragment() {
     }
 
@@ -77,6 +78,7 @@ public class ClassworkFragment extends Fragment {
         fromDate = (TextView) rootView.findViewById(R.id.fromDate);
         toDate = (TextView) rootView.findViewById(R.id.toDate);
         btnFilterClasswork = (Button) rootView.findViewById(R.id.btnFilterClasswork);
+        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
         txtNoRecordsClasswork = (TextView) rootView.findViewById(R.id.txtNoRecordsClasswork);
         btnBackClasswork = (Button) rootView.findViewById(R.id.btnBackClasswork);
         lvExpClassWork = (ExpandableListView) rootView.findViewById(R.id.lvExpClassWork);
@@ -138,9 +140,11 @@ public class ClassworkFragment extends Fragment {
             public void onClick(View v) {
                 if(!fromDate.getText().toString().equalsIgnoreCase("")) {
                     if(!toDate.getText().toString().equalsIgnoreCase("")) {
-
-                        getClassworkData(fromDate.getText().toString(), toDate.getText().toString());
-
+                        if (Utility.CheckDates(fromDate.getText().toString(), toDate.getText().toString()) == true) {
+                            getClassworkData(fromDate.getText().toString(), toDate.getText().toString());
+                        }else{
+                            Utility.pong(mContext, "Please select proper date.");
+                        }
                     }else {
                         Utility.pong(mContext, "You need to select a to date");
                     }
@@ -165,7 +169,18 @@ public class ClassworkFragment extends Fragment {
                         .replace(R.id.frame_container, fragment).commit();
             }
         });
-
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
         lvExpClassWork.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
@@ -268,7 +283,9 @@ public class ClassworkFragment extends Fragment {
             int yy = calendar.get(Calendar.YEAR);
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), this, yy, mm, dd);
+            DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, yy, mm, dd);
+            dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+            return dialog;
         }
 
         public void onDateSet(DatePicker view, int yy, int mm, int dd) {

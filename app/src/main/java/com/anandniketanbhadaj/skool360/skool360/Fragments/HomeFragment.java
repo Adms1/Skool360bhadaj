@@ -122,7 +122,24 @@ public class HomeFragment extends Fragment {
         initViews();
         setListners();
         if (Utility.isNetworkConnected(mContext)) {
-            getVersionUpdateInfo();
+            if (Utility.isAppIsInBackground(mContext)) {
+
+            } else {
+                if (!AppConfiguration.UserImage.equalsIgnoreCase("")) {
+                    imageLoader.displayImage(AppConfiguration.UserImage, profile_image);
+                    student_name_txt.setText(AppConfiguration.UserName);
+                    student_classname_txt.setText(AppConfiguration.UserGrade);
+                    admission_txt.setText(AppConfiguration.UserGrNo);
+                    attendance_txt.setText(AppConfiguration.UserAttendance);
+                    teacher_name1_txt.setText(AppConfiguration.UserTeacherName);
+                    vehicle_picktime_txt.setText(AppConfiguration.UserPickTime);
+                    vehicle_droptime_txt.setText(AppConfiguration.UserDropTime);
+                } else {
+                    //imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
+                    getVersionUpdateInfo();
+                }
+
+            }
         } else {
             Utility.ping(mContext, "Network not available");
         }
@@ -339,7 +356,7 @@ public class HomeFragment extends Fragment {
 //                    AppConfiguration.firsttimeback = true;
 //                }
                 else if (position == 9) {
-                    fragment = new HolidayFragment();
+                    fragment = new PlannerFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
@@ -398,12 +415,13 @@ public class HomeFragment extends Fragment {
                         public void run() {
 //                            student_name_txt.setText("Bhadresh Jadav");
                             student_name_txt.setText(studDetailList.get(0).getStudentName());
-                            imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
                             vehicle_picktime_txt.setText("Pick Up : " + studDetailList.get(0).getTransport_PicupTime());
                             vehicle_droptime_txt.setText("Drop Off : " + studDetailList.get(0).getTransport_DropTime());
                             student_classname_txt.setText("Grade : " + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass());
                             teacher_name1_txt.setText(studDetailList.get(0).getTeacherName());
 //                            teacher_name1_txt.setText("Sourabh Pachouri");
+                            imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
+                            // Utility.setPref(mContext, "image", studDetailList.get(0).getStudentImage());
                             admission_txt.setText("GRNo :" + " " + studDetailList.get(0).getGRNO());
                             if (studDetailList.get(0).getTodayAttendance().equalsIgnoreCase("")) {
                                 attendance_txt.setText("Attendance :" + " " + "N/A Today");
@@ -421,6 +439,15 @@ public class HomeFragment extends Fragment {
                                     Utility.setPref(mContext, "LAST_LAUNCH_DATE", Utility.getTodaysDate());
                                 }
                             }
+
+                            AppConfiguration.UserImage = studDetailList.get(0).getStudentImage();
+                            AppConfiguration.UserName = studDetailList.get(0).getStudentName();
+                            AppConfiguration.UserGrade = "Grade : " + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass();
+                            AppConfiguration.UserGrNo = "GRNo :" + " " + studDetailList.get(0).getGRNO();
+                            AppConfiguration.UserTeacherName = studDetailList.get(0).getTeacherName();
+                            AppConfiguration.UserDropTime = "Drop Off : " + studDetailList.get(0).getTransport_DropTime();
+                            AppConfiguration.UserPickTime = "Pick Up : " + studDetailList.get(0).getTransport_PicupTime();
+                            AppConfiguration.UserAttendance = attendance_txt.getText().toString();
                         }
                     });
                 } catch (Exception e) {
@@ -557,10 +584,14 @@ public class HomeFragment extends Fragment {
                 confirmpassWordStr = edtconfirmpassword.getText().toString();
                 passWordStr = edtnewpassword.getText().toString();
                 if (!passWordStr.equalsIgnoreCase("")) {
-                    if (passWordStr.equalsIgnoreCase(confirmpassWordStr)) {
-                        callChangePasswordApi();
+                    if (passWordStr.length() >= 4 && passWordStr.length() <= 12) {
+                        if (passWordStr.equalsIgnoreCase(confirmpassWordStr)) {
+                            callChangePasswordApi();
+                        } else {
+                            edtconfirmpassword.setError("Confirm password does not match");
+                        }
                     } else {
-                        edtconfirmpassword.setError("Confirm password does not match");
+                        edtnewpassword.setError("Password must be 4-12 Characters.");
                     }
                 } else {
 //                    Utils.ping(mContex, "Confirm Password does not match.");

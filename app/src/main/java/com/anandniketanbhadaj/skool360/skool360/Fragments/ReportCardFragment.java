@@ -16,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -44,6 +45,7 @@ public class ReportCardFragment extends Fragment {
     WebView webview_report_card;
     HashMap<Integer, String> spinnerTermIdMap;
     String FinalTermDetailIdStr = "1", FinalTermIdStr;
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnBackUnitTest, btnshow;
     private TextView txtNoRecordsUnitTest;
@@ -77,6 +79,7 @@ public class ReportCardFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         webview_report_card = (WebView) rootView.findViewById(R.id.webview);
         term_detail_spinner = (Spinner) rootView.findViewById(R.id.term_detail_spinner);
         termrg = (RadioGroup) rootView.findViewById(R.id.termrg);
@@ -119,7 +122,18 @@ public class ReportCardFragment extends Fragment {
                         .replace(R.id.frame_container, fragment).commit();
             }
         });
-
+        linearBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 0;
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
         termrg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {

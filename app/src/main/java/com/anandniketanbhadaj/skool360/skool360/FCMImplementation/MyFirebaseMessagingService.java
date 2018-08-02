@@ -103,7 +103,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Intent notificationIntent = new Intent().setClass(ctx, LoginActivity.class);
         notificationIntent.putExtra("fromNotification", data);
-        notificationIntent.putExtra("message", remoteMessage.getNotification().getBody());
+        notificationIntent.putExtra("message",remoteMessage.getNotification().getBody());//remoteMessage.getNotification().getBody());
         notificationIntent.putExtra("cometonotification","true");
         Log.d("Messsagetype", remoteMessage.getNotification().getBody());
 

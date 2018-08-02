@@ -1,6 +1,7 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -25,17 +26,18 @@ import java.util.List;
 
 public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
 
-    private Context _context;
     boolean visible = true;
+    String FontStyle;
+    TextView subject_title_txt, homework_title_txt, work_status_txt, chapter_title_txt, lblchaptername, objective_title_txt, lblobjective, que_title_txt, lblque;
+    LinearLayout chapter_linear, objective_linear, que_linear;
+    Typeface typeface;
+    SpannableStringBuilder homeworkSpanned;
+    String homeworkStr;
+    private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>> _listDataChild;
-    String FontStyle;
-    TextView subject_title_txt, homework_title_txt, chapter_title_txt, lblchaptername, objective_title_txt, lblobjective, que_title_txt, lblque;
-    LinearLayout chapter_linear, objective_linear, que_linear;
-    Typeface typeface;
-    SpannableStringBuilder  homeworkSpanned;
-    String   homeworkStr;
+
     public ExpandableListAdapterHomework(Context context, List<String> listDataHeader,
                                          HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>> listChildData) {
         this._context = context;
@@ -69,6 +71,7 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
 
         subject_title_txt = (TextView) convertView.findViewById(R.id.subject_title_txt);
         homework_title_txt = (TextView) convertView.findViewById(R.id.homework_title_txt);
+        work_status_txt = (TextView) convertView.findViewById(R.id.work_status_txt);
 
 //        chapter_title_txt = (TextView) convertView.findViewById(R.id.chapter_title_txt);
 //        lblchaptername = (TextView) convertView.findViewById(R.id.lblchaptername);
@@ -89,7 +92,14 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
 //            txtListChild.setText(data[1]);
 //            imgRightSign.setVisibility(View.GONE);
 //        }
-
+        work_status_txt.setText(childData.get(childPosition).getHomeWorkStatus());
+        if (childData.get(childPosition).getHomeWorkStatus().equalsIgnoreCase("Pending")) {
+            work_status_txt.setTextColor(_context.getResources().getColor(R.color.schedule_active));
+        }else if(childData.get(childPosition).getHomeWorkStatus().equalsIgnoreCase("Not Done")){
+            work_status_txt.setTextColor(_context.getResources().getColor(R.color.red));
+        }else if(childData.get(childPosition).getHomeWorkStatus().equalsIgnoreCase("Done")){
+            work_status_txt.setTextColor(_context.getResources().getColor(R.color.green));
+        }
         subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
         FontStyle = "";
         FontStyle = childData.get(childPosition).getFont();
@@ -97,7 +107,7 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
 
         if (!FontStyle.equalsIgnoreCase("-")) {
             SetLanguageHomework(FontStyle);
-          setText(homeworkStr);
+            setText(homeworkStr);
         } else {
             typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/arial.ttf");
             homework_title_txt.setTypeface(typeface);
@@ -210,6 +220,7 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
             default:
         }
     }
+
     private void setText(String html) {
 
         homeworkSpanned = (SpannableStringBuilder) Html.fromHtml(html);

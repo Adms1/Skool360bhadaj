@@ -80,7 +80,8 @@
             android:textSize="@dimen/_11sdp"
             android:padding="@dimen/_4sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:button="@drawable/check_uncheck"/>
+            android:button="@drawable/check_uncheck"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btnLogin"
@@ -96,6 +97,14 @@
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold"/>
 
+        <TextView
+            android:id="@+id/forgot_title_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forgot Id / Password ?"
+            android:layout_margin="@dimen/_5sdp"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/_11sdp" />
     </LinearLayout>
 
 </LinearLayout>
