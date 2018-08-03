@@ -64,8 +64,8 @@ public class HolidayListAdapter1 extends RecyclerView.Adapter<HolidayListAdapter
 
                 LinearLayout LinearData1 = (LinearLayout) layout.findViewById(R.id.event_linear);
                 LinearData1.setVisibility(View.GONE);
-//               View view=(View)layout.findViewById(R.id.view);
-//                view.setVisibility(View.GONE);
+               View view=(View)layout.findViewById(R.id.view);
+                view.setVisibility(View.GONE);
 
                 TextView norecordtxt = (TextView) layout.findViewById(R.id.norecordtxt);
                 norecordtxt.setVisibility(View.VISIBLE);

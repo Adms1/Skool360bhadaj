@@ -17,8 +17,7 @@
                 android:id="@+id/holiday_linear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/list_line_verticale">
+                android:orientation="vertical">
                 <!--android:background="@drawable/list_line_right"-->
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -74,18 +73,17 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-      <!--<View-->
-          <!--android:id="@+id/view"-->
-          <!--android:layout_width="@dimen/_3sdp"-->
-          <!--android:layout_height="wrap_content"-->
-          <!--android:background="@drawable/list_line_right"/>-->
+      <View
+          android:id="@+id/view"
+          android:layout_width="@dimen/_3sdp"
+          android:layout_height="match_parent"
+          android:background="@drawable/list_line_right"/>
 
         <LinearLayout
             android:id="@+id/event_linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/list_line_verticale">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
