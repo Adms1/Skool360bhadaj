@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -182,5 +183,7 @@ public class PlannerFragment extends Fragment implements View.OnClickListener {
                 holiday_list.getLayoutManager().scrollToPosition(i);
             }
         }
+
     }
+
 }

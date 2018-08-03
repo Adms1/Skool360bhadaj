@@ -223,6 +223,13 @@ LinearLayout linearBack;
                                     listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild, true);
                                     lvExpClassWork.setAdapter(listAdapter);
                                     if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
+//                                        String[] strsplit = AppConfiguration.messageNotification.split("\\-");
+//                                        strsplit[2]=strsplit[2].substring(0, strsplit[2].length() - 1);
+//                                        for (int i = 0; i < announcmentmodelReponse.getFinalArray().size(); i++) {
+//                                            if (announcmentmodelReponse.getFinalArray().get(i).getSubject().toLowerCase().trim().contains(strsplit[2].trim().toLowerCase())){
+//                                                listannouncment.expandGroup(i);
+//                                            }
+//                                        }
                                         lvExpClassWork.expandGroup(0);
                                     }
                                 } else {

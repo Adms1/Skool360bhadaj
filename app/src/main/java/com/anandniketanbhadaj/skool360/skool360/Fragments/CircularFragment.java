@@ -33,6 +33,7 @@ import java.util.HashMap;
 public class CircularFragment extends Fragment {
     ArrayList<String> listDataHeader;
     HashMap<String, ArrayList<CircularModel>> listDataChildCircular;
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnBackCircular;
     private ExpandableListView listCircular;
@@ -43,7 +44,7 @@ public class CircularFragment extends Fragment {
     private ProgressDialog progressDialog = null;
     private ArrayList<CircularModel> circularModels = new ArrayList<>();
     private int lastExpandedPosition = -1;
-LinearLayout linearBack;
+
     public CircularFragment() {
     }
 
@@ -64,7 +65,7 @@ LinearLayout linearBack;
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsCircular = (TextView) rootView.findViewById(R.id.txtNoRecordsCircular);
         btnBackCircular = (Button) rootView.findViewById(R.id.btnBackCircular);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         listCircular = (ExpandableListView) rootView.findViewById(R.id.listCircular);
         if (Utility.checkAndRequestPermissions(mContext)) {
         }
@@ -143,7 +144,14 @@ LinearLayout linearBack;
                                     circularListAdapter = new ExpandableListAdapterCircular(getActivity(), listDataHeader, listDataChildCircular);
                                     listCircular.setAdapter(circularListAdapter);
                                     if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
-                                        listCircular.expandGroup(0);
+                                        String[] strsplit = AppConfiguration.messageNotification.split("\\-");
+                                        strsplit[2]=strsplit[2].substring(0, strsplit[2].length() - 1);
+                                        for (int i = 0; i < circularModels.size(); i++) {
+                                        if (circularModels.get(i).getSubject().toLowerCase().trim().contains(strsplit[2].trim().toLowerCase())){
+                                            listCircular.expandGroup(i);
+                                            }
+                                        }
+
                                     }
                                 } else {
                                     progressDialog.dismiss();

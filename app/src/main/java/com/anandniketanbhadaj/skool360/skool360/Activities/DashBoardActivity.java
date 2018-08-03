@@ -159,6 +159,7 @@ public class DashBoardActivity extends FragmentActivity {
         }
         if (getIntent().getStringExtra("fromNotification") != null) {
             AppConfiguration.Notification = "1";
+            AppConfiguration.messageNotification=putData;
             String key = getIntent().getStringExtra("fromNotification").toString();
             Log.d("key", key);
             if (key.equalsIgnoreCase("HW")) {
