@@ -37,11 +37,6 @@
                     android:layout_margin="@dimen/_2sdp"
                     android:orientation="vertical">
 
-                    <!--<ImageView-->
-                    <!--android:id="@+id/time_image"-->
-                    <!--android:layout_width="@dimen/_15sdp"-->
-                    <!--android:layout_height="@dimen/_15sdp"-->
-                    <!--android:src="@drawable/time_clock" />-->
                     <TextView
                         android:id="@+id/holiday_date_txt"
                         android:layout_width="@dimen/_35sdp"

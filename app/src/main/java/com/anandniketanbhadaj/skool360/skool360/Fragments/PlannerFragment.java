@@ -2,17 +2,14 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +20,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
-import com.anandniketanbhadaj.skool360.skool360.Activities.ParallaxRecyclerView;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.HolidayListAdapter;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.HolidayListAdapter1;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.HolidayEventListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetHolidayAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
@@ -45,7 +40,7 @@ public class PlannerFragment extends Fragment implements View.OnClickListener {
     FragmentManager fragmentManager;
     RecyclerView holiday_list;
     ExamModel holidayDataResponse;
-    HolidayListAdapter1 holidayListAdapter;
+    HolidayEventListAdapter holidayListAdapter;
     List<String> montharrayList;
     List<ExamDatum> monthwisedata;
     String month;
@@ -173,7 +168,7 @@ public class PlannerFragment extends Fragment implements View.OnClickListener {
         montharrayList = new ArrayList<>();
         monthwisedata = new ArrayList<ExamDatum>();
 
-        holidayListAdapter = new HolidayListAdapter1(mContext, holidayDataResponse, monthwisedata, holiday_list.getHeight());
+        holidayListAdapter = new HolidayEventListAdapter(mContext, holidayDataResponse, monthwisedata, holiday_list.getHeight());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         holiday_list.setLayoutManager(mLayoutManager);
         holiday_list.setItemAnimator(new DefaultItemAnimator());

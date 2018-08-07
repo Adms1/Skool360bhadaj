@@ -111,7 +111,7 @@ public class DashBoardActivity extends FragmentActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-       // FirebaseCrash.report(new Exception("My first Android non-fatal error"));
+        // FirebaseCrash.report(new Exception("My first Android non-fatal error"));
         mContext = this;
         Initialize();
         dispPOS = getIntent().getIntExtra("POS", 0);
@@ -159,7 +159,7 @@ public class DashBoardActivity extends FragmentActivity {
         }
         if (getIntent().getStringExtra("fromNotification") != null) {
             AppConfiguration.Notification = "1";
-            AppConfiguration.messageNotification=putData;
+            AppConfiguration.messageNotification = putData;
             String key = getIntent().getStringExtra("fromNotification").toString();
             Log.d("key", key);
             if (key.equalsIgnoreCase("HW")) {
@@ -448,7 +448,7 @@ public class DashBoardActivity extends FragmentActivity {
 //                AppConfiguration.firsttimeback = true;
 //                break;
             case 11:
-                fragment = new PlannerFragment();
+                fragment = new HolidayFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.firsttimeback = true;
@@ -504,36 +504,41 @@ public class DashBoardActivity extends FragmentActivity {
                         .show();
                 break;
         }
+        if (AppConfiguration.position != 16) {
+            if (fragment != null) {
 
-        if (fragment != null) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
+                if (fragment instanceof HomeFragment) {
+                    if (first_time_trans) {
+                        first_time_trans = false;
+                        fragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
+                                .replace(R.id.frame_container, fragment).commit();
 
-            if (fragment instanceof HomeFragment) {
-                if (first_time_trans) {
-                    first_time_trans = false;
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
-                            .replace(R.id.frame_container, fragment).commit();
-
+                    } else {
+                        fragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
+                                .replace(R.id.frame_container, fragment).commit();
+                    }
                 } else {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
                             .replace(R.id.frame_container, fragment).commit();
                 }
-            } else {
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
-                        .replace(R.id.frame_container, fragment).commit();
-            }
 
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
+                // update selected item and title, then close the drawer
+                mDrawerList.setItemChecked(position, true);
+                mDrawerList.setSelection(position);
+                mDrawerLayout.closeDrawers();
+            } else {
+                // error in creating fragment
+                Log.e("Dashboard", "Error in creating fragment");
+            }
+        }else{
+//            mDrawerList.setItemChecked(position, true);
+//            mDrawerList.setSelection(position);
             mDrawerLayout.closeDrawers();
-        } else {
-            // error in creating fragment
-            Log.e("Dashboard", "Error in creating fragment");
         }
     }
 
@@ -594,6 +599,14 @@ public class DashBoardActivity extends FragmentActivity {
                                     Utility.setPref(mContext, "TermID", "");
                                     Utility.setPref(mContext, "deviceId", "");
                                     Utility.setPref(mContext, "image", "");
+                                    AppConfiguration.UserImage = "";
+                                    AppConfiguration.UserName = "";
+                                    AppConfiguration.UserGrade = "";
+                                    AppConfiguration.UserGrNo = "";
+                                    AppConfiguration.UserAttendance = "";
+                                    AppConfiguration.UserTeacherName = "";
+                                    AppConfiguration.UserDropTime = "";
+                                    AppConfiguration.UserPickTime = "";
                                     Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
                                     startActivity(intentLogin);
                                     finish();

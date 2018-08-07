@@ -5,50 +5,26 @@ package com.anandniketanbhadaj.skool360.skool360.Utility;
  */
 public class AppConfiguration {
 
-    public enum Domain {
-        LIVE, LOCAL
-    }
-
-    static Domain domain = Domain.LIVE;//only Change this for changing environment
-
-    public static String getUrl(String methodName) {
-        String url = "";
-        switch (domain) {
-            case LIVE:
-                url = DOMAIN_LIVE + methodName;
-                break;
-            case LOCAL:
-                url = DOMAIN_LOCAL + methodName;
-                break;
-            default:
-                break;
-        }
-        return url;
-
-    }
-
-
     //Local
     public static String DOMAIN_LOCAL = "";
-     public static String DOMAIN_LIVE = "http://192.168.1.10:8086/MobileApp_Service.asmx/";//use for office only
+    
+
+         public static String DOMAIN_LIVE = "http://192.168.1.10:8086/MobileApp_Service.asmx/";//use for office only
 //   public static String DOMAIN_LIVE = "http://192.168.1.187:8089/MobileApp_Service.asmx/";//client for office only
 //    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
 
-
-    public static String IMAGE_LIVE="http://192.168.1.10:8086/SKOOL360-Category-Images-Android/Student/";
+        public static String IMAGE_LIVE="http://192.168.1.10:8086/SKOOL360-Category-Images-Android/Student/";
 //public static String IMAGE_LIVE="http://192.168.1.187:8089/SKOOL360-Category-Images-Android/Student/";
-//    public static String IMAGE_LIVE="http://103.24.183.28:8085/SKOOL360-Category-Images-Android/Student/";
+//    public static String IMAGE_LIVE = "http://103.24.183.28:8085/SKOOL360-Category-Images-Android/Student/";
 
-    public static String GALLARY_LIVE="http://192.168.1.10:8086/";
+        public static String GALLARY_LIVE="http://192.168.1.10:8086/";
 //public static String GALLARY_LIVE="http://192.168.1.187:8089/";
-//    public static String GALLARY_LIVE="http://103.24.183.28:8085/";
-
-    public static boolean   firsttimeback;
-    public static int position;
-public static String dataNOtification="";
-public static String messageNotification="";
+//    public static String GALLARY_LIVE = "http://103.24.183.28:8085/";
 
 
+
+
+    //Webservice name
     public static String StudentLogin = "StudentLogin";
     public static String GetUserProfile = "GetUserProfile";
     public static String ChangePassword = "ChangePassword";
@@ -77,22 +53,48 @@ public static String messageNotification="";
     public static String PTMStudentWiseTeacher = "PTMStudentWiseTeacher";
     public static String GetCircularDetail = "GetCircularDetail";
     public static String DeviceVersion = "DeviceVersion";
-    public static String GetGallery="GetGallery";
-    public static String InsertStudentLeaveRequest="InsertStudentLeaveRequest";
-    public static String GetStudentLeaveRequest="GetStudentLeaveRequest";
-    public static String CreateParentsSuggestion="CreateParentsSuggestion";
-    public static String GetHoliday="GetHoliday";
-    public static String DeleteDeviceDetail="DeleteDeviceDetail";
-    public static String ForgetIDPassword="ForgetIDPassword";
+    public static String GetGallery = "GetGallery";
+    public static String InsertStudentLeaveRequest = "InsertStudentLeaveRequest";
+    public static String GetStudentLeaveRequest = "GetStudentLeaveRequest";
+    public static String CreateParentsSuggestion = "CreateParentsSuggestion";
+    public static String GetHoliday = "GetHoliday";
+    public static String DeleteDeviceDetail = "DeleteDeviceDetail";
+    public static String ForgetIDPassword = "ForgetIDPassword";
+
+
     public static String Notification;
+    public static String UserImage = "";
+    public static String UserName = "";
+    public static String UserGrade = "";
+    public static String UserGrNo = "";
+    public static String UserAttendance = "";
+    public static String UserTeacherName = "";
+    public static String UserDropTime = "";
+    public static String UserPickTime = "";
+    public static boolean firsttimeback;
+    public static int position;
+    public static String dataNOtification = "";
+    public static String messageNotification = "";
 
 
-    public static String UserImage="";
-    public static String UserName="";
-    public static String UserGrade="";
-    public static String UserGrNo="";
-    public static String UserAttendance="";
-    public static String UserTeacherName="";
-    public static String UserDropTime="";
-    public static String UserPickTime="";
+    static Domain domain = Domain.LIVE;//only Change this for changing environment
+
+    public static String getUrl(String methodName) {
+        String url = "";
+        switch (domain) {
+            case LIVE:
+                url = DOMAIN_LIVE + methodName;
+                break;
+            case LOCAL:
+                url = DOMAIN_LOCAL + methodName;
+                break;
+            default:
+                break;
+        }
+        return url;
+
+    }
+    public enum Domain {
+        LIVE, LOCAL
+    }
 }

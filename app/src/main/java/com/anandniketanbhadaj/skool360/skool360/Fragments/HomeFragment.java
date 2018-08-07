@@ -356,7 +356,7 @@ public class HomeFragment extends Fragment {
 //                    AppConfiguration.firsttimeback = true;
 //                }
                 else if (position == 9) {
-                    fragment = new PlannerFragment();
+                    fragment = new HolidayFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)

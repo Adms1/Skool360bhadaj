@@ -103,6 +103,29 @@ public class LoginActivity extends Activity {
                 forgotPasswordDialog();
             }
         });
+        edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i==EditorInfo.IME_ACTION_DONE){
+                    if (Utility.isNetworkConnected(mContext)) {
+                        if (!edtUserName.getText().toString().equalsIgnoreCase("")) {
+                            if (!edtPassword.getText().toString().equalsIgnoreCase("")) {
+                                login();
+                            } else {
+                                Utility.pong(mContext, "Please Enter Password");
+                                edtPassword.requestFocus();
+                            }
+                        } else {
+                            Utility.pong(mContext, "Please Enter User Name");
+                            edtUserName.requestFocus();
+                        }
+                    } else {
+                        Utility.ping(mContext, "Network not available");
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     public void login() {

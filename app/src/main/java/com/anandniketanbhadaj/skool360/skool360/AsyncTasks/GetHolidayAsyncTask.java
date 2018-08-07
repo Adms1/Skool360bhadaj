@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 
 import java.util.HashMap;
 
-public class GetHolidayAsyncTask extends AsyncTask<Void, Void,ExamModel> {
+public class GetHolidayAsyncTask extends AsyncTask<Void, Void, ExamModel> {
     HashMap<String, String> param = new HashMap<String, String>();
 
     public GetHolidayAsyncTask(HashMap<String, String> param) {
@@ -24,7 +24,7 @@ public class GetHolidayAsyncTask extends AsyncTask<Void, Void,ExamModel> {
     @Override
     protected ExamModel doInBackground(Void... params) {
         String responseString = null;
-        ExamModel response =null;
+        ExamModel response = null;
         try {
             responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetHoliday), param);
             Gson gson = new Gson();

@@ -180,8 +180,10 @@ public class GalleryFragment extends Fragment {
 
         for (int i = 0; i < galleryResponse.getFinalArray().size(); i++) {
             name.add(galleryResponse.getFinalArray().get(i).getEventName());
-            arrayList.add(galleryResponse.getFinalArray().get(i).getPhotos().get(0).getImagePath() + "|" +
-                    galleryResponse.getFinalArray().get(i).getPhotos().get(0).getTitle());
+            if(galleryResponse.getFinalArray().get(i).getPhotos().size()>0) {
+                arrayList.add(galleryResponse.getFinalArray().get(i).getPhotos().get(0).getImagePath() + "|" +
+                        galleryResponse.getFinalArray().get(i).getPhotos().get(0).getTitle());
+            }
         }
 
 
