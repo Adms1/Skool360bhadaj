@@ -2,22 +2,17 @@ package com.anandniketanbhadaj.skool360.skool360.AsyncTasks;
 
 import android.os.AsyncTask;
 
-import com.anandniketanbhadaj.skool360.skool360.Models.DeviceVersionModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.SuggestionInboxModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.WebServicesCall.WebServicesCall;
 import com.google.gson.Gson;
 
-import java.net.SocketTimeoutException;
 import java.util.HashMap;
 
-/**
- * Created by admsandroid on tha/2/2017.
- */
-
-public class DeviceVersionAsyncTask extends AsyncTask<Void, Void, DeviceVersionModel> {
+public class SuggestionInboxAsyncTask extends AsyncTask<Void, Void, SuggestionInboxModel> {
     HashMap<String, String> param = new HashMap<String, String>();
 
-    public DeviceVersionAsyncTask(HashMap<String, String> param) {
+    public SuggestionInboxAsyncTask(HashMap<String, String> param) {
         this.param = param;
     }
 
@@ -27,22 +22,23 @@ public class DeviceVersionAsyncTask extends AsyncTask<Void, Void, DeviceVersionM
     }
 
     @Override
-    protected DeviceVersionModel doInBackground(Void... params) {
+    protected SuggestionInboxModel doInBackground(Void... params) {
         String responseString = null;
-        DeviceVersionModel deviceVersionModel = null;
+        SuggestionInboxModel mainPtmInboxResponse = null;
         try {
-            responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.DeviceVersion), param);
+            responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetSuggestion), param);
             Gson gson = new Gson();
-            deviceVersionModel = gson.fromJson(responseString, DeviceVersionModel.class);
+            mainPtmInboxResponse = gson.fromJson(responseString, SuggestionInboxModel.class);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
-        return deviceVersionModel;
+        return mainPtmInboxResponse;
     }
 
     @Override
-    protected void onPostExecute(DeviceVersionModel result) {
+    protected void onPostExecute(SuggestionInboxModel result) {
         super.onPostExecute(result);
     }
 }
+

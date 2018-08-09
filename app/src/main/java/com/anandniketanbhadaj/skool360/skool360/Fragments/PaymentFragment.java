@@ -3,6 +3,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -50,6 +51,7 @@ public class PaymentFragment extends Fragment {
     TableRow tableRow13;
     Fragment fragment;
     PaymentListAdapter paymentListAdapter;
+    LinearLayout linearBack;
     private TextView paynow_term1_txt, paynow_term2_txt, payment_history;
     private View rootView;
     private Button btnMenu, btnBackUnitTest;
@@ -61,10 +63,9 @@ public class PaymentFragment extends Fragment {
     private GetPaymentLedgerAsyncTask getPaymentLedgerAsyncTask = null;
     private ArrayList<PaymentLedgerModel> paymentdetailsModel = new ArrayList<>();
     private FragmentManager fragmentManager = null;
-    private TableLayout table_layout;
+    private LinearLayout table_layout;
     private RecyclerView payment_report_list;
     private LinearLayout lv_header;
-    LinearLayout linearBack;
 
 
     public PaymentFragment() {
@@ -88,13 +89,13 @@ public class PaymentFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         paynow_term1_txt = (TextView) rootView.findViewById(R.id.paynow_term1_txt);
         paynow_term2_txt = (TextView) rootView.findViewById(R.id.paynow_term2_txt);
         //lvExpPayment = (ExpandableListView) rootView.findViewById(R.id.lvExpPayment);
         payment_history = (TextView) rootView.findViewById(R.id.payment_history);
         tableRow13 = (TableRow) rootView.findViewById(R.id.tableRow13);
-        table_layout = (TableLayout) rootView.findViewById(R.id.table_layout);
+        table_layout = (LinearLayout) rootView.findViewById(R.id.table_layout);
         payment_report_list = (RecyclerView) rootView.findViewById(R.id.payment_report_list);
         lv_header = (LinearLayout) rootView.findViewById(R.id.lv_header);
     }
@@ -230,57 +231,122 @@ public class PaymentFragment extends Fragment {
         for (int i = 0; i < feesMainResponse.getFinalArray().size(); i++) {
 //            int count=feesMainResponse.getFinalArray().get(i);
 
-            TableRow row1 = new TableRow(mContext);
-            TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-            params.bottomMargin = 1;
-            params.topMargin = 1;
-            params.rightMargin = 1;
-            params.leftMargin = 1;
-            row1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            TextView a = new TextView(mContext);
-            TextView b = new TextView(mContext);
-            TextView c = new TextView(mContext);
+//            LinearLayout row1 = new LinearLayout(mContext);
+//            row1.setOrientation(LinearLayout.HORIZONTAL);
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//            params.bottomMargin = 1;
+//            params.topMargin = 1;
+//            params.rightMargin = 1;
+//            params.leftMargin = 1;
+//            row1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//            TextView a = new TextView(mContext);
+//            TextView b = new TextView(mContext);
+//            TextView c = new TextView(mContext);
+//
+//            a.setLayoutParams(params);
+//            b.setLayoutParams(params);
+//            c.setLayoutParams(params);
+//
+//            a.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+//            b.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+//            c.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+//
+//            a.setPadding(5, 0, 0, 0);
+//            b.setPadding(0, 0, 5, 0);
+//            c.setPadding(0, 0, 5, 0);
+//
+//            a.setWidth(90);
+//            b.setWidth(90);
+//            c.setWidth(90);
+//
+//            a.setHeight(100);
+//            b.setHeight(100);
+//            c.setHeight(100);
+//
+//            a.setTextSize(12f);
+//            b.setTextSize(12f);
+//            c.setTextSize(12f);
+//
+//            a.setBackgroundColor(getResources().getColor(R.color.white));
+//            b.setBackgroundColor(getResources().getColor(R.color.white));
+//            c.setBackgroundColor(getResources().getColor(R.color.white));
+//
+//            a.setTextColor(getResources().getColor(R.color.text_color));
+//            b.setTextColor(getResources().getColor(R.color.text_color));
+//            c.setTextColor(getResources().getColor(R.color.text_color));
+//
+////            a.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
+////            b.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
+////            c.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
+//
+//            a.setText("Megha Megha MEgha Megha Megha");//feesMainResponse.getFinalArray().get(i).getLedgerName()
+//            b.setText("₹" + " " + "500000");
+//            c.setText("₹" + " " + "500000");
+//
+//            row1.addView(a);
+//            row1.addView(b);
+//            row1.addView(c);
+            LinearLayout childLayout = new LinearLayout(mContext);
+            LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            //childLayout.setOrientation(LinearLayout.HORIZONTAL);
+            childLayout.setLayoutParams(linearParams);
 
-            a.setLayoutParams(params);
-            b.setLayoutParams(params);
-            c.setLayoutParams(params);
+            TextView mType = new TextView(mContext);
+            TextView mValue = new TextView(mContext);
+            TextView mValue1 = new TextView(mContext);
+            linearParams.setMargins(2, 1, 0, 0);
+            mValue.setLayoutParams(linearParams);
+            linearParams.setMargins(2, 1, 0, 0);
+            mValue1.setLayoutParams(linearParams);
 
-            a.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
-            b.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-            c.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+//            mType.setLayoutParams(new LinearLayout.LayoutParams(273,
+//                    100 ));
+//            mValue.setLayoutParams(new LinearLayout.LayoutParams(300,
+//                    100 ));
+//            mValue1.setLayoutParams(new LinearLayout.LayoutParams(300,
+//                    100 ));
 
-            a.setPadding(5,0,0,0);
-            b.setPadding(0,0,5,0);
-            c.setPadding(0,0,5,0);
+            mType.setPadding(5, 0, 0, 0);
+            mValue.setPadding(0, 0, 5, 0);
+            mValue1.setPadding(0, 0, 5, 0);
 
-            a.setWidth(90);
-            b.setWidth(90);
-            c.setWidth(90);
+            mType.setWidth(273);
+            mValue.setWidth(220);
+            mValue1.setWidth(220);
 
-            a.setHeight(90);
-            b.setHeight(90);
-            c.setHeight(90);
+            mType.setHeight(80);
+            mValue.setHeight(80);
+            mValue1.setHeight(80);
 
-            a.setTextSize(14f);
-            b.setTextSize(14f);
-            c.setTextSize(14f);
 
-            a.setBackgroundColor(getResources().getColor(R.color.white));
-            b.setBackgroundColor(getResources().getColor(R.color.white));
-            c.setBackgroundColor(getResources().getColor(R.color.white));
+            mType.setBackgroundColor(getResources().getColor(R.color.white));
+            mValue.setBackgroundColor(getResources().getColor(R.color.white));
+            mValue1.setBackgroundColor(getResources().getColor(R.color.white));
 
-            a.setTextColor(getResources().getColor(R.color.text_color));
-            b.setTextColor(getResources().getColor(R.color.text_color));
-            c.setTextColor(getResources().getColor(R.color.text_color));
+            mType.setTextSize(14);
+            mType.setPadding(5, 3, 0, 3);
+            mType.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 
-            a.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
-            b.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
-            c.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
+            mValue.setTextSize(14);
+            mValue.setPadding(0, 3, 5, 3);
+            mValue.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 
-            row1.addView(a);
-            row1.addView(b);
-            row1.addView(c);
-            table_layout.addView(row1);
+            mValue1.setTextSize(14);
+            mValue1.setPadding(0, 3, 5, 3);
+            mValue1.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+
+            mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
+            mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
+            mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
+
+
+            childLayout.addView(mType);
+            childLayout.addView(mValue);
+            childLayout.addView(mValue1);
+
+            table_layout.addView(childLayout);
 
         }
 
@@ -310,10 +376,10 @@ public class PaymentFragment extends Fragment {
                                         @Override
                                         public void getViewClick() {
                                             String ReceiptUrl;
-                                            ReceiptUrl= String.valueOf(paymentListAdapter.getRowValue());
-                                            fragment=new ReceiptFragment();
+                                            ReceiptUrl = String.valueOf(paymentListAdapter.getRowValue());
+                                            fragment = new ReceiptFragment();
                                             Bundle args = new Bundle();
-                                            args.putString("url",ReceiptUrl);
+                                            args.putString("url", ReceiptUrl);
                                             fragment.setArguments(args);
                                             fragmentManager = getFragmentManager();
                                             fragmentManager.beginTransaction()

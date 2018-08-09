@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
@@ -51,6 +50,8 @@ public class GalleryFragment extends Fragment {
     TextView photo_name, event_name_txt;
     String displayMode;
     LinearLayout linearBack;
+    ArrayList<Integer> selectedImage;
+    String imageselection;
     private View rootView;
     private Context mContext;
     private ProgressDialog progressDialog = null;
@@ -74,7 +75,7 @@ public class GalleryFragment extends Fragment {
     public void initViews() {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBack = (Button) rootView.findViewById(R.id.btnBack);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         gallery_list = (RecyclerView) rootView.findViewById(R.id.gallery_list);
         gallery_list1 = (RecyclerView) rootView.findViewById(R.id.gallery_list1);
         photo_name = (TextView) rootView.findViewById(R.id.photo_name);
@@ -180,7 +181,7 @@ public class GalleryFragment extends Fragment {
 
         for (int i = 0; i < galleryResponse.getFinalArray().size(); i++) {
             name.add(galleryResponse.getFinalArray().get(i).getEventName());
-            if(galleryResponse.getFinalArray().get(i).getPhotos().size()>0) {
+            if (galleryResponse.getFinalArray().get(i).getPhotos().size() > 0) {
                 arrayList.add(galleryResponse.getFinalArray().get(i).getPhotos().get(0).getImagePath() + "|" +
                         galleryResponse.getFinalArray().get(i).getPhotos().get(0).getTitle());
             }
@@ -228,6 +229,12 @@ public class GalleryFragment extends Fragment {
         galleryAdapter = new GalleryAdapter(mContext, name, photoarrayList, displayMode, new onViewClick() {
             @Override
             public void getViewClick() {
+                selectedImage = galleryAdapter.getposition();
+                Log.d("ImagePosition", "" + selectedImage);
+                for (int i = 0; i < selectedImage.size(); i++) {
+                    imageselection = String.valueOf(selectedImage.get(i));
+                }
+                //imageselection=imageselection.substring(1, imageselection.length()-1);
                 setSelectedDetailImage();
             }
         });
@@ -262,10 +269,18 @@ public class GalleryFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true);
 //        mLayoutManager.setStackFromEnd(true);
         gallery_list1.setLayoutManager(mLayoutManager);
-        gallery_list1.getLayoutManager().scrollToPosition(photoarrayList.size() - 1);
+        //gallery_list1.getLayoutManager().scrollToPosition(photoarrayList.size() - 1);
         gallery_list1.addItemDecoration(new EqualSpacingItemDecoration(12, EqualSpacingItemDecoration.HORIZONTAL));
-        SnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(gallery_list1);
+//        SnapHelper snapHelper = new PagerSnapHelper();
+//        snapHelper.attachToRecyclerView(gallery_list1);
         gallery_list1.setAdapter(galleryAdapter);
+        for (int i = 0; i < galleryResponse.getFinalArray().size(); i++) {
+            for (int j = 0; j < galleryResponse.getFinalArray().get(i).getPhotos().size(); j++) {
+                if (String.valueOf(j).equalsIgnoreCase(imageselection)) {
+                    gallery_list1.getLayoutManager().scrollToPosition(j);
+
+                }
+            }
+        }
     }
 }

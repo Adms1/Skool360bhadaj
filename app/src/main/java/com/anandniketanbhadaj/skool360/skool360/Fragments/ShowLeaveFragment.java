@@ -162,5 +162,8 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
         listLeave.setLayoutManager(mLayoutManager);
         listLeave.setItemAnimator(new DefaultItemAnimator());
         listLeave.setAdapter(leaveListAdapter);
+//            listannouncment.expandGroup(0);
+
+
     }
 }

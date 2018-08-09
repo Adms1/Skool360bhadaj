@@ -32,6 +32,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
     private Context mContext;
     private ImageLoader imageLoader;
     private String displayMode;
+    private ArrayList<Integer> imageposition;
 
     public GalleryAdapter(Context mContext, ArrayList<String> name, ArrayList<PhotoModel> arrayList, String displayMode, onViewClick onViewClick) {
         this.mContext = mContext;
@@ -81,6 +82,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
         holder.main_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                imageposition=new ArrayList<Integer>();
+                imageposition.add(position);
                 onViewClick.getViewClick();
             }
         });
@@ -105,7 +108,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
 
 
     }
-
+    public ArrayList<Integer> getposition() {
+        return imageposition;
+    }
 }
 
 

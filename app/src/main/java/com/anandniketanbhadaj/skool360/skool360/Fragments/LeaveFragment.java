@@ -174,13 +174,18 @@ public class LeaveFragment extends Fragment {
                                             txtendDate.setText("DD/MM/YYYY");
                                             edtPurpose.setText("");
                                             edtDescription.setText("");
-                                            Utility.ping(mContext, "Leave Request send Successfully.");
+                                            Utility.ping(mContext, leaveResponse.getFinalArray().get(0).getMessage());
                                             fragment = new ShowLeaveFragment();
                                             fragmentManager = getFragmentManager();
                                             fragmentManager.beginTransaction()
                                                     .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                                                     .replace(R.id.frame_container, fragment).commit();
                                         } else {
+                                            txtDate.setText("DD/MM/YYYY");
+                                            txtendDate.setText("DD/MM/YYYY");
+                                            edtPurpose.setText("");
+                                            edtDescription.setText("");
+                                            Utility.ping(mContext, leaveResponse.getFinalArray().get(0).getMessage());
                                             progressDialog.dismiss();
 
                                         }

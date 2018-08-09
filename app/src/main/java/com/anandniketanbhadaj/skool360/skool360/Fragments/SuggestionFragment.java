@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,10 +48,10 @@ public class SuggestionFragment extends Fragment {
     private View rootView;
     private Context mContext;
     private EditText edtSubject, edtSuggestion;
-    private Button btnSave, btnCancel, btnMenu, btnBack;
+    private Button btnSave, btnCancel;
     private ProgressDialog progressDialog = null;
     private CreateSuggestionAsyncTask createSuggestionAsyncTask = null;
-    LinearLayout linearBack;
+
 
     public SuggestionFragment() {
     }
@@ -69,43 +73,11 @@ public class SuggestionFragment extends Fragment {
         edtSuggestion = (EditText) rootView.findViewById(R.id.edtSuggestion);
         btnSave = (Button) rootView.findViewById(R.id.btnSave);
         btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        btnBack = (Button) rootView.findViewById(R.id.btnBack);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+
 
     }
 
     public void setListners() {
-        btnMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DashBoardActivity.onLeft();
-            }
-        });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppConfiguration.firsttimeback = true;
-                AppConfiguration.position = 0;
-                fragment = new HomeFragment();
-                fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                        .replace(R.id.frame_container, fragment).commit();
-            }
-        });
-        linearBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppConfiguration.firsttimeback = true;
-                AppConfiguration.position = 0;
-                fragment = new HomeFragment();
-                fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                        .replace(R.id.frame_container, fragment).commit();
-            }
-        });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,8 +122,12 @@ public class SuggestionFragment extends Fragment {
                                     if (suggestionResponse.getSuccess().equalsIgnoreCase("True")) {
                                         edtSubject.setText("");
                                         edtSuggestion.setText("");
-                                        ThankyouDialog();
+                                        Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
+                                        //ThankyouDialog();
                                     } else {
+                                        edtSubject.setText("");
+                                        edtSuggestion.setText("");
+                                        Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
                                         progressDialog.dismiss();
 
                                     }

@@ -49,6 +49,7 @@ import com.anandniketanbhadaj.skool360.skool360.Fragments.ReportCardFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ResultFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ShowLeaveFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.SuggestionFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.SuggestionMainFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.TimeTableFragment;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
@@ -172,6 +173,8 @@ public class DashBoardActivity extends FragmentActivity {
                 displayView(2);
             } else if (key.equalsIgnoreCase("Circular")) {
                 displayView(13);
+            }else if (key.equalsIgnoreCase("Leave")){
+                displayView(12);
             }
         } else {
             AppConfiguration.Notification = "0";
@@ -477,7 +480,7 @@ public class DashBoardActivity extends FragmentActivity {
                 break;
             case 15:
                 AppConfiguration.firsttimeback = true;
-                fragment = new SuggestionFragment();
+                fragment = new SuggestionMainFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 AppConfiguration.position = 15;

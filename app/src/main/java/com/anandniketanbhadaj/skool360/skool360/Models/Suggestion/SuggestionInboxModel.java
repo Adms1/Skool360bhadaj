@@ -1,12 +1,11 @@
-package com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus;
+package com.anandniketanbhadaj.skool360.skool360.Models.Suggestion;
 
-import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.InboxFinalArray;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class CreateLeaveModel {
+public class SuggestionInboxModel {
     @SerializedName("Success")
     @Expose
     private String success;
@@ -29,5 +28,4 @@ public class CreateLeaveModel {
     public void setFinalArray(List<InboxFinalArray> finalArray) {
         this.finalArray = finalArray;
     }
-
 }

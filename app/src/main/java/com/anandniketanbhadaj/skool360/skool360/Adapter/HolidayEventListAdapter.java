@@ -60,7 +60,7 @@ public class HolidayEventListAdapter extends RecyclerView.Adapter<HolidayEventLi
             holidayLinear.addView(holidayLayout);
         } else {
             for (int i = 0; i < holidayEventSchedule.size(); i++) {
-                if (holidayEventSchedule.get(i).getHoliday().equals("")) {
+                if (!holidayEventSchedule.get(i).getEvent().equals("")) {
                     LayoutInflater inflater = LayoutInflater.from(mContext);
                     LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.item_event, null, false);
                     TextView textView = (TextView) layout.findViewById(R.id.event_name_txt);
@@ -109,7 +109,8 @@ public class HolidayEventListAdapter extends RecyclerView.Adapter<HolidayEventLi
 
                     textView.setText(holidayEventSchedule.get(i).getEvent());
                     eventLinear.addView(layout);
-                } else {
+                }
+                if (!holidayEventSchedule.get(i).getHoliday().equals("")){
                     LayoutInflater inflater = LayoutInflater.from(mContext);
                     LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.item_holiday, null, false);
                     TextView textView = (TextView) layout.findViewById(R.id.holiday_name_txt);

@@ -2,29 +2,21 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.SparseIntArray;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -40,8 +32,6 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
-import com.anandniketanbhadaj.skool360.skool360.Activities.LoginActivity;
-import com.anandniketanbhadaj.skool360.skool360.Activities.SplashScreenActivity;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.HomeImageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ImageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.AddDeviceDetailAsyncTask;
@@ -388,7 +378,7 @@ public class HomeFragment extends Fragment {
                     AppConfiguration.firsttimeback = true;
                     AppConfiguration.position = 13;
                 } else if (position == 13) {
-                    fragment = new SuggestionFragment();
+                    fragment = new SuggestionMainFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out)
@@ -465,9 +455,11 @@ public class HomeFragment extends Fragment {
                 public void run() {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("UserID", Utility.getPref(mContext, "studid"));
+//                        params.put("UserID", Utility.getPref(mContext, "studid"));
+//                        params.put("VersionID", String.valueOf(versionCode));//String.valueOf(versionCode)
+//                        params.put("UserType", "Student");
                         params.put("VersionID", String.valueOf(versionCode));//String.valueOf(versionCode)
-                        params.put("UserType", "Student");
+                        params.put("DeviceType", "Android");
                         deviceVersionAsyncTask = new DeviceVersionAsyncTask(params);
                         deviceVersionModel = deviceVersionAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
