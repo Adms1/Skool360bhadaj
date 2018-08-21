@@ -21,37 +21,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.CreateSuggestionAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.InsertStudentLeaveAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 
 
 public class SuggestionFragment extends Fragment {
     CreateLeaveModel suggestionResponse;
-    String purpose, description;
+    String purpose, description, selectedType;
     Fragment fragment;
     FragmentManager fragmentManager;
     Dialog thankyouDialog;
+    ArrayList<String> selectedArray;
     private View rootView;
     private Context mContext;
     private EditText edtSubject, edtSuggestion;
     private Button btnSave, btnCancel;
+    private Spinner selectdetailspinner;
     private ProgressDialog progressDialog = null;
     private CreateSuggestionAsyncTask createSuggestionAsyncTask = null;
-
 
     public SuggestionFragment() {
     }
@@ -73,7 +81,8 @@ public class SuggestionFragment extends Fragment {
         edtSuggestion = (EditText) rootView.findViewById(R.id.edtSuggestion);
         btnSave = (Button) rootView.findViewById(R.id.btnSave);
         btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
-
+        selectdetailspinner = (Spinner) rootView.findViewById(R.id.select_detail_spinner);
+        fillSpinner();
 
     }
 
@@ -91,6 +100,44 @@ public class SuggestionFragment extends Fragment {
                 edtSuggestion.setText("");
             }
         });
+        selectdetailspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedType = selectdetailspinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    public void fillSpinner() {
+        selectedArray = new ArrayList<>();
+        selectedArray.add("Please Select");
+        selectedArray.add("Academic");
+        selectedArray.add("Admin");
+        selectedArray.add("Other");
+
+
+        //Collections.sort(selectedArray);
+        System.out.println("Sorted ArrayList in Java - Ascending order : " + selectedArray);
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(selectdetailspinner);
+
+            popupWindow.setHeight(selectedArray.size() > 1 ? 200 : selectedArray.size() * 100);
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
+        ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, selectedArray);
+        selectdetailspinner.setAdapter(adapterSpinYear);
+
+        selectdetailspinner.setSelection(0);
     }
 
     public void getsendSuggestionData() {
@@ -99,45 +146,54 @@ public class SuggestionFragment extends Fragment {
 
         if (Utility.isNetworkConnected(mContext)) {
             if (!purpose.equalsIgnoreCase("") && !description.equalsIgnoreCase("")) {
-                progressDialog = new ProgressDialog(mContext);
-                progressDialog.setMessage("Please Wait...");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
+                if (!selectedType.equalsIgnoreCase("Please Select")) {
+                    progressDialog = new ProgressDialog(mContext);
+                    progressDialog.setMessage("Please Wait...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("StudentId", Utility.getPref(mContext, "studid"));
-                            params.put("Subject", purpose);
-                            params.put("Comment", description);
-
-                            createSuggestionAsyncTask = new CreateSuggestionAsyncTask(params);
-                            suggestionResponse = createSuggestionAsyncTask.execute().get();
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressDialog.dismiss();
-                                    if (suggestionResponse.getSuccess().equalsIgnoreCase("True")) {
-                                        edtSubject.setText("");
-                                        edtSuggestion.setText("");
-                                        Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
-                                        //ThankyouDialog();
-                                    } else {
-                                        edtSubject.setText("");
-                                        edtSuggestion.setText("");
-                                        Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                HashMap<String, String> params = new HashMap<String, String>();
+                                params.put("StudentId", Utility.getPref(mContext, "studid"));
+                                params.put("Subject", purpose);
+                                params.put("Comment", description);
+                                params.put("Type", selectedType);
+                                createSuggestionAsyncTask = new CreateSuggestionAsyncTask(params);
+                                suggestionResponse = createSuggestionAsyncTask.execute().get();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
                                         progressDialog.dismiss();
+                                        if (suggestionResponse!=null){
+                                        if (suggestionResponse.getSuccess().equalsIgnoreCase("True")) {
+                                            edtSubject.setText("");
+                                            edtSuggestion.setText("");
+                                            Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
+                                            //ThankyouDialog();
+                                        } else {
+                                            edtSubject.setText("");
+                                            edtSuggestion.setText("");
+                                            Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
+                                            progressDialog.dismiss();
 
+                                        }
+                                        } else {
+                                            Intent serverintent = new Intent(mContext, Server_Error.class);
+                                            startActivity(serverintent);
+                                        }
                                     }
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+                } else {
+                    Utility.ping(mContext, "Please select to");
+                }
             } else {
                 Utility.ping(mContext, "Blank field not allowed.");
             }

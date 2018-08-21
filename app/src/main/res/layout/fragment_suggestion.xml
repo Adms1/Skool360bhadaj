@@ -20,11 +20,53 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Subject"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_weight="0.7"
+                android:text="To"
                 android:textColor="@color/appointment_text"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight=".1"
+                android:text=":"
+                android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/select_detail_spinner"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="2"
+                android:background="@drawable/dropdown_button"
+                android:forceHasOverlappingRendering="false"
+                android:gravity="left|center_vertical"
+                android:overlapAnchor="false"
+                android:paddingBottom="1dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Subject"
+                android:textColor="@color/appointment_text"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -33,6 +75,7 @@
                 android:textColor="@color/appointment_text"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/edtSubject"
                 android:layout_width="0dp"
@@ -55,11 +98,12 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="0.7"
                 android:text="Suggestion"
                 android:textColor="@color/appointment_text"
                 android:textSize="@dimen/_10sdp"
-                android:layout_weight="0.7"
                 android:textStyle="bold" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -68,6 +112,7 @@
                 android:textColor="@color/appointment_text"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/edtSuggestion"
                 android:layout_width="0dp"
@@ -91,8 +136,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Description: "
                 android:layout_weight=".63"
+                android:text="Description: "
                 android:textColor="@color/appointment_text"
                 android:textStyle="bold"
                 android:visibility="invisible" />
@@ -100,17 +145,17 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.2"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_5sdp">
+                android:layout_weight="1.2">
 
                 <Button
                     android:id="@+id/btnSave"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:background="@drawable/profile_button"
                     android:text="Send"
-                    android:layout_marginBottom="@dimen/_5sdp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp" />
@@ -119,10 +164,10 @@
                     android:id="@+id/btnCancel"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginLeft="@dimen/_3sdp"
                     android:background="@drawable/profile_button"
                     android:text="Cancel"
-                    android:layout_marginBottom="@dimen/_5sdp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp" />

@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetReportcardAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetResultPermissionAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTermAsyncTask;
@@ -195,6 +197,7 @@ public class ReportCardFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if (reportModels!=null){
                                 if (reportModels.size() > 0) {
                                     progressDialog.dismiss();
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
@@ -210,49 +213,9 @@ public class ReportCardFragment extends Fragment {
                                     progressDialog.dismiss();
                                     txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
                                 }
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        } else {
-            Utility.ping(mContext, "Network not available");
-        }
-    }
-
-    public void getReportPermission() {
-        if (Utility.isNetworkConnected(mContext)) {
-            progressDialog = new ProgressDialog(mContext);
-            progressDialog.setMessage("Please Wait...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("StandardId", Utility.getPref(mContext, "standardID"));
-                        params.put("TermID", FinalTermIdStr);
-                        getResultPermissionAsyncTask = new GetResultPermissionAsyncTask(params);
-                        reportModels = getResultPermissionAsyncTask.execute().get();
-
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (reportModels.get(0).getStatus().equalsIgnoreCase("True")) {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                    webview_report_card.setVisibility(View.VISIBLE);
-                                    btnshow.setVisibility(View.VISIBLE);
                                 } else {
-                                    progressDialog.dismiss();
-                                    //  txtNoRecordsUnitTest.setText("");
-                                    txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
-                                    webview_report_card.setVisibility(View.GONE);
-                                    btnshow.setVisibility(View.GONE);
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -285,6 +248,7 @@ public class ReportCardFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
+                                if (termModels!=null){
                                 if (termModels.size() > 0) {
                                     ArrayList<String> termText = new ArrayList<String>();
                                     ArrayList<String> termId = new ArrayList<>();
@@ -329,6 +293,10 @@ public class ReportCardFragment extends Fragment {
 
                                 } else {
                                     progressDialog.dismiss();
+                                }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });

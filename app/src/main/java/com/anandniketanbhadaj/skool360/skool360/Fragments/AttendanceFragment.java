@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ListHolidayAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetAttendanceAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.AttendanceModel;
@@ -205,47 +207,52 @@ public class AttendanceFragment extends Fragment {
                                 progressDialog.dismiss();
                                 absentDates.clear();
                                 HashMap hm = new HashMap();
-                                if (attendanceModels.size() > 0) {
-                                    rlCalender.setVisibility(View.VISIBLE);
-                                    total_absent_txt.setText(attendanceModels.get(0).getTotalAbsent());
-                                    total_present_txt.setText(attendanceModels.get(0).getTotalPresent());
-                                    total_holiday_txt.setText(attendanceModels.get(0).getHolidayCount());
-                                    if (attendanceModels.get(0).getEventsList().size() > 0) {
-                                        mCaldroidFragment.moveToDate(stringToDate(attendanceModels.get(0).getEventsList().get(0).getAttendanceDate()));
-                                    }
-                                    for (int i = 0; i < attendanceModels.get(0).getEventsList().size(); i++) {
-                                        if (attendanceModels.get(0).getEventsList().get(i).getAttendenceStatus().equalsIgnoreCase("Absent")) {
-                                            hm.put(stringToDate(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate()), new ColorDrawable(getResources().getColor(R.color.attendance_absent_new)));
-                                        } else if (attendanceModels.get(0).getEventsList().get(i).getAttendenceStatus().equalsIgnoreCase("Present")) {
-                                            hm.put(stringToDate(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate()), new ColorDrawable(getResources().getColor(R.color.attendance_present_new)));
-                                        } else if (attendanceModels.get(0).getEventsList().get(i).getAttendenceStatus().equalsIgnoreCase("Holiday")) {
-                                            hm.put(stringToDate(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate()), new ColorDrawable(getResources().getColor(R.color.schedule_active)));
+                                if (attendanceModels!=null) {
+                                    if (attendanceModels.size() > 0) {
+                                        rlCalender.setVisibility(View.VISIBLE);
+                                        total_absent_txt.setText(attendanceModels.get(0).getTotalAbsent());
+                                        total_present_txt.setText(attendanceModels.get(0).getTotalPresent());
+                                        total_holiday_txt.setText(attendanceModels.get(0).getTotalHolidayCount());
+                                        if (attendanceModels.get(0).getEventsList().size() > 0) {
+                                            mCaldroidFragment.moveToDate(stringToDate(attendanceModels.get(0).getEventsList().get(0).getAttendanceDate()));
                                         }
-                                    }
+                                        for (int i = 0; i < attendanceModels.get(0).getEventsList().size(); i++) {
+                                            if (attendanceModels.get(0).getEventsList().get(i).getAttendenceStatus().equalsIgnoreCase("Absent")) {
+                                                hm.put(stringToDate(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate()), new ColorDrawable(getResources().getColor(R.color.attendance_absent_new)));
+                                            } else if (attendanceModels.get(0).getEventsList().get(i).getAttendenceStatus().equalsIgnoreCase("Present")) {
+                                                hm.put(stringToDate(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate()), new ColorDrawable(getResources().getColor(R.color.attendance_present_new)));
+                                            } else if (attendanceModels.get(0).getEventsList().get(i).getAttendenceStatus().equalsIgnoreCase("Holiday")) {
+                                                hm.put(stringToDate(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate()), new ColorDrawable(getResources().getColor(R.color.schedule_active)));
+                                            }
+                                        }
 
-                                    if (hm.size() > 0) {
-                                        mCaldroidFragment.setBackgroundDrawableForDates(hm);
-                                    }
-                                    mCaldroidFragment.refreshView();
+                                        if (hm.size() > 0) {
+                                            mCaldroidFragment.setBackgroundDrawableForDates(hm);
+                                        }
+                                        mCaldroidFragment.refreshView();
 
-                                    if (attendanceModels.get(1).getHolidayAtt().size() > 0) {
-                                        linear_list.setVisibility(View.VISIBLE);
-                                        listHolidayAdapter = new ListHolidayAdapter(mContext, attendanceModels);
-                                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-                                        holiday_list_rcv.setLayoutManager(mLayoutManager);
-                                        holiday_list_rcv.setItemAnimator(new DefaultItemAnimator());
-                                        holiday_list_rcv.setAdapter(listHolidayAdapter);
+                                        if (attendanceModels.get(1).getHolidayAtt().size() > 0) {
+                                            linear_list.setVisibility(View.VISIBLE);
+                                            listHolidayAdapter = new ListHolidayAdapter(mContext, attendanceModels);
+                                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+                                            holiday_list_rcv.setLayoutManager(mLayoutManager);
+                                            holiday_list_rcv.setItemAnimator(new DefaultItemAnimator());
+                                            holiday_list_rcv.setAdapter(listHolidayAdapter);
+                                        } else {
+                                            linear_list.setVisibility(View.GONE);
+                                        }
                                     } else {
-                                        linear_list.setVisibility(View.GONE);
-                                    }
-                                } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsHomework.setVisibility(View.GONE);
-                                    rlCalender.setVisibility(View.VISIBLE);
+                                        progressDialog.dismiss();
+                                        txtNoRecordsHomework.setVisibility(View.GONE);
+                                        rlCalender.setVisibility(View.VISIBLE);
 
-                                    total_absent_txt.setText("0");
-                                    total_present_txt.setText("0");
-                                    total_holiday_txt.setText("0");
+                                        total_absent_txt.setText("0");
+                                        total_present_txt.setText("0");
+                                        total_holiday_txt.setText("0");
+                                    }
+                                }else{
+                                    Intent serverintent=new Intent(mContext,Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -262,32 +269,6 @@ public class AttendanceFragment extends Fragment {
     public void setListners() {
         mCaldroidFragment.setCaldroidListener(listener);
 
-//        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-//            @Override
-//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-//                switch (newState) {
-//                    case BottomSheetBehavior.STATE_HIDDEN:
-//                        break;
-//                    case BottomSheetBehavior.STATE_EXPANDED: {
-//                        // btnBottomSheet.setText("Close Sheet");
-//                    }
-//                    break;
-//                    case BottomSheetBehavior.STATE_COLLAPSED: {
-//                        // btnBottomSheet.setText("Expand Sheet");
-//                    }
-//                    break;
-////                    case BottomSheetBehavior.STATE_DRAGGING:
-////                        break;
-////                    case BottomSheetBehavior.STATE_SETTLING:
-////                        break;
-//                }
-//            }
-
-//            @Override
-//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-//
-//            }
-//        });
         linearBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

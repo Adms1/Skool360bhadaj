@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesMainResponse;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
@@ -27,6 +29,7 @@ import java.util.HashMap;
 
 public class FeesFragment extends Fragment {
     FeesMainResponse feesMainResponse;
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnBackUnitTest, more_detail_btn;
     private TextView txtNoRecordsUnitTest, payment_total_amount_txt,
@@ -36,7 +39,7 @@ public class FeesFragment extends Fragment {
     private ProgressDialog progressDialog = null;
     private FeesAsyncTask getFeesAsyncTask = null;
     private LinearLayout linear_right, fees_main_linear;
-LinearLayout linearBack;
+
     public FeesFragment() {
     }
 
@@ -56,7 +59,7 @@ LinearLayout linearBack;
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         payment_total_amount_txt = (TextView) rootView.findViewById(R.id.payment_total_amount_txt);
         payment_total_amount_status_txt = (TextView) rootView.findViewById(R.id.payment_total_amount_status_txt);
         total_fee_txt = (TextView) rootView.findViewById(R.id.total_fee_txt);
@@ -134,26 +137,31 @@ LinearLayout linearBack;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (feesMainResponse.getSuccess().equalsIgnoreCase("True")) {
-                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                    fees_main_linear.setVisibility(View.VISIBLE);
-                                    progressDialog.dismiss();
-                                    payment_total_amount_txt.setText("₹" + " " + feesMainResponse.getTermPaid());
-                                    total_fee_txt.setText("Total" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermTotal()));
-                                    due_fee_txt.setText("Due" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermDuePay()));
-                                    discount_fee_txt.setText("Discount" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermDiscount()));
-                                    linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
+                                if (feesMainResponse != null) {
+                                    if (feesMainResponse.getSuccess().equalsIgnoreCase("True")) {
+                                        txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                        fees_main_linear.setVisibility(View.VISIBLE);
+                                        progressDialog.dismiss();
+                                        payment_total_amount_txt.setText("₹" + " " + feesMainResponse.getTermPaid());
+                                        total_fee_txt.setText("Total" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermTotal()));
+                                        due_fee_txt.setText("Due" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermDuePay()));
+                                        discount_fee_txt.setText("Discount" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermDiscount()));
+                                        linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
 
+                                    } else {
+                                        progressDialog.dismiss();
+                                        payment_total_amount_txt.setText("₹" + " " + "0");
+                                        total_fee_txt.setText("Total" + "\n" + "₹" + " " + "0");
+                                        due_fee_txt.setText("Due" + "\n" + "₹" + " " + "0");
+                                        discount_fee_txt.setText("Discount" + "\n" + "₹" + " " + "0");
+                                        linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
+                                        Utility.ping(mContext, "Payment Detail are not available.");
+                                        more_detail_btn.setEnabled(false);
+                                        more_detail_btn.setAlpha(1);
+                                    }
                                 } else {
-                                    progressDialog.dismiss();
-                                    payment_total_amount_txt.setText("₹" + " " + "0");
-                                    total_fee_txt.setText("Total" + "\n" + "₹" + " " + "0");
-                                    due_fee_txt.setText("Due" + "\n" + "₹" + " " + "0");
-                                    discount_fee_txt.setText("Discount" + "\n" + "₹" + " " +"0");
-                                    linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
-                                    Utility.ping(mContext,"Payment Detail are not available.");
-                                    more_detail_btn.setEnabled(false);
-                                    more_detail_btn.setAlpha(1);
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });

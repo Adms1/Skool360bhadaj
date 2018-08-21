@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.InsertStudentLeaveAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
@@ -68,7 +70,7 @@ public class LeaveFragment extends Fragment {
         btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBack = (Button) rootView.findViewById(R.id.btnBack);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         txtendDate = (TextView) rootView.findViewById(R.id.txtendDate);
 
 
@@ -169,25 +171,30 @@ public class LeaveFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         progressDialog.dismiss();
-                                        if (leaveResponse.getSuccess().equalsIgnoreCase("True")) {
-                                            txtDate.setText("DD/MM/YYYY");
-                                            txtendDate.setText("DD/MM/YYYY");
-                                            edtPurpose.setText("");
-                                            edtDescription.setText("");
-                                            Utility.ping(mContext, leaveResponse.getFinalArray().get(0).getMessage());
-                                            fragment = new ShowLeaveFragment();
-                                            fragmentManager = getFragmentManager();
-                                            fragmentManager.beginTransaction()
-                                                    .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                                                    .replace(R.id.frame_container, fragment).commit();
-                                        } else {
-                                            txtDate.setText("DD/MM/YYYY");
-                                            txtendDate.setText("DD/MM/YYYY");
-                                            edtPurpose.setText("");
-                                            edtDescription.setText("");
-                                            Utility.ping(mContext, leaveResponse.getFinalArray().get(0).getMessage());
-                                            progressDialog.dismiss();
+                                        if (leaveResponse != null) {
+                                            if (leaveResponse.getSuccess().equalsIgnoreCase("True")) {
+                                                txtDate.setText("DD/MM/YYYY");
+                                                txtendDate.setText("DD/MM/YYYY");
+                                                edtPurpose.setText("");
+                                                edtDescription.setText("");
+                                                Utility.ping(mContext, leaveResponse.getFinalArray().get(0).getMessage());
+                                                fragment = new ShowLeaveFragment();
+                                                fragmentManager = getFragmentManager();
+                                                fragmentManager.beginTransaction()
+                                                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                                        .replace(R.id.frame_container, fragment).commit();
+                                            } else {
+                                                txtDate.setText("DD/MM/YYYY");
+                                                txtendDate.setText("DD/MM/YYYY");
+                                                edtPurpose.setText("");
+                                                edtDescription.setText("");
+                                                Utility.ping(mContext, leaveResponse.getFinalArray().get(0).getMessage());
+                                                progressDialog.dismiss();
 
+                                            }
+                                        } else {
+                                            Intent serverintent = new Intent(mContext, Server_Error.class);
+                                            startActivity(serverintent);
                                         }
                                     }
                                 });

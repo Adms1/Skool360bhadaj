@@ -59,6 +59,7 @@ public class ResultModel {
         private String TestMark;
         private String MarkGained;
         private String Percentage;
+        private String Date;
 
         public Data() {
         }
@@ -93,6 +94,14 @@ public class ResultModel {
 
         public void setPercentage(String percentage) {
             Percentage = percentage;
+        }
+
+        public String getDate() {
+            return Date;
+        }
+
+        public void setDate(String date) {
+            Date = date;
         }
     }
 }

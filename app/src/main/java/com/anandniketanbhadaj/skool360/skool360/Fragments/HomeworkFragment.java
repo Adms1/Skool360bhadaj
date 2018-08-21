@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterHomework;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudHomeworkAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
@@ -220,6 +222,7 @@ public class HomeworkFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
+                                if (homeWorkModels!=null){
                                 if (homeWorkModels.size() > 0) {
                                     txtNoRecordsHomework.setVisibility(View.GONE);
                                     lvExpHomework.setVisibility(View.VISIBLE);
@@ -233,6 +236,10 @@ public class HomeworkFragment extends Fragment {
                                     progressDialog.dismiss();
                                     txtNoRecordsHomework.setVisibility(View.VISIBLE);
                                     lvExpHomework.setVisibility(View.GONE);
+                                }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });

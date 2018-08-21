@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.HomeImageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ImageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.AddDeviceDetailAsyncTask;
@@ -111,27 +112,10 @@ public class HomeFragment extends Fragment {
         mContext = getActivity().getApplicationContext();
         initViews();
         setListners();
-        if (Utility.isNetworkConnected(mContext)) {
-            if (Utility.isAppIsInBackground(mContext)) {
-
-            } else {
-                if (!AppConfiguration.UserImage.equalsIgnoreCase("")) {
-                    imageLoader.displayImage(AppConfiguration.UserImage, profile_image);
-                    student_name_txt.setText(AppConfiguration.UserName);
-                    student_classname_txt.setText(AppConfiguration.UserGrade);
-                    admission_txt.setText(AppConfiguration.UserGrNo);
-                    attendance_txt.setText(AppConfiguration.UserAttendance);
-                    teacher_name1_txt.setText(AppConfiguration.UserTeacherName);
-                    vehicle_picktime_txt.setText(AppConfiguration.UserPickTime);
-                    vehicle_droptime_txt.setText(AppConfiguration.UserDropTime);
-                } else {
-                    //imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
-                    getVersionUpdateInfo();
-                }
-
-            }
+        if (Utility.getPref(mContext, "Loginwithother").equalsIgnoreCase("True")) {
+            getUserProfile();
         } else {
-            Utility.ping(mContext, "Network not available");
+            getVersionUpdateInfo();
         }
         return rootView;
     }
@@ -403,41 +387,50 @@ public class HomeFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            student_name_txt.setText("Bhadresh Jadav");
-                            student_name_txt.setText(studDetailList.get(0).getStudentName());
-                            vehicle_picktime_txt.setText("Pick Up : " + studDetailList.get(0).getTransport_PicupTime());
-                            vehicle_droptime_txt.setText("Drop Off : " + studDetailList.get(0).getTransport_DropTime());
-                            student_classname_txt.setText("Grade : " + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass());
-                            teacher_name1_txt.setText(studDetailList.get(0).getTeacherName());
-//                            teacher_name1_txt.setText("Sourabh Pachouri");
-                            imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
-                            // Utility.setPref(mContext, "image", studDetailList.get(0).getStudentImage());
-                            admission_txt.setText("GRNo :" + " " + studDetailList.get(0).getGRNO());
-                            if (studDetailList.get(0).getTodayAttendance().equalsIgnoreCase("")) {
-                                attendance_txt.setText("Attendance :" + " " + "N/A Today");
-                            } else {
-                                attendance_txt.setText("Attendance :" + " " + studDetailList.get(0).getTodayAttendance());
-                            }
-                            if (Utility.getPref(mContext, "RegisterStatus").equalsIgnoreCase("false")) {
-                                changePasswordDialog();
-                            } else {
-                                getRegistrationID();
-                                if (Utility.getPref(mContext, "LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())) {
-                                    // Date matches. User has already Launched the app once today. So do nothing.
-                                } else {
-                                    RatingDialog();
-                                    Utility.setPref(mContext, "LAST_LAUNCH_DATE", Utility.getTodaysDate());
-                                }
-                            }
+                            if (studDetailList != null) {
 
-                            AppConfiguration.UserImage = studDetailList.get(0).getStudentImage();
-                            AppConfiguration.UserName = studDetailList.get(0).getStudentName();
-                            AppConfiguration.UserGrade = "Grade : " + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass();
-                            AppConfiguration.UserGrNo = "GRNo :" + " " + studDetailList.get(0).getGRNO();
-                            AppConfiguration.UserTeacherName = studDetailList.get(0).getTeacherName();
-                            AppConfiguration.UserDropTime = "Drop Off : " + studDetailList.get(0).getTransport_DropTime();
-                            AppConfiguration.UserPickTime = "Pick Up : " + studDetailList.get(0).getTransport_PicupTime();
-                            AppConfiguration.UserAttendance = attendance_txt.getText().toString();
+                                if (studDetailList.size() > 0) {
+//                            student_name_txt.setText("Bhadresh Jadav");
+                                    student_name_txt.setText(studDetailList.get(0).getStudentName());
+                                    vehicle_picktime_txt.setText("Pick Up : " + studDetailList.get(0).getTransport_PicupTime());
+                                    vehicle_droptime_txt.setText("Drop Off : " + studDetailList.get(0).getTransport_DropTime());
+                                    student_classname_txt.setText("Grade : " + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass());
+                                    teacher_name1_txt.setText(studDetailList.get(0).getTeacherName());
+//                            teacher_name1_txt.setText("Sourabh Pachouri");
+                                    imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
+                                    // Utility.setPref(mContext, "image", studDetailList.get(0).getStudentImage());
+                                    admission_txt.setText("GRNo :" + " " + studDetailList.get(0).getGRNO());
+                                    if (studDetailList.get(0).getTodayAttendance().equalsIgnoreCase("")) {
+                                        attendance_txt.setText("Attendance :" + " " + "N/A Today");
+                                    } else {
+                                        attendance_txt.setText("Attendance :" + " " + studDetailList.get(0).getTodayAttendance());
+                                    }
+                                    if (!Utility.getPref(mContext, "Loginwithother").equalsIgnoreCase("True")) {
+                                        if (Utility.getPref(mContext, "RegisterStatus").equalsIgnoreCase("false")) {
+                                            changePasswordDialog();
+                                        } else {
+                                            getRegistrationID();
+                                            if (Utility.getPref(mContext, "LAST_LAUNCH_DATE").equalsIgnoreCase(Utility.getTodaysDate())) {
+                                                // Date matches. User has already Launched the app once today. So do nothing.
+                                            } else {
+                                                RatingDialog();
+                                                Utility.setPref(mContext, "LAST_LAUNCH_DATE", Utility.getTodaysDate());
+                                            }
+                                        }
+                                    }
+                                    AppConfiguration.UserImage = studDetailList.get(0).getStudentImage();
+                                    AppConfiguration.UserName = studDetailList.get(0).getStudentName();
+                                    AppConfiguration.UserGrade = "Grade : " + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass();
+                                    AppConfiguration.UserGrNo = "GRNo :" + " " + studDetailList.get(0).getGRNO();
+                                    AppConfiguration.UserTeacherName = studDetailList.get(0).getTeacherName();
+                                    AppConfiguration.UserDropTime = "Drop Off : " + studDetailList.get(0).getTransport_DropTime();
+                                    AppConfiguration.UserPickTime = "Pick Up : " + studDetailList.get(0).getTransport_PicupTime();
+                                    AppConfiguration.UserAttendance = attendance_txt.getText().toString();
+                                }
+                            } else {
+                                Intent serverintent = new Intent(mContext, Server_Error.class);
+                                startActivity(serverintent);
+                            }
                         }
                     });
                 } catch (Exception e) {
@@ -458,6 +451,7 @@ public class HomeFragment extends Fragment {
 //                        params.put("UserID", Utility.getPref(mContext, "studid"));
 //                        params.put("VersionID", String.valueOf(versionCode));//String.valueOf(versionCode)
 //                        params.put("UserType", "Student");
+                        //=========new ========
                         params.put("VersionID", String.valueOf(versionCode));//String.valueOf(versionCode)
                         params.put("DeviceType", "Android");
                         deviceVersionAsyncTask = new DeviceVersionAsyncTask(params);
@@ -465,36 +459,60 @@ public class HomeFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (deviceVersionModel.getSuccess().equalsIgnoreCase("True")) {
-                                    isVersionCodeUpdated = true;
-                                    Log.d("hellotrue", "" + isVersionCodeUpdated);
-                                    // getRegistrationID();
-                                    getUserProfile();
-                                } else {
-                                    isVersionCodeUpdated = false;
-                                    Log.d("hellofalse", "" + isVersionCodeUpdated);
-                                    new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.AppTheme))
-                                            .setCancelable(false)
-                                            .setTitle("Skool360 Bhadaj Update")
-                                            .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
-                                            .setMessage("Please update to a new version of the app.")
-                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.anandniketanbhadaj.skool360"));//"market://details?id=com.anandniketanbhadaj.skool360"));
-                                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    mContext.startActivity(i);
-                                                }
-                                            })
-                                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    // do nothing
-                                                    Utility.pong(mContext, "You wont be able to use other funcationality without updating to a newer version");
-                                                    getActivity().finish();
-                                                }
-                                            })
-                                            .setIcon(R.drawable.ic_launcher)
-                                            .show();
+                                if (deviceVersionModel!=null) {
+                                    if (deviceVersionModel.getSuccess().equalsIgnoreCase("True")) {
+                                        isVersionCodeUpdated = true;
+                                        Log.d("hellotrue", "" + isVersionCodeUpdated);
+                                        // getRegistrationID();
+                                        if (Utility.isAppIsInBackground(mContext)) {
 
+                                        } else {
+                                            if (!AppConfiguration.UserImage.equalsIgnoreCase("")) {
+                                                imageLoader.displayImage(AppConfiguration.UserImage, profile_image);
+                                                student_name_txt.setText(AppConfiguration.UserName);
+                                                student_classname_txt.setText(AppConfiguration.UserGrade);
+                                                admission_txt.setText(AppConfiguration.UserGrNo);
+                                                attendance_txt.setText(AppConfiguration.UserAttendance);
+                                                teacher_name1_txt.setText(AppConfiguration.UserTeacherName);
+                                                vehicle_picktime_txt.setText(AppConfiguration.UserPickTime);
+                                                vehicle_droptime_txt.setText(AppConfiguration.UserDropTime);
+                                            } else {
+                                                //imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
+//                                            getVersionUpdateInfo();
+                                                getUserProfile();
+                                            }
+
+                                        }
+//                                    getUserProfile();
+                                    } else {
+                                        isVersionCodeUpdated = false;
+                                        Log.d("hellofalse", "" + isVersionCodeUpdated);
+                                        new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                                                .setCancelable(false)
+                                                .setTitle("Skool360 Bhadaj Update")
+                                                .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                                                .setMessage("Please update to a new version of the app.")
+                                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.anandniketanbhadaj.skool360"));//"market://details?id=com.anandniketanbhadaj.skool360"));
+                                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        mContext.startActivity(i);
+                                                    }
+                                                })
+                                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        // do nothing
+                                                        Utility.pong(mContext, "You wont be able to use other funcationality without updating to a newer version");
+                                                        getActivity().finish();
+                                                    }
+                                                })
+                                                .setIcon(R.drawable.ic_launcher)
+                                                .show();
+
+                                    }
+                                }else{
+                                   Intent serverintent=new Intent(mContext, Server_Error.class);
+                                   startActivity(serverintent);
                                 }
                             }
                         });
@@ -505,6 +523,7 @@ public class HomeFragment extends Fragment {
             }).start();
         } else {
             Utility.ping(mContext, "Network not available");
+
         }
     }
 

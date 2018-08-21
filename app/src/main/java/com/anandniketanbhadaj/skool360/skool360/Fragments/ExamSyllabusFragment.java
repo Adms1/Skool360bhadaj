@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterUnitTest;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTestDetailAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.Data;
@@ -48,6 +50,7 @@ public class ExamSyllabusFragment extends Fragment {
     HashMap<String, ArrayList<UnitTestModel>> listtestname;
     ExamModel responseExam;
     String spinnerSelectedValue, value;
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnBackUnitTest;
     private TextView txtNoRecordsUnitTest;
@@ -56,7 +59,7 @@ public class ExamSyllabusFragment extends Fragment {
     private ProgressDialog progressDialog = null;
     private GetTestDetailAsyncTask getTestDetailAsyncTask = null;
     private int lastExpandedPosition = -1;
-LinearLayout linearBack;
+
     public ExamSyllabusFragment() {
     }
 
@@ -76,7 +79,7 @@ LinearLayout linearBack;
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
         btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         lvExpUnitTest = (ExpandableListView) rootView.findViewById(R.id.lvExpUnitTest);
         exam_spinner = (Spinner) rootView.findViewById(R.id.exam_spinner);
         getUnitTestData();
@@ -165,19 +168,24 @@ LinearLayout linearBack;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(responseExam.getSuccess().equalsIgnoreCase("True")) {
-                                    if (responseExam.getFinalArray().size() > 0) {
-                                        txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                        progressDialog.dismiss();
-                                        fillspinner();
+                                if (responseExam != null) {
+                                    if (responseExam.getSuccess().equalsIgnoreCase("True")) {
+                                        if (responseExam.getFinalArray().size() > 0) {
+                                            txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                            progressDialog.dismiss();
+                                            fillspinner();
+                                        } else {
+                                            progressDialog.dismiss();
+                                            txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                        }
                                     } else {
                                         progressDialog.dismiss();
                                         txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                        exam_spinner.setVisibility(View.GONE);
                                     }
-                                }else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
-                                    exam_spinner.setVisibility(View.GONE);
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -230,8 +238,8 @@ LinearLayout linearBack;
         row.clear();
         row.addAll(hs);
         Log.d("marks", "" + row);
-        Collections.sort(row);
-        System.out.println("Sorted ArrayList in Java - Ascending order : " + row);
+//        Collections.sort(row);
+//        System.out.println("Sorted ArrayList in Java - Ascending order : " + row);
 
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");
@@ -240,7 +248,7 @@ LinearLayout linearBack;
             // Get private mPopup member variable and try cast to ListPopupWindow
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(exam_spinner);
 
-            popupWindow.setHeight(row.size() > 5 ? 500 : row.size() * 70);
+            popupWindow.setHeight(row.size() > 5 ? 500 : row.size() * 100);
         } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }

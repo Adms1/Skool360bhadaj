@@ -45,7 +45,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_1sdp"
-                android:layout_weight="2.3"
+                android:layout_weight="2.6"
                 android:gravity="left"
                 android:paddingBottom="@dimen/_5sdp"
                 android:paddingTop="@dimen/_5sdp"
@@ -63,7 +63,7 @@
                 android:padding="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:paddingTop="@dimen/_5sdp"
-                android:text="hiiii"
+                android:text="Pending"
                 android:textSize="@dimen/_11sdp" />
         </LinearLayout>
         <!--<LinearLayout-->

@@ -31,6 +31,8 @@ public class ParseJSON {
         try {
             JSONObject reader = new JSONObject(responseString);
             String data_load_basket = reader.getString("Success");
+            result.put("Success",reader.getString("Success"));
+            result.put("Status",reader.getString("Status"));
             if (data_load_basket.toString().equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
 
@@ -228,6 +230,7 @@ public class ParseJSON {
                         data.setTestMark(jsonChildNode1.getString("TestMark"));
                         data.setMarkGained(jsonChildNode1.getString("MarkGained"));
                         data.setPercentage(jsonChildNode1.getString("Percentage"));
+                        data.setDate(jsonChildNode1.getString("Date"));
                         dataArrayList.add(data);
                     }
                     resultModel.setDataArrayList(dataArrayList);
@@ -412,6 +415,7 @@ public class ParseJSON {
                 attendanceModel.setTotalAbsent(reader.getString("TotalAbsent"));
                 attendanceModel.setTotalPresent(reader.getString("TotalPresent"));
                 attendanceModel.setHolidayCount(reader.getString("HolidayCount"));
+                attendanceModel.setTotalHolidayCount(reader.getString("TotalHolidayCount"));
 
                 AttendanceModel.HolidayAtt holidayatt = null;
                 ArrayList<AttendanceModel.HolidayAtt> holidayatts = new ArrayList<>();

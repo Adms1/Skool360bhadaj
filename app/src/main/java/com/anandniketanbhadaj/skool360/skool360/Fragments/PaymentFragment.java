@@ -11,11 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -24,6 +27,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterPayment;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.PaymentListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesDetailsAsyncTask;
@@ -191,6 +195,7 @@ public class PaymentFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if (feesMainResponse!=null){
                                 if (feesMainResponse.getFinalArray().size() > 0) {
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
                                     progressDialog.dismiss();
@@ -199,6 +204,10 @@ public class PaymentFragment extends Fragment {
                                     progressDialog.dismiss();
                                     txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
 
+                                }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -215,6 +224,9 @@ public class PaymentFragment extends Fragment {
     public void setData() {
         termheader = new ArrayList<String>();
         listDataChild = new ArrayList<>();
+//        if (feesMainResponse.getTerm1Btn().equals(false) && feesMainResponse.getTerm2Btn().equals(false)) {
+//            tableRow13.setVisibility(View.GONE);
+//        }
         if (feesMainResponse.getTerm1Btn().equals(false)) {
             paynow_term1_txt.setVisibility(View.GONE);
         } else {
@@ -229,63 +241,6 @@ public class PaymentFragment extends Fragment {
 
 
         for (int i = 0; i < feesMainResponse.getFinalArray().size(); i++) {
-//            int count=feesMainResponse.getFinalArray().get(i);
-
-//            LinearLayout row1 = new LinearLayout(mContext);
-//            row1.setOrientation(LinearLayout.HORIZONTAL);
-//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//            params.bottomMargin = 1;
-//            params.topMargin = 1;
-//            params.rightMargin = 1;
-//            params.leftMargin = 1;
-//            row1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-//            TextView a = new TextView(mContext);
-//            TextView b = new TextView(mContext);
-//            TextView c = new TextView(mContext);
-//
-//            a.setLayoutParams(params);
-//            b.setLayoutParams(params);
-//            c.setLayoutParams(params);
-//
-//            a.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
-//            b.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-//            c.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-//
-//            a.setPadding(5, 0, 0, 0);
-//            b.setPadding(0, 0, 5, 0);
-//            c.setPadding(0, 0, 5, 0);
-//
-//            a.setWidth(90);
-//            b.setWidth(90);
-//            c.setWidth(90);
-//
-//            a.setHeight(100);
-//            b.setHeight(100);
-//            c.setHeight(100);
-//
-//            a.setTextSize(12f);
-//            b.setTextSize(12f);
-//            c.setTextSize(12f);
-//
-//            a.setBackgroundColor(getResources().getColor(R.color.white));
-//            b.setBackgroundColor(getResources().getColor(R.color.white));
-//            c.setBackgroundColor(getResources().getColor(R.color.white));
-//
-//            a.setTextColor(getResources().getColor(R.color.text_color));
-//            b.setTextColor(getResources().getColor(R.color.text_color));
-//            c.setTextColor(getResources().getColor(R.color.text_color));
-//
-////            a.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
-////            b.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
-////            c.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
-//
-//            a.setText("Megha Megha MEgha Megha Megha");//feesMainResponse.getFinalArray().get(i).getLedgerName()
-//            b.setText("₹" + " " + "500000");
-//            c.setText("₹" + " " + "500000");
-//
-//            row1.addView(a);
-//            row1.addView(b);
-//            row1.addView(c);
             LinearLayout childLayout = new LinearLayout(mContext);
             LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -293,20 +248,13 @@ public class PaymentFragment extends Fragment {
             //childLayout.setOrientation(LinearLayout.HORIZONTAL);
             childLayout.setLayoutParams(linearParams);
 
-            TextView mType = new TextView(mContext);
+            EditText mType = new EditText(mContext);
             TextView mValue = new TextView(mContext);
             TextView mValue1 = new TextView(mContext);
             linearParams.setMargins(2, 1, 0, 0);
             mValue.setLayoutParams(linearParams);
             linearParams.setMargins(2, 1, 0, 0);
             mValue1.setLayoutParams(linearParams);
-
-//            mType.setLayoutParams(new LinearLayout.LayoutParams(273,
-//                    100 ));
-//            mValue.setLayoutParams(new LinearLayout.LayoutParams(300,
-//                    100 ));
-//            mValue1.setLayoutParams(new LinearLayout.LayoutParams(300,
-//                    100 ));
 
             mType.setPadding(5, 0, 0, 0);
             mValue.setPadding(0, 0, 5, 0);
@@ -319,6 +267,15 @@ public class PaymentFragment extends Fragment {
             mType.setHeight(80);
             mValue.setHeight(80);
             mValue1.setHeight(80);
+
+            mType.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+            mType.setSingleLine(false);
+
+            mValue.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+            mValue.setSingleLine(false);
+
+            mValue1.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+            mValue1.setSingleLine(false);
 
 
             mType.setBackgroundColor(getResources().getColor(R.color.white));
@@ -337,9 +294,19 @@ public class PaymentFragment extends Fragment {
             mValue1.setPadding(0, 3, 5, 3);
             mValue1.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 
-            mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
-            mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
-            mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
+            if (feesMainResponse.getFinalArray().get(i).getLedgerName().length() > 16 && feesMainResponse.getFinalArray().get(i).getLedgerName().length() < 28) {
+                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
+                mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt()) + "\n"));
+                mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt()) + "\n"));
+            } else if (feesMainResponse.getFinalArray().get(i).getLedgerName().length() > 28) {
+                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
+                mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt()) + "\n" + "\n"));
+                mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt()) + "\n" + "\n"));
+            } else {
+                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
+                mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
+                mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
+            }
 
 
             childLayout.addView(mType);
@@ -367,6 +334,7 @@ public class PaymentFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if (paymentdetailsModel!=null){
                                 if (paymentdetailsModel.size() > 0) {
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
                                     payment_history.setVisibility(View.VISIBLE);
@@ -399,6 +367,10 @@ public class PaymentFragment extends Fragment {
                                     payment_history.setVisibility(View.GONE);
                                     lv_header.setVisibility(View.GONE);
                                     payment_report_list.setVisibility(View.GONE);
+                                }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });

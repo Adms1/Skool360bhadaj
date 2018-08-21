@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.ChangePasswordAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetUserProfileAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
@@ -38,6 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Harsh on 04-Aug-16.
  */
 public class ProfileFragment extends Fragment {
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnPersonalDetail, btnEducationalDetail, btnEditProfile, btnUpdate, btnBackProfile;
     private TextView txtName, txtDOB, txtAge, txtGender, txtBloodGroup, txtBirthPlace, txtFatherName, txtFatherPhNo, txtFatherEmail,
@@ -54,7 +57,6 @@ public class ProfileFragment extends Fragment {
     private ArrayList<StudProfileModel> studDetailList = new ArrayList<>();
     private ProgressDialog progressDialog = null;
     private ImageLoader imageLoader;
-    LinearLayout linearBack;
 
     public ProfileFragment() {
     }
@@ -76,7 +78,7 @@ public class ProfileFragment extends Fragment {
         studName = (TextView) rootView.findViewById(R.id.studName);
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         btnBackProfile = (Button) rootView.findViewById(R.id.btnBackProfile);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         btnPersonalDetail = (Button) rootView.findViewById(R.id.btnPersonalDetail);
         btnPersonalDetail.setBackgroundColor(getResources().getColor(R.color.profile_lite));
         btnEducationalDetail = (Button) rootView.findViewById(R.id.btnEducationalDetail);
@@ -239,7 +241,7 @@ public class ProfileFragment extends Fragment {
                     if (edtPassword.getVisibility() == View.VISIBLE) {
                         if (!edtPassword.getText().toString().equalsIgnoreCase("")) {
                             if (!edtPassword.getText().toString().equalsIgnoreCase(studDetailList.get(0).getPassword())) {
-                                if (edtPassword.getText().toString().length()>=4 && edtPassword.getText().toString().length()<=12) {
+                                if (edtPassword.getText().toString().length() >= 4 && edtPassword.getText().toString().length() <= 12) {
                                     progressDialog = new ProgressDialog(mContext);
                                     progressDialog.setCancelable(false);
                                     progressDialog.setMessage("Please wait...");
@@ -260,13 +262,18 @@ public class ProfileFragment extends Fragment {
                                                     @Override
                                                     public void run() {
                                                         progressDialog.dismiss();
-                                                        if (result == true) {
-                                                            Utility.pong(mContext, "Password Updated Successfully");
-                                                            if (!Utility.getPref(mContext, "pwd").equalsIgnoreCase("")) {
-                                                                Utility.setPref(mContext, "pwd", edtPassword.getText().toString());
-                                                                getUserProfile();
-                                                                txtEdit.performClick();
+                                                        if (result != null) {
+                                                            if (result == true) {
+                                                                Utility.pong(mContext, "Password Updated Successfully");
+                                                                if (!Utility.getPref(mContext, "pwd").equalsIgnoreCase("")) {
+                                                                    Utility.setPref(mContext, "pwd", edtPassword.getText().toString());
+                                                                    getUserProfile();
+                                                                    txtEdit.performClick();
+                                                                }
                                                             }
+                                                        } else {
+                                                            Intent serverintent = new Intent(mContext, Server_Error.class);
+                                                            startActivity(serverintent);
                                                         }
                                                     }
                                                 });
@@ -276,7 +283,7 @@ public class ProfileFragment extends Fragment {
                                             }
                                         }
                                     }).start();
-                                }else{
+                                } else {
                                     Utility.pong(mContext, "Password must be 4-12 Characters.");
                                 }
                             } else {
@@ -312,37 +319,41 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                studName.setText(studDetailList.get(0).getStudentName());
-                                imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
-                                txtName.setText(studDetailList.get(0).getStudentName());
-                                txtDOB.setText(studDetailList.get(0).getStudentDOB());
-                                txtAge.setText(studDetailList.get(0).getStudentAge());
-                                txtGender.setText(studDetailList.get(0).getStudentGender());
-                                txtBloodGroup.setText(studDetailList.get(0).getBloodGroup());
-                                txtBirthPlace.setText(studDetailList.get(0).getBirthPlace());
-                                txtFatherName.setText(studDetailList.get(0).getFatherName());
-                                txtFatherPhNo.setText(studDetailList.get(0).getFatherPhone());
-                                txtFatherEmail.setText(studDetailList.get(0).getFatherEmail());
-                                txtMotherName.setText(studDetailList.get(0).getMotherName());
-                                txtMotherPhNo.setText(studDetailList.get(0).getMotherMobile());
-                                txtMotherEmail.setText(studDetailList.get(0).getMotherEmail());
-                                txtsmsno.setText(studDetailList.get(0).getSMSNumber());
-                                txtAddress.setText(studDetailList.get(0).getAddress());
-                                txtCity.setText(studDetailList.get(0).getCity());
-                                txtTransKMs.setText(studDetailList.get(0).getTransport_KM());
-                                txtTrasPickTime.setText(studDetailList.get(0).getTransport_PicupTime());
-                                txtTrasDropTime.setText(studDetailList.get(0).getTransport_DropTime());
-                                txtTrasBusNo.setText(studDetailList.get(0).getBusNo());
-                                txtTrasRouteNo.setText(studDetailList.get(0).getRouteName());
-                                txtTrasPickPoint.setText(studDetailList.get(0).getPickupPointName());
-                                txtTrasDropPoint.setText(studDetailList.get(0).getDropPointName());
-                                txtGRNO.setText(studDetailList.get(0).getGRNO());
-                                txtStandard.setText(studDetailList.get(0).getStandard());
-                                txtClass.setText(studDetailList.get(0).getStudClass());
-                                txtUserName.setText(studDetailList.get(0).getUserName());
-                                txtPassword.setText(studDetailList.get(0).getPassword());
-                                edtPassword.setText(studDetailList.get(0).getPassword());
-
+                                if (studDetailList != null) {
+                                    studName.setText(studDetailList.get(0).getStudentName());
+                                    imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
+                                    txtName.setText(studDetailList.get(0).getStudentName());
+                                    txtDOB.setText(studDetailList.get(0).getStudentDOB());
+                                    txtAge.setText(studDetailList.get(0).getStudentAge());
+                                    txtGender.setText(studDetailList.get(0).getStudentGender());
+                                    txtBloodGroup.setText(studDetailList.get(0).getBloodGroup());
+                                    txtBirthPlace.setText(studDetailList.get(0).getBirthPlace());
+                                    txtFatherName.setText(studDetailList.get(0).getFatherName());
+                                    txtFatherPhNo.setText(studDetailList.get(0).getFatherPhone());
+                                    txtFatherEmail.setText(studDetailList.get(0).getFatherEmail());
+                                    txtMotherName.setText(studDetailList.get(0).getMotherName());
+                                    txtMotherPhNo.setText(studDetailList.get(0).getMotherMobile());
+                                    txtMotherEmail.setText(studDetailList.get(0).getMotherEmail());
+                                    txtsmsno.setText(studDetailList.get(0).getSMSNumber());
+                                    txtAddress.setText(studDetailList.get(0).getAddress());
+                                    txtCity.setText(studDetailList.get(0).getCity());
+                                    txtTransKMs.setText(studDetailList.get(0).getTransport_KM());
+                                    txtTrasPickTime.setText(studDetailList.get(0).getTransport_PicupTime());
+                                    txtTrasDropTime.setText(studDetailList.get(0).getTransport_DropTime());
+                                    txtTrasBusNo.setText(studDetailList.get(0).getBusNo());
+                                    txtTrasRouteNo.setText(studDetailList.get(0).getRouteName());
+                                    txtTrasPickPoint.setText(studDetailList.get(0).getPickupPointName());
+                                    txtTrasDropPoint.setText(studDetailList.get(0).getDropPointName());
+                                    txtGRNO.setText(studDetailList.get(0).getGRNO());
+                                    txtStandard.setText(studDetailList.get(0).getStandard());
+                                    txtClass.setText(studDetailList.get(0).getStudClass());
+                                    txtUserName.setText(studDetailList.get(0).getUserName());
+                                    txtPassword.setText(studDetailList.get(0).getPassword());
+                                    edtPassword.setText(studDetailList.get(0).getPassword());
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
+                                }
                             }
                         });
                     } catch (Exception e) {

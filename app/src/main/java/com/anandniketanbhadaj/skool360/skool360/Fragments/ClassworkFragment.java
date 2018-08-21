@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudClassworkAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
@@ -40,24 +42,25 @@ import java.util.List;
  * Created by Harsh on 04-Aug-16.
  */
 public class ClassworkFragment extends Fragment {
-    private View rootView;
-    private Button btnMenu, btnFilterClasswork, btnBackClasswork;
     private static TextView fromDate, toDate;
-    private TextView txtNoRecordsClasswork;
     private static String dateFinal;
-    private Context mContext;
-    private GetStudClassworkAsyncTask getStudClassworkAsyncTask = null;
-    private ProgressDialog progressDialog = null;
-    private ArrayList<ClassWorkModel> classWorkModels = new ArrayList<>();
     private static boolean isFromDate = false;
-    private int lastExpandedPosition = -1;
-    String putData,formatedate;
+    String putData, formatedate;
     String[] spiltdata;
     ExpandableListAdapter listAdapter;
     ExpandableListView lvExpClassWork;
     List<String> listDataHeader;
     HashMap<String, ArrayList<ClassWorkModel.ClassWorkData>> listDataChild;
-LinearLayout linearBack;
+    LinearLayout linearBack;
+    private View rootView;
+    private Button btnMenu, btnFilterClasswork, btnBackClasswork;
+    private TextView txtNoRecordsClasswork;
+    private Context mContext;
+    private GetStudClassworkAsyncTask getStudClassworkAsyncTask = null;
+    private ProgressDialog progressDialog = null;
+    private ArrayList<ClassWorkModel> classWorkModels = new ArrayList<>();
+    private int lastExpandedPosition = -1;
+
     public ClassworkFragment() {
     }
 
@@ -78,11 +81,10 @@ LinearLayout linearBack;
         fromDate = (TextView) rootView.findViewById(R.id.fromDate);
         toDate = (TextView) rootView.findViewById(R.id.toDate);
         btnFilterClasswork = (Button) rootView.findViewById(R.id.btnFilterClasswork);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         txtNoRecordsClasswork = (TextView) rootView.findViewById(R.id.txtNoRecordsClasswork);
         btnBackClasswork = (Button) rootView.findViewById(R.id.btnBackClasswork);
         lvExpClassWork = (ExpandableListView) rootView.findViewById(R.id.lvExpClassWork);
-
 
 
         if (!getArguments().getString("message").equalsIgnoreCase("test")) {
@@ -100,7 +102,7 @@ LinearLayout linearBack;
                 e.printStackTrace();
             }
             formatedate = output.format(d);
-            Log.d("date",formatedate);
+            Log.d("date", formatedate);
         } else {
             putData = getArguments().getString("message");
             fromDate.setText(Utility.getTodaysDate());
@@ -138,17 +140,17 @@ LinearLayout linearBack;
         btnFilterClasswork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!fromDate.getText().toString().equalsIgnoreCase("")) {
-                    if(!toDate.getText().toString().equalsIgnoreCase("")) {
+                if (!fromDate.getText().toString().equalsIgnoreCase("")) {
+                    if (!toDate.getText().toString().equalsIgnoreCase("")) {
                         if (Utility.CheckDates(fromDate.getText().toString(), toDate.getText().toString()) == true) {
                             getClassworkData(fromDate.getText().toString(), toDate.getText().toString());
-                        }else{
+                        } else {
                             Utility.pong(mContext, "Please select proper date.");
                         }
-                    }else {
+                    } else {
                         Utility.pong(mContext, "You need to select a to date");
                     }
-                }else {
+                } else {
                     Utility.pong(mContext, "You need to select a from date");
                 }
             }
@@ -194,7 +196,7 @@ LinearLayout linearBack;
         });
     }
 
-    public void getClassworkData(final String fromDate, final String toDate){
+    public void getClassworkData(final String fromDate, final String toDate) {
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
@@ -216,13 +218,14 @@ LinearLayout linearBack;
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (classWorkModels.size() > 0) {
-                                    txtNoRecordsClasswork.setVisibility(View.GONE);
-                                    prepaareList();
-                                    lvExpClassWork.setVisibility(View.VISIBLE);
-                                    listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild, true);
-                                    lvExpClassWork.setAdapter(listAdapter);
-                                    if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
+                                if (classWorkModels != null) {
+                                    if (classWorkModels.size() > 0) {
+                                        txtNoRecordsClasswork.setVisibility(View.GONE);
+                                        prepaareList();
+                                        lvExpClassWork.setVisibility(View.VISIBLE);
+                                        listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild, true);
+                                        lvExpClassWork.setAdapter(listAdapter);
+                                        if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
 //                                        String[] strsplit = AppConfiguration.messageNotification.split("\\-");
 //                                        strsplit[2]=strsplit[2].substring(0, strsplit[2].length() - 1);
 //                                        for (int i = 0; i < announcmentmodelReponse.getFinalArray().size(); i++) {
@@ -230,12 +233,16 @@ LinearLayout linearBack;
 //                                                listannouncment.expandGroup(i);
 //                                            }
 //                                        }
-                                        lvExpClassWork.expandGroup(0);
+                                            lvExpClassWork.expandGroup(0);
+                                        }
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecordsClasswork.setVisibility(View.VISIBLE);
+                                        lvExpClassWork.setVisibility(View.GONE);
                                     }
                                 } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsClasswork.setVisibility(View.VISIBLE);
-                                    lvExpClassWork.setVisibility(View.GONE);
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -244,15 +251,14 @@ LinearLayout linearBack;
                     }
                 }
             }).start();
-        }else
-        {
-            Utility.ping(mContext,"Network not available");
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
 
-    public void prepaareList(){
+    public void prepaareList() {
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String,ArrayList<ClassWorkModel.ClassWorkData>>();
+        listDataChild = new HashMap<String, ArrayList<ClassWorkModel.ClassWorkData>>();
         if (!getArguments().getString("message").equalsIgnoreCase("test")) {
             //spiltdata = putData.split("\\-");
             for (int i = 0; i < classWorkModels.size(); i++) {
@@ -261,19 +267,19 @@ LinearLayout linearBack;
 
                     ArrayList<ClassWorkModel.ClassWorkData> rows = new ArrayList<ClassWorkModel.ClassWorkData>();
                     for (int j = 0; j < classWorkModels.get(i).getClassWorkDatas().size(); j++) {
-                       // if (classWorkModels.get(i).getClassWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
-                            rows.add(classWorkModels.get(i).getClassWorkDatas().get(j));
-                       // }
+                        // if (classWorkModels.get(i).getClassWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
+                        rows.add(classWorkModels.get(i).getClassWorkDatas().get(j));
+                        // }
                     }
 
                     listDataChild.put(listDataHeader.get(i), rows);
                 }
             }
         } else {
-            for(int i = 0;i < classWorkModels.size();i++){
+            for (int i = 0; i < classWorkModels.size(); i++) {
                 listDataHeader.add(classWorkModels.get(i).getClassWorkDate());
                 ArrayList<ClassWorkModel.ClassWorkData> rows = new ArrayList<ClassWorkModel.ClassWorkData>();
-                for(int j = 0;j < classWorkModels.get(i).getClassWorkDatas().size();j++){
+                for (int j = 0; j < classWorkModels.get(i).getClassWorkDatas().size(); j++) {
                     rows.add(classWorkModels.get(i).getClassWorkDatas().get(j));
                     listDataChild.put(listDataHeader.get(i), rows);
                 }
@@ -296,8 +302,9 @@ LinearLayout linearBack;
         }
 
         public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-            populateSetDate(yy, mm+1, dd);
+            populateSetDate(yy, mm + 1, dd);
         }
+
         public void populateSetDate(int year, int month, int day) {
             String d, m, y;
             d = Integer.toString(day);
@@ -312,9 +319,9 @@ LinearLayout linearBack;
             }
             dateFinal = d + "/" + m + "/" + y;
 
-            if(isFromDate){
+            if (isFromDate) {
                 fromDate.setText(dateFinal);
-            }else {
+            } else {
                 toDate.setText(dateFinal);
             }
         }

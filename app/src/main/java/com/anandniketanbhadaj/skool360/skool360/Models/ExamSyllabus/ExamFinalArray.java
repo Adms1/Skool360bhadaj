@@ -216,4 +216,130 @@ public class ExamFinalArray {
     }
 
     //===================================================
+
+    //==================StandardSection============
+    @SerializedName("Standard")
+    @Expose
+    private String standard;
+    @SerializedName("StandardID")
+    @Expose
+    private Integer standardID;
+    @SerializedName("SectionDetail")
+    @Expose
+    private List<SectionDetailModel> sectionDetail = null;
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
+    public Integer getStandardID() {
+        return standardID;
+    }
+
+    public void setStandardID(Integer standardID) {
+        this.standardID = standardID;
+    }
+
+    public List<SectionDetailModel> getSectionDetail() {
+        return sectionDetail;
+    }
+
+    public void setSectionDetail(List<SectionDetailModel> sectionDetail) {
+        this.sectionDetail = sectionDetail;
+    }
+//===================studentList================
+
+    @SerializedName("UserName")
+    @Expose
+    private String userName;
+    @SerializedName("Password")
+    @Expose
+    private String password;
+    @SerializedName("StudentID")
+    @Expose
+    private String studentID;
+    @SerializedName("FamilyID")
+    @Expose
+    private String familyID;
+
+    @SerializedName("ClassID")
+    @Expose
+    private String classID;
+    @SerializedName("Term")
+    @Expose
+    private String term;
+    @SerializedName("TermID")
+    @Expose
+    private Integer termID;
+    @SerializedName("RegisterStatus")
+    @Expose
+    private Boolean registerStatus;
+
+
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
+
+    public String getFamilyID() {
+        return familyID;
+    }
+
+    public void setFamilyID(String familyID) {
+        this.familyID = familyID;
+    }
+    public String getClassID() {
+        return classID;
+    }
+
+    public void setClassID(String classID) {
+        this.classID = classID;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public Integer getTermID() {
+        return termID;
+    }
+
+    public void setTermID(Integer termID) {
+        this.termID = termID;
+    }
+
+    public Boolean getRegisterStatus() {
+        return registerStatus;
+    }
+
+    public void setRegisterStatus(Boolean registerStatus) {
+        this.registerStatus = registerStatus;
+    }
+
 }

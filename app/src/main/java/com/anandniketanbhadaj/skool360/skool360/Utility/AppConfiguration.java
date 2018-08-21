@@ -8,18 +8,18 @@ public class AppConfiguration {
     //Local
     public static String DOMAIN_LOCAL = "";
 
-
-//    public static String DOMAIN_LIVE = "http://192.168.1.12:8086/MobileApp_Service.asmx/";//use for office only
+//
+     public static String DOMAIN_LIVE = "http://192.168.1.12:8086/MobileApp_Service.asmx/";//use for office only
 //   public static String DOMAIN_LIVE = "http://192.168.1.187:8089/MobileApp_Service.asmx/";//client for office only
-    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
+//    public static String DOMAIN_LIVE = "http://103.24.183.28:8085/MobileApp_Service.asmx/";//use for client
 
 //    public static String IMAGE_LIVE = "http://192.168.1.12:8086/SKOOL360-Category-Images-Android/Student/";
-//public static String IMAGE_LIVE="http://192.168.1.187:8089/SKOOL360-Category-Images-Android/Student/";
-    public static String IMAGE_LIVE = "http://103.24.183.28:8085/SKOOL360-Category-Images-Android/Student/";
+//  public static String IMAGE_LIVE="http://192.168.1.187:8089/SKOOL360-Category-Images-Android/Student/";
+  public static String IMAGE_LIVE = "http://103.24.183.28:8085/SKOOL360-Category-Images-Android/Student/";
 
 //    public static String GALLARY_LIVE = "http://192.168.1.12:8086/";
-//public static String GALLARY_LIVE="http://192.168.1.187:8089/";
-    public static String GALLARY_LIVE = "http://103.24.183.28:8085/";
+//  public static String GALLARY_LIVE="http://192.168.1.187:8089/";
+  public static String GALLARY_LIVE = "http://103.24.183.28:8085/";
 
 
     //Webservice name
@@ -49,7 +49,8 @@ public class AppConfiguration {
     public static String PTMTeacherStudentInsertDetail = "PTMTeacherStudentInsertDetail";
     public static String PTMDeleteMeeting = "PTMDeleteMeeting";
     public static String PTMStudentWiseTeacher = "PTMStudentWiseTeacher";
-    public static String GetCircularDetail = "GetCircularDetail";
+   // public static String GetCircularDetail = "GetCircularDetail"; Add Navin 14-08-2018
+   public static String GetCircularDetail = "GetCircularDetailStandard";
     public static String DeviceVersion = "GetLatestVersion";//DeviceVersion
     public static String GetGallery = "GetGallery";
     public static String InsertStudentLeaveRequest = "InsertStudentLeaveRequest";
@@ -59,6 +60,8 @@ public class AppConfiguration {
     public static String DeleteDeviceDetail = "DeleteDeviceDetail";
     public static String ForgetIDPassword = "ForgetIDPassword";
     public static String GetSuggestion = "GetSuggestion";
+    public static String GetStandardSection="GetStandardSection";
+    public static String StudentList="StudentList";
 
     public static String Notification;
     public static String UserImage = "";

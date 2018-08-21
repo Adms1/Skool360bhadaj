@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterResult;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudentResultAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ResultModel;
@@ -156,6 +158,7 @@ public class ResultFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if (resultModels!=null){
                                 if (resultModels.size() > 0) {
                                     txtNoRecordsUnitTest.setVisibility(View.GONE);
                                     lvExpResult.setVisibility(View.VISIBLE);
@@ -167,6 +170,10 @@ public class ResultFragment extends Fragment {
                                     progressDialog.dismiss();
                                     txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
                                     lvExpResult.setVisibility(View.GONE);
+                                }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });

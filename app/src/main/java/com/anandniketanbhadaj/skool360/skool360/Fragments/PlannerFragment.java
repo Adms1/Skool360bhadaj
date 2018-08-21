@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.HolidayEventListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetHolidayAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
@@ -146,11 +148,16 @@ public class PlannerFragment extends Fragment implements View.OnClickListener {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
+                                if (holidayDataResponse!=null){
                                 if (holidayDataResponse.getSuccess().equalsIgnoreCase("True")) {
                                     setLeaveDataList();
                                 } else {
                                     progressDialog.dismiss();
 
+                                }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });

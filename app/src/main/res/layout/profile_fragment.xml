@@ -82,7 +82,7 @@
                 android:layout_marginTop="@dimen/_7sdp"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="Siddharth Karnik"
+                android:text="Student Name"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_12sdp" />
 

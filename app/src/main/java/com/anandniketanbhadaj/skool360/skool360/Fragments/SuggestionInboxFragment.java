@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterInbox;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.SuggestionInboxAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Interfacess.onInboxRead;
@@ -110,6 +112,7 @@ public class SuggestionInboxFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
+                                if (response!=null){
                                 if (response.getFinalArray().size() > 0) {
                                     txtNoRecordsinbox.setVisibility(View.GONE);
                                     setExpandableListData();
@@ -121,6 +124,10 @@ public class SuggestionInboxFragment extends Fragment {
                                     progressDialog.dismiss();
                                     txtNoRecordsinbox.setVisibility(View.VISIBLE);
                                     inbox_header.setVisibility(View.GONE);
+                                }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -139,8 +146,8 @@ public class SuggestionInboxFragment extends Fragment {
         listDataChild = new HashMap<String, List<InboxFinalArray>>();
 
         for (int j = 0; j < response.getFinalArray().size(); j++) {
-            listDataHeader.add(response.getFinalArray().get(j).getDate() + "|" +
-                    response.getFinalArray().get(j).getSubject());
+            listDataHeader.add(response.getFinalArray().get(j).getReplyDate() + "|" +
+                    response.getFinalArray().get(j).getSubject()+"|"+response.getFinalArray().get(j).getDate());
 
 
             ArrayList<InboxFinalArray> rows = new ArrayList<InboxFinalArray>();

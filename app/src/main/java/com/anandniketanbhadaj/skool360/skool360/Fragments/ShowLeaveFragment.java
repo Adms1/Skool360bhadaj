@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.LeaveListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetLeaveDataAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
@@ -135,6 +137,7 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
+                                if (leaveDataResponse!=null){
                                 if (leaveDataResponse.getSuccess().equalsIgnoreCase("True")) {
                                     txtNoRecordsClasswork.setVisibility(View.GONE);
                                     header_linear.setVisibility(View.VISIBLE);
@@ -143,6 +146,10 @@ public class ShowLeaveFragment extends Fragment implements View.OnClickListener 
                                     progressDialog.dismiss();
                                     txtNoRecordsClasswork.setVisibility(View.VISIBLE);
                                     header_linear.setVisibility(View.GONE);
+                                }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });

@@ -78,7 +78,7 @@ public class DashBoardActivity extends FragmentActivity {
     static RelativeLayout leftRl;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     ImageView viewprofile_img;
-    Context mContext;
+    static Context mContext;
     ActionBarDrawerToggle mDrawerToggle;
     String MenuName[];
     String token;
@@ -93,15 +93,18 @@ public class DashBoardActivity extends FragmentActivity {
     private String putData = "0";
     private DeleteDeviceDetailAsyncTask deleteDeviceDetailAsyncTask = null;
     private ProgressDialog progressDialog = null;
-    private GetUserProfileAsyncTask getUserProfileAsyncTask = null;
-    private ArrayList<StudProfileModel> studDetailList = new ArrayList<>();
-    private ImageLoader imageLoader;
-    private CircleImageView profile_image;
-    private TextView studName, grade, grno;
+    private static GetUserProfileAsyncTask getUserProfileAsyncTask = null;
+    private static ArrayList<StudProfileModel> studDetailList = new ArrayList<>();
+    private static ImageLoader imageLoader;
+    private static CircleImageView profile_image;
+    private static TextView studName;
+    private static TextView grade;
+    private TextView grno;
 
 
     public static void onLeft() {
         // TODO Auto-generated method stub
+         new DashBoardActivity().getUserProfile();
         mDrawerList.setSelectionAfterHeaderView();
         mDrawerLayout.openDrawer(leftRl);
     }
@@ -592,30 +595,35 @@ public class DashBoardActivity extends FragmentActivity {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (logoutResponse.getSuccess().equalsIgnoreCase("True")) {
-                                    Utility.setPref(mContext, "unm", "");
-                                    Utility.setPref(mContext, "pwd", "");
-                                    Utility.setPref(mContext, "studid", "");
-                                    Utility.setPref(mContext, "FamilyID", "");
-                                    Utility.setPref(mContext, "standardID", "");
-                                    Utility.setPref(mContext, "ClassID", "");
-                                    Utility.setPref(mContext, "TermID", "");
-                                    Utility.setPref(mContext, "deviceId", "");
-                                    Utility.setPref(mContext, "image", "");
-                                    AppConfiguration.UserImage = "";
-                                    AppConfiguration.UserName = "";
-                                    AppConfiguration.UserGrade = "";
-                                    AppConfiguration.UserGrNo = "";
-                                    AppConfiguration.UserAttendance = "";
-                                    AppConfiguration.UserTeacherName = "";
-                                    AppConfiguration.UserDropTime = "";
-                                    AppConfiguration.UserPickTime = "";
-                                    Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
-                                    startActivity(intentLogin);
-                                    finish();
-                                } else {
-                                    progressDialog.dismiss();
+                                if (logoutResponse!=null) {
+                                    if (logoutResponse.getSuccess().equalsIgnoreCase("True")) {
+                                        Utility.setPref(mContext, "unm", "");
+                                        Utility.setPref(mContext, "pwd", "");
+                                        Utility.setPref(mContext, "studid", "");
+                                        Utility.setPref(mContext, "FamilyID", "");
+                                        Utility.setPref(mContext, "standardID", "");
+                                        Utility.setPref(mContext, "ClassID", "");
+                                        Utility.setPref(mContext, "TermID", "");
+                                        Utility.setPref(mContext, "deviceId", "");
+                                        Utility.setPref(mContext, "image", "");
+                                        AppConfiguration.UserImage = "";
+                                        AppConfiguration.UserName = "";
+                                        AppConfiguration.UserGrade = "";
+                                        AppConfiguration.UserGrNo = "";
+                                        AppConfiguration.UserAttendance = "";
+                                        AppConfiguration.UserTeacherName = "";
+                                        AppConfiguration.UserDropTime = "";
+                                        AppConfiguration.UserPickTime = "";
+                                        Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
+                                        startActivity(intentLogin);
+                                        finish();
+                                    } else {
+                                        progressDialog.dismiss();
 
+                                    }
+                                }else{
+                                    Intent serverintent=new Intent(mContext,Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -642,12 +650,17 @@ public class DashBoardActivity extends FragmentActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (studDetailList.size() > 0) {
-                                imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
-                                studName.setText(studDetailList.get(0).getStudentName() + " (" + studDetailList.get(0).getGRNO() + ")");
-                                grade.setText(studDetailList.get(0).getStandard() + "-" + studDetailList.get(0).getStudClass());
-                                // grno.setText("GRNo :" + " " + studDetailList.get(0).getGRNO());
+                            if (studDetailList!=null) {
+                                if (studDetailList.size() > 0) {
+                                    imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
+                                    studName.setText(studDetailList.get(0).getStudentName() + " (" + studDetailList.get(0).getGRNO() + ")");
+                                    grade.setText(studDetailList.get(0).getStandard() + "-" + studDetailList.get(0).getStudClass());
+                                    // grno.setText("GRNo :" + " " + studDetailList.get(0).getGRNO());
 
+                                }
+                            }else{
+                                Intent serverintent=new Intent(mContext,Server_Error.class);
+                                startActivity(serverintent);
                             }
                         }
                     });

@@ -45,7 +45,7 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
 
         final ArrayList<ResultModel.Data> childData = getChild(groupPosition, 0);
 
-        TextView txtSubjectHeader, txtMarksGainedHeader, txtTotalMarksHeader, txtSubject, txtMarksGained,
+        TextView txtDateHeader, txtSubjectHeader, txtMarksGainedHeader, txtTotalMarksHeader, txtDate, txtSubject, txtMarksGained,
                 txtMarksTotal, txtTotalMarksGained, txtTotalMarks, txtInvisibleView, txtPercentage;
 
         if (convertView == null) {
@@ -63,22 +63,27 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
         txtTotalMarks = (TextView) convertView.findViewById(R.id.txtTotalMarks);
         txtInvisibleView = (TextView) convertView.findViewById(R.id.txtInvisibleView);
         txtPercentage = (TextView) convertView.findViewById(R.id.txtPercentage);
+        txtDate = (TextView) convertView.findViewById(R.id.txtDate);
+        txtDateHeader = (TextView) convertView.findViewById(R.id.txtDateHeader);
 
-        if(childPosition == 0){
+        if (childPosition == 0) {
             txtSubjectHeader.setVisibility(View.VISIBLE);
             txtMarksGainedHeader.setVisibility(View.VISIBLE);
             txtTotalMarksHeader.setVisibility(View.VISIBLE);
-        }else {
+            txtDateHeader.setVisibility(View.VISIBLE);
+        } else {
             txtSubjectHeader.setVisibility(View.GONE);
             txtMarksGainedHeader.setVisibility(View.GONE);
             txtTotalMarksHeader.setVisibility(View.GONE);
+            txtDateHeader.setVisibility(View.GONE);
         }
 
         txtSubject.setText(childData.get(childPosition).getSubjectName());
         txtMarksGained.setText(childData.get(childPosition).getMarkGained());
         txtMarksTotal.setText(childData.get(childPosition).getTestMark());
+        txtDate.setText(childData.get(childPosition).getDate());
 
-        if(childPosition == childData.size()-1){
+        if (childPosition == childData.size() - 1) {
             txtInvisibleView.setVisibility(View.INVISIBLE);
             txtTotalMarksGained.setVisibility(View.VISIBLE);
             txtTotalMarks.setVisibility(View.VISIBLE);
@@ -86,8 +91,8 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
             String[] headerTemp = getGroup(groupPosition).toString().split("\\|");
             txtTotalMarksGained.setText(headerTemp[1]);
             txtTotalMarks.setText(headerTemp[2]);
-            txtPercentage.setText("Percentage : "+headerTemp[3]);
-        }else {
+            txtPercentage.setText("Percentage : " + headerTemp[3]);
+        } else {
             txtInvisibleView.setVisibility(View.GONE);
             txtTotalMarksGained.setVisibility(View.GONE);
             txtTotalMarks.setVisibility(View.GONE);
@@ -123,13 +128,13 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
         String[] headerTemp = getGroup(groupPosition).toString().split("\\|");
         String headerTitle = headerTemp[0];
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_group_timetable, null);
         }
 
-        if(isExpanded){
+        if (isExpanded) {
             convertView.setBackgroundResource(R.color.orange);
-        }else{
+        } else {
             convertView.setBackgroundResource(R.color.gray);
         }
 

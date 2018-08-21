@@ -1,5 +1,6 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -41,9 +43,10 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
     TextView txtCircularSubject, txtCircularDate;
     LinearLayout llHeaderRow;
     ImageView imgBulletCircular;
-    private Context _context;
     File filepdf;
     String file1;
+    private Context _context;
+    private ProgressDialog progressDialog = null;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, ArrayList<CircularModel>> _listDataChildcircular;
@@ -87,7 +90,7 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
             webSettings.setTextSize(WebSettings.TextSize.SMALLER);
             Log.d("webview", childData.get(childPosition).getDiscription());
         } else {
-            showfile.setVisibility(View.VISIBLE);
+            showfile.setVisibility(View.GONE);
             circular_description_webview.setVisibility(View.GONE);
             showfile.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,12 +130,28 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
                                 .setCallback(new FutureCallback<File>() {
                                     //                                    @Override
                                     public void onCompleted(Exception e, File file) {
-                                        if (file != null) {
-                                            if (file.length() > 0) {
+                                        if (file != null)
+                                        {
+                                            if (file.length() > 0)
+                                            {
                                                 //Utility.ping(_context, "Download complete.");
                                                 file1 = file.getPath();
                                                 filepdf = file.getAbsoluteFile();
+
                                                 Log.d("file11", "" + filepdf);
+
+                                                if (file1 != null) {
+                                                    File local_file = new File(file1);
+                                                    Log.d("DownloadfilePath", "File to download = " + String.valueOf(local_file));
+                                                    MimeTypeMap mime = MimeTypeMap.getSingleton();
+                                                    String ext = local_file.getName().substring(local_file.getName().indexOf(".") + 1);
+                                                    String type = mime.getMimeTypeFromExtension(ext);
+                                                    Log.d("type", type);
+                                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                                    intent.setDataAndType(Uri.fromFile(file), type);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                                    _context.startActivity(intent);
+                                                }
                                             } else {
                                                 Utility.ping(_context, "Something error");
                                             }
@@ -140,21 +159,12 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
                                     }
 
                                 });
-                    } else {
+                    }
+                    else
+                        {
                         Utility.ping(_context, "Network not available");
                     }
-                    if (file1 != null) {
-                        File file = new File(file1);
-                        Log.d("DownloadfilePath", "File to download = " + String.valueOf(file));
-                        MimeTypeMap mime = MimeTypeMap.getSingleton();
-                        String ext = file.getName().substring(file.getName().indexOf(".") + 1);
-                        String type = mime.getMimeTypeFromExtension(ext);
-                        Log.d("type", type);
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.fromFile(file), type);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        _context.startActivity(intent);
-                    }
+
                 }
             });
         }
@@ -188,6 +198,7 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
         String[] headerTemp = getGroup(groupPosition).toString().split("\\|");
         String headerTitle = headerTemp[0];
         String headerTitle1 = headerTemp[1];
+        final String headerTitle2 = headerTemp[2];
         Log.d("positon", "" + headerTitle + "" + headerTitle1);
 
 
@@ -203,12 +214,89 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
         txtCircularSubject.setTypeface(null, Typeface.BOLD);
         txtCircularSubject.setText(headerTitle);
         txtCircularDate.setTypeface(null, Typeface.BOLD);
-        txtCircularDate.setText("(" + headerTitle1 + ")" + "");
+        txtCircularDate.setText(headerTitle1);
 
+//        llHeaderRow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            }
+//        });
         if (isExpanded) {
             txtCircularSubject.setBackgroundColor(Color.parseColor("#86c129"));
             txtCircularDate.setBackgroundColor(Color.parseColor("#86c129"));
             imgBulletCircular.setImageResource(R.drawable.green_bulletpointwithgreenline);
+
+            if (!headerTitle2.equalsIgnoreCase("1")) {
+                String extStorageDirectory = "";
+                String saveFilePath = null;
+                long currentTime = Calendar.getInstance().getTimeInMillis();
+                Log.d("date", "" + currentTime);
+                Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+                Boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
+                final String fileName = headerTitle2.substring(headerTitle2.lastIndexOf('/') + 1);
+                if (isSDSupportedDevice && isSDPresent) {
+                    // yes SD-card is present
+                    Utility.ping(_context, "present");
+                    extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                    saveFilePath = String.valueOf(new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childAnnouncementFolderName + "/" + fileName).getPath());
+
+                } else {
+                    // Sorry
+//                            Utility.ping(mContext, "notpresent");
+//
+                    File cDir = _context.getExternalFilesDir(null);
+                    saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + fileName));
+                    Log.d("path", saveFilePath);
+
+                }
+//
+                Log.d("path", extStorageDirectory);
+
+                String fileURL = AppConfiguration.GALLARY_LIVE+headerTitle2;
+                Log.d("URL", fileURL);
+                if (Utility.isNetworkConnected(_context)) {
+                    progressDialog = new ProgressDialog(_context);
+                    progressDialog.setMessage("Please Wait...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                    Ion.with(_context)
+                            .load(fileURL)  // download url
+                            .write(new File(saveFilePath))  // File no path
+                            .setCallback(new FutureCallback<File>() {
+                                //                                    @Override
+                                public void onCompleted(Exception e, File file) {
+                                    progressDialog.dismiss();
+                                    if (file != null) {
+                                        if (file.length() > 0) {
+                                            //Utility.ping(_context, "Download complete.");
+                                            file1 = file.getPath();
+                                            filepdf = file.getAbsoluteFile();
+                                            Log.d("file11", "" + filepdf);
+                                            if (file1 != null) {
+                                                File local_file = new File(file1);
+                                                Log.d("DownloadfilePath", "File to download = " + String.valueOf(local_file));
+                                                MimeTypeMap mime = MimeTypeMap.getSingleton();
+                                                String ext = local_file.getName().substring(local_file.getName().indexOf(".") + 1);
+                                                String type = mime.getMimeTypeFromExtension(ext);
+                                                Log.d("type", type);
+                                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                                intent.setDataAndType(Uri.fromFile(file), type);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                                _context.startActivity(intent);
+                                            }
+
+                                        } else {
+                                            Utility.ping(_context, "Something error");
+                                        }
+                                    }
+                                }
+
+                            });
+                } else {
+                    Utility.ping(_context, "Network not available");
+                }
+
+            }
         } else {
             txtCircularSubject.setBackgroundColor(Color.parseColor("#1791d8"));
             txtCircularDate.setBackgroundColor(Color.parseColor("#1791d8"));

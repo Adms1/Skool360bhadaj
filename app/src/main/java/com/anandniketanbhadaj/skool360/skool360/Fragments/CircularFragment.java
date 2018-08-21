@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterCircular;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetCircularAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
@@ -131,31 +133,34 @@ public class CircularFragment extends Fragment {
                 public void run() {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("StandardID", Utility.getPref(mContext, "standardID"));
                         getCircularAsyncTask = new GetCircularAsyncTask(params);
                         circularModels = getCircularAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (circularModels.size() > 0) {
-                                    txtNoRecordsCircular.setVisibility(View.GONE);
-
-                                    prepaareList();
-                                    circularListAdapter = new ExpandableListAdapterCircular(getActivity(), listDataHeader, listDataChildCircular);
-                                    listCircular.setAdapter(circularListAdapter);
-                                    if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
-                                        String[] strsplit = AppConfiguration.messageNotification.split("\\-");
-                                        strsplit[2]=strsplit[2].substring(0, strsplit[2].length() - 1);
-                                        for (int i = 0; i < circularModels.size(); i++) {
-                                        if (circularModels.get(i).getSubject().toLowerCase().trim().contains(strsplit[2].trim().toLowerCase())){
-                                            listCircular.expandGroup(i);
+                                if (circularModels != null) {
+                                    if (circularModels.size() > 0) {
+                                        txtNoRecordsCircular.setVisibility(View.GONE);
+                                        prepaareList();
+                                        if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
+                                            String[] strsplit = AppConfiguration.messageNotification.split("\\-");
+                                            strsplit[2] = strsplit[2].substring(0, strsplit[2].length() - 1);
+                                            for (int i = 0; i < circularModels.size(); i++) {
+                                                if (circularModels.get(i).getSubject().toLowerCase().trim().contains(strsplit[2].trim().toLowerCase())) {
+                                                    listCircular.expandGroup(i);
+                                                }
                                             }
-                                        }
 
+                                        }
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecordsCircular.setVisibility(View.VISIBLE);
                                     }
                                 } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsCircular.setVisibility(View.VISIBLE);
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -173,16 +178,29 @@ public class CircularFragment extends Fragment {
         listDataHeader = new ArrayList<>();
         listDataChildCircular = new HashMap<String, ArrayList<CircularModel>>();
 
+        String pdf;
         for (int i = 0; i < circularModels.size(); i++) {
-            Circulardemo cdemo = new Circulardemo();
-            cdemo.Date = circularModels.get(i).getDate().toString();
-            cdemo.Subject = circularModels.get(i).getSubject().toString();
-            listDataHeader.add(cdemo.Subject.toString() + "|" + cdemo.Date);
+//            Circulardemo cdemo = new Circulardemo();
+//            cdemo.Date = circularModels.get(i).getDate().toString();
+//            cdemo.Subject = circularModels.get(i).getSubject().toString();
+            if (circularModels.get(i).getCircularPDF().equalsIgnoreCase("")) {
+                listDataHeader.add(circularModels.get(i).getSubject().toString() + "|" + circularModels.get(i).getDate() + "|" + "1");
+            } else {
+                listDataHeader.add(circularModels.get(i).getSubject().toString() + "|" + circularModels.get(i).getDate() + "|" + circularModels.get(i).getCircularPDF());
+            }
             Log.d("displaypositiondata", listDataHeader.get(0));
 
             ArrayList<CircularModel> rows = new ArrayList<CircularModel>();
             rows.add(circularModels.get(i));
             listDataChildCircular.put(listDataHeader.get(i), rows);
+            circularListAdapter = new ExpandableListAdapterCircular(getActivity(), listDataHeader, listDataChildCircular);
+            listCircular.setAdapter(circularListAdapter);
+            for (int k = 0; k < circularModels.size(); k++) {
+                if (!circularModels.get(k).getCircularPDF().equalsIgnoreCase("")) {
+                    listCircular.setGroupIndicator(null);
+                }
+            }
+
         }
     }
 

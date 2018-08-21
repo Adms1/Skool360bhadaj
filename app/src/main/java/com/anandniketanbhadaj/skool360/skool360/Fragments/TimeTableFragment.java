@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterTimeTable;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTimetableAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.TimetableModel;
@@ -30,6 +32,11 @@ import java.util.List;
  * Created by Harsh on 04-Aug-16.
  */
 public class TimeTableFragment extends Fragment {
+    ExpandableListAdapterTimeTable listAdapterTimeTable;
+    ExpandableListView lvExpTimeTable;
+    List<String> listDataHeader;
+    HashMap<String, ArrayList<TimetableModel.Timetable.TimetableData>> listDataChild;
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnBackTimeTable;
     private TextView txtNoRecordsTimetable;
@@ -38,12 +45,6 @@ public class TimeTableFragment extends Fragment {
     private GetTimetableAsyncTask getTimetableAsyncTask = null;
     private ArrayList<TimetableModel> timetableModels = new ArrayList<>();
     private int lastExpandedPosition = -1;
-
-    ExpandableListAdapterTimeTable listAdapterTimeTable;
-    ExpandableListView lvExpTimeTable;
-    List<String> listDataHeader;
-    HashMap<String, ArrayList<TimetableModel.Timetable.TimetableData>> listDataChild;
-LinearLayout linearBack;
 
     public TimeTableFragment() {
     }
@@ -64,7 +65,7 @@ LinearLayout linearBack;
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordsTimetable = (TextView) rootView.findViewById(R.id.txtNoRecordsTimetable);
         btnBackTimeTable = (Button) rootView.findViewById(R.id.btnBackTimeTable);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         lvExpTimeTable = (ExpandableListView) rootView.findViewById(R.id.lvExpTimeTable);
 
         getTimeTableData();
@@ -116,7 +117,7 @@ LinearLayout linearBack;
     }
 
     public void getTimeTableData() {
-        if(Utility.isNetworkConnected(mContext)) {
+        if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
@@ -134,14 +135,19 @@ LinearLayout linearBack;
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (timetableModels.size() > 0) {
-                                    txtNoRecordsTimetable.setVisibility(View.GONE);
-                                    prepaareList();
-                                    listAdapterTimeTable = new ExpandableListAdapterTimeTable(getActivity(), listDataHeader, listDataChild);
-                                    lvExpTimeTable.setAdapter(listAdapterTimeTable);
+                                if (timetableModels != null) {
+                                    if (timetableModels.size() > 0) {
+                                        txtNoRecordsTimetable.setVisibility(View.GONE);
+                                        prepaareList();
+                                        listAdapterTimeTable = new ExpandableListAdapterTimeTable(getActivity(), listDataHeader, listDataChild);
+                                        lvExpTimeTable.setAdapter(listAdapterTimeTable);
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecordsTimetable.setVisibility(View.VISIBLE);
+                                    }
                                 } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsTimetable.setVisibility(View.VISIBLE);
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -150,8 +156,8 @@ LinearLayout linearBack;
                     }
                 }
             }).start();
-        }else{
-            Utility.ping(mContext,"Network not available");
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
 

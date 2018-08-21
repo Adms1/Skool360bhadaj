@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,7 +19,9 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterAnnouncement;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterAnnouncementnew;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterCircular;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterUnitTest;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.AnnouncmentAsyncTask;
@@ -40,7 +43,8 @@ public class AnnouncmentFragment extends Fragment {
     ExamModel announcmentmodelReponse;
     List<String> listDataHeader;
     HashMap<String, ArrayList<ExamFinalArray>> listDataChild;
-    ExpandableListAdapterAnnouncement expandableListAdapterAnnouncement;
+    ExpandableListAdapterAnnouncementnew expandableListAdapterAnnouncement;
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnBack;
     private ExpandableListView listannouncment;
@@ -49,7 +53,6 @@ public class AnnouncmentFragment extends Fragment {
     private int lastExpandedPosition = -1;
     private AnnouncmentAsyncTask announcmentAsyncTask = null;
     private ProgressDialog progressDialog = null;
-    LinearLayout linearBack;
 
     public AnnouncmentFragment() {
     }
@@ -69,7 +72,7 @@ public class AnnouncmentFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecords = (TextView) rootView.findViewById(R.id.txtNoRecords);
         btnBack = (Button) rootView.findViewById(R.id.btnBack);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         listannouncment = (ExpandableListView) rootView.findViewById(R.id.listannouncment);
         if (Utility.checkAndRequestPermissions(mContext)) {
         }
@@ -91,13 +94,13 @@ public class AnnouncmentFragment extends Fragment {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-                if (lastExpandedPosition != -1
-                        && groupPosition != lastExpandedPosition) {
+                if (lastExpandedPosition != -1 && groupPosition != lastExpandedPosition) {
                     listannouncment.collapseGroup(lastExpandedPosition);
                 }
                 lastExpandedPosition = groupPosition;
             }
         });
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,19 +147,24 @@ public class AnnouncmentFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (announcmentmodelReponse.getSuccess().equalsIgnoreCase("True")) {
-                                    if (announcmentmodelReponse.getFinalArray().size() > 0) {
-                                        txtNoRecords.setVisibility(View.GONE);
-                                        progressDialog.dismiss();
-                                        prepaareList();
+                                if (announcmentmodelReponse != null) {
+                                    if (announcmentmodelReponse.getSuccess().equalsIgnoreCase("True")) {
+                                        if (announcmentmodelReponse.getFinalArray().size() > 0) {
+                                            txtNoRecords.setVisibility(View.GONE);
+                                            progressDialog.dismiss();
+                                            prepaareList();
+                                        } else {
+                                            progressDialog.dismiss();
+                                            txtNoRecords.setVisibility(View.VISIBLE);
+                                        }
                                     } else {
                                         progressDialog.dismiss();
                                         txtNoRecords.setVisibility(View.VISIBLE);
+
                                     }
                                 } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecords.setVisibility(View.VISIBLE);
-
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
@@ -185,13 +193,13 @@ public class AnnouncmentFragment extends Fragment {
             listDataChild.put(listDataHeader.get(i), rows);
         }
 
-        expandableListAdapterAnnouncement = new ExpandableListAdapterAnnouncement(getActivity(), listDataHeader, listDataChild);
+        expandableListAdapterAnnouncement = new ExpandableListAdapterAnnouncementnew(getActivity(), listDataHeader, listDataChild);
         listannouncment.setAdapter(expandableListAdapterAnnouncement);
         if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
             String[] strsplit = AppConfiguration.messageNotification.split("\\-");
-            strsplit[2]=strsplit[2].substring(0, strsplit[2].length() - 1);
+            strsplit[2] = strsplit[2].substring(0, strsplit[2].length() - 1);
             for (int i = 0; i < announcmentmodelReponse.getFinalArray().size(); i++) {
-                if (announcmentmodelReponse.getFinalArray().get(i).getSubject().toLowerCase().trim().contains(strsplit[2].trim().toLowerCase())){
+                if (announcmentmodelReponse.getFinalArray().get(i).getSubject().toLowerCase().trim().contains(strsplit[2].trim().toLowerCase())) {
                     listannouncment.expandGroup(i);
                 }
             }

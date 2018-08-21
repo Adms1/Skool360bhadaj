@@ -7,6 +7,7 @@ public class AttendanceModel {
     private String TotalAbsent;
     private String TotalPresent;
     private String HolidayCount;
+    private String TotalHolidayCount;
     private ArrayList<Attendance> eventsList;
     private ArrayList<HolidayAtt> holidayAtt;
 
@@ -52,6 +53,14 @@ public class AttendanceModel {
 
     public void setHolidayAtt(ArrayList<HolidayAtt> holidayAtt) {
         this.holidayAtt = holidayAtt;
+    }
+
+    public String getTotalHolidayCount() {
+        return TotalHolidayCount;
+    }
+
+    public void setTotalHolidayCount(String totalHolidayCount) {
+        TotalHolidayCount = totalHolidayCount;
     }
 
     public class Attendance {

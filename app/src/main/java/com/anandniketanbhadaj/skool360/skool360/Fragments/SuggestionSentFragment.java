@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterInbox;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.SuggestionInboxAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.InboxFinalArray;
@@ -106,6 +108,7 @@ public class SuggestionSentFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
+                                if (response!=null){
                                 if (response.getFinalArray().size() >=0) {
                                     txtNoRecordsSent.setVisibility(View.GONE);
 //                                    Sent_header.setVisibility(View.VISIBLE);
@@ -118,6 +121,10 @@ public class SuggestionSentFragment extends Fragment {
                                     progressDialog.dismiss();
                                     txtNoRecordsSent.setVisibility(View.VISIBLE);
 //                                    Sent_header.setVisibility(View.GONE);
+                                }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });

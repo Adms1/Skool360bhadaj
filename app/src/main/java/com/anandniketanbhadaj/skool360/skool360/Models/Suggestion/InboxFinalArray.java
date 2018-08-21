@@ -22,7 +22,9 @@ public class InboxFinalArray {
     @SerializedName("Message")
     @Expose
     private String message;
-
+    @SerializedName("ReplyDate")
+    @Expose
+    private String replyDate;
     public String getMessage() {
         return message;
     }
@@ -69,5 +71,13 @@ public class InboxFinalArray {
 
     public void setResponse(String response) {
         this.response = response;
+    }
+
+    public String getReplyDate() {
+        return replyDate;
+    }
+
+    public void setReplyDate(String replyDate) {
+        this.replyDate = replyDate;
     }
 }

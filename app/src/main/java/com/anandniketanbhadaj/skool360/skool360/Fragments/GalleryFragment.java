@@ -2,6 +2,7 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Activities.EqualSpacingItemDecoration;
+import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.GalleryAdapter;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.GalleryListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GalleryAsyncTask;
@@ -151,14 +153,18 @@ public class GalleryFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if (galleryResponse!=null){
                                 if (galleryResponse.getFinalArray().size() > 0) {
                                     progressDialog.dismiss();
 //                                    prepaareList();
-
                                     setGalleryData();
                                 } else {
                                     progressDialog.dismiss();
 
+                                }
+                                }else{
+                                    Intent serverintent=new Intent(mContext,Server_Error.class);
+                                    startActivity(serverintent);
                                 }
                             }
                         });
