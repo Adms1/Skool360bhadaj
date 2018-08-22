@@ -8,7 +8,7 @@
         android:width="1dip"
         android:color="@color/linear_color" />
     <solid
-        android:color="@color/app_bg">
+        android:color="@color/white">
     </solid>
 	
 </shape>

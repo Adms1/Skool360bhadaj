@@ -233,11 +233,20 @@ public class ExamSyllabusFragment extends Fragment {
         for (int z = 0; z < responseExam.getFinalArray().size(); z++) {
             row.add(responseExam.getFinalArray().get(z).getTestName());
         }
-        HashSet hs = new HashSet();
-        hs.addAll(row);
-        row.clear();
-        row.addAll(hs);
-        Log.d("marks", "" + row);
+
+        ArrayList<String> characters = new ArrayList<String>();
+
+        for(int i = 0; i < row.size(); i++) {
+            if (!characters.contains(row.get(i))) {
+                characters.add(row.get(i));
+            }
+        }
+Log.d("Array",""+characters);
+//        HashSet hs = new HashSet();
+//        hs.addAll(row);
+//        row.clear();
+//        row.addAll(hs);
+//        Log.d("marks", "" + row);
 //        Collections.sort(row);
 //        System.out.println("Sorted ArrayList in Java - Ascending order : " + row);
 
@@ -248,11 +257,11 @@ public class ExamSyllabusFragment extends Fragment {
             // Get private mPopup member variable and try cast to ListPopupWindow
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(exam_spinner);
 
-            popupWindow.setHeight(row.size() > 5 ? 500 : row.size() * 100);
+            popupWindow.setHeight(characters.size() > 5 ? 500 : characters.size() * 100);
         } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, characters);
         exam_spinner.setAdapter(adapterYear);
     }
 }

@@ -81,8 +81,8 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
 
 
         String[] dateHours = childData.get(childPosition).getDate().split("\\t");
-        String inputPattern = "yyyy-MM-dd";
-        String outputPattern1 = "dd MMM yyyy";
+        String inputPattern = "yyyy-MM-dd'T'hh:mm:ss.SSS";
+        String outputPattern1 = "dd MMM yyyy hh:mm:ss a";
 
 
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
@@ -103,7 +103,6 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
 
         if (pageType.equalsIgnoreCase("Inbox")) {
             txtreply.setVisibility(View.VISIBLE);
-            ;
             txtreply.setTypeface(txtreply.getTypeface(), Typeface.BOLD);
             txtsuggestion.setTypeface(txtsuggestion.getTypeface(), Typeface.NORMAL);
         } else {
@@ -258,7 +257,7 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
             if (SessionHour > 0) {
                 SessionDurationHours = SessionHour + " hrs";
             } else {
-                SessionDurationHours = SessionMinit + " minit";
+                SessionDurationHours = SessionMinit + " minute";
             }
             Log.d("SessionTIme", SessionDurationHours);
         } catch (ParseException e) {

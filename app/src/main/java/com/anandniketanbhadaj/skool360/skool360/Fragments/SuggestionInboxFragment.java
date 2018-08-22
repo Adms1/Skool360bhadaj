@@ -22,9 +22,13 @@ import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.SuggestionInboxAsyncT
 import com.anandniketanbhadaj.skool360.skool360.Interfacess.onInboxRead;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.InboxFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.SuggestionInboxModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -116,10 +120,7 @@ public class SuggestionInboxFragment extends Fragment {
                                 if (response.getFinalArray().size() > 0) {
                                     txtNoRecordsinbox.setVisibility(View.GONE);
                                     setExpandableListData();
-                                    expandableListAdapterInbox = new ExpandableListAdapterInbox(getActivity(), listDataHeader, listDataChild,PageType);
-                                    lvExpinbox.setAdapter(expandableListAdapterInbox);
-                                    expandableListAdapterInbox.notifyDataSetChanged();
-                                    lvExpinbox.deferNotifyDataSetChanged();
+
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordsinbox.setVisibility(View.VISIBLE);
@@ -153,6 +154,43 @@ public class SuggestionInboxFragment extends Fragment {
             ArrayList<InboxFinalArray> rows = new ArrayList<InboxFinalArray>();
             rows.add(response.getFinalArray().get(j));
             listDataChild.put(listDataHeader.get(j), rows);
+            expandableListAdapterInbox = new ExpandableListAdapterInbox(getActivity(), listDataHeader, listDataChild,PageType);
+            lvExpinbox.setAdapter(expandableListAdapterInbox);
+            expandableListAdapterInbox.notifyDataSetChanged();
+            lvExpinbox.deferNotifyDataSetChanged();
+
+            ArrayList<String> dateArray=new ArrayList<>();
+            if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
+                if (AppConfiguration.messageNotification.contains("-")) {
+                    String[] strsplit = AppConfiguration.messageNotification.split("\\-");
+                  //  strsplit[2] = strsplit[2].substring(0, strsplit[2].length() - 1);
+                    for (int i = 0; i < response.getFinalArray().size(); i++) {
+                        String inputPattern = "yyyy-MM-dd";
+                        String outputPattern = "dd/MM/yyyy";
+
+
+                        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+
+                        Date startdateTime = null;
+                        String str = null;
+
+                        try {
+                            startdateTime = inputFormat.parse(response.getFinalArray().get(i).getDate());
+                            str = outputFormat.format(startdateTime);
+                            Log.d("str", str);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        dateArray.add(str);
+                            if (str.trim().equalsIgnoreCase(strsplit[2].trim())) {
+                                lvExpinbox.expandGroup(i);
+                            }
+                    }
+                }
+//            listannouncment.expandGroup(0);
+            }
         }
     }
 }

@@ -388,7 +388,6 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void run() {
                             if (studDetailList != null) {
-
                                 if (studDetailList.size() > 0) {
 //                            student_name_txt.setText("Bhadresh Jadav");
                                     student_name_txt.setText(studDetailList.get(0).getStudentName());

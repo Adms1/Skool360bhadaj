@@ -43,11 +43,13 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
             android:layout_gravity="center|center_vertical"
             android:layout_marginTop="@dimen/_110sdp"
-            android:src="@drawable/sad" />
+            android:src="@drawable/sad"
+          />
 
         <TextView
             android:layout_width="match_parent"

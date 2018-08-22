@@ -16,11 +16,22 @@ public class SplashScreenActivity extends AppCompatActivity {
     Intent intent;
     private String putExtras = "0";
     private String putExtrasData = "0";
+    String type,value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+               value = getIntent().getExtras().getString("message");
+                type = getIntent().getExtras().getString("fromNotification");
+
+                Log.d("Notificationbackground", "Key: " + key + " Value: " + value);
+
+            }
+        }
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -31,6 +42,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                i.putExtra("fromNotification",type);
+                i.putExtra("message",value);
                 startActivity(i);
                 // close this activity
                 finish();

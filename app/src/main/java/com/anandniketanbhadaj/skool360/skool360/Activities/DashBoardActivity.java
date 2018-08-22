@@ -178,6 +178,8 @@ public class DashBoardActivity extends FragmentActivity {
                 displayView(13);
             }else if (key.equalsIgnoreCase("Leave")){
                 displayView(12);
+            }else if(key.equalsIgnoreCase("Suggestion")){
+                displayView(15);
             }
         } else {
             AppConfiguration.Notification = "0";
@@ -482,10 +484,10 @@ public class DashBoardActivity extends FragmentActivity {
                 AppConfiguration.position = 14;
                 break;
             case 15:
-                AppConfiguration.firsttimeback = true;
                 fragment = new SuggestionMainFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                AppConfiguration.firsttimeback = true;
                 AppConfiguration.position = 15;
                 break;
             case 16:

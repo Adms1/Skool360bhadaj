@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,16 +40,12 @@ public class LeaveListAdapter extends RecyclerView.Adapter<LeaveListAdapter.MyVi
     public void onBindViewHolder(final LeaveListAdapter.MyViewHolder holder, int position) {
 
         String str = String.valueOf(position + 1);
-        holder.srno_txt.setText(str);
-        holder.status_txt.setText(arrayList.getFinalArray().get(position).getStatus());
-        holder.start_date_txt.setText(arrayList.getFinalArray().get(position).getFromDate());
-        holder.reason_txt.setText(arrayList.getFinalArray().get(position).getReason());
-
-
-        if (!arrayList.getFinalArray().get(position).getStatus().equalsIgnoreCase("Rejected")){
-            holder.status_txt.setTextColor(Color.parseColor("#86c129"));
-        }else{
+        if (arrayList.getFinalArray().get(position).getStatus().equalsIgnoreCase("Rejected")){
             holder.status_txt.setTextColor(Color.parseColor("#ed1c24"));
+        }else if(arrayList.getFinalArray().get(position).getStatus().equalsIgnoreCase("Pending")){
+            holder.status_txt.setTextColor(Color.parseColor("#FFD8B834"));
+        }else{
+            holder.status_txt.setTextColor(Color.parseColor("#86c129"));
         }
         String inputPattern = "dd/MM/yyyy";
         String outputPattern1 = "dd MMM";
@@ -72,7 +69,23 @@ public class LeaveListAdapter extends RecyclerView.Adapter<LeaveListAdapter.MyVi
             e.printStackTrace();
         }
 
-        holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr);
+        if (arrayList.getFinalArray().get(position).getReason().length() >= 17 && arrayList.getFinalArray().get(position).getReason().length() <= 32) {
+            holder.reason_txt.setText(arrayList.getFinalArray().get(position).getReason());
+            holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr+"\n");
+            holder.srno_txt.setText(str+"\n");
+            holder.status_txt.setText(arrayList.getFinalArray().get(position).getStatus()+"\n");
+        } else if (arrayList.getFinalArray().get(position).getReason().length() >= 32) {
+            holder.reason_txt.setText(arrayList.getFinalArray().get(position).getReason());
+            holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr+"\n"+"\n");
+            holder.srno_txt.setText(str+"\n"+"\n");
+            holder.status_txt.setText(arrayList.getFinalArray().get(position).getStatus()+"\n"+"\n");
+        } else {
+            holder.reason_txt.setText(arrayList.getFinalArray().get(position).getReason());
+            holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr);
+            holder.srno_txt.setText(str);
+            holder.status_txt.setText(arrayList.getFinalArray().get(position).getStatus());
+        }
+
     }
 
     @Override

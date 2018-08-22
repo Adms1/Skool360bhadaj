@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
@@ -47,7 +48,7 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
 
         TextView txtDateHeader, txtSubjectHeader, txtMarksGainedHeader, txtTotalMarksHeader, txtDate, txtSubject, txtMarksGained,
                 txtMarksTotal, txtTotalMarksGained, txtTotalMarks, txtInvisibleView, txtPercentage;
-
+        LinearLayout llBottomRow;
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_item_result, null);
@@ -65,6 +66,7 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
         txtPercentage = (TextView) convertView.findViewById(R.id.txtPercentage);
         txtDate = (TextView) convertView.findViewById(R.id.txtDate);
         txtDateHeader = (TextView) convertView.findViewById(R.id.txtDateHeader);
+        llBottomRow=(LinearLayout)convertView.findViewById(R.id.llBottomRow);
 
         if (childPosition == 0) {
             txtSubjectHeader.setVisibility(View.VISIBLE);
@@ -84,19 +86,21 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
         txtDate.setText(childData.get(childPosition).getDate());
 
         if (childPosition == childData.size() - 1) {
-            txtInvisibleView.setVisibility(View.INVISIBLE);
-            txtTotalMarksGained.setVisibility(View.VISIBLE);
-            txtTotalMarks.setVisibility(View.VISIBLE);
-            txtPercentage.setVisibility(View.GONE);
+//            txtInvisibleView.setVisibility(View.INVISIBLE);
+//            txtTotalMarksGained.setVisibility(View.VISIBLE);
+//            txtTotalMarks.setVisibility(View.VISIBLE);
+//            txtPercentage.setVisibility(View.GONE);
+            llBottomRow.setVisibility(View.VISIBLE);
             String[] headerTemp = getGroup(groupPosition).toString().split("\\|");
             txtTotalMarksGained.setText(headerTemp[1]);
             txtTotalMarks.setText(headerTemp[2]);
             txtPercentage.setText("Percentage : " + headerTemp[3]);
         } else {
-            txtInvisibleView.setVisibility(View.GONE);
-            txtTotalMarksGained.setVisibility(View.GONE);
-            txtTotalMarks.setVisibility(View.GONE);
-            txtPercentage.setVisibility(View.GONE);
+//            txtInvisibleView.setVisibility(View.GONE);
+//            txtTotalMarksGained.setVisibility(View.GONE);
+//            txtTotalMarks.setVisibility(View.GONE);
+//            txtPercentage.setVisibility(View.GONE);
+            llBottomRow.setVisibility(View.GONE);
         }
 
         return convertView;

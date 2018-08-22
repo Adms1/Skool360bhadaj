@@ -163,6 +163,7 @@
                 android:background="@drawable/gray_border"
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
+                android:maxLength="35"
                 android:text=""
                 android:textColor="@color/appointment_text"
                 android:textSize="@dimen/_10sdp" />

@@ -18,10 +18,12 @@ import android.util.Log;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.LoginActivity;
+import com.anandniketanbhadaj.skool360.skool360.Activities.SplashScreenActivity;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,22 +74,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         ctx = this;
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
-        Log.d(TAG, "Notification Message Title: " + remoteMessage.getNotification().getTitle());
-        Log.d(TAG, "Notification Message Data: " + remoteMessage.getData().toString());
-        Log.d(TAG, "Notification Message icon:" + remoteMessage.getNotification().getIcon());
-        Log.d(TAG, "Notification Message Notification: " + remoteMessage.getNotification());
-        Map<String, String> params = remoteMessage.getData();
-        JSONObject object = new JSONObject(params);
-        try {
-            data = object.getString("type").toString();
-            Log.d(TAG, "Megha" + data);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        message=remoteMessage.getNotification().getBody();
-        Log.e("JSON_OBJECT", object.toString());
+
+        Log.d("Messsagetype", String.valueOf(remoteMessage.getData()));
+
+//        Log.d(TAG, "From: " + remoteMessage.getFrom());
+//        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+//        Log.d(TAG, "Notification Message Title: " + remoteMessage.getNotification().getTitle());
+//        Log.d(TAG, "Notification Message Data: " + remoteMessage.getData().toString());
+//        Log.d(TAG, "Notification Message icon:" + remoteMessage.getNotification().getIcon());
+//        Log.d(TAG, "Notification Message Notification: " + remoteMessage.getNotification());
+//        Map<String, String> params = remoteMessage.getData();
+//        JSONObject object = new JSONObject(params);
+//        try {
+//            data = object.getString("type").toString();
+//            Log.d(TAG, "Megha" + data);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        message=remoteMessage.getNotification().getBody();
+//        Log.e("JSON_OBJECT", object.toString());
         sendNotification(remoteMessage);//remoteMessage.getNotification().getBody());
     }
 //    @Override
@@ -101,26 +106,37 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(RemoteMessage remoteMessage) {
         notifyID = (int) (System.currentTimeMillis() & 0xfffffff);
 
-        Intent notificationIntent = new Intent().setClass(ctx, LoginActivity.class);
-        notificationIntent.putExtra("fromNotification", data);
-        notificationIntent.putExtra("message",remoteMessage.getNotification().getBody());//remoteMessage.getNotification().getBody());
+        Intent notificationIntent = new Intent(ctx,SplashScreenActivity.class);
+
+
+        String data = String.valueOf(remoteMessage.getData());
+//
+//        try {
+//            JSONObject dataObject = new JSONObject (data);
+//
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
+        notificationIntent.putExtra("fromNotification",remoteMessage.getData().get("type"));
+        notificationIntent.putExtra("message",remoteMessage.getData().get("body"));//remoteMessage.getNotification().getBody());
         notificationIntent.putExtra("cometonotification","true");
-        Log.d("Messsagetype", remoteMessage.getNotification().getBody());
+        Log.d("Messsagetype", String.valueOf(remoteMessage.getData()));
 
         notificationIntent.setAction(String.valueOf(notifyID));
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        PendingIntent pendingNotificationIntent =
-                PendingIntent.getActivity(ctx, notifyID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingNotificationIntent = PendingIntent.getActivity(ctx, notifyID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationManager notificationManager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Notification noti = new NotificationCompat.Builder(ctx)
                 .setSmallIcon(R.drawable.ic_launcher)
-                .setTicker(remoteMessage.getNotification().getBody())
+                .setTicker(String.valueOf(remoteMessage.getData().get("body")))
                 .setWhen(System.currentTimeMillis())
                 .setContentTitle("Skool 360 Bhadaj")//Bhadaj
-                .setContentText(remoteMessage.getNotification().getBody())//remoteMessage.getNotification().getBody()
+                .setContentText(remoteMessage.getData().get("body"))//remoteMessage.getNotification().getBody()
                 .setContentIntent(pendingNotificationIntent)
                 .setAutoCancel(true).build();
 
