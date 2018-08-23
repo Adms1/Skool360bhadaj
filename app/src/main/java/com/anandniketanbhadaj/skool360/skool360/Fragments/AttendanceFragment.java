@@ -286,10 +286,10 @@ public class AttendanceFragment extends Fragment {
             public void onClick(View view) {
                 if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    close_img.setImageResource(R.drawable.up_add_family);
+                    close_img.setImageResource(R.drawable.down_add_family);
                 } else {
                     sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    close_img.setImageResource(R.drawable.down_add_family);
+                    close_img.setImageResource(R.drawable.up_add_family);
                 }
             }
         });

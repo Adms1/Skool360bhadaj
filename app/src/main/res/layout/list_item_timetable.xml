@@ -6,7 +6,7 @@
     <TextView
         android:id="@+id/txtLecture"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_25sdp"
+        android:layout_height="wrap_content"
         android:textSize="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
         android:layout_weight="1"
@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/txtSubject"
         android:layout_width="@dimen/_110sdp"
-        android:layout_height="@dimen/_25sdp"
+        android:layout_height="wrap_content"
         android:textSize="@dimen/_10sdp"
         android:gravity="center"
         android:layout_weight="1"
@@ -37,7 +37,7 @@
     <TextView
         android:id="@+id/txtTeacher"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_25sdp"
+        android:layout_height="wrap_content"
         android:textSize="@dimen/_10sdp"
         android:gravity="center"
         android:textColor="@color/black"

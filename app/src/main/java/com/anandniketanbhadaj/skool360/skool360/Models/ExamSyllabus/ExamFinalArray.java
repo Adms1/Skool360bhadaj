@@ -1,6 +1,5 @@
 package com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus;
 
-import com.anandniketanbhadaj.skool360.skool360.Models.ImprestResponse.Datum;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

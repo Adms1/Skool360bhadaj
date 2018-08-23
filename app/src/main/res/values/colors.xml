@@ -81,5 +81,5 @@
     <color name="bg_color">#80000000</color>
     <color name="absent_bg">#ff3232</color>
     <color name="search_class">#4Dffffff</color>
-
+<color name="pending">#FFD8B834</color>
 </resources>

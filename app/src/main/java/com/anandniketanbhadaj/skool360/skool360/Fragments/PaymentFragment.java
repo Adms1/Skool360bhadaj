@@ -12,7 +12,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -195,16 +197,16 @@ public class PaymentFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (feesMainResponse!=null){
-                                if (feesMainResponse.getFinalArray().size() > 0) {
-                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                    progressDialog.dismiss();
-                                    setData();
-                                } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+                                if (feesMainResponse != null) {
+                                    if (feesMainResponse.getFinalArray().size() > 0) {
+                                        txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                        progressDialog.dismiss();
+                                        setData();
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
 
-                                }
+                                    }
                                 } else {
                                     Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);
@@ -244,7 +246,7 @@ public class PaymentFragment extends Fragment {
             LinearLayout childLayout = new LinearLayout(mContext);
             LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams.MATCH_PARENT);
             //childLayout.setOrientation(LinearLayout.HORIZONTAL);
             childLayout.setLayoutParams(linearParams);
 
@@ -264,9 +266,12 @@ public class PaymentFragment extends Fragment {
             mValue.setWidth(220);
             mValue1.setWidth(220);
 
-            mType.setHeight(80);
-            mValue.setHeight(80);
-            mValue1.setHeight(80);
+//            mType.setHeight(80);
+//            mValue.setHeight(80);
+//            mValue1.setHeight(80);
+            mType.setLayoutParams(linearParams);
+            mValue.setLayoutParams(linearParams);
+            mValue1.setLayoutParams(linearParams);
 
             mType.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             mType.setSingleLine(false);
@@ -294,19 +299,40 @@ public class PaymentFragment extends Fragment {
             mValue1.setPadding(0, 3, 5, 3);
             mValue1.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 
-            if (feesMainResponse.getFinalArray().get(i).getLedgerName().length() > 16 && feesMainResponse.getFinalArray().get(i).getLedgerName().length() < 28) {
-                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
-                mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt()) + "\n"));
-                mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt()) + "\n"));
-            } else if (feesMainResponse.getFinalArray().get(i).getLedgerName().length() > 28) {
-                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
-                mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt()) + "\n" + "\n"));
-                mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt()) + "\n" + "\n"));
-            } else {
-                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
-                mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
+            //mType.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(15) });
+//            String tenCharPerLineString = "";
+//            String text="";
+//            text=feesMainResponse.getFinalArray().get(i).getLedgerName();
+//            String buffer = "";
+//            while (text.length() > 15) {
+//                buffer = text.substring(0, 15);
+//
+//                tenCharPerLineString = tenCharPerLineString + buffer + "\n";
+//                text = text.substring(15);
+//
+//                mType.setText(buffer+"\n"+text.substring(0));
+//            }
+
+                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());
+            mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
                 mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
-            }
+//            tenCharPerLineString = tenCharPerLineString + text.substring(0);
+
+
+
+//            if (feesMainResponse.getFinalArray().get(i).getLedgerName().length() > 16 && feesMainResponse.getFinalArray().get(i).getLedgerName().length() < 32) {
+//                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
+//                mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt()) + "\n"));
+//                mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt()) + "\n"));
+//            } else if (feesMainResponse.getFinalArray().get(i).getLedgerName().length() > 32) {
+//                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName()+ "\n" + "\n");//feesMainResponse.getFinalArray().get(i).getLedgerName()
+//                mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt()) + "\n" + "\n"));
+//                mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt()) + "\n" + "\n"));
+//            } else {
+//                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
+//                mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
+//                mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
+//            }
 
 
             childLayout.addView(mType);
@@ -334,40 +360,40 @@ public class PaymentFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (paymentdetailsModel!=null){
-                                if (paymentdetailsModel.size() > 0) {
-                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                    payment_history.setVisibility(View.VISIBLE);
-                                    lv_header.setVisibility(View.VISIBLE);
-                                    payment_report_list.setVisibility(View.VISIBLE);
-                                    paymentListAdapter = new PaymentListAdapter(mContext, paymentdetailsModel, new onViewClick() {
-                                        @Override
-                                        public void getViewClick() {
-                                            String ReceiptUrl;
-                                            ReceiptUrl = String.valueOf(paymentListAdapter.getRowValue());
-                                            fragment = new ReceiptFragment();
-                                            Bundle args = new Bundle();
-                                            args.putString("url", ReceiptUrl);
-                                            fragment.setArguments(args);
-                                            fragmentManager = getFragmentManager();
-                                            fragmentManager.beginTransaction()
-                                                    .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                                                    .replace(R.id.frame_container, fragment).commit();
-                                        }
-                                    });
-                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-                                    payment_report_list.setLayoutManager(mLayoutManager);
-                                    payment_report_list.setItemAnimator(new DefaultItemAnimator());
-                                    payment_report_list.setAdapter(paymentListAdapter);
+                                if (paymentdetailsModel != null) {
+                                    if (paymentdetailsModel.size() > 0) {
+                                        txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                        payment_history.setVisibility(View.VISIBLE);
+                                        lv_header.setVisibility(View.VISIBLE);
+                                        payment_report_list.setVisibility(View.VISIBLE);
+                                        paymentListAdapter = new PaymentListAdapter(mContext, paymentdetailsModel, new onViewClick() {
+                                            @Override
+                                            public void getViewClick() {
+                                                String ReceiptUrl;
+                                                ReceiptUrl = String.valueOf(paymentListAdapter.getRowValue());
+                                                fragment = new ReceiptFragment();
+                                                Bundle args = new Bundle();
+                                                args.putString("url", ReceiptUrl);
+                                                fragment.setArguments(args);
+                                                fragmentManager = getFragmentManager();
+                                                fragmentManager.beginTransaction()
+                                                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                                        .replace(R.id.frame_container, fragment).commit();
+                                            }
+                                        });
+                                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                                        payment_report_list.setLayoutManager(mLayoutManager);
+                                        payment_report_list.setItemAnimator(new DefaultItemAnimator());
+                                        payment_report_list.setAdapter(paymentListAdapter);
 //                                    prepaareList();
 //                                    expandableListAdapterPayment = new ExpandableListAdapterPayment(getActivity(), listDataHeader, listDataChildPayment);
 //                                    lvExpPayment.setAdapter(expandableListAdapterPayment);
-                                } else {
-                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                    payment_history.setVisibility(View.GONE);
-                                    lv_header.setVisibility(View.GONE);
-                                    payment_report_list.setVisibility(View.GONE);
-                                }
+                                    } else {
+                                        txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                        payment_history.setVisibility(View.GONE);
+                                        lv_header.setVisibility(View.GONE);
+                                        payment_report_list.setVisibility(View.GONE);
+                                    }
                                 } else {
                                     Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);

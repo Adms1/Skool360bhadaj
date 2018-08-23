@@ -15,7 +15,7 @@
             android:id="@+id/description_title_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_25sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
             android:padding="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:visibility="gone"></WebView>

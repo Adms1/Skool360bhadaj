@@ -94,11 +94,11 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
 //        }
         work_status_txt.setText(childData.get(childPosition).getHomeWorkStatus());
         if (childData.get(childPosition).getHomeWorkStatus().equalsIgnoreCase("Pending")) {
-            work_status_txt.setTextColor(_context.getResources().getColor(R.color.schedule_active));
+            work_status_txt.setTextColor(_context.getResources().getColor(R.color.pending));
         }else if(childData.get(childPosition).getHomeWorkStatus().equalsIgnoreCase("Not Done")){
             work_status_txt.setTextColor(_context.getResources().getColor(R.color.attendance_absent_old));
         }else if(childData.get(childPosition).getHomeWorkStatus().equalsIgnoreCase("Done")){
-            work_status_txt.setTextColor(_context.getResources().getColor(R.color.attendance_present_old));
+            work_status_txt.setTextColor(_context.getResources().getColor(R.color.attendance_present_new));
         }
         subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
         FontStyle = "";

@@ -64,10 +64,11 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
                 String[] lectstring = getChild(groupPosition, childPosition).getLecture().split("\\s+");
                 //txtLecture.setText(Html.fromHtml(lectstring[0].trim() + ":" + lectstring[1].trim()));
 //            } else {
-                txtLecture.setText("Lecture "+lectstring[0].trim());
+                txtLecture.setText("Lecture "+lectstring[0].trim()+"\n"+lectstring[1]);
 //            }
-            txtSubject.setText(getChild(groupPosition, childPosition).getSubject());
-            txtTeacher.setText(getChild(groupPosition, childPosition).getTeacher());
+            txtSubject.setText(getChild(groupPosition, childPosition).getSubject()+"\n");
+            txtTeacher.setText(getChild(groupPosition, childPosition).getTeacher()+"\n");
+
 //        } else {
 //            infalInflater = (LayoutInflater) this._context
 //                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
