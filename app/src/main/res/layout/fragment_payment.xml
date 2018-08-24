@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:orientation="vertical"
     android:paddingTop="@dimen/_5sdp"
@@ -76,7 +77,8 @@
                         android:layout_margin="0.3dp"
                         android:layout_weight="2"
                         android:background="@color/payment_screen"
-                        android:gravity="center"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="@dimen/_5sdp"
                         android:text="DETAILS"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp" />
@@ -87,7 +89,8 @@
                         android:layout_margin="0.3dp"
                         android:layout_weight="1.6"
                         android:background="@color/payment_screen"
-                        android:gravity="center"
+                        android:gravity="center_vertical|right"
+                        android:paddingRight="@dimen/_5sdp"
                         android:text="TERM-I"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp" />
@@ -98,7 +101,8 @@
                         android:layout_margin="0.3dp"
                         android:layout_weight="1.6"
                         android:background="@color/payment_screen"
-                        android:gravity="center"
+                        android:gravity="center_vertical|right"
+                        android:paddingRight="@dimen/_5sdp"
                         android:text="TERM-II"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp" />
@@ -138,11 +142,9 @@
                         android:layout_weight="2"
                         android:background="@color/app_bg"
                         android:gravity="left|center_vertical"
-                        android:paddingLeft="@dimen/_10sdp"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -160,7 +162,6 @@
                             android:background="#3D89CB"
                             android:gravity="center"
                             android:text="PAY NOW"
-
                             android:textColor="@color/white"
                             android:textSize="@dimen/_10sdp" />
                     </LinearLayout>
@@ -185,6 +186,12 @@
                             android:textSize="@dimen/_10sdp" />
                     </LinearLayout>
                 </TableRow>
+                <View
+                    android:id="@+id/line_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@drawable/list_line"
+                    android:visibility="gone"/>
             </TableLayout>
 
             <TextView
@@ -214,17 +221,42 @@
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
                 android:visibility="gone" />
+            <LinearLayout
+                android:id="@+id/main_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headerRel"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:orientation="vertical">
 
-            <!--<ExpandableListView-->
-            <!--android:id="@+id/lvExpPayment"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_margin="@dimen/_3sdp"-->
-            <!--android:childDivider="@android:color/transparent"-->
-            <!--android:divider="@android:color/white"-->
-            <!--android:dividerHeight="@dimen/_5sdp"-->
-            <!--android:groupIndicator="@null" />-->
-
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tablayout_ptm_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@color/orange"
+                    android:minHeight="?attr/actionBarSize"
+                    app:tabIndicatorColor="@color/app_bg"
+                    app:tabIndicatorHeight="@dimen/_3sdp"
+                    app:tabMaxWidth="0dp"
+                    app:tabPaddingStart="@dimen/_10sdp"
+                    app:tabPaddingEnd="@dimen/_10sdp"
+                    app:tabTextAppearance="@style/MyCustomTabText"
+                    app:tabSelectedTextColor="@color/app_bg"
+                    app:tabTextColor="@color/app_bg"
+                    android:elevation="@dimen/_7sdp"/>
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_5sdp"
+                    android:background="@drawable/dropshadow"
+                    android:visibility="gone" />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/lv_header"
                 android:layout_width="match_parent"

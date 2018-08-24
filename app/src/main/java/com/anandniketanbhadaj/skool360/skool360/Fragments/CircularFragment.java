@@ -150,6 +150,7 @@ public class CircularFragment extends Fragment {
                                             for (int i = 0; i < circularModels.size(); i++) {
                                                 if (circularModels.get(i).getSubject().toLowerCase().trim().contains(strsplit[2].trim().toLowerCase())) {
                                                     listCircular.expandGroup(i);
+                                                    listCircular.smoothScrollToPosition(i);
                                                 }
                                             }
 
@@ -204,8 +205,4 @@ public class CircularFragment extends Fragment {
         }
     }
 
-    public class Circulardemo {
-        private String Date;
-        private String Subject;
-    }
 }

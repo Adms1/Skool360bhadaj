@@ -202,6 +202,7 @@ public class AnnouncmentFragment extends Fragment {
                 for (int i = 0; i < announcmentmodelReponse.getFinalArray().size(); i++) {
                     if (announcmentmodelReponse.getFinalArray().get(i).getSubject().toLowerCase().trim().contains(strsplit[2].trim().toLowerCase())) {
                         listannouncment.expandGroup(i);
+                        listannouncment.smoothScrollToPosition(i);
                     }
                 }
             }

@@ -15,16 +15,17 @@ import com.anandniketanbhadaj.skool360.skool360.Fragments.PaymentFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ReceiptFragment;
 import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.SuggestionInboxModel;
 
 import java.util.ArrayList;
 
 public class PaymentListAdapter extends RecyclerView.Adapter<PaymentListAdapter.MyViewHolder> {
     private Context context;
-    private ArrayList<PaymentLedgerModel> paymentLedgerModels = new ArrayList<PaymentLedgerModel>();
+    SuggestionInboxModel paymentLedgerModels;
     private onViewClick onViewClick;
     private ArrayList<String> rowvalue;
 
-    public PaymentListAdapter(Context mContext, ArrayList<PaymentLedgerModel> paymentdetailsModel, onViewClick onViewClick) {
+    public PaymentListAdapter(Context mContext,SuggestionInboxModel paymentdetailsModel, onViewClick onViewClick) {
         this.context = mContext;
         this.paymentLedgerModels = paymentdetailsModel;
         this.onViewClick = onViewClick;
@@ -40,17 +41,17 @@ public class PaymentListAdapter extends RecyclerView.Adapter<PaymentListAdapter.
     @Override
     public void onBindViewHolder(PaymentListAdapter.MyViewHolder holder, final int position) {
         String sr = String.valueOf(position + 1);
-        holder.index_txt.setText(sr);
-        holder.payment_type_txt.setText(paymentLedgerModels.get(position).getPaymentType());
-        holder.date_txt.setText(paymentLedgerModels.get(position).getDate());
-        holder.term_txt.setText(paymentLedgerModels.get(position).getTerm());
-        holder.amount_txt.setText("₹ " + Math.round(Float.parseFloat(paymentLedgerModels.get(position).getAmount())));
+       // holder.index_txt.setText(sr);
+        holder.payment_type_txt.setText(paymentLedgerModels.getFinalArray().get(position).getPaymentType());
+        holder.date_txt.setText(paymentLedgerModels.getFinalArray().get(position).getDate());
+        holder.term_txt.setText(paymentLedgerModels.getFinalArray().get(position).getTerm());
+        holder.amount_txt.setText("₹ " + Math.round(Float.parseFloat(String.valueOf(paymentLedgerModels.getFinalArray().get(position).getAmount()))));
 
         holder.view_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 rowvalue = new ArrayList<>();
-                rowvalue.add(paymentLedgerModels.get(position).getURL());
+                rowvalue.add(paymentLedgerModels.getFinalArray().get(position).getURL());
                 onViewClick.getViewClick();
             }
         });
@@ -58,7 +59,7 @@ public class PaymentListAdapter extends RecyclerView.Adapter<PaymentListAdapter.
 
     @Override
     public int getItemCount() {
-        return paymentLedgerModels.size();
+        return paymentLedgerModels.getFinalArray().size();
     }
 
     public ArrayList<String> getRowValue() {
@@ -71,7 +72,7 @@ public class PaymentListAdapter extends RecyclerView.Adapter<PaymentListAdapter.
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            index_txt = (TextView) itemView.findViewById(R.id.index_txt);
+          //  index_txt = (TextView) itemView.findViewById(R.id.index_txt);
             payment_type_txt = (TextView) itemView.findViewById(R.id.payment_type_txt);
             date_txt = (TextView) itemView.findViewById(R.id.date_txt);
             term_txt = (TextView) itemView.findViewById(R.id.term_txt);

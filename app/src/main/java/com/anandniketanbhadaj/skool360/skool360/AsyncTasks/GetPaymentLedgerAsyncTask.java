@@ -3,9 +3,11 @@ package com.anandniketanbhadaj.skool360.skool360.AsyncTasks;
 import android.os.AsyncTask;
 
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.SuggestionInboxModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.ParseJSON;
 import com.anandniketanbhadaj.skool360.skool360.WebServicesCall.WebServicesCall;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +16,7 @@ import java.util.HashMap;
  * Created by admsandroid on 9/6/2017.
  */
 
-public class GetPaymentLedgerAsyncTask extends AsyncTask<Void, Void, ArrayList<PaymentLedgerModel>> {
+public class GetPaymentLedgerAsyncTask extends AsyncTask<Void, Void, SuggestionInboxModel> {
     HashMap<String, String> param = new HashMap<String, String>();
 
     public GetPaymentLedgerAsyncTask(HashMap<String, String> param) {
@@ -27,22 +29,22 @@ public class GetPaymentLedgerAsyncTask extends AsyncTask<Void, Void, ArrayList<P
     }
 
     @Override
-    protected ArrayList<PaymentLedgerModel> doInBackground(Void... params) {
+    protected SuggestionInboxModel doInBackground(Void... params) {
         String responseString = null;
-        ArrayList<PaymentLedgerModel> result = null;
+        SuggestionInboxModel mainPtmInboxResponse = null;
         try {
             responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetPaymentLedger), param);
-            result = ParseJSON.parsePaymentLedgerJson(responseString);
+            Gson gson = new Gson();
+            mainPtmInboxResponse = gson.fromJson(responseString, SuggestionInboxModel.class);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
-        return result;
+        return mainPtmInboxResponse;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<PaymentLedgerModel> result) {
+    protected void onPostExecute(SuggestionInboxModel result) {
         super.onPostExecute(result);
     }
 }
-

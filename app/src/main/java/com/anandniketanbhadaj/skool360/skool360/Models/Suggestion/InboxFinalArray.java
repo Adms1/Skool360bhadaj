@@ -80,4 +80,51 @@ public class InboxFinalArray {
     public void setReplyDate(String replyDate) {
         this.replyDate = replyDate;
     }
+
+    //===============fees receipt===========================
+    @SerializedName("Payment Type")
+    @Expose
+    private String paymentType;
+    @SerializedName("Term")
+    @Expose
+    private String term;
+    @SerializedName("Amount")
+    @Expose
+    private Double amount;
+    @SerializedName("URL")
+    @Expose
+    private String uRL;
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getURL() {
+        return uRL;
+    }
+
+    public void setURL(String uRL) {
+        this.uRL = uRL;
+    }
+
+
 }

@@ -106,6 +106,9 @@
     <string name="term">Term</string>
     <string name="amount">Amount</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="payment_id">Payment ID</string>
+    <string name="payment_status">Status</string>
+    <string name="s_status">School</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

@@ -21,6 +21,12 @@ public class FeesMainResponse {
     @SerializedName("Term2URL")
     @Expose
     private String term2URL;
+    @SerializedName("Term1Msg")
+    @Expose
+    private String term1Msg;
+    @SerializedName("Term2Msg")
+    @Expose
+    private String term2Msg;
     @SerializedName("TermTotal")
     @Expose
     private String termTotal;
@@ -115,5 +121,21 @@ public class FeesMainResponse {
 
     public void setFinalArray(List<FeesFinalResponse> finalArray) {
         this.finalArray = finalArray;
+    }
+
+    public String getTerm1Msg() {
+        return term1Msg;
+    }
+
+    public void setTerm1Msg(String term1Msg) {
+        this.term1Msg = term1Msg;
+    }
+
+    public String getTerm2Msg() {
+        return term2Msg;
+    }
+
+    public void setTerm2Msg(String term2Msg) {
+        this.term2Msg = term2Msg;
     }
 }

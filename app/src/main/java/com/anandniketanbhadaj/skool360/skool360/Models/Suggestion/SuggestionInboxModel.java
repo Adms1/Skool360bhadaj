@@ -12,7 +12,9 @@ public class SuggestionInboxModel {
     @SerializedName("FinalArray")
     @Expose
     private List<InboxFinalArray> finalArray = null;
-
+    @SerializedName("OnlineTransaction")
+    @Expose
+    private List<OnlineTransactionModel> onlineTransaction = null;
     public String getSuccess() {
         return success;
     }
@@ -27,5 +29,13 @@ public class SuggestionInboxModel {
 
     public void setFinalArray(List<InboxFinalArray> finalArray) {
         this.finalArray = finalArray;
+    }
+
+    public List<OnlineTransactionModel> getOnlineTransaction() {
+        return onlineTransaction;
+    }
+
+    public void setOnlineTransaction(List<OnlineTransactionModel> onlineTransaction) {
+        this.onlineTransaction = onlineTransaction;
     }
 }

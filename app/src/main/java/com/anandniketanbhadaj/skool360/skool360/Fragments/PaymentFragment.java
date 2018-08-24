@@ -1,13 +1,17 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +19,7 @@ import android.text.Html;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +37,8 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterPayment;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.PaymentListAdapter;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.PaymentPageAdapter;
+import com.anandniketanbhadaj.skool360.skool360.Adapter.SuggestionPageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesDetailsAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetPaymentLedgerAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
@@ -49,15 +56,10 @@ import java.util.List;
 public class PaymentFragment extends Fragment {
     FeesMainResponse feesMainResponse;
     List<String> termheader;
-    ArrayList<String> listDataChild;
-    ExpandableListView lvExpPayment;
-    ExpandableListAdapterPayment expandableListAdapterPayment;
-    ArrayList<String> listDataHeader;
-    HashMap<String, ArrayList<PaymentLedgerModel.Data>> listDataChildPayment;
     TableRow tableRow13;
     Fragment fragment;
-    PaymentListAdapter paymentListAdapter;
     LinearLayout linearBack;
+
     private TextView paynow_term1_txt, paynow_term2_txt, payment_history;
     private View rootView;
     private Button btnMenu, btnBackUnitTest;
@@ -65,14 +67,14 @@ public class PaymentFragment extends Fragment {
     private Context mContext;
     private ProgressDialog progressDialog = null;
     private FeesDetailsAsyncTask getFeesDetailsAsyncTask = null;
-    private int lastExpandedPosition = -1;
-    private GetPaymentLedgerAsyncTask getPaymentLedgerAsyncTask = null;
-    private ArrayList<PaymentLedgerModel> paymentdetailsModel = new ArrayList<>();
     private FragmentManager fragmentManager = null;
     private LinearLayout table_layout;
-    private RecyclerView payment_report_list;
-    private LinearLayout lv_header;
-
+    View line_view;
+    //TabLAyout
+    private TabLayout tablayout_ptm_main;
+    private ViewPager viewPager;
+    View view;
+    PaymentPageAdapter adapter;
 
     public PaymentFragment() {
     }
@@ -86,8 +88,6 @@ public class PaymentFragment extends Fragment {
         initViews();
         setListners();
         getFeesData();
-        getPaymentLedger();
-
         return rootView;
     }
 
@@ -98,15 +98,49 @@ public class PaymentFragment extends Fragment {
         linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
         paynow_term1_txt = (TextView) rootView.findViewById(R.id.paynow_term1_txt);
         paynow_term2_txt = (TextView) rootView.findViewById(R.id.paynow_term2_txt);
-        //lvExpPayment = (ExpandableListView) rootView.findViewById(R.id.lvExpPayment);
         payment_history = (TextView) rootView.findViewById(R.id.payment_history);
         tableRow13 = (TableRow) rootView.findViewById(R.id.tableRow13);
         table_layout = (LinearLayout) rootView.findViewById(R.id.table_layout);
-        payment_report_list = (RecyclerView) rootView.findViewById(R.id.payment_report_list);
-        lv_header = (LinearLayout) rootView.findViewById(R.id.lv_header);
+        line_view=(View)rootView.findViewById(R.id.line_view);
+
+        viewPager = (ViewPager) rootView.findViewById(R.id.pager);
+        view = (View) rootView.findViewById(R.id.view);
+        tablayout_ptm_main = (TabLayout) rootView.findViewById(R.id.tablayout_ptm_main);
+        tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Receipt"), true);
+        tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Online Transcation"));
+
+        tablayout_ptm_main.setTabMode(TabLayout.MODE_FIXED);
+        tablayout_ptm_main.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
+        adapter = new PaymentPageAdapter(getFragmentManager(), tablayout_ptm_main.getTabCount());
+//Adding adapter to pager
+        viewPager.setAdapter(adapter);
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            view.setVisibility(View.GONE);
+        } else {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setListners() {
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(
+                tablayout_ptm_main));
+        tablayout_ptm_main.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,42 +168,58 @@ public class PaymentFragment extends Fragment {
                         .replace(R.id.frame_container, fragment).commit();
             }
         });
-//        lvExpPayment.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-//
-//            @Override
-//            public void onGroupExpand(int groupPosition) {
-//                if (lastExpandedPosition != -1
-//                        && groupPosition != lastExpandedPosition) {
-//                    lvExpPayment.collapseGroup(lastExpandedPosition);
-//
-//                }
-//                lastExpandedPosition = groupPosition;
-//            }
-//        });
         paynow_term1_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new PayOnlineFragment();
-                Bundle args = new Bundle();
-                args.putString("url", feesMainResponse.getTerm1URL());
-                fragment.setArguments(args);
-                fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                        .replace(R.id.frame_container, fragment).commit();
+                if (feesMainResponse.getTerm1Msg().equalsIgnoreCase("")) {
+                    fragment = new PayOnlineFragment();
+                    Bundle args = new Bundle();
+                    args.putString("url", feesMainResponse.getTerm1URL());
+                    fragment.setArguments(args);
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.frame_container, fragment).commit();
+                } else {
+                    new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
+                            .setCancelable(false)
+                            .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                            .setMessage(feesMainResponse.getTerm1Msg())
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setIcon(R.drawable.ic_launcher)
+                            .show();
+                }
             }
         });
         paynow_term2_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new PayOnlineFragment();
-                Bundle args = new Bundle();
-                args.putString("url", feesMainResponse.getTerm2URL());
-                fragment.setArguments(args);
-                fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                        .replace(R.id.frame_container, fragment).commit();
+                if (feesMainResponse.getTerm2Msg().equalsIgnoreCase("")) {
+                    fragment = new PayOnlineFragment();
+                    Bundle args = new Bundle();
+                    args.putString("url", feesMainResponse.getTerm2URL());
+                    fragment.setArguments(args);
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.frame_container, fragment).commit();
+                } else {
+                    new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
+                            .setCancelable(false)
+                            .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                            .setMessage(feesMainResponse.getTerm2Msg())
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setIcon(R.drawable.ic_launcher)
+                            .show();
+                }
             }
         });
     }
@@ -225,10 +275,14 @@ public class PaymentFragment extends Fragment {
 
     public void setData() {
         termheader = new ArrayList<String>();
-        listDataChild = new ArrayList<>();
-//        if (feesMainResponse.getTerm1Btn().equals(false) && feesMainResponse.getTerm2Btn().equals(false)) {
-//            tableRow13.setVisibility(View.GONE);
-//        }
+
+        if (feesMainResponse.getTerm1Btn().equals(false) && feesMainResponse.getTerm2Btn().equals(false)) {
+            tableRow13.setVisibility(View.GONE);
+            line_view.setVisibility(View.VISIBLE);
+        } else {
+            line_view.setVisibility(View.GONE);
+            tableRow13.setVisibility(View.VISIBLE);
+        }
         if (feesMainResponse.getTerm1Btn().equals(false)) {
             paynow_term1_txt.setVisibility(View.GONE);
         } else {
@@ -262,7 +316,7 @@ public class PaymentFragment extends Fragment {
             mValue.setPadding(0, 0, 5, 0);
             mValue1.setPadding(0, 0, 5, 0);
 
-            mType.setWidth(273);
+            mType.setWidth(271);
             mValue.setWidth(220);
             mValue1.setWidth(220);
 
@@ -313,11 +367,10 @@ public class PaymentFragment extends Fragment {
 //                mType.setText(buffer+"\n"+text.substring(0));
 //            }
 
-                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());
+            mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());
             mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
-                mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
+            mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
 //            tenCharPerLineString = tenCharPerLineString + text.substring(0);
-
 
 
 //            if (feesMainResponse.getFinalArray().get(i).getLedgerName().length() > 16 && feesMainResponse.getFinalArray().get(i).getLedgerName().length() < 32) {
@@ -342,88 +395,6 @@ public class PaymentFragment extends Fragment {
             table_layout.addView(childLayout);
 
         }
-
-    }
-
-    public void getPaymentLedger() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (Utility.isNetworkConnected(mContext)) {
-                    try {
-
-                        HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("studentid", Utility.getPref(mContext, "studid"));
-                        getPaymentLedgerAsyncTask = new GetPaymentLedgerAsyncTask(params);
-                        paymentdetailsModel = getPaymentLedgerAsyncTask.execute().get();
-
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (paymentdetailsModel != null) {
-                                    if (paymentdetailsModel.size() > 0) {
-                                        txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                        payment_history.setVisibility(View.VISIBLE);
-                                        lv_header.setVisibility(View.VISIBLE);
-                                        payment_report_list.setVisibility(View.VISIBLE);
-                                        paymentListAdapter = new PaymentListAdapter(mContext, paymentdetailsModel, new onViewClick() {
-                                            @Override
-                                            public void getViewClick() {
-                                                String ReceiptUrl;
-                                                ReceiptUrl = String.valueOf(paymentListAdapter.getRowValue());
-                                                fragment = new ReceiptFragment();
-                                                Bundle args = new Bundle();
-                                                args.putString("url", ReceiptUrl);
-                                                fragment.setArguments(args);
-                                                fragmentManager = getFragmentManager();
-                                                fragmentManager.beginTransaction()
-                                                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                                                        .replace(R.id.frame_container, fragment).commit();
-                                            }
-                                        });
-                                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-                                        payment_report_list.setLayoutManager(mLayoutManager);
-                                        payment_report_list.setItemAnimator(new DefaultItemAnimator());
-                                        payment_report_list.setAdapter(paymentListAdapter);
-//                                    prepaareList();
-//                                    expandableListAdapterPayment = new ExpandableListAdapterPayment(getActivity(), listDataHeader, listDataChildPayment);
-//                                    lvExpPayment.setAdapter(expandableListAdapterPayment);
-                                    } else {
-                                        txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                        payment_history.setVisibility(View.GONE);
-                                        lv_header.setVisibility(View.GONE);
-                                        payment_report_list.setVisibility(View.GONE);
-                                    }
-                                } else {
-                                    Intent serverintent = new Intent(mContext, Server_Error.class);
-                                    startActivity(serverintent);
-                                }
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Utility.ping(mContext, "Network not available");
-                }
-            }
-        }).start();
-    }
-
-    public void prepaareList() {
-        listDataHeader = new ArrayList<>();
-        listDataChildPayment = new HashMap<String, ArrayList<PaymentLedgerModel.Data>>();
-
-        for (int j = 0; j < paymentdetailsModel.size(); j++) {
-            listDataHeader.add(paymentdetailsModel.get(j).getPayDate() + "|" + paymentdetailsModel.get(j).getPaid());
-
-            ArrayList<PaymentLedgerModel.Data> rows = new ArrayList<PaymentLedgerModel.Data>();
-            for (int k = 0; k < paymentdetailsModel.get(j).getDataArrayList().size(); k++) {
-                rows.add(paymentdetailsModel.get(j).getDataArrayList().get(k));
-            }
-            listDataChildPayment.put(listDataHeader.get(j), rows);
-        }
-
 
     }
 }
