@@ -1,6 +1,5 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
-import com.anandniketanbhadaj.skool360.skool360.Models.Data;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 
 import java.util.ArrayList;
@@ -20,14 +18,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Context;
+
 /**
  * Created by admsandroid on 9/4/2017.
  */
 
 public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
 
-    private Context _context;
     boolean visible = true;
+    private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, ArrayList<ExamDatum>> _listDataChild;
@@ -63,14 +63,14 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_item_unit_test, null);
         }
 
-        subject_name_txt = (TextView) convertView.findViewById(R.id.subject_name_txt);
-        syllabus_txt = (TextView) convertView.findViewById(R.id.syllabus_txt);
-        syllabus_linear = (LinearLayout) convertView.findViewById(R.id.syllabus_linear);
+        subject_name_txt = convertView.findViewById(R.id.subject_name_txt);
+        syllabus_txt = convertView.findViewById(R.id.syllabus_txt);
+        syllabus_linear = convertView.findViewById(R.id.syllabus_linear);
         subject_name_txt.setText(childData.get(childPosition).getSubject());
         visibleArray.put(groupPosition, childPosition);
         Log.d("position", visibleArray.toString());
         String[] data = childData.get(childPosition).getDetail().split("\\|");
-        List<String> stringList = new ArrayList<String>(Arrays.asList(data));
+        List<String> stringList = new ArrayList<>(Arrays.asList(data));
         if (syllabus_linear.getChildCount() > 0) {
             syllabus_linear.removeAllViews();
         }
@@ -143,7 +143,7 @@ public class ExpandableListAdapterUnitTest extends BaseExpandableListAdapter {
             convertView.setBackgroundResource(R.color.gray);
         }
 
-        TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
+        TextView lblListHeader = convertView.findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 

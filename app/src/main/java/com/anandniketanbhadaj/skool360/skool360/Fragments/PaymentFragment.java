@@ -5,20 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,26 +19,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterPayment;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.PaymentListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.PaymentPageAdapter;
-import com.anandniketanbhadaj.skool360.skool360.Adapter.SuggestionPageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesDetailsAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetPaymentLedgerAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
-import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesFinalResponse;
-import com.anandniketanbhadaj.skool360.skool360.Models.FeesResponseModel.FeesMainResponse;
-import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
-import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
+import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
@@ -54,12 +37,14 @@ import java.util.List;
 
 
 public class PaymentFragment extends Fragment {
-    FeesMainResponse feesMainResponse;
+    FeesModel feesMainResponse;
     List<String> termheader;
     TableRow tableRow13;
     Fragment fragment;
     LinearLayout linearBack;
-
+    View line_view;
+    View view;
+    PaymentPageAdapter adapter;
     private TextView paynow_term1_txt, paynow_term2_txt, payment_history;
     private View rootView;
     private Button btnMenu, btnBackUnitTest;
@@ -69,12 +54,9 @@ public class PaymentFragment extends Fragment {
     private FeesDetailsAsyncTask getFeesDetailsAsyncTask = null;
     private FragmentManager fragmentManager = null;
     private LinearLayout table_layout;
-    View line_view;
     //TabLAyout
     private TabLayout tablayout_ptm_main;
     private ViewPager viewPager;
-    View view;
-    PaymentPageAdapter adapter;
 
     public PaymentFragment() {
     }
@@ -92,20 +74,20 @@ public class PaymentFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
-        btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        paynow_term1_txt = (TextView) rootView.findViewById(R.id.paynow_term1_txt);
-        paynow_term2_txt = (TextView) rootView.findViewById(R.id.paynow_term2_txt);
-        payment_history = (TextView) rootView.findViewById(R.id.payment_history);
-        tableRow13 = (TableRow) rootView.findViewById(R.id.tableRow13);
-        table_layout = (LinearLayout) rootView.findViewById(R.id.table_layout);
-        line_view=(View)rootView.findViewById(R.id.line_view);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        txtNoRecordsUnitTest = rootView.findViewById(R.id.txtNoRecordsUnitTest);
+        btnBackUnitTest = rootView.findViewById(R.id.btnBackUnitTest);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        paynow_term1_txt = rootView.findViewById(R.id.paynow_term1_txt);
+        paynow_term2_txt = rootView.findViewById(R.id.paynow_term2_txt);
+        payment_history = rootView.findViewById(R.id.payment_history);
+        tableRow13 = rootView.findViewById(R.id.tableRow13);
+        table_layout = rootView.findViewById(R.id.table_layout);
+        line_view = rootView.findViewById(R.id.line_view);
 
-        viewPager = (ViewPager) rootView.findViewById(R.id.pager);
-        view = (View) rootView.findViewById(R.id.view);
-        tablayout_ptm_main = (TabLayout) rootView.findViewById(R.id.tablayout_ptm_main);
+        viewPager = rootView.findViewById(R.id.pager);
+        view = rootView.findViewById(R.id.view);
+        tablayout_ptm_main = rootView.findViewById(R.id.tablayout_ptm_main);
         tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Receipt"), true);
         tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Online Transcation"));
 
@@ -236,7 +218,7 @@ public class PaymentFragment extends Fragment {
                 public void run() {
                     try {
 
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("Term", Utility.getPref(mContext, "TermID"));
                         params.put("StandardID", Utility.getPref(mContext, "standardID"));
@@ -274,7 +256,7 @@ public class PaymentFragment extends Fragment {
     }
 
     public void setData() {
-        termheader = new ArrayList<String>();
+        termheader = new ArrayList<>();
 
         if (feesMainResponse.getTerm1Btn().equals(false) && feesMainResponse.getTerm2Btn().equals(false)) {
             tableRow13.setVisibility(View.GONE);
@@ -368,8 +350,8 @@ public class PaymentFragment extends Fragment {
 //            }
 
             mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());
-            mValue.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm1Amt())));
-            mValue1.setText("₹" + " " + String.valueOf(Math.round(feesMainResponse.getFinalArray().get(i).getTerm2Amt())));
+            mValue.setText("₹" + " " + String.valueOf(feesMainResponse.getFinalArray().get(i).getTerm1Amt()));
+            mValue1.setText("₹" + " " + String.valueOf(feesMainResponse.getFinalArray().get(i).getTerm2Amt()));
 //            tenCharPerLineString = tenCharPerLineString + text.substring(0);
 
 

@@ -3,7 +3,6 @@ package com.anandniketanbhadaj.skool360.skool360.Utility;
 import com.anandniketanbhadaj.skool360.skool360.Models.AttendanceModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.CircularModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
-//import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.FinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
@@ -11,7 +10,6 @@ import com.anandniketanbhadaj.skool360.skool360.Models.ResultModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TimetableModel;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +31,7 @@ public class ParseJSON {
             String data_load_basket = reader.getString("Success");
             result.put("Success",reader.getString("Success"));
             result.put("Status",reader.getString("Status"));
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
 
                 for (int i = 0; i < jsonMainNode.length(); i++) {
@@ -63,7 +61,7 @@ public class ParseJSON {
         try {
             JSONObject reader = new JSONObject(responseString);
             String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 result = true;
             } else {
                 //invalid login
@@ -83,11 +81,7 @@ public class ParseJSON {
         try {
             JSONObject reader = new JSONObject(responseString);
             String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
-                result = true;
-            } else {
-                result = false;
-            }
+            result = data_load_basket.equals("True");
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -103,7 +97,7 @@ public class ParseJSON {
         try {
             JSONObject reader = new JSONObject(responseString);
             String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
 
                 StudProfileModel studProfileModel = null;
@@ -143,6 +137,14 @@ public class ParseJSON {
                     studProfileModel.setPassword(jsonChildNode.getString("Password"));
                     studProfileModel.setTeacherName(jsonChildNode.getString("ClassTeacher"));
                     studProfileModel.setTodayAttendance(jsonChildNode.getString("TodayAttendance"));
+
+                    studProfileModel.setStartDate(jsonChildNode.getString("StartDate"));
+                    studProfileModel.setEndDate(jsonChildNode.getString("EndDate"));
+                    studProfileModel.setStudentID(jsonChildNode.getInt("StudentID"));
+                    studProfileModel.setStandardID(jsonChildNode.getString("StandardID"));
+                    studProfileModel.setClassID(jsonChildNode.getString("ClassID"));
+                    studProfileModel.setTermID(jsonChildNode.getString("TermID"));
+
                     result.add(studProfileModel);
                 }
             } else {
@@ -163,7 +165,7 @@ public class ParseJSON {
         try {
             JSONObject reader = new JSONObject(responseString);
             String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
                 ClassWorkModel classWorkModel = null;
 
@@ -208,7 +210,7 @@ public class ParseJSON {
             String data_load_basket = reader.getString("Success");
             ResultModel resultModel = null;
 
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
 
 
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
@@ -255,7 +257,7 @@ public class ParseJSON {
             String data_load_basket = reader.getString("Success");
             PaymentLedgerModel paymentLedgerModel = null;
 
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
 
 
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
@@ -346,7 +348,7 @@ public class ParseJSON {
         try {
             JSONObject reader = new JSONObject(responseString);
             String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
                 HomeWorkModel homeWorkModel = null;
 
@@ -396,7 +398,7 @@ public class ParseJSON {
             AttendanceModel attendanceModel = new AttendanceModel();
 
 
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
                 JSONArray jsonMainNode1=reader.optJSONArray("HolidayArray");
                 AttendanceModel.Attendance attendance = null;
@@ -450,7 +452,7 @@ public class ParseJSON {
             String data_load_basket = reader.getString("Success");
             TimetableModel timetableModel = new TimetableModel();
 
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
                 TimetableModel.Timetable timetable = null;
                 ArrayList<TimetableModel.Timetable> timetables = new ArrayList<>();
@@ -494,7 +496,7 @@ public class ParseJSON {
         try {
             JSONObject reader = new JSONObject(responseString);
             String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
 
                 TermModel termModel = null;
@@ -524,7 +526,7 @@ public class ParseJSON {
         try {
             JSONObject reader = new JSONObject(responseString);
             String data_load_basket = reader.getString("Success");
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
 
                 CircularModel circularModel = null;
@@ -558,7 +560,7 @@ public class ParseJSON {
             String data_load_basket = reader.getString("Success");
             ReportCardModel reportCardModel = null;
 
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
                 for (int a = 0; a < jsonMainNode.length(); a++) {
                     reportCardModel = new ReportCardModel();
@@ -585,7 +587,7 @@ public class ParseJSON {
             String data_load_basket = reader.getString("Success");
             ReportCardModel reportCardModel = null;
 
-            if (data_load_basket.toString().equals("True")) {
+            if (data_load_basket.equals("True")) {
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
                 for (int a = 0; a < jsonMainNode.length(); a++) {
                     reportCardModel = new ReportCardModel();

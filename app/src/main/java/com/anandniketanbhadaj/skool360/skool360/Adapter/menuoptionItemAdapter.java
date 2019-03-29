@@ -45,7 +45,7 @@ public class menuoptionItemAdapter extends BaseAdapter{
             convertView = mInflater.inflate(R.layout.menu_drawer_item, null);
         }
          
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
+        TextView txtTitle = convertView.findViewById(R.id.title);
         txtTitle.setText(menuOptionItems.get(position).getName());
         return convertView;
 	}

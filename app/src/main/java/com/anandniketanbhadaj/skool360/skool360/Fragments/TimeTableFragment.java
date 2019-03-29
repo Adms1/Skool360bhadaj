@@ -62,11 +62,11 @@ public class TimeTableFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecordsTimetable = (TextView) rootView.findViewById(R.id.txtNoRecordsTimetable);
-        btnBackTimeTable = (Button) rootView.findViewById(R.id.btnBackTimeTable);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        lvExpTimeTable = (ExpandableListView) rootView.findViewById(R.id.lvExpTimeTable);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        txtNoRecordsTimetable = rootView.findViewById(R.id.txtNoRecordsTimetable);
+        btnBackTimeTable = rootView.findViewById(R.id.btnBackTimeTable);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        lvExpTimeTable = rootView.findViewById(R.id.lvExpTimeTable);
 
         getTimeTableData();
     }
@@ -127,7 +127,7 @@ public class TimeTableFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         getTimetableAsyncTask = new GetTimetableAsyncTask(params);
                         timetableModels = getTimetableAsyncTask.execute().get();
@@ -162,13 +162,12 @@ public class TimeTableFragment extends Fragment {
     }
 
     public void prepaareList() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, ArrayList<TimetableModel.Timetable.TimetableData>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         for (int i = 0; i < timetableModels.get(0).getTimetables().size(); i++) {
             listDataHeader.add(timetableModels.get(0).getTimetables().get(i).getDay());
-            ArrayList<TimetableModel.Timetable.TimetableData> rows = new ArrayList<TimetableModel.Timetable.TimetableData>();
-            ;
+            ArrayList<TimetableModel.Timetable.TimetableData> rows = new ArrayList<>();
             for (int j = 0; j < timetableModels.get(0).getTimetables().get(i).getTimetableDatas().size(); j++) {
 
                 rows.add(timetableModels.get(0).getTimetables().get(i).getTimetableDatas().get(j));

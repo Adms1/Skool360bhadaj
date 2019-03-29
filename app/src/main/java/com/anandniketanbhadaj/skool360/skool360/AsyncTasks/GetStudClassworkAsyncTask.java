@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GetStudClassworkAsyncTask extends AsyncTask<Void, Void, ArrayList<ClassWorkModel>> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public GetStudClassworkAsyncTask(HashMap<String, String> param) {
         this.param = param;

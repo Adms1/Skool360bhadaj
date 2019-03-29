@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GetTermAsyncTask extends AsyncTask<Void, Void, ArrayList<TermModel>> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public GetTermAsyncTask(HashMap<String, String> param) {
         this.param = param;

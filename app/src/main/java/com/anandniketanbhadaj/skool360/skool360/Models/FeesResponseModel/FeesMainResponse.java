@@ -39,9 +39,46 @@ public class FeesMainResponse {
     @SerializedName("TermDiscount")
     @Expose
     private String termDiscount;
+
     @SerializedName("FinalArray")
     @Expose
     private List<FeesFinalResponse> finalArray = null;
+
+    @SerializedName("LedgerName")
+    @Expose
+    private String ledgerName;
+    @SerializedName("Term1Amt")
+    @Expose
+    private String term1Amt;
+
+    @SerializedName("Term2Amt")
+    @Expose
+    private String term2Amt;
+
+    public String getLedgerName() {
+        return ledgerName;
+    }
+
+    public void setLedgerName(String ledgerName) {
+        this.ledgerName = ledgerName;
+    }
+
+    public String getTerm1Amt() {
+        return term1Amt;
+    }
+
+    public void setTerm1Amt(String term1Amt) {
+        this.term1Amt = term1Amt;
+    }
+
+    public String getTerm2Amt() {
+        return term2Amt;
+    }
+
+    public void setTerm2Amt(String term2Amt) {
+        this.term2Amt = term2Amt;
+    }
+
 
     public String getSuccess() {
         return success;

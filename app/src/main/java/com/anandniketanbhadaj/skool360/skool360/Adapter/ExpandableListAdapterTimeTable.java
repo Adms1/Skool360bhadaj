@@ -2,7 +2,6 @@ package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,18 +55,20 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
 
             TextView txtLecture, txtSubject, txtTeacher;
 
-            txtLecture = (TextView) convertView.findViewById(R.id.txtLecture);
-            txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
-            txtTeacher = (TextView) convertView.findViewById(R.id.txtTeacher);
+            txtLecture = convertView.findViewById(R.id.txtLecture);
+            txtSubject = convertView.findViewById(R.id.txtSubject);
+            txtTeacher = convertView.findViewById(R.id.txtTeacher);
 
 //            if (getChild(groupPosition, childPosition-1).getLecture().contains("|")) {
                 String[] lectstring = getChild(groupPosition, childPosition).getLecture().split("\\s+");
                 //txtLecture.setText(Html.fromHtml(lectstring[0].trim() + ":" + lectstring[1].trim()));
 //            } else {
-                txtLecture.setText("Lecture "+lectstring[0].trim()+"\n"+lectstring[1]);
+               // txtLecture.setText("Lecture "+lectstring[0].trim()+"\n"+lectstring[1]);
+            txtLecture.setText("Lecture "+lectstring[0].trim());
+
 //            }
-            txtSubject.setText(getChild(groupPosition, childPosition).getSubject()+"\n");
-            txtTeacher.setText(getChild(groupPosition, childPosition).getTeacher()+"\n");
+            txtSubject.setText(getChild(groupPosition, childPosition).getSubject());
+            txtTeacher.setText(getChild(groupPosition, childPosition).getTeacher());
 
 //        } else {
 //            infalInflater = (LayoutInflater) this._context
@@ -114,7 +115,7 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
             convertView.setBackgroundResource(R.color.gray);
         }
 
-        TextView lblListHeader = (TextView) convertView
+        TextView lblListHeader = convertView
                 .findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);

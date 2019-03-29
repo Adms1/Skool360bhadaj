@@ -20,23 +20,20 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.PaymentListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetPaymentLedgerAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
-import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.SuggestionInboxModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-
 
 public class PaymentReceiptFragment extends Fragment {
     Fragment fragment;
     PaymentListAdapter paymentListAdapter;
     LinearLayout linearBack;
+    SuggestionInboxModel paymentdetailsModel;
     private View rootView;
     private TextView txtNoRecordsUnitTest;
     private Context mContext;
     private GetPaymentLedgerAsyncTask getPaymentLedgerAsyncTask = null;
-    SuggestionInboxModel paymentdetailsModel;
     private FragmentManager fragmentManager = null;
     private RecyclerView payment_report_list;
     private LinearLayout lv_header;
@@ -58,11 +55,12 @@ public class PaymentReceiptFragment extends Fragment {
     }
 
     public void initViews() {
-        payment_report_list = (RecyclerView) rootView.findViewById(R.id.payment_report_list);
-        txtNoRecordsUnitTest=(TextView)rootView.findViewById(R.id.txtNoRecordsUnitTest);
-        lv_header = (LinearLayout) rootView.findViewById(R.id.lv_header);
+        payment_report_list = rootView.findViewById(R.id.payment_report_list);
+        txtNoRecordsUnitTest = rootView.findViewById(R.id.txtNoRecordsUnitTest);
+        lv_header = rootView.findViewById(R.id.lv_header);
         setUserVisibleHint(true);
     }
+
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && rootView != null) {
@@ -83,8 +81,9 @@ public class PaymentReceiptFragment extends Fragment {
                 if (Utility.isNetworkConnected(mContext)) {
                     try {
 
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("studentid", Utility.getPref(mContext, "studid"));
+                        params.put("TermID", Utility.getPref(mContext, "TermID"));
                         getPaymentLedgerAsyncTask = new GetPaymentLedgerAsyncTask(params);
                         paymentdetailsModel = getPaymentLedgerAsyncTask.execute().get();
 

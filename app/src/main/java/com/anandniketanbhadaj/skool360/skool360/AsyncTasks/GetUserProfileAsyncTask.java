@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GetUserProfileAsyncTask extends AsyncTask<Void, Void, ArrayList<StudProfileModel>> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public GetUserProfileAsyncTask(HashMap<String, String> param) {
         this.param = param;

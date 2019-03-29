@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class GalleryAsyncTask extends AsyncTask<Void, Void,ExamModel> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public GalleryAsyncTask(HashMap<String, String> param) {
         this.param = param;

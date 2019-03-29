@@ -5,5 +5,5 @@ package com.anandniketanbhadaj.skool360.skool360.Interfacess;
  */
 
 public interface onCheckBoxChnage {
-    public void getChecked();
+    void getChecked();
 }

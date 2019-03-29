@@ -1,6 +1,5 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
-import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
@@ -16,19 +14,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
@@ -41,7 +35,6 @@ import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -85,7 +78,7 @@ public class AttendanceFragment extends Fragment {
             if (attendanceModels.size() > 0) {
                 for (int i = 0; i < attendanceModels.get(0).getEventsList().size(); i++) {
                     if (dateToString(date).equalsIgnoreCase(attendanceModels.get(0).getEventsList().get(i).getAttendanceDate())) {
-                        String comments = attendanceModels.get(0).getEventsList().get(i).getComment().toString();
+                        String comments = attendanceModels.get(0).getEventsList().get(i).getComment();
                         if (!comments.equalsIgnoreCase("")) {
                             AlertDialog ad = new AlertDialog.Builder(view.getContext()).create();
                             ad.setCancelable(false);
@@ -146,17 +139,17 @@ public class AttendanceFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        btnBackAttendance = (Button) rootView.findViewById(R.id.btnBackAttendance);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        txtNoRecordsHomework = (TextView) rootView.findViewById(R.id.txtNoRecordsHomework);
-        rlCalender = (RelativeLayout) rootView.findViewById(R.id.rlCalender);
-        total_present_txt = (TextView) rootView.findViewById(R.id.total_present_txt);
-        total_absent_txt = (TextView) rootView.findViewById(R.id.total_absent_txt);
-        total_holiday_txt = (TextView) rootView.findViewById(R.id.total_holiday_txt);
-        linear_list = (LinearLayout) rootView.findViewById(R.id.bottom_sheet);
-        close_img = (ImageView) linear_list.findViewById(R.id.close_img);
-        holiday_list_rcv = (RecyclerView) linear_list.findViewById(R.id.holiday_list_rcv);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        btnBackAttendance = rootView.findViewById(R.id.btnBackAttendance);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        txtNoRecordsHomework = rootView.findViewById(R.id.txtNoRecordsHomework);
+        rlCalender = rootView.findViewById(R.id.rlCalender);
+        total_present_txt = rootView.findViewById(R.id.total_present_txt);
+        total_absent_txt = rootView.findViewById(R.id.total_absent_txt);
+        total_holiday_txt = rootView.findViewById(R.id.total_holiday_txt);
+        linear_list = rootView.findViewById(R.id.bottom_sheet);
+        close_img = linear_list.findViewById(R.id.close_img);
+        holiday_list_rcv = linear_list.findViewById(R.id.holiday_list_rcv);
         Collections.sort(year1);
         System.out.println("Sorted ArrayList in Java - Ascending order : " + year1);
 
@@ -195,7 +188,7 @@ public class AttendanceFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("Month", selectedmonth);//String.valueOf(spinMonth.getSelectedItemPosition() + 1)
                         params.put("Year", selectedyear);//spinYear.getSelectedItem().toString()
@@ -207,7 +200,7 @@ public class AttendanceFragment extends Fragment {
                                 progressDialog.dismiss();
                                 absentDates.clear();
                                 HashMap hm = new HashMap();
-                                if (attendanceModels!=null) {
+                                if (attendanceModels != null) {
                                     if (attendanceModels.size() > 0) {
                                         rlCalender.setVisibility(View.VISIBLE);
                                         total_absent_txt.setText(attendanceModels.get(0).getTotalAbsent());
@@ -250,8 +243,8 @@ public class AttendanceFragment extends Fragment {
                                         total_present_txt.setText("0");
                                         total_holiday_txt.setText("0");
                                     }
-                                }else{
-                                    Intent serverintent=new Intent(mContext,Server_Error.class);
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);
                                 }
                             }

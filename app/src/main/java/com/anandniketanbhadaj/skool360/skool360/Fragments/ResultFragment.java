@@ -65,14 +65,14 @@ public class ResultFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
-        btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
-        lvExpResult = (ExpandableListView) rootView.findViewById(R.id.lvExpResult);
-        termrg = (RadioGroup) rootView.findViewById(R.id.termrg);
-        term1rb = (RadioButton) rootView.findViewById(R.id.term1_rb);
-        term2rb = (RadioButton) rootView.findViewById(R.id.term2_rb);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        txtNoRecordsUnitTest = rootView.findViewById(R.id.txtNoRecordsUnitTest);
+        btnBackUnitTest = rootView.findViewById(R.id.btnBackUnitTest);
+        linearBack= rootView.findViewById(R.id.linearBack);
+        lvExpResult = rootView.findViewById(R.id.lvExpResult);
+        termrg = rootView.findViewById(R.id.termrg);
+        term1rb = rootView.findViewById(R.id.term1_rb);
+        term2rb = rootView.findViewById(R.id.term2_rb);
         getUnitTestData();
     }
 
@@ -148,7 +148,7 @@ public class ResultFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("TermID", Utility.getPref(mContext, "TermID")); //4
                         params.put("TermDetailId",FinalTermDetailIdStr);
@@ -188,14 +188,14 @@ public class ResultFragment extends Fragment {
     }
 
     public void prepaareList() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, ArrayList<ResultModel.Data>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         for (int i = 0; i < resultModels.size(); i++) {
             listDataHeader.add(resultModels.get(i).getTestName() + "|" + resultModels.get(i).getTotalMarksGained() + "|" +
                     resultModels.get(i).getTotal_Marks() + "|" + resultModels.get(i).getTotalPercentage());
 
-            ArrayList<ResultModel.Data> rows = new ArrayList<ResultModel.Data>();
+            ArrayList<ResultModel.Data> rows = new ArrayList<>();
             for (int j = 0; j < resultModels.get(i).getDataArrayList().size(); j++) {
                 rows.add(resultModels.get(i).getDataArrayList().get(j));
 

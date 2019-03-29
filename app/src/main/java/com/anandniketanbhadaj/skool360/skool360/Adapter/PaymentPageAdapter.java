@@ -6,9 +6,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.anandniketanbhadaj.skool360.skool360.Fragments.OnlineTranscationFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.PaymentReceiptFragment;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.SuggestionFragment;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.SuggestionInboxFragment;
-import com.anandniketanbhadaj.skool360.skool360.Fragments.SuggestionSentFragment;
 
 public class PaymentPageAdapter extends FragmentStatePagerAdapter {
     //integer to count number of tabs

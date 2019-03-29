@@ -73,7 +73,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
                 .denyCacheImageMultipleSizesInMemory()
                 .tasksProcessingOrder(QueueProcessingType.LIFO)// .enableLogging()
                 .build();
-        imageLoader.init(config.createDefault(mContext));
+        imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
 
 
         imageLoader.displayImage(AppConfiguration.GALLARY_LIVE+ arrayList.get(position).getImagePath(), holder.event_image_img);
@@ -82,7 +82,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
         holder.main_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageposition=new ArrayList<Integer>();
+                imageposition= new ArrayList<>();
                 imageposition.add(position);
                 onViewClick.getViewClick();
             }
@@ -101,9 +101,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
 
         public MyViewHolder(View view) {
             super(view);
-            pic_name = (TextView) view.findViewById(R.id.pic_name);
-            event_image_img = (ImageView) view.findViewById(R.id.event_image_img);
-            main_linear = (ConstraintLayout) view.findViewById(R.id.main_linear);
+            pic_name = view.findViewById(R.id.pic_name);
+            event_image_img = view.findViewById(R.id.event_image_img);
+            main_linear = view.findViewById(R.id.main_linear);
         }
 
 

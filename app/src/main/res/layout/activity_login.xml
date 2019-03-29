@@ -5,26 +5,28 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
     android:gravity="center"
+    android:orientation="vertical"
     android:weightSum="1"
     tools:context="com.anandniketanbhadaj.skool360.skool360.Activities.LoginActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center"
         android:background="@android:color/white"
         android:orientation="vertical"
         android:padding="20dp">
 
         <ImageView
-            android:layout_width="@dimen/_220sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/icon_login" />
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -55,34 +57,52 @@
                 android:hint="User Name"
                 android:padding="@dimen/_10sdp"
                 android:singleLine="true"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
-            <EditText
-                android:id="@+id/edtPassword"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:background="#e6e7eb"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:padding="@dimen/_10sdp"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textSize="@dimen/_12sdp" />
-        </LinearLayout>
+                android:orientation="horizontal">
 
+                <EditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#e6e7eb"
+                    android:hint="Password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/_12sdp" />
+
+                <CheckBox
+                    android:id="@+id/chPass"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icon_showpass_h"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <CheckBox
             android:id="@+id/chkRemember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:button="@drawable/check_uncheck"
+            android:padding="@dimen/_4sdp"
             android:text="Remember Credentials"
             android:textColor="@color/design_change_d2"
             android:textSize="@dimen/_11sdp"
-            android:padding="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:button="@drawable/check_uncheck"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -96,14 +116,14 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/forgot_title_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Forgot Id / Password ?"
             android:layout_margin="@dimen/_5sdp"
+            android:text="Forgot Id / Password ?"
             android:textColor="@android:color/holo_blue_light"
             android:textSize="@dimen/_11sdp" />
     </LinearLayout>

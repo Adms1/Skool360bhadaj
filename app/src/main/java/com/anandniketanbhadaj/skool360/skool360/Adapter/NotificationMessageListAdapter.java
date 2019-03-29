@@ -48,7 +48,7 @@ public class NotificationMessageListAdapter extends BaseAdapter {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.list_item_notification_message, null);
 
-            discription_txt = (TextView) convertView.findViewById(R.id.discription_txt);
+            discription_txt = convertView.findViewById(R.id.discription_txt);
             discription_txt.setText(" "+message.get(position));
         }
         return convertView;

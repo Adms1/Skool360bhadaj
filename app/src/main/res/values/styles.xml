@@ -76,4 +76,7 @@
     <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/blue</item>
     </style>
+    <style name="BrushTextViewNormal" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/brush_font</item>
+    </style>
 </resources>

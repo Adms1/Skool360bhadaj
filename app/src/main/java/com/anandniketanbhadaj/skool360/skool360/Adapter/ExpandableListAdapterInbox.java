@@ -1,32 +1,24 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.InboxFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
-import java.net.SocketImpl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
 
@@ -72,9 +64,9 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_item_inbox, null);
         }
 
-        txtreply = (TextView) convertView.findViewById(R.id.txtreply);
-        txtsuggestion = (TextView) convertView.findViewById(R.id.txtsuggestion);
-        txtsuggestiondate = (TextView) convertView.findViewById(R.id.txtsuggestiondate);
+        txtreply = convertView.findViewById(R.id.txtreply);
+        txtsuggestion = convertView.findViewById(R.id.txtsuggestion);
+        txtsuggestiondate = convertView.findViewById(R.id.txtsuggestiondate);
 
         txtreply.setText(childData.get(childPosition).getResponse());
         txtsuggestion.setText(childData.get(childPosition).getSuggestion());
@@ -147,10 +139,10 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_group_inbox, null);
         }
         TextView date_inbox_txt, subject_inbox_txt, line_txt, day_inbox_txt;
-        date_inbox_txt = (TextView) convertView.findViewById(R.id.date_inbox_txt);
-        subject_inbox_txt = (TextView) convertView.findViewById(R.id.subject_inbox_txt);
-        line_txt = (TextView) convertView.findViewById(R.id.line_txt);
-        day_inbox_txt = (TextView) convertView.findViewById(R.id.day_inbox_txt);
+        date_inbox_txt = convertView.findViewById(R.id.date_inbox_txt);
+        subject_inbox_txt = convertView.findViewById(R.id.subject_inbox_txt);
+        line_txt = convertView.findViewById(R.id.line_txt);
+        day_inbox_txt = convertView.findViewById(R.id.day_inbox_txt);
         String CurrentTime = "";
 
 
@@ -203,7 +195,7 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
                 Log.d("CurrentTimeCOnvert", ConvertCurrentTimeStr);
 
                 calculateHours(ConvertCurrentTimeStr, ConvertResponseTimeStr);
-                SessionDurationHours=SessionDurationHours.replace("-","");
+                SessionDurationHours = SessionDurationHours.replace("-", "");
                 day_inbox_txt.setText(SessionDurationHours + " ago");
             } else {
                 day_inbox_txt.setText(daysBetween + " days ago");

@@ -27,21 +27,17 @@ import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetReportcardAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetResultPermissionAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTermAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ReportCardModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
-
 
 public class ReportCardFragment extends Fragment {
     WebView webview_report_card;
@@ -57,7 +53,6 @@ public class ReportCardFragment extends Fragment {
     private RadioButton term1rb, term2rb;
     private ProgressDialog progressDialog = null;
     private GetReportcardAsyncTask getReportCardAsyncTask = null;
-    private GetResultPermissionAsyncTask getResultPermissionAsyncTask = null;
     private ArrayList<ReportCardModel> reportModels = new ArrayList<>();
     private GetTermAsyncTask getTermAsyncTask = null;
     private ArrayList<TermModel> termModels = new ArrayList<>();
@@ -78,16 +73,16 @@ public class ReportCardFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
-        btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        webview_report_card = (WebView) rootView.findViewById(R.id.webview);
-        term_detail_spinner = (Spinner) rootView.findViewById(R.id.term_detail_spinner);
-        termrg = (RadioGroup) rootView.findViewById(R.id.termrg);
-        term1rb = (RadioButton) rootView.findViewById(R.id.term1_rb);
-        term2rb = (RadioButton) rootView.findViewById(R.id.term2_rb);
-        btnshow = (Button) rootView.findViewById(R.id.btnshow);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        txtNoRecordsUnitTest = rootView.findViewById(R.id.txtNoRecordsUnitTest);
+        btnBackUnitTest = rootView.findViewById(R.id.btnBackUnitTest);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        webview_report_card = rootView.findViewById(R.id.webview);
+        term_detail_spinner = rootView.findViewById(R.id.term_detail_spinner);
+        termrg = rootView.findViewById(R.id.termrg);
+        term1rb = rootView.findViewById(R.id.term1_rb);
+        term2rb = rootView.findViewById(R.id.term2_rb);
+        btnshow = rootView.findViewById(R.id.btnshow);
         WebSettings webSettings = webview_report_card.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webview_report_card.getSettings().setUseWideViewPort(true);
@@ -162,7 +157,7 @@ public class ReportCardFragment extends Fragment {
                 String getid = spinnerTermIdMap.get(term_detail_spinner.getSelectedItemPosition());
 
                 Log.d("TermDetailValue", name + "" + getid);
-                FinalTermIdStr = getid.toString();
+                FinalTermIdStr = getid;
                 Log.d("FinalTermIdStr", FinalTermIdStr);
                 getReportData();
                 // getReportPermission();
@@ -187,7 +182,7 @@ public class ReportCardFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("Studentid", Utility.getPref(mContext, "studid"));
                         params.put("TermID", FinalTermIdStr);
                         params.put("TermDetailID", FinalTermDetailIdStr);
@@ -197,35 +192,65 @@ public class ReportCardFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (reportModels!=null){
-                                if (reportModels.size() > 0) {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsUnitTest.setVisibility(View.GONE);
-                                    webview_report_card.loadUrl(reportModels.get(0).getURL());
-                                    if (reportModels.get(0).getURL().equalsIgnoreCase("")) {
-                                        webview_report_card.setVisibility(View.GONE);
-                                        txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
-                                    } else {
-                                        webview_report_card.setVisibility(View.VISIBLE);
+                                if (reportModels != null) {
+                                    if (reportModels.size() > 0) {
+
                                         txtNoRecordsUnitTest.setVisibility(View.GONE);
+                                        webview_report_card.loadUrl(reportModels.get(0).getURL());
+                                        if (reportModels.get(0).getURL().equalsIgnoreCase("")) {
+                                            webview_report_card.setVisibility(View.GONE);
+                                            txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
+
+                                            webview_report_card.setWebViewClient(new MyWebViewClient());
+
+                                        } else {
+                                            webview_report_card.setVisibility(View.VISIBLE);
+                                            txtNoRecordsUnitTest.setVisibility(View.GONE);
+
+                                        }
+
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
                                     }
-                                } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsUnitTest.setVisibility(View.VISIBLE);
-                                }
                                 } else {
                                     Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);
                                 }
                             }
                         });
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 }
             }).start();
+
         } else {
             Utility.ping(mContext, "Network not available");
+        }
+    }
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+
+            if (!progressDialog.isShowing()) {
+                progressDialog.show();
+            }
+
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            System.out.println("on finish");
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
         }
     }
 
@@ -240,7 +265,7 @@ public class ReportCardFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         getTermAsyncTask = new GetTermAsyncTask(params);
                         termModels = getTermAsyncTask.execute().get();
 
@@ -248,52 +273,52 @@ public class ReportCardFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (termModels!=null){
-                                if (termModels.size() > 0) {
-                                    ArrayList<String> termText = new ArrayList<String>();
-                                    ArrayList<String> termId = new ArrayList<>();
+                                if (termModels != null) {
+                                    if (termModels.size() > 0) {
+                                        ArrayList<String> termText = new ArrayList<>();
+                                        ArrayList<String> termId = new ArrayList<>();
 
-                                    for (int i = 0; i < termModels.size(); i++) {
-                                        termText.add(termModels.get(i).getTerm());
-                                        termId.add(termModels.get(i).getTermId());
-                                    }
-                                    Collections.sort(termId);
-                                    Collections.sort(termText);
-                                    String[] spinnertermdetailIdArray = new String[termId.size()];
-
-                                    spinnerTermIdMap = new HashMap<Integer, String>();
-                                    for (int i = 0; i < termId.size(); i++) {
-                                        spinnerTermIdMap.put(i, String.valueOf(termId.get(i)));
-                                        spinnertermdetailIdArray[i] = termText.get(i).trim();
-                                    }
-                                    System.out.println("Sorted ArrayList in Java - Ascending order : " + spinnertermdetailIdArray);
-                                    try {
-                                        Field popup = Spinner.class.getDeclaredField("mPopup");
-                                        popup.setAccessible(true);
-
-                                        // Get private mPopup member variable and try cast to ListPopupWindow
-                                        android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(term_detail_spinner);
-
-                                        popupWindow.setHeight(spinnertermdetailIdArray.length > 1 ? 200 : spinnertermdetailIdArray.length * 100);
-                                    } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-                                        // silently fail...
-                                    }
-                                    ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnertermdetailIdArray);
-                                    term_detail_spinner.setAdapter(adapterSpinYear);
-
-                                    final Calendar calendar = Calendar.getInstance();
-                                    int yy = calendar.get(Calendar.YEAR);
-
-                                    String CurrentYear = String.valueOf(yy);
-                                    for (int i = 0; i < spinnertermdetailIdArray.length; i++) {
-                                        if (spinnertermdetailIdArray[i].contains(CurrentYear)) {
-                                            term_detail_spinner.setSelection(i);
+                                        for (int i = 0; i < termModels.size(); i++) {
+                                            termText.add(termModels.get(i).getTerm());
+                                            termId.add(termModels.get(i).getTermId());
                                         }
-                                    }
+                                        Collections.sort(termId);
+                                        Collections.sort(termText);
+                                        String[] spinnertermdetailIdArray = new String[termId.size()];
 
-                                } else {
-                                    progressDialog.dismiss();
-                                }
+                                        spinnerTermIdMap = new HashMap<>();
+                                        for (int i = 0; i < termId.size(); i++) {
+                                            spinnerTermIdMap.put(i, String.valueOf(termId.get(i)));
+                                            spinnertermdetailIdArray[i] = termText.get(i).trim();
+                                        }
+                                        System.out.println("Sorted ArrayList in Java - Ascending order : " + spinnertermdetailIdArray);
+                                        try {
+                                            Field popup = Spinner.class.getDeclaredField("mPopup");
+                                            popup.setAccessible(true);
+
+                                            // Get private mPopup member variable and try cast to ListPopupWindow
+                                            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(term_detail_spinner);
+
+                                            popupWindow.setHeight(spinnertermdetailIdArray.length > 1 ? 200 : spinnertermdetailIdArray.length * 100);
+                                        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+                                            // silently fail...
+                                        }
+                                        ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnertermdetailIdArray);
+                                        term_detail_spinner.setAdapter(adapterSpinYear);
+
+                                        final Calendar calendar = Calendar.getInstance();
+                                        int yy = calendar.get(Calendar.YEAR);
+
+                                        String CurrentYear = String.valueOf(yy);
+                                        for (int i = 0; i < spinnertermdetailIdArray.length; i++) {
+                                            if (spinnertermdetailIdArray[i].contains(CurrentYear)) {
+                                                term_detail_spinner.setSelection(i);
+                                            }
+                                        }
+
+                                    } else {
+                                        progressDialog.dismiss();
+                                    }
                                 } else {
                                     Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);

@@ -47,8 +47,7 @@ public class WebServicesCall {
 			conn.setRequestMethod("POST");
 			conn.setUseCaches(false);
 			conn.setRequestProperty("User-Agent", USER_AGENT);
-			conn.setRequestProperty("Content-Type",
-					"application/x-www-form-urlencoded");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
@@ -84,6 +83,57 @@ public class WebServicesCall {
 		}
 		return response;
 	}
+
+
+	public static String RunScript(String URL,int methodType){
+		URL url = null;
+		String response = "";
+
+		try {
+			url = new URL(URL);
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println("request URL : "+url);
+		//System.out.println("request Params : "+params);
+
+		HttpURLConnection conn = null;
+		final String USER_AGENT = "Mozilla/5.0";
+
+		try {
+			conn = (HttpURLConnection)url.openConnection();
+			conn.setReadTimeout(100000);
+			conn.setConnectTimeout(150000);
+			if(methodType == 1){
+				conn.setRequestMethod("POST");
+			}else{
+				conn.setRequestMethod("GET");
+			}
+
+			conn.setUseCaches(false);
+
+			int responseCode=conn.getResponseCode();
+			System.out.println("Response Code : "+responseCode);
+			System.out.println("Response Code : "+conn.getErrorStream());
+
+			if (responseCode == HttpsURLConnection.HTTP_OK) {
+				String line;
+				BufferedReader br= new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				while ((line=br.readLine()) != null) {
+					response+=line;
+				}
+			}
+			else {
+				response="";
+			}
+
+			System.out.println("Response :" +response);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return response;
+	}
+
 
 	private static String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException{
 		StringBuilder result = new StringBuilder();

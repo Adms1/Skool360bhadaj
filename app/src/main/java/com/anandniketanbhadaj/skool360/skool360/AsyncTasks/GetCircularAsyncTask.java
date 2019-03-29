@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GetCircularAsyncTask extends AsyncTask<Void, Void, ArrayList<CircularModel>> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public GetCircularAsyncTask(HashMap<String, String> param) {
         this.param = param;

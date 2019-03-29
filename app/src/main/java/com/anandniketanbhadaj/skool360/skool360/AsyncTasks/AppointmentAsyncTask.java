@@ -9,7 +9,7 @@ import com.anandniketanbhadaj.skool360.skool360.WebServicesCall.WebServicesCall;
 import java.util.HashMap;
 
 public class AppointmentAsyncTask extends AsyncTask<Void, Void, Boolean> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public AppointmentAsyncTask(HashMap<String, String> param) {
         this.param = param;

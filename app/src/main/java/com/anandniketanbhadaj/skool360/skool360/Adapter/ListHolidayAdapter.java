@@ -74,11 +74,11 @@ public class ListHolidayAdapter extends RecyclerView.Adapter<ListHolidayAdapter.
 
         public MyViewHolder(View view) {
             super(view);
-            linear_click = (LinearLayout) view.findViewById(R.id.linear_click);
-            holiday_days_txt = (TextView) view.findViewById(R.id.holiday_days_txt);
-            holiday_date_txt = (TextView) view.findViewById(R.id.holiday_date_txt);
-            holiday_count_txt = (TextView) view.findViewById(R.id.holiday_count_txt);
-            holiday_name_txt = (TextView) view.findViewById(R.id.holiday_name_txt);
+            linear_click = view.findViewById(R.id.linear_click);
+            holiday_days_txt = view.findViewById(R.id.holiday_days_txt);
+            holiday_date_txt = view.findViewById(R.id.holiday_date_txt);
+            holiday_count_txt = view.findViewById(R.id.holiday_count_txt);
+            holiday_name_txt = view.findViewById(R.id.holiday_name_txt);
         }
     }
 }

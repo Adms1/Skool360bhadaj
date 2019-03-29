@@ -5,5 +5,5 @@ package com.anandniketanbhadaj.skool360.skool360.Interfacess;
  */
 
 public interface onViewClick {
-    public void getViewClick();
+    void getViewClick();
 }

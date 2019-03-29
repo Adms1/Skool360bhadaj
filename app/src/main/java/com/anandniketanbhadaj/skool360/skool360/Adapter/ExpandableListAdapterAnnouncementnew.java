@@ -1,6 +1,5 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -28,11 +27,8 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -76,8 +72,8 @@ public class ExpandableListAdapterAnnouncementnew extends BaseExpandableListAdap
             LayoutInflater infalInflater = LayoutInflater.from(_context);
             convertView = infalInflater.inflate(R.layout.announcment_listitem1, null);
         }
-        description_title_txt = (WebView) convertView.findViewById(R.id.description_title_txt);
-        show_file = (TextView) convertView.findViewById(R.id.show_file);
+        description_title_txt = convertView.findViewById(R.id.description_title_txt);
+        show_file = convertView.findViewById(R.id.show_file);
         description_title_txt.loadData(childData.get(childPosition).getAnnoucementDescription(), "text/html", "UTF-8");
         WebSettings webSettings = description_title_txt.getSettings();
         webSettings.setTextSize(WebSettings.TextSize.SMALLER);
@@ -126,10 +122,10 @@ public class ExpandableListAdapterAnnouncementnew extends BaseExpandableListAdap
         LinearLayout llHeaderRow;
         ImageView imgBulletCircular;
 
-        txtAnnText = (TextView) convertView.findViewById(R.id.txtAnnText);
-        txtDate = (TextView) convertView.findViewById(R.id.txtDate);
-        llHeaderRow = (LinearLayout) convertView.findViewById(R.id.llHeaderRow);
-        imgBulletCircular = (ImageView) convertView.findViewById(R.id.imgBulletCircular);
+        txtAnnText = convertView.findViewById(R.id.txtAnnText);
+        txtDate = convertView.findViewById(R.id.txtDate);
+        llHeaderRow = convertView.findViewById(R.id.llHeaderRow);
+        imgBulletCircular = convertView.findViewById(R.id.imgBulletCircular);
 
         txtAnnText.setTypeface(null, Typeface.BOLD);
         txtAnnText.setText(headerTemp[1]);
@@ -168,7 +164,7 @@ public class ExpandableListAdapterAnnouncementnew extends BaseExpandableListAdap
 //
                 Log.d("path", extStorageDirectory);
 
-                String fileURL =AppConfiguration.GALLARY_LIVE+headerTemp[3];
+                String fileURL = AppConfiguration.GALLARY_LIVE + headerTemp[3];
                 Log.d("URL", fileURL);
                 if (Utility.isNetworkConnected(_context)) {
                     progressDialog = new ProgressDialog(_context);

@@ -5,5 +5,5 @@ package com.anandniketanbhadaj.skool360.skool360.Interfacess;
  */
 
 public interface onInboxRead {
-    public void readMessageStatus();
+    void readMessageStatus();
 }

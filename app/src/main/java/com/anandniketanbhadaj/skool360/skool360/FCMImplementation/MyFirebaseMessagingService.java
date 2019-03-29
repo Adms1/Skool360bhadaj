@@ -1,35 +1,22 @@
 package com.anandniketanbhadaj.skool360.skool360.FCMImplementation;
 
 import android.app.ActivityManager;
-import android.app.ActivityOptions;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.text.TextUtils;
-import android.util.Config;
 import android.util.Log;
 
 import com.anandniketanbhadaj.skool360.R;
-import com.anandniketanbhadaj.skool360.skool360.Activities.LoginActivity;
 import com.anandniketanbhadaj.skool360.skool360.Activities.SplashScreenActivity;
-import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
-import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.JsonObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Belal on 5/27/2016.
@@ -40,7 +27,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     private static Context ctx;
     private static int notifyID = 1;
-    String data,message;
+    String data, message;
     private String screen = "";
 
     /**
@@ -95,7 +82,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //        Log.e("JSON_OBJECT", object.toString());
         sendNotification(remoteMessage);//remoteMessage.getNotification().getBody());
     }
-//    @Override
+
+    //    @Override
 //    public void handleIntent(Intent intent) {
 //        super.handleIntent(intent);
 //
@@ -106,7 +94,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(RemoteMessage remoteMessage) {
         notifyID = (int) (System.currentTimeMillis() & 0xfffffff);
 
-        Intent notificationIntent = new Intent(ctx,SplashScreenActivity.class);
+        Intent notificationIntent = new Intent(ctx, SplashScreenActivity.class);
 
 
         String data = String.valueOf(remoteMessage.getData());
@@ -119,9 +107,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //            e.printStackTrace();
 //        }
 
-        notificationIntent.putExtra("fromNotification",remoteMessage.getData().get("type"));
-        notificationIntent.putExtra("message",remoteMessage.getData().get("body"));//remoteMessage.getNotification().getBody());
-        notificationIntent.putExtra("cometonotification","true");
+        notificationIntent.putExtra("fromNotification", remoteMessage.getData().get("type"));
+        if (remoteMessage.getData().get("type").equalsIgnoreCase("Birthday")) {
+            notificationIntent.putExtra("Name", remoteMessage.getData().get("Name"));
+        }
+
+        notificationIntent.putExtra("message", remoteMessage.getData().get("body"));//remoteMessage.getNotification().getBody());
+        notificationIntent.putExtra("cometonotification", "true");
         Log.d("Messsagetype", String.valueOf(remoteMessage.getData()));
 
         notificationIntent.setAction(String.valueOf(notifyID));

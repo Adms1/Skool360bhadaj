@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GetTimetableAsyncTask extends AsyncTask<Void, Void, ArrayList<TimetableModel>> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public GetTimetableAsyncTask(HashMap<String, String> param) {
         this.param = param;
@@ -27,7 +27,7 @@ public class GetTimetableAsyncTask extends AsyncTask<Void, Void, ArrayList<Timet
             String responseString = null;
             ArrayList<TimetableModel> result = null;
             try {
-                responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetTimetable), param);
+                responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetTimetableNew), param);
                 result = ParseJSON.parseTimeTableJson(responseString);
             } catch (Exception e) {
                 // TODO: handle exception

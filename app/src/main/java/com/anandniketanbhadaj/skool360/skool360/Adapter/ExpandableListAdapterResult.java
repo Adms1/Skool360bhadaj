@@ -54,19 +54,19 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_item_result, null);
         }
 
-        txtSubjectHeader = (TextView) convertView.findViewById(R.id.txtSubjectHeader);
-        txtMarksGainedHeader = (TextView) convertView.findViewById(R.id.txtMarksGainedHeader);
-        txtTotalMarksHeader = (TextView) convertView.findViewById(R.id.txtTotalMarksHeader);
-        txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
-        txtMarksGained = (TextView) convertView.findViewById(R.id.txtMarksGained);
-        txtMarksTotal = (TextView) convertView.findViewById(R.id.txtMarksTotal);
-        txtTotalMarksGained = (TextView) convertView.findViewById(R.id.txtTotalMarksGained);
-        txtTotalMarks = (TextView) convertView.findViewById(R.id.txtTotalMarks);
-        txtInvisibleView = (TextView) convertView.findViewById(R.id.txtInvisibleView);
-        txtPercentage = (TextView) convertView.findViewById(R.id.txtPercentage);
-        txtDate = (TextView) convertView.findViewById(R.id.txtDate);
-        txtDateHeader = (TextView) convertView.findViewById(R.id.txtDateHeader);
-        llBottomRow=(LinearLayout)convertView.findViewById(R.id.llBottomRow);
+        txtSubjectHeader = convertView.findViewById(R.id.txtSubjectHeader);
+        txtMarksGainedHeader = convertView.findViewById(R.id.txtMarksGainedHeader);
+        txtTotalMarksHeader = convertView.findViewById(R.id.txtTotalMarksHeader);
+        txtSubject = convertView.findViewById(R.id.txtSubject);
+        txtMarksGained = convertView.findViewById(R.id.txtMarksGained);
+        txtMarksTotal = convertView.findViewById(R.id.txtMarksTotal);
+        txtTotalMarksGained = convertView.findViewById(R.id.txtTotalMarksGained);
+        txtTotalMarks = convertView.findViewById(R.id.txtTotalMarks);
+        txtInvisibleView = convertView.findViewById(R.id.txtInvisibleView);
+        txtPercentage = convertView.findViewById(R.id.txtPercentage);
+        txtDate = convertView.findViewById(R.id.txtDate);
+        txtDateHeader = convertView.findViewById(R.id.txtDateHeader);
+        llBottomRow= convertView.findViewById(R.id.llBottomRow);
 
         if (childPosition == 0) {
             txtSubjectHeader.setVisibility(View.VISIBLE);
@@ -142,7 +142,7 @@ public class ExpandableListAdapterResult extends BaseExpandableListAdapter {
             convertView.setBackgroundResource(R.color.gray);
         }
 
-        TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
+        TextView lblListHeader = convertView.findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 

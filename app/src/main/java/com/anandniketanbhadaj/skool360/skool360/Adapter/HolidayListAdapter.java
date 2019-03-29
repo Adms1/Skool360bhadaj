@@ -1,15 +1,10 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,19 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
-import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
-import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
-import com.bumptech.glide.Glide;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.MyViewHolder> {
 
@@ -59,16 +49,16 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
                 LayoutInflater inflater = LayoutInflater.from(mContext);
                 View view = inflater.inflate(R.layout.sub_holiday_item, null);
 
-                LinearLayout LinearData = (LinearLayout) view.findViewById(R.id.linear_click);
+                LinearLayout LinearData = view.findViewById(R.id.linear_click);
                 LinearData.setVisibility(View.VISIBLE);
 
-                TextView norecordtxt = (TextView) view.findViewById(R.id.norecordtxt);
+                TextView norecordtxt = view.findViewById(R.id.norecordtxt);
                 norecordtxt.setVisibility(View.GONE);
 
-                TextView name = (TextView) view.findViewById(R.id.holiday_name_txt);
-                TextView date = (TextView) view.findViewById(R.id.holiday_date_txt);
-                TextView day = (TextView) view.findViewById(R.id.holiday_day);
-                TextView date_txt = (TextView) view.findViewById(R.id.date_txt);
+                TextView name = view.findViewById(R.id.holiday_name_txt);
+                TextView date = view.findViewById(R.id.holiday_date_txt);
+                TextView day = view.findViewById(R.id.holiday_day);
+                TextView date_txt = view.findViewById(R.id.date_txt);
 
                 holder.main_holiday.addView(view);
             }
@@ -77,11 +67,11 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
 
             View view = inflater.inflate(R.layout.sub_holiday_item, null);
 
-            LinearLayout LinearData = (LinearLayout) view.findViewById(R.id.linear_click);
+            LinearLayout LinearData = view.findViewById(R.id.linear_click);
             LinearData.setVisibility(View.GONE);
 
 
-            TextView norecordtxt = (TextView) view.findViewById(R.id.norecordtxt);
+            TextView norecordtxt = view.findViewById(R.id.norecordtxt);
             norecordtxt.setVisibility(View.VISIBLE);
 
             holder.main_holiday.addView(view);
@@ -112,14 +102,14 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
             if (examData.size() > 0) {
                 for (int i = 0; i < examData.size(); i++) {
                     View view = holder.main_holiday.getChildAt(i + 1);
-                    TextView name = (TextView) view.findViewById(R.id.holiday_name_txt);
+                    TextView name = view.findViewById(R.id.holiday_name_txt);
                     name.setText(examData.get(i).getHoliday());
-                    TextView date = (TextView) view.findViewById(R.id.holiday_date_txt);
-                    LinearLayout event_linear = (LinearLayout) view.findViewById(R.id.event_linear);
-                    LinearLayout holiday_linear = (LinearLayout) view.findViewById(R.id.holiday_linear);
+                    TextView date = view.findViewById(R.id.holiday_date_txt);
+                    LinearLayout event_linear = view.findViewById(R.id.event_linear);
+                    LinearLayout holiday_linear = view.findViewById(R.id.holiday_linear);
 
-                    TextView day = (TextView) view.findViewById(R.id.holiday_day);
-                    TextView event_name_txt = (TextView) view.findViewById(R.id.event_name_txt);
+                    TextView day = view.findViewById(R.id.holiday_day);
+                    TextView event_name_txt = view.findViewById(R.id.event_name_txt);
                     event_name_txt.setText(examData.get(i).getEvent());
 
                     if (!examData.get(i).getHolidayDate().equalsIgnoreCase("-")) {
@@ -137,7 +127,7 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                    }else{
+                    } else {
                         String[] dateStr = examData.get(i).getEventDate().split("\\-");
                         String[] datesplit = dateStr[0].split("\\/");
                         date.setText(datesplit[0]);
@@ -170,7 +160,7 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
                         String[] holidayDatesplit = examData.get(i).getHolidayDate().split("\\-");
 
                         if (!holidayDatesplit[0].equalsIgnoreCase(holidayDatesplit[1])) {
-                            TextView date_txt = (TextView) view.findViewById(R.id.date_txt);
+                            TextView date_txt = view.findViewById(R.id.date_txt);
                             date_txt.setVisibility(View.VISIBLE);
                             String inputPattern = "dd/MM/yyyy";
                             String outputPattern1 = "dd MMM";
@@ -196,14 +186,14 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
                             date_txt.setText(StartTimeStr + " - " + EndTimeStr);
 
                         } else {
-                            TextView date_txt = (TextView) view.findViewById(R.id.date_txt);
+                            TextView date_txt = view.findViewById(R.id.date_txt);
                             date_txt.setVisibility(View.GONE);
                         }
                     }
                     if (!examData.get(i).getEventDate().equalsIgnoreCase("-")) {
                         String[] eventDatesplit = examData.get(i).getEventDate().split("\\-");
                         if (!eventDatesplit[0].equalsIgnoreCase(eventDatesplit[1])) {
-                            TextView edate_txt = (TextView) view.findViewById(R.id.edate_txt);
+                            TextView edate_txt = view.findViewById(R.id.edate_txt);
                             edate_txt.setVisibility(View.VISIBLE);
                             String inputPattern = "dd/MM/yyyy";
                             String outputPattern1 = "dd MMM";
@@ -229,7 +219,7 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
                             edate_txt.setText(StartTimeStr + " - " + EndTimeStr);
 
                         } else {
-                            TextView edate_txt = (TextView) view.findViewById(R.id.edate_txt);
+                            TextView edate_txt = view.findViewById(R.id.edate_txt);
                             edate_txt.setVisibility(View.GONE);
                         }
                     }
@@ -276,10 +266,10 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
 
         public MyViewHolder(View view, int recyclerViewHeight) {
             super(view);
-            month_name = (TextView) view.findViewById(R.id.month_name);
-            month_image = (ImageView) view.findViewById(R.id.month_image);
+            month_name = view.findViewById(R.id.month_name);
+            month_image = view.findViewById(R.id.month_image);
             month_image.setScaleType(ImageView.ScaleType.MATRIX);
-            main_holiday = (LinearLayout) view.findViewById(R.id.main_holiday);
+            main_holiday = view.findViewById(R.id.main_holiday);
             this.recyclerViewHeight = recyclerViewHeight;
             this.itemView = view;
 

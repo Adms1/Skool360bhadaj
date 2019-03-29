@@ -58,9 +58,9 @@ public class SuggestionSentFragment extends Fragment {
     }
 
     public void initViews() {
-        txtNoRecordsSent = (TextView) rootView.findViewById(R.id.txtNoRecordsSent);
-        lvExpSent = (ExpandableListView) rootView.findViewById(R.id.lvExpSent);
-        Sent_header = (LinearLayout) rootView.findViewById(R.id.Sent_header);
+        txtNoRecordsSent = rootView.findViewById(R.id.txtNoRecordsSent);
+        lvExpSent = rootView.findViewById(R.id.lvExpSent);
+        Sent_header = rootView.findViewById(R.id.Sent_header);
         setUserVisibleHint(true);
 
     }
@@ -98,7 +98,7 @@ public class SuggestionSentFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
 //                        params.put("UserType", "student");
                         params.put("MessgaeType", "Sent");
@@ -139,14 +139,14 @@ public class SuggestionSentFragment extends Fragment {
     }
 
     public void setExpandableListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<InboxFinalArray>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         for (int j = 0; j < response.getFinalArray().size(); j++) {
             listDataHeader.add(response.getFinalArray().get(j).getDate() + "|" +
                     response.getFinalArray().get(j).getSubject());
 
-            ArrayList<InboxFinalArray> rows = new ArrayList<InboxFinalArray>();
+            ArrayList<InboxFinalArray> rows = new ArrayList<>();
             rows.add(response.getFinalArray().get(j));
             listDataChild.put(listDataHeader.get(j), rows);
         }

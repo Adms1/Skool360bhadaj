@@ -10,12 +10,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import java.util.HashMap;
 
-/**
- * Created by Belal on 5/27/2016.
- */
 
-
-//Class extending FirebaseInstanceIdService
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = "MyFirebaseIIDService";
@@ -41,7 +36,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         try {
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put("StudentID", Utility.getPref(getApplicationContext(), "studid"));
-            hashMap.put("DeviceId", Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID));
+            hashMap.put("DeviceId", Settings.Secure.getString(getApplicationContext().getContentResolver(),Settings.Secure.ANDROID_ID));
             hashMap.put("TokenId", token);
             AddDeviceDetailAsyncTask addDeviceDetailAsyncTask = new AddDeviceDetailAsyncTask(hashMap);
             boolean result = addDeviceDetailAsyncTask.execute().get();

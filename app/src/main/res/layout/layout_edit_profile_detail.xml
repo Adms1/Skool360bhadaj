@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Password"
-            android:layout_weight="0.8"
+            android:layout_weight="1.3"
             android:textSize="@dimen/_10sdp"
             android:textStyle="normal" />
         <TextView
@@ -72,7 +72,7 @@
             android:id="@+id/edtPassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.2"
+            android:layout_weight="2"
             android:inputType="textPassword"
             android:textSize="@dimen/_11sdp"
             android:visibility="gone" />
@@ -98,6 +98,76 @@
             android:textColor="@color/light_blue"
             android:textSize="@dimen/_11sdp"
             android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llNpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="New Password"
+            android:layout_weight="1.3"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="normal" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text=":"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="normal" />
+
+        <EditText
+            android:id="@+id/edtNewPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:inputType="textPassword"
+            android:textSize="@dimen/_11sdp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llCpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Confirm Password"
+            android:layout_weight="1.3"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="normal" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text=":"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="normal" />
+
+        <EditText
+            android:id="@+id/edtCPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:inputType="textPassword"
+            android:textSize="@dimen/_11sdp" />
+
     </LinearLayout>
 
     <Button

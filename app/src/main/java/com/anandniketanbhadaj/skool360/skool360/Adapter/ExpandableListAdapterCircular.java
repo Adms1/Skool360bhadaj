@@ -79,8 +79,8 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_circular_row, null);
         }
-        circular_description_webview = (WebView) convertView.findViewById(R.id.circular_description_webview);
-        showfile = (TextView) convertView.findViewById(R.id.show_file);
+        circular_description_webview = convertView.findViewById(R.id.circular_description_webview);
+        showfile = convertView.findViewById(R.id.show_file);
 
         if (childData.get(childPosition).getCircularPDF().equalsIgnoreCase("")) {
             circular_description_webview.setVisibility(View.VISIBLE);
@@ -206,10 +206,10 @@ public class ExpandableListAdapterCircular extends BaseExpandableListAdapter {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_group_item, null);
         }
-        txtCircularSubject = (TextView) convertView.findViewById(R.id.txtCircularSubject);
-        txtCircularDate = (TextView) convertView.findViewById(R.id.txtCircularDate);
-        llHeaderRow = (LinearLayout) convertView.findViewById(R.id.llHeaderRow);
-        imgBulletCircular = (ImageView) convertView.findViewById(R.id.imgBulletCircular);
+        txtCircularSubject = convertView.findViewById(R.id.txtCircularSubject);
+        txtCircularDate = convertView.findViewById(R.id.txtCircularDate);
+        llHeaderRow = convertView.findViewById(R.id.llHeaderRow);
+        imgBulletCircular = convertView.findViewById(R.id.imgBulletCircular);
 
         txtCircularSubject.setTypeface(null, Typeface.BOLD);
         txtCircularSubject.setText(headerTitle);

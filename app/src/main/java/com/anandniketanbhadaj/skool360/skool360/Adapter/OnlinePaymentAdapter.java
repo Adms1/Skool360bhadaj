@@ -1,6 +1,5 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
-import com.anandniketanbhadaj.skool360.skool360.Interfacess.onViewClick;
-import com.anandniketanbhadaj.skool360.skool360.Models.PaymentLedgerModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.SuggestionInboxModel;
 
 import java.util.ArrayList;
+
+import android.content.Context;
 
 public class OnlinePaymentAdapter extends RecyclerView.Adapter<OnlinePaymentAdapter.MyViewHolder> {
     SuggestionInboxModel paymentLedgerModels;
@@ -57,11 +56,11 @@ public class OnlinePaymentAdapter extends RecyclerView.Adapter<OnlinePaymentAdap
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            payment_id_txt = (TextView) itemView.findViewById(R.id.payment_id_txt);
-            date_txt = (TextView) itemView.findViewById(R.id.date_txt);
-            p_status_txt = (TextView) itemView.findViewById(R.id.p_status_txt);
-            amount_txt = (TextView) itemView.findViewById(R.id.amount_txt);
-            s_status_txt = (TextView) itemView.findViewById(R.id.s_status_txt);
+            payment_id_txt = itemView.findViewById(R.id.payment_id_txt);
+            date_txt = itemView.findViewById(R.id.date_txt);
+            p_status_txt = itemView.findViewById(R.id.p_status_txt);
+            amount_txt = itemView.findViewById(R.id.amount_txt);
+            s_status_txt = itemView.findViewById(R.id.s_status_txt);
         }
     }
 }

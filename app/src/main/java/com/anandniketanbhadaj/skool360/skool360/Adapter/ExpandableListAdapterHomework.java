@@ -1,7 +1,6 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -69,9 +67,9 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_item_home_work, null);
         }
 
-        subject_title_txt = (TextView) convertView.findViewById(R.id.subject_title_txt);
-        homework_title_txt = (TextView) convertView.findViewById(R.id.homework_title_txt);
-        work_status_txt = (TextView) convertView.findViewById(R.id.work_status_txt);
+        subject_title_txt = convertView.findViewById(R.id.subject_title_txt);
+        homework_title_txt = convertView.findViewById(R.id.homework_title_txt);
+        work_status_txt = convertView.findViewById(R.id.work_status_txt);
 
 //        chapter_title_txt = (TextView) convertView.findViewById(R.id.chapter_title_txt);
 //        lblchaptername = (TextView) convertView.findViewById(R.id.lblchaptername);
@@ -109,7 +107,7 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
             SetLanguageHomework(FontStyle);
             setText(homeworkStr);
         } else {
-            typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/arial.ttf");
+            typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/arial.ttf");
             homework_title_txt.setTypeface(typeface);
             setText(homeworkStr);
         }
@@ -154,7 +152,7 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
         }
 
 
-        TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
+        TextView lblListHeader = convertView.findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 
@@ -178,43 +176,43 @@ public class ExpandableListAdapterHomework extends BaseExpandableListAdapter {
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/Gujrati-Saral-1.ttf");
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/G-SARAL2.TTF");
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/G-SARAL3.TTF");
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/G-SARAL4.TTF");
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/H-SARAL0.TTF");
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/h-saral1.TTF");
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/h-saral2.TTF");
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/h-saral3.TTF");
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Shivaji05":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/Shivaji05.ttf");
                 homework_title_txt.setTypeface(typeface);
                 break;
             case "Shruti":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "fonts/Shruti.ttf");
                 homework_title_txt.setTypeface(typeface);
                 break;
             default:

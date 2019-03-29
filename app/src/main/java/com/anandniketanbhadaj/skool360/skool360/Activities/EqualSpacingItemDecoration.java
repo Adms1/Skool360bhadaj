@@ -30,10 +30,7 @@ public class EqualSpacingItemDecoration extends RecyclerView.ItemDecoration {
         setSpacingForDirection(outRect, layoutManager, position, itemCount);
     }
 
-    private void setSpacingForDirection(Rect outRect,
-                                        RecyclerView.LayoutManager layoutManager,
-                                        int position,
-                                        int itemCount) {
+    private void setSpacingForDirection(Rect outRect, RecyclerView.LayoutManager layoutManager, int position, int itemCount) {
 
         // Resolve display mode automatically
         if (displayMode == -1) {

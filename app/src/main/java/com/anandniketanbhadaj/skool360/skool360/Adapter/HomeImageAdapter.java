@@ -33,13 +33,13 @@ public class HomeImageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((ImageView) object);
+        return view == object;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView mwebView = new ImageView(activity);
-        ((ViewPager) container).addView(mwebView, 0);
+        container.addView(mwebView, 0);
         mwebView.setScaleType(ImageView.ScaleType.FIT_XY);
         mwebView.setImageResource(imageArray[pos]);
 
@@ -51,7 +51,7 @@ public class HomeImageAdapter extends PagerAdapter {
     }
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((ImageView) object);
+        container.removeView((ImageView) object);
     }
 
     @Override

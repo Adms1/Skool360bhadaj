@@ -35,6 +35,12 @@ public class StudProfileModel {
     private String Password;
     private String TeacherName;
     private String TodayAttendance;
+    private String StartDate;
+    private String EndDate;
+    private int StudentID;
+    private String StandardID;
+    private String ClassID;
+    private String TermID;
 
     public String getTodayAttendance() {
         return TodayAttendance;
@@ -303,5 +309,53 @@ public class StudProfileModel {
 
     public void setDropPointName(String dropPointName) {
         DropPointName = dropPointName;
+    }
+
+    public String getStartDate() {
+        return StartDate;
+    }
+
+    public void setStartDate(String startDate) {
+        StartDate = startDate;
+    }
+
+    public String getEndDate() {
+        return EndDate;
+    }
+
+    public void setEndDate(String endDate) {
+        EndDate = endDate;
+    }
+
+    public int getStudentID() {
+        return StudentID;
+    }
+
+    public void setStudentID(int studentID) {
+        StudentID = studentID;
+    }
+
+    public String getStandardID() {
+        return StandardID;
+    }
+
+    public void setStandardID(String standardID) {
+        StandardID = standardID;
+    }
+
+    public String getClassID() {
+        return ClassID;
+    }
+
+    public void setClassID(String classID) {
+        ClassID = classID;
+    }
+
+    public String getTermID() {
+        return TermID;
+    }
+
+    public void setTermID(String termID) {
+        TermID = termID;
     }
 }

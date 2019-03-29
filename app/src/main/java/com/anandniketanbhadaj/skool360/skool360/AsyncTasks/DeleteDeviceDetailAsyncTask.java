@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class DeleteDeviceDetailAsyncTask extends AsyncTask<Void, Void,CreateLeaveModel> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public DeleteDeviceDetailAsyncTask(HashMap<String, String> param) {
         this.param = param;

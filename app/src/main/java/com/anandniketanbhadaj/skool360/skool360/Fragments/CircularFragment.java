@@ -64,11 +64,11 @@ public class CircularFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecordsCircular = (TextView) rootView.findViewById(R.id.txtNoRecordsCircular);
-        btnBackCircular = (Button) rootView.findViewById(R.id.btnBackCircular);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        listCircular = (ExpandableListView) rootView.findViewById(R.id.listCircular);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        txtNoRecordsCircular = rootView.findViewById(R.id.txtNoRecordsCircular);
+        btnBackCircular = rootView.findViewById(R.id.btnBackCircular);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        listCircular = rootView.findViewById(R.id.listCircular);
         if (Utility.checkAndRequestPermissions(mContext)) {
         }
     }
@@ -132,8 +132,10 @@ public class CircularFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StandardID", Utility.getPref(mContext, "standardID"));
+                        params.put("StartDate", Utility.getPref(mContext, "FROMDATE"));
+                        params.put("EndDate", Utility.getPref(mContext, "TODATE"));
                         getCircularAsyncTask = new GetCircularAsyncTask(params);
                         circularModels = getCircularAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
@@ -177,7 +179,7 @@ public class CircularFragment extends Fragment {
 
     public void prepaareList() {
         listDataHeader = new ArrayList<>();
-        listDataChildCircular = new HashMap<String, ArrayList<CircularModel>>();
+        listDataChildCircular = new HashMap<>();
 
         String pdf;
         for (int i = 0; i < circularModels.size(); i++) {
@@ -185,13 +187,13 @@ public class CircularFragment extends Fragment {
 //            cdemo.Date = circularModels.get(i).getDate().toString();
 //            cdemo.Subject = circularModels.get(i).getSubject().toString();
             if (circularModels.get(i).getCircularPDF().equalsIgnoreCase("")) {
-                listDataHeader.add(circularModels.get(i).getSubject().toString() + "|" + circularModels.get(i).getDate() + "|" + "1");
+                listDataHeader.add(circularModels.get(i).getSubject() + "|" + circularModels.get(i).getDate() + "|" + "1");
             } else {
-                listDataHeader.add(circularModels.get(i).getSubject().toString() + "|" + circularModels.get(i).getDate() + "|" + circularModels.get(i).getCircularPDF());
+                listDataHeader.add(circularModels.get(i).getSubject() + "|" + circularModels.get(i).getDate() + "|" + circularModels.get(i).getCircularPDF());
             }
             Log.d("displaypositiondata", listDataHeader.get(0));
 
-            ArrayList<CircularModel> rows = new ArrayList<CircularModel>();
+            ArrayList<CircularModel> rows = new ArrayList<>();
             rows.add(circularModels.get(i));
             listDataChildCircular.put(listDataHeader.get(i), rows);
             circularListAdapter = new ExpandableListAdapterCircular(getActivity(), listDataHeader, listDataChildCircular);

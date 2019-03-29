@@ -3,7 +3,6 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,7 +24,6 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterUnitTest;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetTestDetailAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.Models.Data;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
@@ -35,10 +33,7 @@ import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -76,12 +71,12 @@ public class ExamSyllabusFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecordsUnitTest = (TextView) rootView.findViewById(R.id.txtNoRecordsUnitTest);
-        btnBackUnitTest = (Button) rootView.findViewById(R.id.btnBackUnitTest);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        lvExpUnitTest = (ExpandableListView) rootView.findViewById(R.id.lvExpUnitTest);
-        exam_spinner = (Spinner) rootView.findViewById(R.id.exam_spinner);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        txtNoRecordsUnitTest = rootView.findViewById(R.id.txtNoRecordsUnitTest);
+        btnBackUnitTest = rootView.findViewById(R.id.btnBackUnitTest);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        lvExpUnitTest = rootView.findViewById(R.id.lvExpUnitTest);
+        exam_spinner = rootView.findViewById(R.id.exam_spinner);
         getUnitTestData();
     }
 
@@ -133,7 +128,7 @@ public class ExamSyllabusFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spinnerSelectedValue = adapterView.getItemAtPosition(i).toString();
                 Log.d("spinner", spinnerSelectedValue);
-                List<ExamFinalArray> filterFinalArray = new ArrayList<ExamFinalArray>();
+                List<ExamFinalArray> filterFinalArray = new ArrayList<>();
                 for (ExamFinalArray arrayObj : responseExam.getFinalArray()) {
                     if (arrayObj.getTestName().equalsIgnoreCase(spinnerSelectedValue.trim())) {
                         filterFinalArray.add(arrayObj);
@@ -160,7 +155,7 @@ public class ExamSyllabusFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("TermID", Utility.getPref(mContext, "TermID"));
                         getTestDetailAsyncTask = new GetTestDetailAsyncTask(params);
@@ -201,14 +196,14 @@ public class ExamSyllabusFragment extends Fragment {
 
     private void setExpandableListView(List<ExamFinalArray> array) {
         listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<String, ArrayList<ExamDatum>>();
+        listDataChild = new HashMap<>();
 
         for (int i = 0; i < array.size(); i++) {
             if (array.size() > 0) {
                 lvExpUnitTest.setVisibility(View.VISIBLE);
                 txtNoRecordsUnitTest.setVisibility(View.GONE);
                 listDataHeader.add(array.get(i).getTestDate());
-                ArrayList<ExamDatum> rows = new ArrayList<ExamDatum>();
+                ArrayList<ExamDatum> rows = new ArrayList<>();
                 for (int j = 0; j < responseExam.getFinalArray().size(); j++) {
                     if (array.get(i).getTestDate().equalsIgnoreCase(responseExam.getFinalArray().get(j).getTestDate()) &&
                             array.get(i).getTestName().equalsIgnoreCase(responseExam.getFinalArray().get(j).getTestName())) {
@@ -228,20 +223,20 @@ public class ExamSyllabusFragment extends Fragment {
     }
 
     public void fillspinner() {
-        ArrayList<String> row = new ArrayList<String>();
+        ArrayList<String> row = new ArrayList<>();
 
         for (int z = 0; z < responseExam.getFinalArray().size(); z++) {
             row.add(responseExam.getFinalArray().get(z).getTestName());
         }
 
-        ArrayList<String> characters = new ArrayList<String>();
+        ArrayList<String> characters = new ArrayList<>();
 
-        for(int i = 0; i < row.size(); i++) {
+        for (int i = 0; i < row.size(); i++) {
             if (!characters.contains(row.get(i))) {
                 characters.add(row.get(i));
             }
         }
-Log.d("Array",""+characters);
+        Log.d("Array", "" + characters);
 //        HashSet hs = new HashSet();
 //        hs.addAll(row);
 //        row.clear();
@@ -261,7 +256,7 @@ Log.d("Array",""+characters);
         } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, characters);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<>(mContext, R.layout.spinner_layout, characters);
         exam_spinner.setAdapter(adapterYear);
     }
 }

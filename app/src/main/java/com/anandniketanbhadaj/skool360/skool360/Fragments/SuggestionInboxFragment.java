@@ -3,7 +3,6 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,7 +18,6 @@ import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterInbox;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.SuggestionInboxAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.Interfacess.onInboxRead;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.InboxFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.SuggestionInboxModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
@@ -34,6 +32,13 @@ import java.util.List;
 
 
 public class SuggestionInboxFragment extends Fragment {
+    InboxFinalArray mainInboxFinalArray;
+    ExpandableListAdapterInbox expandableListAdapterInbox;
+    ExpandableListView lvExpinbox;
+    List<String> listDataHeader = new ArrayList<>();
+    HashMap<String, List<InboxFinalArray>> listDataChild = new HashMap<>();
+    SuggestionInboxModel response;
+    String PageType = "Inbox";
     private View rootView;
     private TextView txtNoRecordsinbox;
     private Context mContext;
@@ -41,14 +46,6 @@ public class SuggestionInboxFragment extends Fragment {
     private SuggestionInboxAsyncTask suggestionInboxAsyncTask = null;
     private int lastExpandedPosition = -1;
     private LinearLayout inbox_header;
-    InboxFinalArray mainInboxFinalArray;
-
-    ExpandableListAdapterInbox expandableListAdapterInbox;
-    ExpandableListView lvExpinbox;
-    List<String> listDataHeader = new ArrayList<>();
-    HashMap<String, List<InboxFinalArray>> listDataChild = new HashMap<>();
-    SuggestionInboxModel response;
-    String PageType="Inbox";
 
     public SuggestionInboxFragment() {
     }
@@ -66,9 +63,9 @@ public class SuggestionInboxFragment extends Fragment {
     }
 
     public void initViews() {
-        txtNoRecordsinbox = (TextView) rootView.findViewById(R.id.txtNoRecordsinbox);
-        lvExpinbox = (ExpandableListView) rootView.findViewById(R.id.lvExpinbox);
-        inbox_header = (LinearLayout) rootView.findViewById(R.id.inbox_header);
+        txtNoRecordsinbox = rootView.findViewById(R.id.txtNoRecordsinbox);
+        lvExpinbox = rootView.findViewById(R.id.lvExpinbox);
+        inbox_header = rootView.findViewById(R.id.inbox_header);
         setUserVisibleHint(true);
 
     }
@@ -106,7 +103,7 @@ public class SuggestionInboxFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
 //                        params.put("UserType", "Student");
                         params.put("MessgaeType", "Inbox");
@@ -116,16 +113,16 @@ public class SuggestionInboxFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (response!=null){
-                                if (response.getFinalArray().size() > 0) {
-                                    txtNoRecordsinbox.setVisibility(View.GONE);
-                                    setExpandableListData();
+                                if (response != null) {
+                                    if (response.getFinalArray().size() > 0) {
+                                        txtNoRecordsinbox.setVisibility(View.GONE);
+                                        setExpandableListData();
 
-                                } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsinbox.setVisibility(View.VISIBLE);
-                                    inbox_header.setVisibility(View.GONE);
-                                }
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecordsinbox.setVisibility(View.VISIBLE);
+                                        inbox_header.setVisibility(View.GONE);
+                                    }
                                 } else {
                                     Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);
@@ -143,27 +140,27 @@ public class SuggestionInboxFragment extends Fragment {
     }
 
     public void setExpandableListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<InboxFinalArray>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         for (int j = 0; j < response.getFinalArray().size(); j++) {
             listDataHeader.add(response.getFinalArray().get(j).getReplyDate() + "|" +
-                    response.getFinalArray().get(j).getSubject()+"|"+response.getFinalArray().get(j).getDate());
+                    response.getFinalArray().get(j).getSubject() + "|" + response.getFinalArray().get(j).getDate());
 
 
-            ArrayList<InboxFinalArray> rows = new ArrayList<InboxFinalArray>();
+            ArrayList<InboxFinalArray> rows = new ArrayList<>();
             rows.add(response.getFinalArray().get(j));
             listDataChild.put(listDataHeader.get(j), rows);
-            expandableListAdapterInbox = new ExpandableListAdapterInbox(getActivity(), listDataHeader, listDataChild,PageType);
+            expandableListAdapterInbox = new ExpandableListAdapterInbox(getActivity(), listDataHeader, listDataChild, PageType);
             lvExpinbox.setAdapter(expandableListAdapterInbox);
             expandableListAdapterInbox.notifyDataSetChanged();
             lvExpinbox.deferNotifyDataSetChanged();
 
-            ArrayList<String> dateArray=new ArrayList<>();
+            ArrayList<String> dateArray = new ArrayList<>();
             if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
                 if (AppConfiguration.messageNotification.contains("-")) {
                     String[] strsplit = AppConfiguration.messageNotification.split("\\-");
-                  //  strsplit[2] = strsplit[2].substring(0, strsplit[2].length() - 1);
+                    //  strsplit[2] = strsplit[2].substring(0, strsplit[2].length() - 1);
                     for (int i = 0; i < response.getFinalArray().size(); i++) {
                         String inputPattern = "yyyy-MM-dd";
                         String outputPattern = "dd/MM/yyyy";
@@ -184,9 +181,9 @@ public class SuggestionInboxFragment extends Fragment {
                             e.printStackTrace();
                         }
                         dateArray.add(str);
-                            if (str.trim().equalsIgnoreCase(strsplit[2].trim())) {
-                                lvExpinbox.expandGroup(i);
-                            }
+                        if (str.trim().equalsIgnoreCase(strsplit[2].trim())) {
+                            lvExpinbox.expandGroup(i);
+                        }
                     }
                 }
 //            listannouncment.expandGroup(0);

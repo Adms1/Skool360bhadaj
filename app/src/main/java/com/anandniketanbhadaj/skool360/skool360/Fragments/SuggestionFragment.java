@@ -1,50 +1,31 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
-import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
-import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.CreateSuggestionAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.InsertStudentLeaveAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
-import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
-
 
 public class SuggestionFragment extends Fragment {
     CreateLeaveModel suggestionResponse;
@@ -77,11 +58,11 @@ public class SuggestionFragment extends Fragment {
     }
 
     public void initViews() {
-        edtSubject = (EditText) rootView.findViewById(R.id.edtSubject);
-        edtSuggestion = (EditText) rootView.findViewById(R.id.edtSuggestion);
-        btnSave = (Button) rootView.findViewById(R.id.btnSave);
-        btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
-        selectdetailspinner = (Spinner) rootView.findViewById(R.id.select_detail_spinner);
+        edtSubject = rootView.findViewById(R.id.edtSubject);
+        edtSuggestion = rootView.findViewById(R.id.edtSuggestion);
+        btnSave = rootView.findViewById(R.id.btnSave);
+        btnCancel = rootView.findViewById(R.id.btnCancel);
+        selectdetailspinner = rootView.findViewById(R.id.select_detail_spinner);
         fillSpinner();
 
     }
@@ -134,7 +115,7 @@ public class SuggestionFragment extends Fragment {
         } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
-        ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, selectedArray);
+        ArrayAdapter<String> adapterSpinYear = new ArrayAdapter<>(mContext, R.layout.spinner_layout, selectedArray);
         selectdetailspinner.setAdapter(adapterSpinYear);
 
         selectdetailspinner.setSelection(0);
@@ -156,7 +137,7 @@ public class SuggestionFragment extends Fragment {
                         @Override
                         public void run() {
                             try {
-                                HashMap<String, String> params = new HashMap<String, String>();
+                                HashMap<String, String> params = new HashMap<>();
                                 params.put("StudentId", Utility.getPref(mContext, "studid"));
                                 params.put("Subject", purpose);
                                 params.put("Comment", description);
@@ -167,19 +148,19 @@ public class SuggestionFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         progressDialog.dismiss();
-                                        if (suggestionResponse!=null){
-                                        if (suggestionResponse.getSuccess().equalsIgnoreCase("True")) {
-                                            edtSubject.setText("");
-                                            edtSuggestion.setText("");
-                                            Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
-                                            //ThankyouDialog();
-                                        } else {
-                                            edtSubject.setText("");
-                                            edtSuggestion.setText("");
-                                            Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
-                                            progressDialog.dismiss();
+                                        if (suggestionResponse != null) {
+                                            if (suggestionResponse.getSuccess().equalsIgnoreCase("True")) {
+                                                edtSubject.setText("");
+                                                edtSuggestion.setText("");
+                                                Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
+                                                //ThankyouDialog();
+                                            } else {
+                                                edtSubject.setText("");
+                                                edtSuggestion.setText("");
+                                                Utility.ping(mContext, suggestionResponse.getFinalArray().get(0).getMessage());
+                                                progressDialog.dismiss();
 
-                                        }
+                                            }
                                         } else {
                                             Intent serverintent = new Intent(mContext, Server_Error.class);
                                             startActivity(serverintent);

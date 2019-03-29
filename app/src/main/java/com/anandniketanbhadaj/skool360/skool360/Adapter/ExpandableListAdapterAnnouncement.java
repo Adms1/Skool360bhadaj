@@ -1,16 +1,11 @@
 package com.anandniketanbhadaj.skool360.skool360.Adapter;
 
-import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +14,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
-import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamDatum;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.koushikdutta.async.future.FutureCallback;
@@ -33,7 +26,6 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,12 +35,12 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
 
     File filepdf;
     String file1;
+    Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+    Boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
     private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, ArrayList<ExamFinalArray>> _listDataChild;
-    Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
-    Boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
 
     public ExpandableListAdapterAnnouncement(Context context, List<String> listDataHeader,
                                              HashMap<String, ArrayList<ExamFinalArray>> listDataChild) {
@@ -73,15 +65,15 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
                              boolean isLastChild, View convertView, final ViewGroup parent) {
 
         final ArrayList<ExamFinalArray> childData = getChild(groupPosition, childPosition);
-        final TextView  show_file;
+        final TextView show_file;
         WebView description_title_txt;
 
         if (convertView == null) {
             LayoutInflater infalInflater = LayoutInflater.from(_context);
             convertView = infalInflater.inflate(R.layout.announcment_listitem1, null);
         }
-        description_title_txt = (WebView) convertView.findViewById(R.id.description_title_txt);
-        show_file = (TextView) convertView.findViewById(R.id.show_file);
+        description_title_txt = convertView.findViewById(R.id.description_title_txt);
+        show_file = convertView.findViewById(R.id.show_file);
         description_title_txt.loadData(childData.get(childPosition).getAnnoucementDescription(), "text/html", "UTF-8");
         WebSettings webSettings = description_title_txt.getSettings();
         webSettings.setTextSize(WebSettings.TextSize.SMALLER);
@@ -136,7 +128,7 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
                                             file1 = file.getPath();
                                             filepdf = file.getAbsoluteFile();
                                             Log.d("file11", "" + filepdf);
-                                          //  description_title_txt.setText(String.valueOf(filepdf));
+                                            //  description_title_txt.setText(String.valueOf(filepdf));
                                             show_file.setVisibility(View.VISIBLE);
                                         } else {
                                             Utility.ping(_context, "Something error");
@@ -198,9 +190,9 @@ public class ExpandableListAdapterAnnouncement extends BaseExpandableListAdapter
         ImageView imgAnnIcon;
         TextView txtAnnText, txtDate;
 
-       // imgAnnIcon = (ImageView) convertView.findViewById(R.id.imgAnnIcon);
-        txtAnnText = (TextView) convertView.findViewById(R.id.txtAnnText);
-        txtDate = (TextView) convertView.findViewById(R.id.txtDate);
+        // imgAnnIcon = (ImageView) convertView.findViewById(R.id.imgAnnIcon);
+        txtAnnText = convertView.findViewById(R.id.txtAnnText);
+        txtDate = convertView.findViewById(R.id.txtDate);
 //        txtDate.setText(headerTemp[0]);
 //        if (headerTemp[2].equalsIgnoreCase("")) {
 //            imgAnnIcon.setImageResource(R.drawable.ann_download_img);

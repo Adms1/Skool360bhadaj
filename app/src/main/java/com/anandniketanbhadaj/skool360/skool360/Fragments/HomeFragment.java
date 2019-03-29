@@ -129,19 +129,19 @@ public class HomeFragment extends Fragment {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        grid_view = (GridView) rootView.findViewById(R.id.grid_view);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        grid_view = rootView.findViewById(R.id.grid_view);
         grid_view.setAdapter(new ImageAdapter(mContext));
-        viewPageAndroid = (ViewPager) rootView.findViewById(R.id.viewPageAndroid);
-        student_name_txt = (TextView) rootView.findViewById(R.id.student_name_txt);
-        student_classname_txt = (TextView) rootView.findViewById(R.id.student_classname_txt);
-        teacher_name_txt = (TextView) rootView.findViewById(R.id.teacher_name_txt);
-        teacher_name1_txt = (TextView) rootView.findViewById(R.id.teacher_name1_txt);
-        vehicle_name_txt = (TextView) rootView.findViewById(R.id.vehicle_name_txt);
-        vehicle_picktime_txt = (TextView) rootView.findViewById(R.id.vehicle_picktime_txt);
-        vehicle_droptime_txt = (TextView) rootView.findViewById(R.id.vehicle_droptime_txt);
-        admission_txt = (TextView) rootView.findViewById(R.id.admission_txt);
-        attendance_txt = (TextView) rootView.findViewById(R.id.attendance_txt);
+        viewPageAndroid = rootView.findViewById(R.id.viewPageAndroid);
+        student_name_txt = rootView.findViewById(R.id.student_name_txt);
+        student_classname_txt = rootView.findViewById(R.id.student_classname_txt);
+        teacher_name_txt = rootView.findViewById(R.id.teacher_name_txt);
+        teacher_name1_txt = rootView.findViewById(R.id.teacher_name1_txt);
+        vehicle_name_txt = rootView.findViewById(R.id.vehicle_name_txt);
+        vehicle_picktime_txt = rootView.findViewById(R.id.vehicle_picktime_txt);
+        vehicle_droptime_txt = rootView.findViewById(R.id.vehicle_droptime_txt);
+        admission_txt = rootView.findViewById(R.id.admission_txt);
+        attendance_txt = rootView.findViewById(R.id.attendance_txt);
 
         HomeImageAdapter adapterView = new HomeImageAdapter(getActivity(), sliderImagesId);
         viewPageAndroid.setAdapter(adapterView);
@@ -164,7 +164,7 @@ public class HomeFragment extends Fragment {
         }, DELAY_MS, PERIOD_MS);
 
 
-        profile_image = (CircleImageView) rootView.findViewById(R.id.profile_image);
+        profile_image = rootView.findViewById(R.id.profile_image);
         imageLoader = ImageLoader.getInstance();
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
                 .denyCacheImageMultipleSizesInMemory()
                 .tasksProcessingOrder(QueueProcessingType.LIFO)// .enableLogging()
                 .build();
-        imageLoader.init(config.createDefault(mContext));
+        imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
 
 
     }
@@ -380,7 +380,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 try {
-                    HashMap<String, String> params = new HashMap<String, String>();
+                    HashMap<String, String> params = new HashMap<>();
                     params.put("StudentID", Utility.getPref(mContext, "studid"));
                     getUserProfileAsyncTask = new GetUserProfileAsyncTask(params);
                     studDetailList = getUserProfileAsyncTask.execute().get();
@@ -390,10 +390,15 @@ public class HomeFragment extends Fragment {
                             if (studDetailList != null) {
                                 if (studDetailList.size() > 0) {
 //                            student_name_txt.setText("Bhadresh Jadav");
+
+                                    String bDate  = studDetailList.get(0).getStudentDOB();
+
+                                    Utility.showUserBirthdayWish(getActivity(),bDate);
+
                                     student_name_txt.setText(studDetailList.get(0).getStudentName());
                                     vehicle_picktime_txt.setText("Pick Up : " + studDetailList.get(0).getTransport_PicupTime());
                                     vehicle_droptime_txt.setText("Drop Off : " + studDetailList.get(0).getTransport_DropTime());
-                                    student_classname_txt.setText("Grade : " + " " + studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass());
+                                    student_classname_txt.setText("Grade : " + " " +studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass());
                                     teacher_name1_txt.setText(studDetailList.get(0).getTeacherName());
 //                            teacher_name1_txt.setText("Sourabh Pachouri");
                                     imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
@@ -425,6 +430,12 @@ public class HomeFragment extends Fragment {
                                     AppConfiguration.UserDropTime = "Drop Off : " + studDetailList.get(0).getTransport_DropTime();
                                     AppConfiguration.UserPickTime = "Pick Up : " + studDetailList.get(0).getTransport_PicupTime();
                                     AppConfiguration.UserAttendance = attendance_txt.getText().toString();
+
+                                    Utility.setPref(mContext, "TermID", studDetailList.get(0).getTermID());//
+                                    Utility.setPref(mContext, "standardID", studDetailList.get(0).getStandardID());//
+                                    Utility.setPref(mContext, "FROMDATE", studDetailList.get(0).getStartDate());
+                                    Utility.setPref(mContext, "TODATE", studDetailList.get(0).getEndDate());
+
                                 }
                             } else {
                                 Intent serverintent = new Intent(mContext, Server_Error.class);
@@ -446,19 +457,20 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
 //                        params.put("UserID", Utility.getPref(mContext, "studid"));
 //                        params.put("VersionID", String.valueOf(versionCode));//String.valueOf(versionCode)
 //                        params.put("UserType", "Student");
                         //=========new ========
-                        params.put("VersionID", String.valueOf(versionCode));//String.valueOf(versionCode)
-                        params.put("DeviceType", "Android");
+                        params.put("VersionID",String.valueOf(versionCode));//String.valueOf(versionCode)
+                        params.put("DeviceType","Android");
                         deviceVersionAsyncTask = new DeviceVersionAsyncTask(params);
                         deviceVersionModel = deviceVersionAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (deviceVersionModel!=null) {
+                                    getUserProfile();
                                     if (deviceVersionModel.getSuccess().equalsIgnoreCase("True")) {
                                         isVersionCodeUpdated = true;
                                         Log.d("hellotrue", "" + isVersionCodeUpdated);
@@ -478,11 +490,11 @@ public class HomeFragment extends Fragment {
                                             } else {
                                                 //imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);
 //                                            getVersionUpdateInfo();
-                                                getUserProfile();
+                                               // getUserProfile();
                                             }
 
                                         }
-//                                    getUserProfile();
+
                                     } else {
                                         isVersionCodeUpdated = false;
                                         Log.d("hellofalse", "" + isVersionCodeUpdated);
@@ -501,8 +513,9 @@ public class HomeFragment extends Fragment {
                                                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         // do nothing
+                                                        dialog.dismiss();
                                                         Utility.pong(mContext, "You wont be able to use other funcationality without updating to a newer version");
-                                                        getActivity().finish();
+                                                        //getActivity().finish();
                                                     }
                                                 })
                                                 .setIcon(R.drawable.ic_launcher)
@@ -540,9 +553,9 @@ public class HomeFragment extends Fragment {
         ratingDialog.setCancelable(false);
         ratingDialog.setContentView(R.layout.rating_dialog);
 
-        rate_it_txt_view = (TextView) ratingDialog.findViewById(R.id.rate_it_txt_view);
-        reminde_me_txt = (TextView) ratingDialog.findViewById(R.id.reminde_me_txt);
-        no_thanks_txt = (TextView) ratingDialog.findViewById(R.id.no_thanks_txt);
+        rate_it_txt_view = ratingDialog.findViewById(R.id.rate_it_txt_view);
+        reminde_me_txt = ratingDialog.findViewById(R.id.reminde_me_txt);
+        no_thanks_txt = ratingDialog.findViewById(R.id.no_thanks_txt);
 
         rate_it_txt_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -583,9 +596,9 @@ public class HomeFragment extends Fragment {
         changeDialog.setCancelable(false);
         changeDialog.setContentView(R.layout.change_password_dialog);
 
-        changepwd_btn = (Button) changeDialog.findViewById(R.id.changepwd_btn);
-        edtconfirmpassword = (EditText) changeDialog.findViewById(R.id.edtconfirmpassword);
-        edtnewpassword = (EditText) changeDialog.findViewById(R.id.edtnewpassword);
+        changepwd_btn = changeDialog.findViewById(R.id.changepwd_btn);
+        edtconfirmpassword = changeDialog.findViewById(R.id.edtconfirmpassword);
+        edtnewpassword = changeDialog.findViewById(R.id.edtnewpassword);
 
 
         changepwd_btn.setOnClickListener(new View.OnClickListener() {

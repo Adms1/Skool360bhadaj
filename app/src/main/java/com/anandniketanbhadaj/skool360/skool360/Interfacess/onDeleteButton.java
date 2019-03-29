@@ -5,5 +5,5 @@ package com.anandniketanbhadaj.skool360.skool360.Interfacess;
  */
 
 public interface onDeleteButton {
-    public void deleteSentMessage();
+    void deleteSentMessage();
 }

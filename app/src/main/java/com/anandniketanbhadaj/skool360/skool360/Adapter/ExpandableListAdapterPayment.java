@@ -61,24 +61,24 @@ public class ExpandableListAdapterPayment extends BaseExpandableListAdapter {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_item_payment, null);
         }
-        receipe_no_value_txt = (TextView) convertView.findViewById(R.id.receipe_no_value_txt);
-        mode_of_payment_value_txt = (TextView) convertView.findViewById(R.id.mode_of_payment_value_txt);
-        tution_fee_value_txt = (TextView) convertView.findViewById(R.id.tution_fee_value_txt);
-        transport_fee_value_txt = (TextView) convertView.findViewById(R.id.transport_fee_value_txt);
-        imprest_value_txt = (TextView) convertView.findViewById(R.id.imprest_value_txt);
-        late_fees_value_txt = (TextView) convertView.findViewById(R.id.late_fees_value_txt);
-        waive_off_value_txt = (TextView) convertView.findViewById(R.id.waive_off_value_txt);
-        previous_outstanding_value_txt = (TextView) convertView.findViewById(R.id.previous_outstanding_value_txt);
-        total_paid_fee_value_txt = (TextView) convertView.findViewById(R.id.total_paid_fee_value_txt);
-        current_outstanding_value_txt = (TextView) convertView.findViewById(R.id.current_outstanding_value_txt);
-        bank_name_value_txt = (TextView) convertView.findViewById(R.id.bank_name_value_txt);
-        bank_name_txt = (TextView) convertView.findViewById(R.id.bank_name_txt);
-        term_value_txt = (TextView) convertView.findViewById(R.id.term_value_txt);
-        cheque_no_txt = (TextView) convertView.findViewById(R.id.cheque_no_txt);
-        cheque_no_value_txt = (TextView) convertView.findViewById(R.id.cheque_no_value_txt);
+        receipe_no_value_txt = convertView.findViewById(R.id.receipe_no_value_txt);
+        mode_of_payment_value_txt = convertView.findViewById(R.id.mode_of_payment_value_txt);
+        tution_fee_value_txt = convertView.findViewById(R.id.tution_fee_value_txt);
+        transport_fee_value_txt = convertView.findViewById(R.id.transport_fee_value_txt);
+        imprest_value_txt = convertView.findViewById(R.id.imprest_value_txt);
+        late_fees_value_txt = convertView.findViewById(R.id.late_fees_value_txt);
+        waive_off_value_txt = convertView.findViewById(R.id.waive_off_value_txt);
+        previous_outstanding_value_txt = convertView.findViewById(R.id.previous_outstanding_value_txt);
+        total_paid_fee_value_txt = convertView.findViewById(R.id.total_paid_fee_value_txt);
+        current_outstanding_value_txt = convertView.findViewById(R.id.current_outstanding_value_txt);
+        bank_name_value_txt = convertView.findViewById(R.id.bank_name_value_txt);
+        bank_name_txt = convertView.findViewById(R.id.bank_name_txt);
+        term_value_txt = convertView.findViewById(R.id.term_value_txt);
+        cheque_no_txt = convertView.findViewById(R.id.cheque_no_txt);
+        cheque_no_value_txt = convertView.findViewById(R.id.cheque_no_value_txt);
 
-        llHeaderRow1_cheque = (LinearLayout) convertView.findViewById(R.id.llHeaderRow1_cheque);
-        llHeaderRow1_bankname = (LinearLayout) convertView.findViewById(R.id.llHeaderRow1_bankname);
+        llHeaderRow1_cheque = convertView.findViewById(R.id.llHeaderRow1_cheque);
+        llHeaderRow1_bankname = convertView.findViewById(R.id.llHeaderRow1_bankname);
 
 
         term_value_txt.setText(childData.get(childPosition).getTermDetail());
@@ -144,8 +144,8 @@ public class ExpandableListAdapterPayment extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_payment_header, null);
         }
 
-        TextView lblPayDate = (TextView) convertView.findViewById(R.id.lblPayDate);
-        TextView lblPaid = (TextView) convertView.findViewById(R.id.lblPaid);
+        TextView lblPayDate = convertView.findViewById(R.id.lblPayDate);
+        TextView lblPaid = convertView.findViewById(R.id.lblPaid);
         lblPayDate.setTypeface(null, Typeface.BOLD);
         lblPayDate.setText(headerTitle);
         lblPaid.setTypeface(null, Typeface.BOLD);

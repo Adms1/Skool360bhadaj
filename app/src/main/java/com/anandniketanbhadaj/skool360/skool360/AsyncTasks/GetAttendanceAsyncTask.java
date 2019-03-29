@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GetAttendanceAsyncTask extends AsyncTask<Void, Void, ArrayList<AttendanceModel>> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public GetAttendanceAsyncTask(HashMap<String, String> param) {
         this.param = param;

@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class SuggestionInboxAsyncTask extends AsyncTask<Void, Void, SuggestionInboxModel> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public SuggestionInboxAsyncTask(HashMap<String, String> param) {
         this.param = param;

@@ -2,14 +2,14 @@ package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
-import android.support.v4.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +24,10 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
 import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.InsertStudentLeaveAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
-import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.Calendar;
 import java.util.HashMap;
-
 
 public class LeaveFragment extends Fragment {
     private static TextView txtDate, txtendDate;
@@ -63,15 +61,15 @@ public class LeaveFragment extends Fragment {
     }
 
     public void initViews() {
-        txtDate = (TextView) rootView.findViewById(R.id.txtstartDate);
-        edtPurpose = (EditText) rootView.findViewById(R.id.edtPurpose);
-        edtDescription = (EditText) rootView.findViewById(R.id.edtDescription);
-        btnSave = (Button) rootView.findViewById(R.id.btnSave);
-        btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        btnBack = (Button) rootView.findViewById(R.id.btnBack);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        txtendDate = (TextView) rootView.findViewById(R.id.txtendDate);
+        txtDate = rootView.findViewById(R.id.txtstartDate);
+        edtPurpose = rootView.findViewById(R.id.edtPurpose);
+        edtDescription = rootView.findViewById(R.id.edtDescription);
+        btnSave = rootView.findViewById(R.id.btnSave);
+        btnCancel = rootView.findViewById(R.id.btnCancel);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        btnBack = rootView.findViewById(R.id.btnBack);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        txtendDate = rootView.findViewById(R.id.txtendDate);
 
 
         //load today's data first
@@ -118,8 +116,15 @@ public class LeaveFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 isFromDate = false;
-                DialogFragment newFragment = new SelectDateFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
+
+                if (!txtDate.getText().toString().equalsIgnoreCase("DD/MM/YYYY")) {
+
+                    DialogFragment newFragment = new SelectDateFragment();
+                    newFragment.show(getFragmentManager(), "DatePicker");
+                } else {
+                    Utility.ping(getContext(), "Plase select from date");
+                }
+
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +137,7 @@ public class LeaveFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 txtDate.setText("DD/MM/YYYY");
+                txtendDate.setText("DD/MM/YYYY");
                 edtPurpose.setText("");
                 edtDescription.setText("");
             }
@@ -158,7 +164,7 @@ public class LeaveFragment extends Fragment {
                         @Override
                         public void run() {
                             try {
-                                HashMap<String, String> params = new HashMap<String, String>();
+                                HashMap<String, String> params = new HashMap<>();
                                 params.put("FromDate", startDate);
                                 params.put("ToDate", endDate);
                                 params.put("studentId", Utility.getPref(mContext, "studid"));
@@ -223,7 +229,14 @@ public class LeaveFragment extends Fragment {
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, yy, mm, dd);
-            dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            dialog.getDatePicker().setMaxDate(Utility.StringToDate(Utility.getPref(getActivity(), "TODATE")));
+            if (!isFromDate) {
+                dialog.getDatePicker().setMinDate(Utility.StringToDate(txtDate.getText().toString()));
+            } else {
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
+//                Utility.ping(getContext(), "Plase select from date");
+            }
 
             return dialog;
         }

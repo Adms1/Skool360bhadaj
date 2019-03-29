@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
@@ -50,6 +51,7 @@ import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveM
 import com.anandniketanbhadaj.skool360.skool360.Models.StudProfileModel;
 import com.anandniketanbhadaj.skool360.skool360.Models.menuoptionItem;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
+import com.anandniketanbhadaj.skool360.skool360.Utility.DialogUtils;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -95,7 +97,7 @@ public class DashBoardActivity extends FragmentActivity {
     private static TextView studName;
     private static TextView grade;
     private TextView grno;
-
+    private String name;
 
     public static void onLeft() {
         // TODO Auto-generated method stub
@@ -152,14 +154,20 @@ public class DashBoardActivity extends FragmentActivity {
 //        Log.d("Data",Utility.getPref(mContext,"data"));
 //        Log.d("message",Utility.getPref(mContext,"message"));
 
+        try {
+            name = getIntent().getStringExtra("Name");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
         if (getIntent().getStringExtra("message") != null) {
-            putData = getIntent().getStringExtra("message").toString();
+            putData = getIntent().getStringExtra("message");
             Log.d("Dashboard : notificationData", putData);
         }
         if (getIntent().getStringExtra("fromNotification") != null) {
             AppConfiguration.Notification = "1";
             AppConfiguration.messageNotification = putData;
-            String key = getIntent().getStringExtra("fromNotification").toString();
+            String key = getIntent().getStringExtra("fromNotification");
             Log.d("key", key);
             if (key.equalsIgnoreCase("HW")) {
                 displayView(4);
@@ -175,6 +183,16 @@ public class DashBoardActivity extends FragmentActivity {
                 displayView(12);
             }else if(key.equalsIgnoreCase("Suggestion")){
                 displayView(15);
+            }else if(key.equalsIgnoreCase("Birthday")){
+                if (name != null) {
+                    if (!TextUtils.isEmpty(name)) {
+                        String fullname = name.replace("|"," ");
+                        displayView(0);
+                        AppConfiguration.Notification = "0";
+                        DialogUtils.showGIFDialog(DashBoardActivity.this,fullname);
+                    }
+                }
+
             }
         } else {
             AppConfiguration.Notification = "0";
@@ -231,16 +249,16 @@ public class DashBoardActivity extends FragmentActivity {
     private void Initialize() {
         // TODO Auto-generated method stub
         MenuName = getResources().getStringArray(R.array.menuoption1);
-        viewprofile_img = (ImageView) findViewById(R.id.viewprofile_img);
-        studName = (TextView) findViewById(R.id.studName);
-        profile_image = (CircleImageView) findViewById(R.id.profile_image);
-        grade = (TextView) findViewById(R.id.grade);
+        viewprofile_img = findViewById(R.id.viewprofile_img);
+        studName = findViewById(R.id.studName);
+        profile_image = findViewById(R.id.profile_image);
+        grade = findViewById(R.id.grade);
         //grno = (TextView) findViewById(R.id.grno);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        leftRl = (RelativeLayout) findViewById(R.id.whatYouWantInLeftDrawer);
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-        navDrawerItems_main = new ArrayList<menuoptionItem>();
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        leftRl = findViewById(R.id.whatYouWantInLeftDrawer);
+        mDrawerList = findViewById(R.id.list_slidermenu);
+        navDrawerItems_main = new ArrayList<>();
         adapter_menu_item = new menuoptionItemAdapter(DashBoardActivity.this, navDrawerItems_main);
         for (int i = 0; i < MenuName.length; i++) {
             navDrawerItems_main.add(new menuoptionItem(MenuName[i]));
@@ -270,7 +288,7 @@ public class DashBoardActivity extends FragmentActivity {
                 .denyCacheImageMultipleSizesInMemory()
                 .tasksProcessingOrder(QueueProcessingType.LIFO)// .enableLogging()
                 .build();
-        imageLoader.init(config.createDefault(mContext));
+        imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
 
         getUserProfile();
     }
@@ -328,7 +346,7 @@ public class DashBoardActivity extends FragmentActivity {
             case 0:
                 fragment = new HomeFragment();
                 if (getIntent().getStringExtra("message") != null) {
-                    putData = getIntent().getStringExtra("message").toString();
+                    putData = getIntent().getStringExtra("message");
                     Bundle args = new Bundle();
                     args.putString("message", putData);
                     fragment.setArguments(args);
@@ -370,7 +388,7 @@ public class DashBoardActivity extends FragmentActivity {
             case 4:
                 fragment = new HomeworkFragment();
                 if (getIntent().getStringExtra("message") != null) {
-                    putData = getIntent().getStringExtra("message").toString();
+                    putData = getIntent().getStringExtra("message");
                     Bundle args = new Bundle();
                     args.putString("message", putData);
                     fragment.setArguments(args);
@@ -391,7 +409,7 @@ public class DashBoardActivity extends FragmentActivity {
             case 5:
                 fragment = new ClassworkFragment();
                 if (getIntent().getStringExtra("message") != null) {
-                    putData = getIntent().getStringExtra("message").toString();
+                    putData = getIntent().getStringExtra("message");
                     Bundle args = new Bundle();
                     args.putString("message", putData);
                     fragment.setArguments(args);
@@ -583,7 +601,7 @@ public class DashBoardActivity extends FragmentActivity {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("DeviceID", Utility.getPref(mContext, "deviceId"));
                         deleteDeviceDetailAsyncTask = new DeleteDeviceDetailAsyncTask(params);
@@ -603,6 +621,7 @@ public class DashBoardActivity extends FragmentActivity {
                                         Utility.setPref(mContext, "TermID", "");
                                         Utility.setPref(mContext, "deviceId", "");
                                         Utility.setPref(mContext, "image", "");
+                                        Utility.setPref(mContext,"user_birthday","");
                                         AppConfiguration.UserImage = "";
                                         AppConfiguration.UserName = "";
                                         AppConfiguration.UserGrade = "";
@@ -629,9 +648,7 @@ public class DashBoardActivity extends FragmentActivity {
                     }
                 }
             }).start();
-        } else {
-            Utility.ping(mContext, "Network not available");
-        }
+        } else Utility.ping(mContext, "Network not available");
     }
 
     public void getUserProfile() {
@@ -640,7 +657,7 @@ public class DashBoardActivity extends FragmentActivity {
             @Override
             public void run() {
                 try {
-                    HashMap<String, String> params = new HashMap<String, String>();
+                    HashMap<String, String> params = new HashMap<>();
                     params.put("StudentID", Utility.getPref(mContext, "studid"));
                     getUserProfileAsyncTask = new GetUserProfileAsyncTask(params);
                     studDetailList = getUserProfileAsyncTask.execute().get();
@@ -653,6 +670,11 @@ public class DashBoardActivity extends FragmentActivity {
                                     studName.setText(studDetailList.get(0).getStudentName() + " (" + studDetailList.get(0).getGRNO() + ")");
                                     grade.setText(studDetailList.get(0).getStandard() + "-" + studDetailList.get(0).getStudClass());
                                     // grno.setText("GRNo :" + " " + studDetailList.get(0).getGRNO());
+
+                                    Utility.setPref(mContext, "TermID", studDetailList.get(0).getTermID());//
+                                    Utility.setPref(mContext, "standardID", studDetailList.get(0).getStandardID());//
+                                    Utility.setPref(mContext, "FROMDATE", studDetailList.get(0).getStartDate());
+                                    Utility.setPref(mContext, "TODATE", studDetailList.get(0).getEndDate());
 
                                 }
                             }else{
@@ -672,11 +694,9 @@ public class DashBoardActivity extends FragmentActivity {
     /**
      * Slide menu item click listener
      */
-    private class SlideMenuClickListener implements
-            ListView.OnItemClickListener {
+    private class SlideMenuClickListener implements ListView.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             // display view for selected nav drawer item
             displayView(position);
         }

@@ -26,7 +26,6 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudClassworkAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ClassWorkModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
@@ -77,14 +76,14 @@ public class ClassworkFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        fromDate = (TextView) rootView.findViewById(R.id.fromDate);
-        toDate = (TextView) rootView.findViewById(R.id.toDate);
-        btnFilterClasswork = (Button) rootView.findViewById(R.id.btnFilterClasswork);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        txtNoRecordsClasswork = (TextView) rootView.findViewById(R.id.txtNoRecordsClasswork);
-        btnBackClasswork = (Button) rootView.findViewById(R.id.btnBackClasswork);
-        lvExpClassWork = (ExpandableListView) rootView.findViewById(R.id.lvExpClassWork);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        fromDate = rootView.findViewById(R.id.fromDate);
+        toDate = rootView.findViewById(R.id.toDate);
+        btnFilterClasswork = rootView.findViewById(R.id.btnFilterClasswork);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        txtNoRecordsClasswork = rootView.findViewById(R.id.txtNoRecordsClasswork);
+        btnBackClasswork = rootView.findViewById(R.id.btnBackClasswork);
+        lvExpClassWork = rootView.findViewById(R.id.lvExpClassWork);
 
 
         if (!getArguments().getString("message").equalsIgnoreCase("test")) {
@@ -145,6 +144,7 @@ public class ClassworkFragment extends Fragment {
                         if (Utility.CheckDates(fromDate.getText().toString(), toDate.getText().toString()) == true) {
                             getClassworkData(fromDate.getText().toString(), toDate.getText().toString());
                         } else {
+                            toDate.setText("dd/MM/yyyy");
                             Utility.pong(mContext, "Please select proper date.");
                         }
                     } else {
@@ -207,7 +207,7 @@ public class ClassworkFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("ClassWorkFromDate", fromDate);
                         params.put("ClassWorkToDate", toDate);
@@ -257,8 +257,8 @@ public class ClassworkFragment extends Fragment {
     }
 
     public void prepaareList() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, ArrayList<ClassWorkModel.ClassWorkData>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
         if (!getArguments().getString("message").equalsIgnoreCase("test")) {
             //spiltdata = putData.split("\\-");
             for (int i = 0; i < classWorkModels.size(); i++) {
@@ -297,7 +297,15 @@ public class ClassworkFragment extends Fragment {
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, yy, mm, dd);
-            dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+
+            if (isFromDate) {
+                dialog.getDatePicker().setMaxDate(Utility.StringToDate(Utility.getPref(getActivity(), "TODATE")));
+                dialog.getDatePicker().setMinDate(Utility.StringToDate(Utility.getPref(getActivity(), "FROMDATE")));
+            } else {
+                dialog.getDatePicker().setMaxDate(Utility.StringToDate(Utility.getPref(getActivity(), "TODATE")));
+                dialog.getDatePicker().setMinDate(Utility.StringToDate(fromDate.getText().toString()));
+            }
+
             return dialog;
         }
 
@@ -320,9 +328,12 @@ public class ClassworkFragment extends Fragment {
             dateFinal = d + "/" + m + "/" + y;
 
             if (isFromDate) {
+
                 fromDate.setText(dateFinal);
             } else {
+
                 toDate.setText(dateFinal);
+
             }
         }
     }

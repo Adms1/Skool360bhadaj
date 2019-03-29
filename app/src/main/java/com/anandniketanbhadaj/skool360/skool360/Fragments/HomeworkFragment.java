@@ -28,7 +28,6 @@ import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudHomeworkAsyncT
 import com.anandniketanbhadaj.skool360.skool360.Models.HomeWorkModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,6 +50,7 @@ public class HomeworkFragment extends Fragment {
     HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>> listDataChild;
     String putData, formatedate;
     String[] spiltdata;
+    LinearLayout linearBack;
     private View rootView;
     private Button btnMenu, btnFilterHomework, btnBackHomework;
     private TextView txtNoRecordsHomework;
@@ -59,7 +59,6 @@ public class HomeworkFragment extends Fragment {
     private ArrayList<HomeWorkModel> homeWorkModels = new ArrayList<>();
     private ProgressDialog progressDialog = null;
     private int lastExpandedPosition = -1;
-    LinearLayout linearBack;
 
     public HomeworkFragment() {
     }
@@ -78,14 +77,14 @@ public class HomeworkFragment extends Fragment {
 
     public void initViews() {
 
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        fromDate = (TextView) rootView.findViewById(R.id.fromDate);
-        toDate = (TextView) rootView.findViewById(R.id.toDate);
-        btnFilterHomework = (Button) rootView.findViewById(R.id.btnFilterHomework);
-        txtNoRecordsHomework = (TextView) rootView.findViewById(R.id.txtNoRecordsHomework);
-        btnBackHomework = (Button) rootView.findViewById(R.id.btnBackHomework);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
-        lvExpHomework = (ExpandableListView) rootView.findViewById(R.id.lvExpHomework);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        fromDate = rootView.findViewById(R.id.fromDate);
+        toDate = rootView.findViewById(R.id.toDate);
+        btnFilterHomework = rootView.findViewById(R.id.btnFilterHomework);
+        txtNoRecordsHomework = rootView.findViewById(R.id.txtNoRecordsHomework);
+        btnBackHomework = rootView.findViewById(R.id.btnBackHomework);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        lvExpHomework = rootView.findViewById(R.id.lvExpHomework);
 
         if (!getArguments().getString("message").equalsIgnoreCase("test")) {
             putData = getArguments().getString("message");
@@ -144,7 +143,8 @@ public class HomeworkFragment extends Fragment {
                     if (!toDate.getText().toString().equalsIgnoreCase("")) {
                         if (Utility.CheckDates(fromDate.getText().toString(), toDate.getText().toString()) == true) {
                             getHomeworkData(fromDate.getText().toString(), toDate.getText().toString());
-                        }else{
+                        } else {
+                            toDate.setText("dd/MM/yyyy");
                             Utility.pong(mContext, "Please select proper date.");
                         }
                     } else {
@@ -211,7 +211,7 @@ public class HomeworkFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("HomeWorkFromDate", fromDate);
                         params.put("HomeWorkToDate", toDate);
@@ -222,21 +222,21 @@ public class HomeworkFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (homeWorkModels!=null){
-                                if (homeWorkModels.size() > 0) {
-                                    txtNoRecordsHomework.setVisibility(View.GONE);
-                                    lvExpHomework.setVisibility(View.VISIBLE);
-                                    prepaareList();
-                                    listAdapter = new ExpandableListAdapterHomework(getActivity(), listDataHeader, listDataChild);
-                                    lvExpHomework.setAdapter(listAdapter);
-                                    if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
-                                        lvExpHomework.expandGroup(0);
+                                if (homeWorkModels != null) {
+                                    if (homeWorkModels.size() > 0) {
+                                        txtNoRecordsHomework.setVisibility(View.GONE);
+                                        lvExpHomework.setVisibility(View.VISIBLE);
+                                        prepaareList();
+                                        listAdapter = new ExpandableListAdapterHomework(getActivity(), listDataHeader, listDataChild);
+                                        lvExpHomework.setAdapter(listAdapter);
+                                        if (AppConfiguration.Notification.equalsIgnoreCase("1")) {
+                                            lvExpHomework.expandGroup(0);
+                                        }
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecordsHomework.setVisibility(View.VISIBLE);
+                                        lvExpHomework.setVisibility(View.GONE);
                                     }
-                                } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecordsHomework.setVisibility(View.VISIBLE);
-                                    lvExpHomework.setVisibility(View.GONE);
-                                }
                                 } else {
                                     Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);
@@ -254,8 +254,8 @@ public class HomeworkFragment extends Fragment {
     }
 
     public void prepaareList() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, ArrayList<HomeWorkModel.HomeWorkData>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         if (!getArguments().getString("message").equalsIgnoreCase("test")) {
             spiltdata = putData.split("\\-");
@@ -263,7 +263,7 @@ public class HomeworkFragment extends Fragment {
                 if (homeWorkModels.get(i).getHomeWorkDate().equalsIgnoreCase(formatedate)) {
                     listDataHeader.add(homeWorkModels.get(i).getHomeWorkDate());
 
-                    ArrayList<HomeWorkModel.HomeWorkData> rows = new ArrayList<HomeWorkModel.HomeWorkData>();
+                    ArrayList<HomeWorkModel.HomeWorkData> rows = new ArrayList<>();
                     for (int j = 0; j < homeWorkModels.get(i).getHomeWorkDatas().size(); j++) {
                         // if (homeWorkModels.get(i).getHomeWorkDatas().get(j).getSubject().equalsIgnoreCase(spiltdata[2].trim())) {
                         rows.add(homeWorkModels.get(i).getHomeWorkDatas().get(j));
@@ -276,7 +276,7 @@ public class HomeworkFragment extends Fragment {
             for (int i = 0; i < homeWorkModels.size(); i++) {
                 listDataHeader.add(homeWorkModels.get(i).getHomeWorkDate());
 
-                ArrayList<HomeWorkModel.HomeWorkData> rows = new ArrayList<HomeWorkModel.HomeWorkData>();
+                ArrayList<HomeWorkModel.HomeWorkData> rows = new ArrayList<>();
                 for (int j = 0; j < homeWorkModels.get(i).getHomeWorkDatas().size(); j++) {
                     rows.add(homeWorkModels.get(i).getHomeWorkDatas().get(j));
                 }
@@ -293,7 +293,14 @@ public class HomeworkFragment extends Fragment {
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, yy, mm, dd);
-            dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+
+            if (isFromDate) {
+                dialog.getDatePicker().setMaxDate(Utility.StringToDate(Utility.getPref(getActivity(), "TODATE")));
+                dialog.getDatePicker().setMinDate(Utility.StringToDate(Utility.getPref(getActivity(), "FROMDATE")));
+            } else {
+                dialog.getDatePicker().setMaxDate(Utility.StringToDate(Utility.getPref(getActivity(), "TODATE")));
+                dialog.getDatePicker().setMinDate(Utility.StringToDate(fromDate.getText().toString()));
+            }
             return dialog;
         }
 
@@ -315,14 +322,13 @@ public class HomeworkFragment extends Fragment {
             }
             dateFinal = d + "/" + m + "/" + y;
 
-
             if (isFromDate) {
                 fromDate.setText(dateFinal);
             } else {
                 toDate.setText(dateFinal);
+
             }
         }
     }
-
 
 }

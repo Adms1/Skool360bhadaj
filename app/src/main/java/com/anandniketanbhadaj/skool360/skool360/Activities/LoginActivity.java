@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -19,28 +21,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.ChangePasswordAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.ForgotpasswordAsyncTask;
-import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetHolidayAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStandardSectionAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudentListAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.VerifyLoginAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
-import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.annotations.Until;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginActivity extends Activity {
-
 
     //Use for dialog
     Dialog forgotDialog, idpasswordDialog;
@@ -56,14 +54,14 @@ public class LoginActivity extends Activity {
     private TextView forgot_title_txt;
     private Button btnLogin, cancel_btn, submit_btn;
     private Spinner standard_spinner, section_spinner, student_spinner;
-    private CheckBox chkRemember;
+    private CheckBox chkPassword;
     private VerifyLoginAsyncTask verifyLoginAsyncTask = null;
     private Context mContext;
     private ProgressDialog progressDialog;
-    private HashMap<String, String> result = new HashMap<String, String>();
-    private HashMap<String, String> param = new HashMap<String, String>();
+    private HashMap<String, String> result = new HashMap<>();
+    private HashMap<String, String> param = new HashMap<>();
     private String putExtras = "0";
-    private String putExtrasData = "0";
+    private String putExtrasData = "0", Name;
     private String FinalStandardIdStr, FinalStandardStr, FinalSectionIdStr, FinalSectionStr, FinalStudentIdStr, FinalStudentNameStr;
 
     @Override
@@ -73,7 +71,12 @@ public class LoginActivity extends Activity {
         mContext = this;
 
         putExtrasData = getIntent().getStringExtra("message");
-        putExtras = getIntent().getStringExtra("fromNotification");//getAction();
+        putExtras = getIntent().getStringExtra("fromNotification");
+        try {
+            Name = getIntent().getStringExtra("Name");//getAction();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         System.out.println("Login Extra : " + putExtrasData);
         Log.d("Data", Utility.getPref(mContext, "data"));
@@ -84,11 +87,11 @@ public class LoginActivity extends Activity {
     }
 
     public void initViews() {
-        edtUserName = (EditText) findViewById(R.id.edtUserName);
-        edtPassword = (EditText) findViewById(R.id.edtPassword);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        chkRemember = (CheckBox) findViewById(R.id.chkRemember);
-        forgot_title_txt = (TextView) findViewById(R.id.forgot_title_txt);
+        edtUserName = findViewById(R.id.edtUserName);
+        edtPassword = findViewById(R.id.edtPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        chkPassword = findViewById(R.id.chPass);
+        forgot_title_txt = findViewById(R.id.forgot_title_txt);
     }
 
     public void setListners() {
@@ -112,6 +115,7 @@ public class LoginActivity extends Activity {
                 }
             }
         });
+
         forgot_title_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +143,19 @@ public class LoginActivity extends Activity {
                     }
                 }
                 return false;
+            }
+        });
+
+        chkPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPassword.setBackground(getResources().getDrawable(R.drawable.icon_showpass));
+                    edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    chkPassword.setBackground(getResources().getDrawable(R.drawable.icon_showpass_h));
+                    edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
     }
@@ -181,6 +198,9 @@ public class LoginActivity extends Activity {
                                         Utility.setPref(mContext, "Loginwithother", "false");
                                         intentDashboard.putExtra("message", putExtrasData);
                                         intentDashboard.putExtra("fromNotification", putExtras);
+                                        if (Name != null) {
+                                            intentDashboard.putExtra("Name", Name);
+                                        }
                                         System.out.println("messageLogin: " + putExtrasData);
                                         startActivity(intentDashboard);
                                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -215,6 +235,9 @@ public class LoginActivity extends Activity {
             Utility.setPref(mContext, "Loginwithother", "false");
             intentDashboard.putExtra("message", putExtrasData);
             intentDashboard.putExtra("fromNotification", putExtras);
+            if (Name != null) {
+                intentDashboard.putExtra("Name", Name);
+            }
             startActivity(intentDashboard);
             finish();
         }
@@ -239,9 +262,9 @@ public class LoginActivity extends Activity {
         forgotDialog.setCancelable(false);
         forgotDialog.setContentView(R.layout.forgot_password);
 
-        cancel_btn = (Button) forgotDialog.findViewById(R.id.cancel_btn);
-        submit_btn = (Button) forgotDialog.findViewById(R.id.submit_btn);
-        edtmobileno = (EditText) forgotDialog.findViewById(R.id.edtmobileno);
+        cancel_btn = forgotDialog.findViewById(R.id.cancel_btn);
+        submit_btn = forgotDialog.findViewById(R.id.submit_btn);
+        edtmobileno = forgotDialog.findViewById(R.id.edtmobileno);
 
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,7 +322,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("MobileNo", communicationnoStr);
                         forgotpasswordAsyncTask = new ForgotpasswordAsyncTask(params);
                         forgotModelResponse = forgotpasswordAsyncTask.execute().get();
@@ -313,7 +336,7 @@ public class LoginActivity extends Activity {
                                         forgotDialog.dismiss();
                                     } else {
                                         progressDialog.dismiss();
-                                        Utility.ping(mContext, forgotModelResponse.getMessage().toString());
+                                        Utility.ping(mContext, forgotModelResponse.getMessage());
                                     }
                                 } else {
                                     Intent serverintent = new Intent(mContext, Server_Error.class);
@@ -346,11 +369,11 @@ public class LoginActivity extends Activity {
         idpasswordDialog.setCancelable(false);
         idpasswordDialog.setContentView(R.layout.idpassworddialog);
         getStandardSectionData();
-        cancel_btn = (Button) idpasswordDialog.findViewById(R.id.cancel_btn);
-        submit_btn = (Button) idpasswordDialog.findViewById(R.id.submit_btn);
-        standard_spinner = (Spinner) idpasswordDialog.findViewById(R.id.standard_spinner);
-        section_spinner = (Spinner) idpasswordDialog.findViewById(R.id.section_spinner);
-        student_spinner = (Spinner) idpasswordDialog.findViewById(R.id.student_spinner);
+        cancel_btn = idpasswordDialog.findViewById(R.id.cancel_btn);
+        submit_btn = idpasswordDialog.findViewById(R.id.submit_btn);
+        standard_spinner = idpasswordDialog.findViewById(R.id.standard_spinner);
+        section_spinner = idpasswordDialog.findViewById(R.id.section_spinner);
+        student_spinner = idpasswordDialog.findViewById(R.id.student_spinner);
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -366,7 +389,7 @@ public class LoginActivity extends Activity {
                 String getid = spinnerStandardMap.get(standard_spinner.getSelectedItemPosition());
 
                 Log.d("value", name + " " + getid);
-                FinalStandardIdStr = getid.toString();
+                FinalStandardIdStr = getid;
                 Log.d("FinalStandardIdStr", FinalStandardIdStr);
                 FinalStandardStr = name;
                 Log.d("StandardName", FinalStandardStr);
@@ -385,7 +408,7 @@ public class LoginActivity extends Activity {
                 String getid = spinnerSectionMap.get(section_spinner.getSelectedItemPosition());
 
                 Log.d("value", name + " " + getid);
-                FinalSectionIdStr = getid.toString();
+                FinalSectionIdStr = getid;
                 Log.d("FinalStandardIdStr", FinalStandardIdStr);
                 FinalSectionStr = name;
                 Log.d("SectionName", FinalSectionStr);
@@ -404,7 +427,7 @@ public class LoginActivity extends Activity {
                 String getid = studentMap.get(student_spinner.getSelectedItemPosition());
 
                 Log.d("value", name + " " + getid);
-                FinalStudentIdStr = getid.toString();
+                FinalStudentIdStr = getid;
                 Log.d("FinalStudentIdStr", FinalStudentIdStr);
                 FinalStudentNameStr = name;
                 Log.d("StudentName", FinalStudentNameStr);
@@ -452,7 +475,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
 
                         getStandardSectionAsyncTask = new GetStandardSectionAsyncTask(params);
                         standardsectionResponse = getStandardSectionAsyncTask.execute().get();
@@ -460,14 +483,14 @@ public class LoginActivity extends Activity {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (standardsectionResponse!=null){
-                                if (standardsectionResponse.getSuccess().equalsIgnoreCase("True")) {
-                                    fillStandardSpinner();
+                                if (standardsectionResponse != null) {
+                                    if (standardsectionResponse.getSuccess().equalsIgnoreCase("True")) {
+                                        fillStandardSpinner();
+                                    } else {
+                                        progressDialog.dismiss();
+                                    }
                                 } else {
-                                    progressDialog.dismiss();
-                                }
-                                }else{
-                                    Intent serverintent=new Intent(mContext,Server_Error.class);
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);
                                 }
                             }
@@ -504,7 +527,7 @@ public class LoginActivity extends Activity {
         }
         String[] spinnerstandardIdArray = new String[standardId.size()];
 
-        spinnerStandardMap = new HashMap<Integer, String>();
+        spinnerStandardMap = new HashMap<>();
         for (int i = 0; i < standardId.size(); i++) {
             spinnerStandardMap.put(i, String.valueOf(standardId.get(i)));
             spinnerstandardIdArray[i] = standardname.get(i).trim();
@@ -523,7 +546,7 @@ public class LoginActivity extends Activity {
         }
 
 
-        ArrayAdapter<String> adapterstandard = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
+        ArrayAdapter<String> adapterstandard = new ArrayAdapter<>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
         standard_spinner.setAdapter(adapterstandard);
 
         FinalStandardIdStr = spinnerStandardMap.get(0);
@@ -559,7 +582,7 @@ public class LoginActivity extends Activity {
         }
         String[] spinnerstandardIdArray = new String[sectionId.size()];
 
-        spinnerSectionMap = new HashMap<Integer, String>();
+        spinnerSectionMap = new HashMap<>();
         for (int i = 0; i < sectionId.size(); i++) {
             spinnerSectionMap.put(i, String.valueOf(sectionId.get(i)));
             spinnerstandardIdArray[i] = sectionName.get(i).trim();
@@ -579,7 +602,7 @@ public class LoginActivity extends Activity {
         }
 
 
-        ArrayAdapter<String> adapterstandard = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
+        ArrayAdapter<String> adapterstandard = new ArrayAdapter<>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
         section_spinner.setAdapter(adapterstandard);
 
         FinalSectionIdStr = spinnerSectionMap.get(0);
@@ -596,7 +619,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
 
                         getStudentListAsyncTask = new GetStudentListAsyncTask(params);
                         params.put("StandrdID", FinalStandardIdStr);
@@ -606,15 +629,15 @@ public class LoginActivity extends Activity {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (studentListResponse!=null) {
+                                if (studentListResponse != null) {
                                     if (studentListResponse.getSuccess().equalsIgnoreCase("True")) {
                                         fillStudentSpinner();
                                     } else {
                                         progressDialog.dismiss();
 
                                     }
-                                }else{
-                                    Intent serverintent=new Intent(mContext,Server_Error.class);
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);
                                 }
                             }
@@ -652,7 +675,7 @@ public class LoginActivity extends Activity {
         }
         String[] spinnerstandardIdArray = new String[studentId.size()];
 
-        studentMap = new HashMap<Integer, String>();
+        studentMap = new HashMap<>();
         for (int i = 0; i < studentId.size(); i++) {
             studentMap.put(i, String.valueOf(studentId.get(i)));
             spinnerstandardIdArray[i] = studentName.get(i).trim();
@@ -672,7 +695,7 @@ public class LoginActivity extends Activity {
         }
 
 
-        ArrayAdapter<String> adapterstandard = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
+        ArrayAdapter<String> adapterstandard = new ArrayAdapter<>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
         student_spinner.setAdapter(adapterstandard);
 
         FinalStudentIdStr = studentMap.get(0);

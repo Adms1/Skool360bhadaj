@@ -3,15 +3,14 @@ package com.anandniketanbhadaj.skool360.skool360.AsyncTasks;
 import android.os.AsyncTask;
 
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.CreateLeaveModel;
-import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.WebServicesCall.WebServicesCall;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
 
-public class InsertStudentLeaveAsyncTask extends AsyncTask<Void, Void,CreateLeaveModel> {
-    HashMap<String, String> param = new HashMap<String, String>();
+public class InsertStudentLeaveAsyncTask extends AsyncTask<Void, Void, CreateLeaveModel> {
+    HashMap<String, String> param = new HashMap<>();
 
     public InsertStudentLeaveAsyncTask(HashMap<String, String> param) {
         this.param = param;
@@ -25,7 +24,7 @@ public class InsertStudentLeaveAsyncTask extends AsyncTask<Void, Void,CreateLeav
     @Override
     protected CreateLeaveModel doInBackground(Void... params) {
         String responseString = null;
-        CreateLeaveModel response =null;
+        CreateLeaveModel response = null;
         try {
             responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.InsertStudentLeaveRequest), param);
             Gson gson = new Gson();

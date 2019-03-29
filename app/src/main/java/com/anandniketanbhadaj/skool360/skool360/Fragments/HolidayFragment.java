@@ -10,8 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-
-
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -24,7 +22,6 @@ import android.widget.TextView;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
-
 import com.anandniketanbhadaj.skool360.skool360.Activities.ParallaxRecyclerView;
 import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.HolidayListAdapter;
@@ -41,7 +38,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 
 public class HolidayFragment extends Fragment implements View.OnClickListener {
@@ -95,11 +91,11 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
         System.out.println(month);
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecordsClasswork = (TextView) rootView.findViewById(R.id.txtNoRecordsClasswork);
-        btnBackCanteen = (Button) rootView.findViewById(R.id.btnBackCanteen);
-        holiday_list = (ParallaxRecyclerView) rootView.findViewById(R.id.holiday_list);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        txtNoRecordsClasswork = rootView.findViewById(R.id.txtNoRecordsClasswork);
+        btnBackCanteen = rootView.findViewById(R.id.btnBackCanteen);
+        holiday_list = rootView.findViewById(R.id.holiday_list);
+        linearBack = rootView.findViewById(R.id.linearBack);
         getLeaveData();
     }
 
@@ -147,7 +143,7 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StandardID", Utility.getPref(mContext, "standardID"));
                         holidayAsyncTask = new GetHolidayAsyncTask(params);
                         holidayDataResponse = holidayAsyncTask.execute().get();
@@ -155,7 +151,7 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (holidayDataResponse!=null) {
+                                if (holidayDataResponse != null) {
                                     if (holidayDataResponse.getSuccess().equalsIgnoreCase("True")) {
                                         setLeaveDataList();
                                     } else {
@@ -180,7 +176,7 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
 
     public void setLeaveDataList() {
         montharrayList = new ArrayList<>();
-        monthwisedata = new ArrayList<ExamDatum>();
+        monthwisedata = new ArrayList<>();
 
         ArrayList<String> image = new ArrayList<>();
         DisplayMetrics metrics = new DisplayMetrics();
@@ -246,11 +242,62 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
 //        }
 
         for (int i = 0; i < holidayDataResponse.getFinalArray().size(); i++) {
-            holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(i));
 
+            switch (holidayDataResponse.getFinalArray().get(i).getMonthName()) {
+                case "April":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(0));
+                    break;
+
+                case "May":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(1));
+                    break;
+
+                case "June":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(2));
+                    break;
+
+                case "July":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(3));
+                    break;
+
+                case "August":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(4));
+                    break;
+
+                case "September":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(5));
+                    break;
+
+                case "October":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(6));
+                    break;
+
+                case "November":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(7));
+                    break;
+
+                case "December":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(8));
+                    break;
+
+                case "January":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(9));
+                    break;
+
+                case "February":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(10));
+                    break;
+
+                case "March":
+                    holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(11));
+                    break;
+
+            }
+
+//            holidayDataResponse.getFinalArray().get(i).setMonthImage(image.get(i));
         }
-        Log.d("monthwise", "" + monthwisedata);
 
+        Log.d("monthwise", "" + monthwisedata);
 
         holidayListAdapter = new HolidayListAdapter(mContext, holidayDataResponse, monthwisedata, holiday_list.getHeight());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
@@ -258,10 +305,12 @@ public class HolidayFragment extends Fragment implements View.OnClickListener {
         holiday_list.setItemAnimator(new DefaultItemAnimator());
         holiday_list.setAdapter(holidayListAdapter);
         holiday_list.setupParallax(mContext);
+
         for (int i = 0; i < holidayDataResponse.getFinalArray().size(); i++) {
             if (holidayDataResponse.getFinalArray().get(i).getMonthName().equalsIgnoreCase(month)) {
                 holiday_list.getLayoutManager().scrollToPosition(i);
             }
         }
+
     }
 }

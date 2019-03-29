@@ -4,14 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +33,6 @@ import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 
 public class GalleryFragment extends Fragment {
     Fragment fragment;
@@ -62,9 +59,8 @@ public class GalleryFragment extends Fragment {
     public GalleryFragment() {
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
         mContext = getActivity();
 
@@ -75,13 +71,13 @@ public class GalleryFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        btnBack = (Button) rootView.findViewById(R.id.btnBack);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        gallery_list = (RecyclerView) rootView.findViewById(R.id.gallery_list);
-        gallery_list1 = (RecyclerView) rootView.findViewById(R.id.gallery_list1);
-        photo_name = (TextView) rootView.findViewById(R.id.photo_name);
-        event_name_txt = (TextView) rootView.findViewById(R.id.event_name_txt);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        btnBack = rootView.findViewById(R.id.btnBack);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        gallery_list = rootView.findViewById(R.id.gallery_list);
+        gallery_list1 = rootView.findViewById(R.id.gallery_list1);
+        photo_name = rootView.findViewById(R.id.photo_name);
+        event_name_txt = rootView.findViewById(R.id.event_name_txt);
         getGalleryData();
 
     }
@@ -95,15 +91,19 @@ public class GalleryFragment extends Fragment {
                 if (position.equalsIgnoreCase("")) {
                     fragment = new HomeFragment();
                     fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                            .replace(R.id.frame_container, fragment).commit();
+                    if (fragmentManager != null) {
+                        fragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.frame_container, fragment).commit();
+                    }
                 } else {
                     fragment = new GalleryFragment();
                     fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                            .replace(R.id.frame_container, fragment).commit();
+                    if (fragmentManager != null) {
+                        fragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.frame_container, fragment).commit();
+                    }
                 }
             }
         });
@@ -115,15 +115,19 @@ public class GalleryFragment extends Fragment {
                 if (position.equalsIgnoreCase("")) {
                     fragment = new HomeFragment();
                     fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                            .replace(R.id.frame_container, fragment).commit();
+                    if (fragmentManager != null) {
+                        fragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.frame_container, fragment).commit();
+                    }
                 } else {
                     fragment = new GalleryFragment();
                     fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                            .replace(R.id.frame_container, fragment).commit();
+                    if (fragmentManager != null) {
+                        fragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.frame_container, fragment).commit();
+                    }
                 }
             }
         });
@@ -147,23 +151,23 @@ public class GalleryFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         galleryAsyncTask = new GalleryAsyncTask(params);
                         galleryResponse = galleryAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (galleryResponse!=null){
-                                if (galleryResponse.getFinalArray().size() > 0) {
-                                    progressDialog.dismiss();
+                                if (galleryResponse != null) {
+                                    if (galleryResponse.getFinalArray().size() > 0) {
+                                        progressDialog.dismiss();
 //                                    prepaareList();
-                                    setGalleryData();
-                                } else {
-                                    progressDialog.dismiss();
+                                        setGalleryData();
+                                    } else {
+                                        progressDialog.dismiss();
 
-                                }
-                                }else{
-                                    Intent serverintent=new Intent(mContext,Server_Error.class);
+                                    }
+                                } else {
+                                    Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);
                                 }
                             }
@@ -182,14 +186,21 @@ public class GalleryFragment extends Fragment {
         gallery_list.setVisibility(View.VISIBLE);
         gallery_list1.setVisibility(View.GONE);
         event_name_txt.setVisibility(View.GONE);
-        arrayList = new ArrayList<String>();
+        arrayList = new ArrayList<>();
         name = new ArrayList<>();
 
         for (int i = 0; i < galleryResponse.getFinalArray().size(); i++) {
             name.add(galleryResponse.getFinalArray().get(i).getEventName());
             if (galleryResponse.getFinalArray().get(i).getPhotos().size() > 0) {
-                arrayList.add(galleryResponse.getFinalArray().get(i).getPhotos().get(0).getImagePath() + "|" +
-                        galleryResponse.getFinalArray().get(i).getPhotos().get(0).getTitle());
+
+                String title = " ";
+
+                if (galleryResponse.getFinalArray().get(i).getPhotos().get(0).getTitle() != null &&
+                        !galleryResponse.getFinalArray().get(i).getPhotos().get(0).getTitle().equalsIgnoreCase("")) {
+                    title = galleryResponse.getFinalArray().get(i).getPhotos().get(0).getTitle();
+                }
+
+                arrayList.add(galleryResponse.getFinalArray().get(i).getPhotos().get(0).getImagePath() + "|" + title);
             }
         }
 
@@ -198,7 +209,7 @@ public class GalleryFragment extends Fragment {
             @Override
             public void getViewClick() {
 
-                ArrayList<String> selectedposition = new ArrayList<String>();
+                ArrayList<String> selectedposition = new ArrayList<>();
 
                 selectedposition = galleryListAdapter.getPhotoDetail();
                 Log.d("selectedposition", "" + selectedposition);
@@ -227,9 +238,7 @@ public class GalleryFragment extends Fragment {
             if (position.equalsIgnoreCase(String.valueOf(i))) {
                 name.add(galleryResponse.getFinalArray().get(i).getEventName());
                 event_name_txt.setText(galleryResponse.getFinalArray().get(i).getEventName());
-                for (int j = 0; j < galleryResponse.getFinalArray().get(i).getPhotos().size(); j++) {
-                    photoarrayList.add(galleryResponse.getFinalArray().get(i).getPhotos().get(j));
-                }
+                photoarrayList.addAll(galleryResponse.getFinalArray().get(i).getPhotos());
             }
         }
         galleryAdapter = new GalleryAdapter(mContext, name, photoarrayList, displayMode, new onViewClick() {
@@ -261,9 +270,7 @@ public class GalleryFragment extends Fragment {
             if (position.equalsIgnoreCase(String.valueOf(i))) {
                 name.add(galleryResponse.getFinalArray().get(i).getEventName());
                 event_name_txt.setText(galleryResponse.getFinalArray().get(i).getEventName());
-                for (int j = 0; j < galleryResponse.getFinalArray().get(i).getPhotos().size(); j++) {
-                    photoarrayList.add(galleryResponse.getFinalArray().get(i).getPhotos().get(j));
-                }
+                photoarrayList.addAll(galleryResponse.getFinalArray().get(i).getPhotos());
             }
         }
         galleryAdapter = new GalleryAdapter(mContext, name, photoarrayList, displayMode, new onViewClick() {

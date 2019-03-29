@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class AddDeviceDetailAsyncTask extends AsyncTask<Void, Void, Boolean> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public AddDeviceDetailAsyncTask(HashMap<String, String> param) {
         this.param = param;

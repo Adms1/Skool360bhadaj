@@ -1,7 +1,6 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -47,13 +46,13 @@ public class SuggestionMainFragment extends Fragment {
     public void init() {
 //Initializing the tablayout
 
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        btnBack= (Button) rootView.findViewById(R.id.btnBack);
-        viewPager = (ViewPager) rootView.findViewById(R.id.pager);
-        linearBack=(LinearLayout)rootView.findViewById(R.id.linearBack);
-        view = (View) rootView.findViewById(R.id.view);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        btnBack= rootView.findViewById(R.id.btnBack);
+        viewPager = rootView.findViewById(R.id.pager);
+        linearBack= rootView.findViewById(R.id.linearBack);
+        view = rootView.findViewById(R.id.view);
 
-        tablayout_ptm_main = (TabLayout) rootView.findViewById(R.id.tablayout_ptm_main);
+        tablayout_ptm_main = rootView.findViewById(R.id.tablayout_ptm_main);
         tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Inbox"),true);
         tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Sent"));
         tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Create"));

@@ -15,7 +15,7 @@ import java.util.HashMap;
  */
 
 public class GetReportcardAsyncTask extends AsyncTask<Void, Void, ArrayList<ReportCardModel>> {
-    HashMap<String, String> param = new HashMap<String, String>();
+    HashMap<String, String> param = new HashMap<>();
 
     public GetReportcardAsyncTask(HashMap<String, String> param) {
         this.param = param;

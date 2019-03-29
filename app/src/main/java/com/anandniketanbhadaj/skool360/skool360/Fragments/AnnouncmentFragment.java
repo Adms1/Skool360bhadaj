@@ -69,11 +69,11 @@ public class AnnouncmentFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        txtNoRecords = (TextView) rootView.findViewById(R.id.txtNoRecords);
-        btnBack = (Button) rootView.findViewById(R.id.btnBack);
-        linearBack = (LinearLayout) rootView.findViewById(R.id.linearBack);
-        listannouncment = (ExpandableListView) rootView.findViewById(R.id.listannouncment);
+        btnMenu = rootView.findViewById(R.id.btnMenu);
+        txtNoRecords = rootView.findViewById(R.id.txtNoRecords);
+        btnBack = rootView.findViewById(R.id.btnBack);
+        linearBack = rootView.findViewById(R.id.linearBack);
+        listannouncment = rootView.findViewById(R.id.listannouncment);
         if (Utility.checkAndRequestPermissions(mContext)) {
         }
         getUnitTestData();
@@ -140,8 +140,10 @@ public class AnnouncmentFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        HashMap<String, String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<>();
                         params.put("StandardID", Utility.getPref(mContext, "standardID"));
+                        params.put("StartDate", Utility.getPref(mContext, "FROMDATE"));
+                        params.put("EndDate", Utility.getPref(mContext, "TODATE"));
                         announcmentAsyncTask = new AnnouncmentAsyncTask(params);
                         announcmentmodelReponse = announcmentAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
@@ -180,7 +182,7 @@ public class AnnouncmentFragment extends Fragment {
 
     public void prepaareList() {
         listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<String, ArrayList<ExamFinalArray>>();
+        listDataChild = new HashMap<>();
 
         for (int i = 0; i < announcmentmodelReponse.getFinalArray().size(); i++) {
             listDataHeader.add(announcmentmodelReponse.getFinalArray().get(i).getCreateDate() + "|" +
@@ -188,7 +190,7 @@ public class AnnouncmentFragment extends Fragment {
                     announcmentmodelReponse.getFinalArray().get(i).getAnnoucementDescription() + "|" +
                     announcmentmodelReponse.getFinalArray().get(i).getAnnoucementPDF());
 
-            ArrayList<ExamFinalArray> rows = new ArrayList<ExamFinalArray>();
+            ArrayList<ExamFinalArray> rows = new ArrayList<>();
             rows.add(announcmentmodelReponse.getFinalArray().get(i));
             listDataChild.put(listDataHeader.get(i), rows);
         }
