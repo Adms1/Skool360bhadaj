@@ -131,7 +131,7 @@ public class FeesFragment extends Fragment {
             public void onClick(View v) {
                 Fragment fragment = new PaymentFragment();
                 fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out).replace(R.id.frame_container, fragment).commit();
+                fragmentManager.beginTransaction().setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out).replace(R.id.frame_container, fragment).addToBackStack(null).commit();
             }
         });
 
@@ -226,7 +226,8 @@ public class FeesFragment extends Fragment {
                                                     due_fee_txt.setText("Due" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermDuePay()));
                                                     discount_fee_txt.setText("Discount" + "\n" + "₹" + " " + Html.fromHtml(feesMainResponse.getTermDiscount()));
                                                     linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
-
+                                                    more_detail_btn.setEnabled(true);
+                                                    more_detail_btn.setAlpha(1);
                                                 } else {
 
                                                     payment_total_amount_txt.setText("₹" + " " + "0");

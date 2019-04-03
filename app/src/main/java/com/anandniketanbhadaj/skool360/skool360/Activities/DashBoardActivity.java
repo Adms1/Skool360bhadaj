@@ -578,7 +578,7 @@ public class DashBoardActivity extends FragmentActivity {
     public void onBackPressed() {
         if (AppConfiguration.firsttimeback) {
             if (AppConfiguration.position != 0) {
-                displayView(0);
+                displayView(AppConfiguration.position);
             }
 //            else {
 //                Utility.ping(mContext, "Press again to exit");
