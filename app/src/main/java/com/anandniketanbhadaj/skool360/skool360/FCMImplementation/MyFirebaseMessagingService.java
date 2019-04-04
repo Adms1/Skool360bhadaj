@@ -30,6 +30,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     String data, message;
     private String screen = "";
 
+
+
     /**
      * Method checks if the app is in background or not
      */

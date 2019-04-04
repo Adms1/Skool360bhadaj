@@ -398,7 +398,7 @@ public class HomeFragment extends Fragment {
                                     student_name_txt.setText(studDetailList.get(0).getStudentName());
                                     vehicle_picktime_txt.setText("Pick Up : " + studDetailList.get(0).getTransport_PicupTime());
                                     vehicle_droptime_txt.setText("Drop Off : " + studDetailList.get(0).getTransport_DropTime());
-                                    student_classname_txt.setText("Grade : " + " " +studDetailList.get(0).getStandard() + "  " + "Section :" + " " + studDetailList.get(0).getStudClass());
+                                    student_classname_txt.setText("Grade : " + " " +studDetailList.get(0).getStandard() + "  " + "(" + studDetailList.get(0).getStudClass() + ")");
                                     teacher_name1_txt.setText(studDetailList.get(0).getTeacherName());
 //                            teacher_name1_txt.setText("Sourabh Pachouri");
                                     imageLoader.displayImage(studDetailList.get(0).getStudentImage(), profile_image);

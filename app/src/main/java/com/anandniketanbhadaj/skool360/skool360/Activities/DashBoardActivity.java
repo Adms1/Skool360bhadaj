@@ -53,6 +53,7 @@ import com.anandniketanbhadaj.skool360.skool360.Models.menuoptionItem;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.DialogUtils;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -675,7 +676,8 @@ public class DashBoardActivity extends FragmentActivity {
                                     Utility.setPref(mContext, "standardID", studDetailList.get(0).getStandardID());//
                                     Utility.setPref(mContext, "FROMDATE", studDetailList.get(0).getStartDate());
                                     Utility.setPref(mContext, "TODATE", studDetailList.get(0).getEndDate());
-
+//                                    Utility.setPref(mContext, "NOTIFICATIONGROUPNAME", studDetailList.get(0).getStandard().toLowerCase());
+                                    FirebaseMessaging.getInstance().subscribeToTopic(studDetailList.get(0).getStandard().toLowerCase());
                                 }
                             }else{
                                 Intent serverintent=new Intent(mContext,Server_Error.class);

@@ -5,14 +5,15 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.MyApp;
 /**
  * Created by Harsh on 04-Aug-16.
  */
+
 public class AppConfiguration {
 
     //Local
-    public static String DOMAIN_LOCAL = "http://192.168.1.22:8086/MobileApp_Service.asmx/";
+    public static String DOMAIN_LOCAL = "http://192.168.1.13:8086/MobileApp_Service.asmx/";
     public static String GET_API_URL = "http://anandniketanbhadaj.org/appService/5b9a72856992e144c74fc836ed6e76a2/appsUrl";
 
-    public static String LIVE_BASE_URL = "http://192.168.1.22:8086/";
-//
+    public static String LIVE_BASE_URL = "http://192.168.1.13:8086/";
+
 //    public static String BASEURL = GET_API_URL + "MobileApp_Service.asmx/";
 
     public static String BASEURL = LIVE_BASE_URL + "MobileApp_Service.asmx/";
@@ -32,7 +33,6 @@ public class AppConfiguration {
     // public static String GALLARY_LIVE = "http://192.168.1.11:8086/";
 //  public static String GALLARY_LIVE="http://192.168.1.187:8089/";
     public static String GALLARY_LIVE = LIVE_BASE_URL;
-
 
     //Webservice name
     public static String StudentLogin = "StudentLogin";
@@ -91,7 +91,7 @@ public class AppConfiguration {
     public static String dataNOtification = "";
     public static String messageNotification = "";
 
-    static Domain domain = Domain.LOCAL;
+    static Domain domain = Domain.LIVE ;
 
     public static String getUrl(String methodName) {
         String url = "";
@@ -115,9 +115,9 @@ public class AppConfiguration {
 
                 url = DOMAIN_LOCAL + methodName;
 
-                IMAGE_LIVE = "http://192.168.1.22:8086/SKOOL360-Category-Images/Student/";
+                IMAGE_LIVE = "http://192.168.1.13:8086/SKOOL360-Category-Images/Student/";
 //
-                GALLARY_LIVE = "http://192.168.1.22:8086/";
+                GALLARY_LIVE = "http://192.168.1.13:8086/";
 
                 break;
 

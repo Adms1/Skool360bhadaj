@@ -7,6 +7,7 @@ import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.AddDeviceDetailAsyncT
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 
@@ -17,7 +18,9 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     @Override
     public void onTokenRefresh() {
-        
+
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
+
         //Getting registration token
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         //getting old saved token
