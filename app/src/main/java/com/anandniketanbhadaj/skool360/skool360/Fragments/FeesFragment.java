@@ -131,7 +131,7 @@ public class FeesFragment extends Fragment {
             public void onClick(View v) {
                 Fragment fragment = new PaymentFragment();
                 fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out).replace(R.id.frame_container, fragment).commit();
+                fragmentManager.beginTransaction().setCustomAnimations(R.anim.zoom_in, R.anim.zoom_out).replace(R.id.frame_container, fragment).addToBackStack(null).commit();
             }
         });
 

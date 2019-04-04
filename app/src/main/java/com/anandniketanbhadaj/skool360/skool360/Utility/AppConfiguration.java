@@ -5,7 +5,6 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.MyApp;
 /**
  * Created by Harsh on 04-Aug-16.
  */
-
 public class AppConfiguration {
 
     //Local
@@ -33,6 +32,7 @@ public class AppConfiguration {
     // public static String GALLARY_LIVE = "http://192.168.1.11:8086/";
 //  public static String GALLARY_LIVE="http://192.168.1.187:8089/";
     public static String GALLARY_LIVE = LIVE_BASE_URL;
+
 
     //Webservice name
     public static String StudentLogin = "StudentLogin";
@@ -91,7 +91,7 @@ public class AppConfiguration {
     public static String dataNOtification = "";
     public static String messageNotification = "";
 
-    static Domain domain = Domain.LIVE ;
+    static Domain domain = Domain.LOCAL;
 
     public static String getUrl(String methodName) {
         String url = "";

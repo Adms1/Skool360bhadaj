@@ -29,6 +29,7 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.Server_Error;
 import com.anandniketanbhadaj.skool360.skool360.Adapter.PaymentPageAdapter;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.FeesDetailsAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.FeesModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
@@ -66,6 +67,8 @@ public class PaymentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_payment, container, false);
         mContext = getActivity();
+
+        AppConfiguration.position = 10;
 
         initViews();
         setListners();
@@ -133,6 +136,9 @@ public class PaymentFragment extends Fragment {
         btnBackUnitTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                getChildFragmentManager().beginTransaction().replace(R.id.frame_container, new FeesFragment()).addToBackStack(null).commit();
+//
                 fragment = new FeesFragment();
                 fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
@@ -348,12 +354,44 @@ public class PaymentFragment extends Fragment {
 //
 //                mType.setText(buffer+"\n"+text.substring(0));
 //            }
+            if(feesMainResponse.getFinalArray().get(i).getLedgerName().equalsIgnoreCase("opening balance")
+                    || feesMainResponse.getFinalArray().get(i).getLedgerName().equalsIgnoreCase("total dues")) {
+
+                if ((feesMainResponse.getFinalArray().get(i).getTerm1Amt().contains("Cr")
+                        || feesMainResponse.getFinalArray().get(i).getTerm1Amt().equalsIgnoreCase("0"))) {
+
+                    mValue.setTextColor(getActivity().getResources().getColor(R.color.green_trophy_room));
+
+                } else if (feesMainResponse.getFinalArray().get(i).getTerm1Amt().contains("Dr")) {
+
+                    mValue.setTextColor(getActivity().getResources().getColor(R.color.red));
+
+                }else {
+                    mValue.setTextColor(getActivity().getResources().getColor(R.color.black));
+
+                }
+
+                if ((feesMainResponse.getFinalArray().get(i).getTerm2Amt().contains("Cr")
+                        || feesMainResponse.getFinalArray().get(i).getTerm2Amt().equalsIgnoreCase("0"))) {
+
+                    mValue1.setTextColor(getActivity().getResources().getColor(R.color.green_trophy_room));
+
+                } else if (feesMainResponse.getFinalArray().get(i).getTerm2Amt().contains("Dr")) {
+
+                    mValue1.setTextColor(getActivity().getResources().getColor(R.color.red));
+
+                }else {
+                    mValue1.setTextColor(getActivity().getResources().getColor(R.color.black));
+
+                }
+
+
+            }
 
             mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());
             mValue.setText("₹" + " " + String.valueOf(feesMainResponse.getFinalArray().get(i).getTerm1Amt()));
             mValue1.setText("₹" + " " + String.valueOf(feesMainResponse.getFinalArray().get(i).getTerm2Amt()));
 //            tenCharPerLineString = tenCharPerLineString + text.substring(0);
-
 
 //            if (feesMainResponse.getFinalArray().get(i).getLedgerName().length() > 16 && feesMainResponse.getFinalArray().get(i).getLedgerName().length() < 32) {
 //                mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());//feesMainResponse.getFinalArray().get(i).getLedgerName()
