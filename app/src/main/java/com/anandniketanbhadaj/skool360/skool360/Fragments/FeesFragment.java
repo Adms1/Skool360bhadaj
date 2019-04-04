@@ -68,6 +68,8 @@ public class FeesFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_fees, container, false);
         mContext = getActivity();
 
+        AppConfiguration.position = 17;
+
         initViews();
         setListners();
 

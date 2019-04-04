@@ -216,6 +216,7 @@ public class LoginActivity extends Activity {
                                     Utility.pong(mContext, "Invalid Username/ password");
                                 }
                             } else {
+
                                 Intent serverintent = new Intent(mContext, Server_Error.class);
                                 startActivity(serverintent);
                             }

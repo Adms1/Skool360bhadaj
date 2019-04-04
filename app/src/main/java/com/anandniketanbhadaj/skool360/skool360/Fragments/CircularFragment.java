@@ -56,6 +56,8 @@ public class CircularFragment extends Fragment {
         rootView = inflater.inflate(R.layout.circular_fragment, container, false);
         mContext = getActivity();
 
+        AppConfiguration.position = 17;
+
         initViews();
         setListners();
         getCircularData();

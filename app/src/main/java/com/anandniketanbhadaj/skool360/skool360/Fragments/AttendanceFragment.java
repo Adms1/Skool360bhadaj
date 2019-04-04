@@ -132,6 +132,8 @@ public class AttendanceFragment extends Fragment {
         rootView = inflater.inflate(R.layout.attendance_fragment, container, false);
         mContext = getActivity();
 
+        AppConfiguration.position = 17;
+
         initViews();
         setListners();
 

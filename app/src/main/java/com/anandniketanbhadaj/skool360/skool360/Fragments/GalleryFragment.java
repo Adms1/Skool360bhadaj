@@ -64,6 +64,8 @@ public class GalleryFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
         mContext = getActivity();
 
+        AppConfiguration.position = 17;
+
         initViews();
         setListners();
 

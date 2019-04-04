@@ -19,6 +19,7 @@ import com.anandniketanbhadaj.skool360.skool360.Adapter.ExpandableListAdapterInb
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.SuggestionInboxAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.InboxFinalArray;
 import com.anandniketanbhadaj.skool360.skool360.Models.Suggestion.SuggestionInboxModel;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ public class SuggestionSentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_suggestion_sent, container, false);
         mContext = getActivity();
+
+        AppConfiguration.position = 17;
 
         initViews();
         setListners();

@@ -66,6 +66,8 @@ public class ReportCardFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_report_card, container, false);
         mContext = getActivity();
 
+        AppConfiguration.position = 17;
+
         initViews();
         setListners();
         fillspinYear();

@@ -63,6 +63,8 @@ public class AnnouncmentFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_announcment, container, false);
         mContext = getActivity();
 
+        AppConfiguration.position = 17;
+
         initViews();
         setListners();
         return rootView;
