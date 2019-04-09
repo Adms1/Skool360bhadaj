@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.anandniketanbhadaj.skool360.R;
 import com.anandniketanbhadaj.skool360.skool360.Activities.DashBoardActivity;
+import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 
 public class ReceiptFragment extends Fragment {
 
@@ -37,6 +38,9 @@ public class ReceiptFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_receipt, container, false);
         mContext = getActivity();
         recieptUrl = getArguments().getString("url");
+
+        AppConfiguration.position = 18;
+        AppConfiguration.firsttimeback = true;
 
         recieptUrl = (recieptUrl.substring(1, recieptUrl.length() - 1));
         initViews();

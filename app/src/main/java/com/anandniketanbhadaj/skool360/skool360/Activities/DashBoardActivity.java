@@ -41,6 +41,7 @@ import com.anandniketanbhadaj.skool360.skool360.Fragments.GalleryFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.HolidayFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.HomeworkFragment;
+import com.anandniketanbhadaj.skool360.skool360.Fragments.PaymentFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ProfileFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ReportCardFragment;
 import com.anandniketanbhadaj.skool360.skool360.Fragments.ResultFragment;
@@ -525,6 +526,15 @@ public class DashBoardActivity extends FragmentActivity {
                         .setIcon(R.drawable.ic_launcher)
                         .show();
                 break;
+
+            case 18:
+                fragment = new PaymentFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                AppConfiguration.firsttimeback = true;
+                AppConfiguration.position = 18;
+                break;
+
         }
         if (AppConfiguration.position != 16) {
             if (fragment != null) {

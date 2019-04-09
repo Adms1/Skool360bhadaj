@@ -66,7 +66,7 @@ public class AttendanceFragment extends Fragment {
     private Spinner spinMonth, spinYear;
     private RelativeLayout rlCalender;
     private Context mContext;
-    private ProgressDialog progressDialog = null;
+    private ProgressDialog progressDialog = null, progressDialog1;
     private CaldroidFragment mCaldroidFragment = null;
     private GetAttendanceAsyncTask getAttendanceAsyncTask = null;
     private ArrayList<AttendanceModel> attendanceModels = new ArrayList<>();
@@ -101,14 +101,27 @@ public class AttendanceFragment extends Fragment {
         public void onChangeMonth(int month, int year) {
             String text = "month: " + month + " year: " + year;
 
+            progressDialog1 = new ProgressDialog(getContext());
+            progressDialog1.setCanceledOnTouchOutside(true);
+            progressDialog1.setMessage("Please Wait...");
+            progressDialog1.show();
+
+
             if (month < 10) {
                 selectedmonth = "0" + String.valueOf(month);
             } else {
                 selectedmonth = String.valueOf(month);
             }
 
+            if(mCaldroidFragment.isEnableSwipe()){
+                getAttendance();
+
+            }else {
+                mCaldroidFragment.setEnableSwipe(true);
+                progressDialog1.dismiss();
+            }
+
             selectedyear = String.valueOf(year);
-            getAttendance();
         }
 
         @Override
@@ -117,7 +130,7 @@ public class AttendanceFragment extends Fragment {
 
         @Override
         public void onCaldroidViewCreated() {
-            getAttendance();
+//            getAttendance();
         }
     };
     private ArrayList<String> presentDates = new ArrayList<>();
@@ -176,7 +189,7 @@ public class AttendanceFragment extends Fragment {
 
 
         sheetBehavior = BottomSheetBehavior.from(linear_list);
-
+        sheetBehavior.setHideable(false);
     }
 
 
@@ -200,6 +213,7 @@ public class AttendanceFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
+                                progressDialog1.dismiss();
                                 absentDates.clear();
                                 HashMap hm = new HashMap();
                                 if (attendanceModels != null) {
@@ -245,6 +259,9 @@ public class AttendanceFragment extends Fragment {
                                         total_present_txt.setText("0");
                                         total_holiday_txt.setText("0");
                                     }
+
+                                    mCaldroidFragment.setEnableSwipe(true);
+
                                 } else {
                                     Intent serverintent = new Intent(mContext, Server_Error.class);
                                     startActivity(serverintent);

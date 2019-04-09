@@ -91,8 +91,8 @@ public class PaymentFragment extends Fragment {
         viewPager = rootView.findViewById(R.id.pager);
         view = rootView.findViewById(R.id.view);
         tablayout_ptm_main = rootView.findViewById(R.id.tablayout_ptm_main);
-        tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Receipt"), true);
-        tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Online Transcation"));
+        tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Payment Summary"), true);
+        tablayout_ptm_main.addTab(tablayout_ptm_main.newTab().setText("Online Transaction"));
 
         tablayout_ptm_main.setTabMode(TabLayout.MODE_FIXED);
         tablayout_ptm_main.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -227,7 +227,9 @@ public class PaymentFragment extends Fragment {
                         HashMap<String, String> params = new HashMap<>();
                         params.put("StudentID", Utility.getPref(mContext, "studid"));
                         params.put("Term", Utility.getPref(mContext, "TermID"));
-                        params.put("StandardID", Utility.getPref(mContext, "standardID"));
+//                        params.put("StandardID", Utility.getPref(mContext, "standardID"));
+//                        params.put("Term", FinalTermIdStr);
+                        params.put("LocationID", Utility.getPref(mContext, "locationId"));
 
                         getFeesDetailsAsyncTask = new FeesDetailsAsyncTask(params);
                         feesMainResponse = getFeesDetailsAsyncTask.execute().get();
@@ -287,33 +289,43 @@ public class PaymentFragment extends Fragment {
         for (int i = 0; i < feesMainResponse.getFinalArray().size(); i++) {
             LinearLayout childLayout = new LinearLayout(mContext);
             LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
+
+            LinearLayout.LayoutParams linearParams1 = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT, 1.79f);
+
+            LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT, 1.99f);
+
             //childLayout.setOrientation(LinearLayout.HORIZONTAL);
             childLayout.setLayoutParams(linearParams);
 
             EditText mType = new EditText(mContext);
             TextView mValue = new TextView(mContext);
             TextView mValue1 = new TextView(mContext);
-            linearParams.setMargins(2, 1, 0, 0);
-            mValue.setLayoutParams(linearParams);
-            linearParams.setMargins(2, 1, 0, 0);
-            mValue1.setLayoutParams(linearParams);
+            linearParams1.setMargins(2, 1, 0, 0);
+            linearParams2.setMargins(2, 1, 0, 0);
+            mValue.setLayoutParams(linearParams2);
+            linearParams2.setMargins(2, 1, 0, 0);
+            mValue1.setLayoutParams(linearParams2);
 
             mType.setPadding(5, 0, 0, 0);
             mValue.setPadding(0, 0, 5, 0);
             mValue1.setPadding(0, 0, 5, 0);
 
-            mType.setWidth(271);
-            mValue.setWidth(220);
-            mValue1.setWidth(220);
+//            mType.setWidth(271);
+//            mValue.setWidth(220);
+//            mValue1.setWidth(220);
 
 //            mType.setHeight(80);
 //            mValue.setHeight(80);
 //            mValue1.setHeight(80);
-            mType.setLayoutParams(linearParams);
-            mValue.setLayoutParams(linearParams);
-            mValue1.setLayoutParams(linearParams);
+            mType.setLayoutParams(linearParams1);
+            mValue.setLayoutParams(linearParams2);
+            mValue1.setLayoutParams(linearParams2);
 
             mType.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             mType.setSingleLine(false);

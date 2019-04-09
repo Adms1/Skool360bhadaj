@@ -351,7 +351,7 @@ public class FeesFragment extends Fragment {
                                         String CurrentYear = String.valueOf(yy);
                                         for (int i = 0; i < spinnertermdetailIdArray.length; i++) {
                                             if (spinnertermdetailIdArray[i].contains(CurrentYear)) {
-                                                term_detail_spinner.setSelection(i - 1);
+                                                term_detail_spinner.setSelection(i);
                                             }
                                         }
 

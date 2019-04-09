@@ -30,7 +30,7 @@ public class GalleryListAdapter extends RecyclerView.Adapter<GalleryListAdapter.
     List<String> name;
     private Context mContext;
     private ImageLoader imageLoader;
-    private ArrayList<String> PhotoDetail;
+    private String PhotoDetail;
 
     public GalleryListAdapter(Context mContext, ArrayList<String> name, ArrayList<String> arrayList, onViewClick onViewClick) {
         this.mContext = mContext;
@@ -65,23 +65,29 @@ public class GalleryListAdapter extends RecyclerView.Adapter<GalleryListAdapter.
                 .build();
         imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
 
-        String image = "", name = "";
+        String image, name = "";
         String[] splitvalue = arrayList.get(position).split("\\|");
-        image = splitvalue[0];
-        name = splitvalue[1];
 
-        imageLoader.displayImage(AppConfiguration.GALLARY_LIVE + image, holder.event_image_img);
+            image = splitvalue[0];
+        if(splitvalue.length > 1) {
+            name = splitvalue[1];
+        }
+
+        if(!image.equals("")) {
+            imageLoader.displayImage(AppConfiguration.GALLARY_LIVE + image, holder.event_image_img);
+        }else {
+            imageLoader.displayImage(String.valueOf(R.drawable.gallery_placeholder), holder.event_image_img);
+        }
+
         holder.pic_name.setText(name);
 
         holder.main_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoDetail = new ArrayList<>();
-                PhotoDetail.add(String.valueOf(position));
+                PhotoDetail = String.valueOf(position);
                 onViewClick.getViewClick();
             }
         });
-
     }
 
     @Override
@@ -89,7 +95,7 @@ public class GalleryListAdapter extends RecyclerView.Adapter<GalleryListAdapter.
         return arrayList.size();
     }
 
-    public ArrayList<String> getPhotoDetail() {
+    public String getPhotoDetail() {
         return PhotoDetail;
     }
 

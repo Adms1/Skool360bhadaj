@@ -91,7 +91,7 @@ public class AppConfiguration {
     public static String dataNOtification = "";
     public static String messageNotification = "";
 
-    static Domain domain = Domain.LIVE;
+    static Domain domain = Domain.LOCAL;
 
     public static String getUrl(String methodName) {
         String url = "";
