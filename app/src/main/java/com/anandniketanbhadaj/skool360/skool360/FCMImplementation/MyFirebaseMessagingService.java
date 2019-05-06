@@ -98,7 +98,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Intent notificationIntent = new Intent(ctx, SplashScreenActivity.class);
 
-
         String data = String.valueOf(remoteMessage.getData());
 //
 //        try {
@@ -119,7 +118,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d("Messsagetype", String.valueOf(remoteMessage.getData()));
 
         notificationIntent.setAction(String.valueOf(notifyID));
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent pendingNotificationIntent = PendingIntent.getActivity(ctx, notifyID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

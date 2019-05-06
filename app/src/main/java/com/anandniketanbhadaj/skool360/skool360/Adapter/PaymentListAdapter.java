@@ -41,6 +41,8 @@ public class PaymentListAdapter extends RecyclerView.Adapter<PaymentListAdapter.
         holder.term_txt.setText(paymentLedgerModels.getFinalArray().get(position).getTerm());
         holder.amount_txt.setText("₹ " + Math.round(Float.parseFloat(String.valueOf(paymentLedgerModels.getFinalArray().get(position).getAmount()))));
 
+        holder.view_txt.setTextColor(context.getResources().getColor(R.color.light_blue));
+
         holder.view_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

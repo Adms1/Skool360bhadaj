@@ -57,7 +57,6 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
 
         List<InboxFinalArray> childData = getChild(groupPosition, 0);
 
-
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -76,10 +75,8 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         String inputPattern = "yyyy-MM-dd'T'hh:mm:ss.SSS";
         String outputPattern1 = "dd MMM yyyy hh:mm:ss a";
 
-
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern1);
-
 
         Date startdateTime = null;
         String str = null, StartTimeStr = null;
@@ -132,7 +129,6 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         String headerTitle1 = headerTitle[0];
         String headerTitle2 = headerTitle[1];
 
-
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -145,7 +141,6 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         day_inbox_txt = convertView.findViewById(R.id.day_inbox_txt);
         String CurrentTime = "";
 
-
         Date currentTimeDate = Calendar.getInstance().getTime();
         CurrentTime = String.valueOf(currentTimeDate);
 
@@ -157,7 +152,6 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         String outputtimePattern = "hh:mm aa";
         String inputCurrentTimePattern = "EEE MMM d HH:mm:ss zzz yyyy";
 
-
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern1);
         SimpleDateFormat inputdayFormat = new SimpleDateFormat(inputdayPattern);
@@ -165,7 +159,6 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         SimpleDateFormat outputtimeFormat = new SimpleDateFormat(outputtimePattern);
         SimpleDateFormat inputCurrentTimeFormat = new SimpleDateFormat(inputCurrentTimePattern);
         SimpleDateFormat outputCurrentTimeFormat = new SimpleDateFormat(outputtimePattern);
-
 
         String dateAfterString = Utility.getTodaysDate();
 

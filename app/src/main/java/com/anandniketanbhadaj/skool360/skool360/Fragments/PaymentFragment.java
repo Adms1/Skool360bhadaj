@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -396,6 +397,10 @@ public class PaymentFragment extends Fragment {
                     mValue1.setTextColor(getActivity().getResources().getColor(R.color.black));
 
                 }
+
+                mType.setTypeface(null, Typeface.BOLD);
+                mValue.setTypeface(null, Typeface.BOLD);
+                mValue1.setTypeface(null, Typeface.BOLD);
 
 
             }

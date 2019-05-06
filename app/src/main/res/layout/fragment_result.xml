@@ -77,7 +77,7 @@
                 android:id="@+id/term1_rb"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_28sdp"
-                android:layout_marginLeft="@dimen/_1sdp"
+                android:layout_marginLeft="@dimen/_3sdp"
                 android:button="@drawable/absent_radio_type"
                 android:checked="true"
                 android:paddingLeft="@dimen/_5sdp"

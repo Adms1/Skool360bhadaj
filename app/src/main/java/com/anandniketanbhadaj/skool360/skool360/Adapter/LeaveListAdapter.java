@@ -68,17 +68,29 @@ public class LeaveListAdapter extends RecyclerView.Adapter<LeaveListAdapter.MyVi
 
         if (arrayList.getFinalArray().get(position).getReason().length() >= 17 && arrayList.getFinalArray().get(position).getReason().length() <= 32) {
             holder.reason_txt.setText(arrayList.getFinalArray().get(position).getReason());
-            holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr + "\n");
-            holder.srno_txt.setText(str + "\n");
-            holder.status_txt.setText(arrayList.getFinalArray().get(position).getStatus() + "\n");
+            if(StartTimeStr.equalsIgnoreCase(EndDateTimeStr)){
+                holder.start_date_txt.setText(StartTimeStr +"\n");
+            }else {
+                holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr+"\n");
+            }
+            holder.srno_txt.setText(str+"\n");
+            holder.status_txt.setText(arrayList.getFinalArray().get(position).getStatus()+"\n");
         } else if (arrayList.getFinalArray().get(position).getReason().length() >= 32) {
             holder.reason_txt.setText(arrayList.getFinalArray().get(position).getReason());
-            holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr + "\n" + "\n");
-            holder.srno_txt.setText(str + "\n" + "\n");
-            holder.status_txt.setText(arrayList.getFinalArray().get(position).getStatus() + "\n" + "\n");
+            if(StartTimeStr.equalsIgnoreCase(EndDateTimeStr)){
+                holder.start_date_txt.setText(StartTimeStr +"\n"+"\n");
+            }else {
+                holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr+"\n"+"\n");
+            }
+            holder.srno_txt.setText(str+"\n"+"\n");
+            holder.status_txt.setText(arrayList.getFinalArray().get(position).getStatus()+"\n"+"\n");
         } else {
             holder.reason_txt.setText(arrayList.getFinalArray().get(position).getReason());
-            holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr);
+            if(StartTimeStr.equalsIgnoreCase(EndDateTimeStr)){
+                holder.start_date_txt.setText(StartTimeStr);
+            }else {
+                holder.start_date_txt.setText(StartTimeStr + " - " + EndDateTimeStr);
+            }
             holder.srno_txt.setText(str);
             holder.status_txt.setText(arrayList.getFinalArray().get(position).getStatus());
         }
