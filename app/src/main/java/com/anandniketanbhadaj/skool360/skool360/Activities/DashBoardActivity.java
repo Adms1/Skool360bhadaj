@@ -79,7 +79,7 @@ public class DashBoardActivity extends FragmentActivity {
     ImageView viewprofile_img;
     static Context mContext;
     ActionBarDrawerToggle mDrawerToggle;
-    String MenuName[];
+    String[] MenuName;
     String token;
     int dispPOS = 0;
     SharedPreferences SP;
@@ -101,9 +101,11 @@ public class DashBoardActivity extends FragmentActivity {
     private TextView grno;
     private String name;
 
+    private TextView selectChild;
+
     public static void onLeft() {
         // TODO Auto-generated method stub
-         new DashBoardActivity().getUserProfile();
+        new DashBoardActivity().getUserProfile();
         mDrawerList.setSelectionAfterHeaderView();
         mDrawerLayout.openDrawer(leftRl);
     }
@@ -260,6 +262,8 @@ public class DashBoardActivity extends FragmentActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         leftRl = findViewById(R.id.whatYouWantInLeftDrawer);
         mDrawerList = findViewById(R.id.list_slidermenu);
+        selectChild = findViewById(R.id.select_child);
+
         navDrawerItems_main = new ArrayList<>();
         adapter_menu_item = new menuoptionItemAdapter(DashBoardActivity.this, navDrawerItems_main);
         for (int i = 0; i < MenuName.length; i++) {
@@ -272,6 +276,20 @@ public class DashBoardActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 displayView(1);
+            }
+        });
+
+        if (Utility.getIntPref(DashBoardActivity.this, "childcount") > 1) {
+            selectChild.setVisibility(View.VISIBLE);
+        } else {
+            selectChild.setVisibility(View.GONE);
+        }
+
+        selectChild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashBoardActivity.this, SelectChildActivity.class);
+                startActivity(intent);
             }
         });
 

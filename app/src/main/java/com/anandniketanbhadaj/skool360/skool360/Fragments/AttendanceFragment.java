@@ -71,6 +71,7 @@ public class AttendanceFragment extends Fragment {
     private GetAttendanceAsyncTask getAttendanceAsyncTask = null;
     private ArrayList<AttendanceModel> attendanceModels = new ArrayList<>();
     private ArrayList<String> absentDates = new ArrayList<>();
+
     final CaldroidListener listener = new CaldroidListener() {
 
         @Override
@@ -108,7 +109,7 @@ public class AttendanceFragment extends Fragment {
 
 
             if (month < 10) {
-                selectedmonth = "0" + String.valueOf(month);
+                selectedmonth = "0" + month;
             } else {
                 selectedmonth = String.valueOf(month);
             }
@@ -142,6 +143,7 @@ public class AttendanceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         rootView = inflater.inflate(R.layout.attendance_fragment, container, false);
         mContext = getActivity();
 
@@ -154,6 +156,7 @@ public class AttendanceFragment extends Fragment {
     }
 
     public void initViews() {
+
         btnMenu = rootView.findViewById(R.id.btnMenu);
         btnBackAttendance = rootView.findViewById(R.id.btnBackAttendance);
         linearBack = rootView.findViewById(R.id.linearBack);
@@ -165,7 +168,9 @@ public class AttendanceFragment extends Fragment {
         linear_list = rootView.findViewById(R.id.bottom_sheet);
         close_img = linear_list.findViewById(R.id.close_img);
         holiday_list_rcv = linear_list.findViewById(R.id.holiday_list_rcv);
+
         Collections.sort(year1);
+
         System.out.println("Sorted ArrayList in Java - Ascending order : " + year1);
 
         final Calendar calendar = Calendar.getInstance();
@@ -180,9 +185,9 @@ public class AttendanceFragment extends Fragment {
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
             args.putBoolean(CaldroidFragment.SHOW_NAVIGATION_ARROWS, true);
 
-
             mCaldroidFragment.setArguments(args);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.calFrameContainer, mCaldroidFragment).commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -293,6 +298,7 @@ public class AttendanceFragment extends Fragment {
                         .replace(R.id.frame_container, fragment).commit();
             }
         });
+
         close_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -100,7 +100,7 @@
                 android:id="@+id/btnPersonalDetail"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_35sdp"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:background="@color/profile_dark"
                 android:gravity="center"
                 android:paddingLeft="@dimen/_10sdp"
@@ -116,7 +116,7 @@
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_1sdp"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:background="@color/profile_dark"
                 android:gravity="center"
                 android:paddingLeft="@dimen/_10sdp"
@@ -138,6 +138,7 @@
                 android:paddingRight="@dimen/_10sdp"
                 android:text="Change Password"
                 android:textAllCaps="false"
+                android:visibility="gone"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_9sdp" />
 

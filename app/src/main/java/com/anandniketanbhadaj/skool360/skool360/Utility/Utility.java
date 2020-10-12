@@ -72,21 +72,35 @@ public class Utility {
         editor.apply();
     }
 
-    public static String getPref(Context context, String key){
+    public static String getPref(Context context, String key) {
         sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         String value = sharedpreferences.getString(key, "");
         return value;
     }
 
-    public static boolean isFileExists(String fileName, String moduleName){
-        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-        if(moduleName.equalsIgnoreCase("announcement"))
-            return new File(extStorageDirectory, parentFolderName+"/"+ childAnnouncementFolderName +"/"+fileName).isFile();
-        else
-            return new File(extStorageDirectory, parentFolderName+"/"+ childCircularFolderName +"/"+fileName).isFile();
+    public static void setIntPref(Context context, String key, int value) {
+        sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt(key, value);
+        editor.commit();
+        editor.apply();
     }
 
-    public static File createFile(String fileName, String moduleName){
+    public static int getIntPref(Context context, String key) {
+        sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        int value = sharedpreferences.getInt(key, 0);
+        return value;
+    }
+
+    public static boolean isFileExists(String fileName, String moduleName) {
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        if (moduleName.equalsIgnoreCase("announcement"))
+            return new File(extStorageDirectory, parentFolderName + "/" + childAnnouncementFolderName + "/" + fileName).isFile();
+        else
+            return new File(extStorageDirectory, parentFolderName + "/" + childCircularFolderName + "/" + fileName).isFile();
+    }
+
+    public static File createFile(String fileName, String moduleName) {
         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
         File folder = null;
 

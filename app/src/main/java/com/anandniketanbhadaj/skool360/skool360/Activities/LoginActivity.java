@@ -32,6 +32,7 @@ import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStandardSectionAsy
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.GetStudentListAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.AsyncTasks.VerifyLoginAsyncTask;
 import com.anandniketanbhadaj.skool360.skool360.Models.ExamSyllabus.ExamModel;
+import com.anandniketanbhadaj.skool360.skool360.Models.SelectChildModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
 import java.lang.reflect.Field;
@@ -58,11 +59,11 @@ public class LoginActivity extends Activity {
     private VerifyLoginAsyncTask verifyLoginAsyncTask = null;
     private Context mContext;
     private ProgressDialog progressDialog;
-    private HashMap<String, String> result = new HashMap<>();
+    private SelectChildModel result;
     private HashMap<String, String> param = new HashMap<>();
     private String putExtras = "0";
     private String putExtrasData = "0", Name;
-    private String FinalStandardIdStr, FinalStandardStr, FinalSectionIdStr, FinalSectionStr, FinalStudentIdStr, FinalStudentNameStr;
+    private String FinalStandardIdStr, FinalStandardStr, FinalSectionIdStr, FinalSectionStr, FinalStudentIdStr, FinalStudentNameStr, notificationMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,41 +181,75 @@ public class LoginActivity extends Activity {
                         public void run() {
                             progressDialog.dismiss();
                             if (result != null) {
-                                if (result.size() > 0) {
-                                    if (result.get("Success").equalsIgnoreCase("True")) {
-//                              TODO: Store result values for future use
-//                                if (chkRemember.isChecked()) {
-                                        saveUserNamePwd(edtUserName.getText().toString(), edtPassword.getText().toString());
-//                                }
-                                        Utility.setPref(mContext, "studid", result.get("StudentID"));//
-                                        Utility.setPref(mContext, "FamilyID", result.get("FamilyID"));
-                                        Utility.setPref(mContext, "standardID", result.get("StandardID"));
-                                        Utility.setPref(mContext, "ClassID", result.get("ClassID"));
-                                        Utility.setPref(mContext, "TermID", result.get("TermID"));//result.get("TermID"));
-                                        Utility.setPref(mContext, "RegisterStatus", result.get("RegisterStatus"));
+//                                if (result.size() > 0) {
+                                if (result.getSuccess().equalsIgnoreCase("True")) {
 
-                                        Utility.pong(mContext, "Login Successful");
-                                        Intent intentDashboard = new Intent(LoginActivity.this, DashBoardActivity.class);//SplashScreenActivity
-                                        Utility.setPref(mContext, "Loginwithother", "false");
-                                        intentDashboard.putExtra("message", putExtrasData);
-                                        intentDashboard.putExtra("fromNotification", putExtras);
-                                        if (Name != null) {
-                                            intentDashboard.putExtra("Name", Name);
-                                        }
-                                        System.out.println("messageLogin: " + putExtrasData);
-                                        startActivity(intentDashboard);
-                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                                        finish();
+                                    saveUserNamePwd(edtUserName.getText().toString(), edtPassword.getText().toString());
+
+//                                        Utility.setPref(mContext, "studid", result.get("StudentID"));//
+//                                        Utility.setPref(mContext, "FamilyID", result.get("FamilyID"));
+//                                        Utility.setPref(mContext, "standardID", result.get("StandardID"));
+//                                        Utility.setPref(mContext, "ClassID", result.get("ClassID"));
+//                                        Utility.setPref(mContext, "TermID", result.get("TermID"));//result.get("TermID"));
+//                                        Utility.setPref(mContext, "RegisterStatus", result.get("RegisterStatus"));
+//
+                                    Utility.pong(mContext, "Login Successful");
+
+                                    Utility.setIntPref(mContext, "childcount", result.getStudentcount());
+                                    Utility.setPref(mContext, "upass", edtPassword.getText().toString());
+                                    Utility.setPref(mContext, "FamilyID", result.getFinalarray().get(0).getFamilyid());
+
+                                    if (result.getStudentcount() > 1) {
+
+                                        Intent intent = new Intent(LoginActivity.this, SelectChildActivity.class);
+                                        startActivity(intent);
                                     } else {
-                                        if (result.get("Status").equalsIgnoreCase("1")) {
-                                            IdPasswordDialog();
-                                        } else {
-                                            Utility.pong(mContext, "Invalid Username/ password");
+                                        Utility.setPref(mContext, "studname", result.getFinalarray().get(0).getStudentname());
+                                        Utility.setPref(mContext, "studid", result.getFinalarray().get(0).getStudentid());
+                                        Utility.setPref(mContext, "locationId", result.getFinalarray().get(0).getLocationid());
+                                        Utility.setPref(mContext, "standardID", result.getFinalarray().get(0).getStandardid());
+                                        Utility.setPref(mContext, "ClassID", result.getFinalarray().get(0).getClassid());
+                                        Utility.setPref(mContext, "TermID", result.getFinalarray().get(0).getTermid());//result.getFinalarray().get(0).get("TermID"));
+                                        Utility.setPref(mContext, "RegisterStatus", result.getFinalarray().get(0).getRegisterstatus());
+
+                                        Intent intent = new Intent(mContext, DashBoardActivity.class);
+                                        try {
+                                            notificationMsg = Utility.getPref(LoginActivity.this, "Push_Notification_message");
+                                            if (notificationMsg != null) {
+                                                intent.putExtra("message", putExtrasData);
+                                                intent.putExtra("fromNotification", putExtras);
+                                            }
+                                        } catch (Exception ex) {
+                                            ex.printStackTrace();
                                         }
+                                        startActivity(intent);
                                     }
+
+                                    edtUserName.setText("");
+                                    edtPassword.setText("");
+
+
+//                                        Intent intentDashboard = new Intent(LoginActivity.this, DashBoardActivity.class);//SplashScreenActivity
+//                                        Utility.setPref(mContext, "Loginwithother", "false");
+//                                        intentDashboard.putExtra("message", putExtrasData);
+//                                        intentDashboard.putExtra("fromNotification", putExtras);
+//                                        if (Name != null) {
+//                                            intentDashboard.putExtra("Name", Name);
+//                                        }
+//                                        System.out.println("messageLogin: " + putExtrasData);
+//                                        startActivity(intentDashboard);
+//                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//                                        finish();
                                 } else {
-                                    Utility.pong(mContext, "Invalid Username/ password");
+                                    if (result.getStatus().equalsIgnoreCase("1")) {
+                                        IdPasswordDialog();
+                                    } else {
+                                        Utility.pong(mContext, "Invalid Username/ password");
+                                    }
                                 }
+//                                } else {
+//                                    Utility.pong(mContext, "Invalid Username/ password");
+//                                }
                             } else {
 
                                 Intent serverintent = new Intent(mContext, Server_Error.class);

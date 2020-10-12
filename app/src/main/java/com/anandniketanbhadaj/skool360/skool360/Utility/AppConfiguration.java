@@ -8,10 +8,10 @@ import com.anandniketanbhadaj.skool360.skool360.Activities.MyApp;
 public class AppConfiguration {
 
     //Local
-    public static String DOMAIN_LOCAL = "http://192.168.1.6:8086/MobileApp_Service.asmx/";
+    public static String DOMAIN_LOCAL = "http://192.168.1.34:8086/MobileApp_Service.asmx/";
     public static String GET_API_URL = "http://anandniketanbhadaj.org/appService/5b9a72856992e144c74fc836ed6e76a2/appsUrl";
 
-    public static String LIVE_BASE_URL = "http://192.168.1.6:8086/";
+    public static String LIVE_BASE_URL = "http://192.168.1.34:8086/";
 
 //    public static String BASEURL = GET_API_URL + "MobileApp_Service.asmx/";
 
@@ -77,6 +77,9 @@ public class AppConfiguration {
     public static String GetStandardSection = "GetStandardSection";
     public static String StudentList = "StudentList";
 
+    public static String parentLogin = "ParentLogin";
+    public static String parentChagePassword = "ParentChangePassword";
+
     public static String Notification;
     public static String UserImage = "";
     public static String UserName = "";
@@ -115,9 +118,9 @@ public class AppConfiguration {
 
                 url = DOMAIN_LOCAL + methodName;
 
-                IMAGE_LIVE = "http://192.168.1.6:8086/SKOOL360-Category-Images/Student/";
+                IMAGE_LIVE = "http://192.168.1.34:8086/SKOOL360-Category-Images/Student/";
 //
-                GALLARY_LIVE = "http://192.168.1.6:8086/";
+                GALLARY_LIVE = "http://192.168.1.34:8086/";
 
                 break;
 

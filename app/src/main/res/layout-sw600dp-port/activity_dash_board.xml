@@ -29,7 +29,7 @@
         <LinearLayout
             android:id="@+id/rlProfile"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical">
 
@@ -94,15 +94,30 @@
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_10sdp" />
 
+                <TextView
+                    android:id="@+id/select_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center|center_vertical"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="Select Child"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10sdp" />
+
                 <!--<TextView-->
-                    <!--android:id="@+id/grno"-->
-                    <!--android:layout_width="@dimen/_120sdp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_below="@+id/profile_image"-->
-                    <!--android:layout_centerHorizontal="true"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_gravity="start|center_vertical"-->
-                    <!--android:layout_marginBottom="@dimen/_5sdp"-->
+                <!--android:id="@+id/grno"-->
+                <!--android:layout_width="@dimen/_120sdp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/profile_image"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_gravity="start|center_vertical"-->
+                <!--android:layout_marginBottom="@dimen/_5sdp"-->
                     <!--android:layout_marginLeft="@dimen/_40sdp"-->
                     <!--android:gravity="center"-->
                     <!--android:padding="@dimen/_5sdp"-->

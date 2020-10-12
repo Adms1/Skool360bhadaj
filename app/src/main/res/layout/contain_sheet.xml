@@ -31,6 +31,7 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold" />
+
         <LinearLayout
             android:id="@+id/linearBack"
             android:layout_width="@dimen/_25sdp"
@@ -45,8 +46,11 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_10sdp"
             android:background="@drawable/back_btn" />
+
         </LinearLayout>
+
     </RelativeLayout>
+
     <TextView
         android:id="@+id/txtNoRecordsHomework"
         android:layout_width="@dimen/_200sdp"
@@ -73,6 +77,7 @@
             android:background="@drawable/attendance_bg">
 
         </FrameLayout>
+
     </RelativeLayout>
 
     <TableLayout
