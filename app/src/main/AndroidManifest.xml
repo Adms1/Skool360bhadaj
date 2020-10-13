@@ -71,6 +71,7 @@
         <activity android:name=".skool360.Activities.Server_Error">
 
         </activity>
+        <activity android:name=".skool360.Activities.SelectChildActivity"/>
     </application>
 
 </manifest>

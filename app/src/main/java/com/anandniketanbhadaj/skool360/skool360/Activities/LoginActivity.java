@@ -199,31 +199,31 @@ public class LoginActivity extends Activity {
                                     Utility.setPref(mContext, "upass", edtPassword.getText().toString());
                                     Utility.setPref(mContext, "FamilyID", result.getFinalarray().get(0).getFamilyid());
 
-                                    if (result.getStudentcount() > 1) {
+//                                    if (result.getStudentcount() > 1) {
 
                                         Intent intent = new Intent(LoginActivity.this, SelectChildActivity.class);
                                         startActivity(intent);
-                                    } else {
-                                        Utility.setPref(mContext, "studname", result.getFinalarray().get(0).getStudentname());
-                                        Utility.setPref(mContext, "studid", result.getFinalarray().get(0).getStudentid());
-                                        Utility.setPref(mContext, "locationId", result.getFinalarray().get(0).getLocationid());
-                                        Utility.setPref(mContext, "standardID", result.getFinalarray().get(0).getStandardid());
-                                        Utility.setPref(mContext, "ClassID", result.getFinalarray().get(0).getClassid());
-                                        Utility.setPref(mContext, "TermID", result.getFinalarray().get(0).getTermid());//result.getFinalarray().get(0).get("TermID"));
-                                        Utility.setPref(mContext, "RegisterStatus", result.getFinalarray().get(0).getRegisterstatus());
-
-                                        Intent intent = new Intent(mContext, DashBoardActivity.class);
-                                        try {
-                                            notificationMsg = Utility.getPref(LoginActivity.this, "Push_Notification_message");
-                                            if (notificationMsg != null) {
-                                                intent.putExtra("message", putExtrasData);
-                                                intent.putExtra("fromNotification", putExtras);
-                                            }
-                                        } catch (Exception ex) {
-                                            ex.printStackTrace();
-                                        }
-                                        startActivity(intent);
-                                    }
+//                                    } else {
+//                                        Utility.setPref(mContext, "studname", result.getFinalarray().get(0).getStudentname());
+//                                        Utility.setPref(mContext, "studid", result.getFinalarray().get(0).getStudentid());
+//                                        Utility.setPref(mContext, "locationId", result.getFinalarray().get(0).getLocationid());
+//                                        Utility.setPref(mContext, "standardID", result.getFinalarray().get(0).getStandardid());
+//                                        Utility.setPref(mContext, "ClassID", result.getFinalarray().get(0).getClassid());
+//                                        Utility.setPref(mContext, "TermID", result.getFinalarray().get(0).getTermid());//result.getFinalarray().get(0).get("TermID"));
+//                                        Utility.setPref(mContext, "RegisterStatus", result.getFinalarray().get(0).getRegisterstatus());
+//
+//                                        Intent intent = new Intent(mContext, DashBoardActivity.class);
+//                                        try {
+//                                            notificationMsg = Utility.getPref(LoginActivity.this, "Push_Notification_message");
+//                                            if (notificationMsg != null) {
+//                                                intent.putExtra("message", putExtrasData);
+//                                                intent.putExtra("fromNotification", putExtras);
+//                                            }
+//                                        } catch (Exception ex) {
+//                                            ex.printStackTrace();
+//                                        }
+//                                        startActivity(intent);
+//                                    }
 
                                     edtUserName.setText("");
                                     edtPassword.setText("");
