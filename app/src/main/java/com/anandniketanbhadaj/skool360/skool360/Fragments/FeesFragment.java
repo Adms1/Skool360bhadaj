@@ -30,7 +30,6 @@ import com.anandniketanbhadaj.skool360.skool360.Models.TermModel;
 import com.anandniketanbhadaj.skool360.skool360.Utility.AppConfiguration;
 import com.anandniketanbhadaj.skool360.skool360.Utility.Utility;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class FeesFragment extends Fragment {
     private String responseString;
     private Spinner term_detail_spinner;
     private View rootView;
-    private Button btnMenu, btnBackUnitTest, more_detail_btn;
+    private Button btnMenu, btnBackUnitTest, more_detail_btn, pay_now_btn;
     private TextView txtNoRecordsUnitTest, payment_total_amount_txt,
             payment_total_amount_status_txt, total_fee_txt, due_fee_txt, discount_fee_txt;
     private Context mContext;
@@ -91,6 +90,7 @@ public class FeesFragment extends Fragment {
         due_fee_txt = rootView.findViewById(R.id.due_fee_txt);
         discount_fee_txt = rootView.findViewById(R.id.discount_fee_txt);
         more_detail_btn = rootView.findViewById(R.id.more_detail_btn);
+        pay_now_btn = rootView.findViewById(R.id.pay_now_btn);
         linear_right = rootView.findViewById(R.id.linear_right);
         fees_main_linear = rootView.findViewById(R.id.fees_main_linear);
         term_detail_spinner = rootView.findViewById(R.id.fees_term_detail_spinner);
@@ -137,6 +137,23 @@ public class FeesFragment extends Fragment {
             }
         });
 
+        pay_now_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!feesMainResponse.getPaynowurl().equalsIgnoreCase("")) {
+                    Fragment fragment = new PayOnlineFragment();
+                    Bundle args = new Bundle();
+                    args.putString("url", feesMainResponse.getPaynowurl());
+                    fragment.setArguments(args);
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.frame_container, fragment).commit();
+
+                }
+            }
+        });
+
         term_detail_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -144,12 +161,12 @@ public class FeesFragment extends Fragment {
                 String getid = spinnerTermIdMap.get(term_detail_spinner.getSelectedItemPosition());
 
                 Log.d("TermDetailValue", name + "" + getid);
-                FinalTermIdStr = getid;
+//                FinalTermIdStr = getid;
                 Log.d("FinalTermIdStr", FinalTermIdStr);
 
                 Utility.setPref(mContext, "TermID", getid);
 
-                getFeesData();
+//                getFeesData();
                 // getReportPermission();
             }
 
@@ -189,15 +206,12 @@ public class FeesFragment extends Fragment {
 
                                 String successMsg = jsonObject.getString("Success");
 
-
                                 if (successMsg.equalsIgnoreCase("True") || successMsg.equalsIgnoreCase("true")) {
 
                                     getFeesAsyncTask = new FeesAsyncTask(params);
                                     feesMainResponse = getFeesAsyncTask.execute().get();
 
-
-                                    JSONArray dataArray = jsonObject.getJSONArray("FinalArray");
-
+//                                    JSONArray dataArray = jsonObject.getJSONArray("FinalArray");
 
 //                                    for(int count = 0;count<dataArray.length();count++){
 //
@@ -314,6 +328,10 @@ public class FeesFragment extends Fragment {
                             public void run() {
                                 if (termModels != null) {
                                     if (termModels.size() > 0) {
+
+                                        FinalTermIdStr = termModels.get(0).getTermId();
+                                        Utility.setPref(mContext, "TermID", FinalTermIdStr);
+
                                         ArrayList<String> termText = new ArrayList<>();
                                         ArrayList<String> termId = new ArrayList<>();
 

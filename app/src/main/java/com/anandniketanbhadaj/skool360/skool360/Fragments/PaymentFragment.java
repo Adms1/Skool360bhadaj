@@ -1,9 +1,7 @@
 package com.anandniketanbhadaj.skool360.skool360.Fragments;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.text.InputType;
-import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -160,57 +157,57 @@ public class PaymentFragment extends Fragment {
         paynow_term1_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (feesMainResponse.getTerm1Msg().equalsIgnoreCase("")) {
+                if (!feesMainResponse.getPaynowurl().equalsIgnoreCase("")) {
                     fragment = new PayOnlineFragment();
                     Bundle args = new Bundle();
-                    args.putString("url", feesMainResponse.getTerm1URL());
+                    args.putString("url", feesMainResponse.getPaynowurl());
                     fragment.setArguments(args);
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                             .replace(R.id.frame_container, fragment).commit();
                 } else {
-                    new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
-                            .setCancelable(false)
-                            .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
-                            .setMessage(feesMainResponse.getTerm1Msg())
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .setIcon(R.drawable.ic_launcher)
-                            .show();
+//                    new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
+//                            .setCancelable(false)
+//                            .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+//                            .setMessage(feesMainResponse.getTerm1Msg())
+//                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//
+//                                }
+//                            })
+//                            .setIcon(R.drawable.ic_launcher)
+//                            .show();
                 }
             }
         });
-        paynow_term2_txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (feesMainResponse.getTerm2Msg().equalsIgnoreCase("")) {
-                    fragment = new PayOnlineFragment();
-                    Bundle args = new Bundle();
-                    args.putString("url", feesMainResponse.getTerm2URL());
-                    fragment.setArguments(args);
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                            .replace(R.id.frame_container, fragment).commit();
-                } else {
-                    new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
-                            .setCancelable(false)
-                            .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
-                            .setMessage(feesMainResponse.getTerm2Msg())
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .setIcon(R.drawable.ic_launcher)
-                            .show();
-                }
-            }
-        });
+//        paynow_term2_txt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (feesMainResponse.getTerm2Msg().equalsIgnoreCase("")) {
+//                    fragment = new PayOnlineFragment();
+//                    Bundle args = new Bundle();
+//                    args.putString("url", feesMainResponse.getTerm2URL());
+//                    fragment.setArguments(args);
+//                    fragmentManager = getFragmentManager();
+//                    fragmentManager.beginTransaction()
+//                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+//                            .replace(R.id.frame_container, fragment).commit();
+//                } else {
+//                    new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AppTheme))
+//                            .setCancelable(false)
+//                            .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+//                            .setMessage(feesMainResponse.getTerm2Msg())
+//                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//
+//                                }
+//                            })
+//                            .setIcon(R.drawable.ic_launcher)
+//                            .show();
+//                }
+//            }
+//        });
     }
 
     public void getFeesData() {
@@ -267,24 +264,24 @@ public class PaymentFragment extends Fragment {
     public void setData() {
         termheader = new ArrayList<>();
 
-        if (feesMainResponse.getTerm1Btn().equals(false) && feesMainResponse.getTerm2Btn().equals(false)) {
-            tableRow13.setVisibility(View.GONE);
-            line_view.setVisibility(View.VISIBLE);
-        } else {
-            line_view.setVisibility(View.GONE);
-            tableRow13.setVisibility(View.VISIBLE);
-        }
-        if (feesMainResponse.getTerm1Btn().equals(false)) {
+//        if (feesMainResponse.getTerm1Btn().equals(false) && feesMainResponse.getTerm2Btn().equals(false)) {
+//            tableRow13.setVisibility(View.GONE);
+//            line_view.setVisibility(View.VISIBLE);
+//        } else {
+//            line_view.setVisibility(View.GONE);
+//            tableRow13.setVisibility(View.VISIBLE);
+//        }
+        if (feesMainResponse.getPaynowurl().equals(false)) {
             paynow_term1_txt.setVisibility(View.GONE);
         } else {
             paynow_term1_txt.setVisibility(View.VISIBLE);
         }
 
-        if (feesMainResponse.getTerm2Btn().equals(false)) {
-            paynow_term2_txt.setVisibility(View.GONE);
-        } else {
-            paynow_term2_txt.setVisibility(View.VISIBLE);
-        }
+//        if (feesMainResponse.getTerm2Btn().equals(false)) {
+//            paynow_term2_txt.setVisibility(View.GONE);
+//        } else {
+//            paynow_term2_txt.setVisibility(View.VISIBLE);
+//        }
 
 
         for (int i = 0; i < feesMainResponse.getFinalArray().size(); i++) {
@@ -295,27 +292,27 @@ public class PaymentFragment extends Fragment {
 
             LinearLayout.LayoutParams linearParams1 = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT, 1.79f);
+                    LinearLayout.LayoutParams.MATCH_PARENT, 1.3f);
 
             LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT, 1.99f);
+                    LinearLayout.LayoutParams.MATCH_PARENT, 1.6f);
 
             //childLayout.setOrientation(LinearLayout.HORIZONTAL);
             childLayout.setLayoutParams(linearParams);
 
             EditText mType = new EditText(mContext);
             TextView mValue = new TextView(mContext);
-            TextView mValue1 = new TextView(mContext);
+//            TextView mValue1 = new TextView(mContext);
             linearParams1.setMargins(2, 1, 0, 0);
             linearParams2.setMargins(2, 1, 0, 0);
             mValue.setLayoutParams(linearParams2);
-            linearParams2.setMargins(2, 1, 0, 0);
-            mValue1.setLayoutParams(linearParams2);
+//            linearParams2.setMargins(2, 1, 0, 0);
+//            mValue1.setLayoutParams(linearParams2);
 
             mType.setPadding(5, 0, 0, 0);
             mValue.setPadding(0, 0, 5, 0);
-            mValue1.setPadding(0, 0, 5, 0);
+//            mValue1.setPadding(0, 0, 5, 0);
 
 //            mType.setWidth(271);
 //            mValue.setWidth(220);
@@ -326,7 +323,7 @@ public class PaymentFragment extends Fragment {
 //            mValue1.setHeight(80);
             mType.setLayoutParams(linearParams1);
             mValue.setLayoutParams(linearParams2);
-            mValue1.setLayoutParams(linearParams2);
+//            mValue1.setLayoutParams(linearParams2);
 
             mType.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             mType.setSingleLine(false);
@@ -334,13 +331,13 @@ public class PaymentFragment extends Fragment {
             mValue.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             mValue.setSingleLine(false);
 
-            mValue1.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-            mValue1.setSingleLine(false);
+//            mValue1.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+//            mValue1.setSingleLine(false);
 
 
             mType.setBackgroundColor(getResources().getColor(R.color.white));
             mValue.setBackgroundColor(getResources().getColor(R.color.white));
-            mValue1.setBackgroundColor(getResources().getColor(R.color.white));
+//            mValue1.setBackgroundColor(getResources().getColor(R.color.white));
 
             mType.setTextSize(14);
             mType.setPadding(5, 3, 0, 3);
@@ -350,9 +347,9 @@ public class PaymentFragment extends Fragment {
             mValue.setPadding(0, 3, 5, 3);
             mValue.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 
-            mValue1.setTextSize(14);
-            mValue1.setPadding(0, 3, 5, 3);
-            mValue1.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+//            mValue1.setTextSize(14);
+//            mValue1.setPadding(0, 3, 5, 3);
+//            mValue1.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 
             //mType.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(15) });
 //            String tenCharPerLineString = "";
@@ -379,35 +376,35 @@ public class PaymentFragment extends Fragment {
 
                     mValue.setTextColor(getActivity().getResources().getColor(R.color.red));
 
-                }else {
+                } else {
                     mValue.setTextColor(getActivity().getResources().getColor(R.color.black));
 
                 }
 
-                if ((feesMainResponse.getFinalArray().get(i).getTerm2Amt().contains("Cr")
-                        || feesMainResponse.getFinalArray().get(i).getTerm2Amt().equalsIgnoreCase("0"))) {
-
-                    mValue1.setTextColor(getActivity().getResources().getColor(R.color.green_trophy_room));
-
-                } else if (feesMainResponse.getFinalArray().get(i).getTerm2Amt().contains("Dr")) {
-
-                    mValue1.setTextColor(getActivity().getResources().getColor(R.color.red));
-
-                }else {
-                    mValue1.setTextColor(getActivity().getResources().getColor(R.color.black));
-
-                }
+//                if ((feesMainResponse.getFinalArray().get(i).getTerm2Amt().contains("Cr")
+//                        || feesMainResponse.getFinalArray().get(i).getTerm2Amt().equalsIgnoreCase("0"))) {
+//
+//                    mValue1.setTextColor(getActivity().getResources().getColor(R.color.green_trophy_room));
+//
+//                } else if (feesMainResponse.getFinalArray().get(i).getTerm2Amt().contains("Dr")) {
+//
+//                    mValue1.setTextColor(getActivity().getResources().getColor(R.color.red));
+//
+//                }else {
+//                    mValue1.setTextColor(getActivity().getResources().getColor(R.color.black));
+//
+//                }
 
                 mType.setTypeface(null, Typeface.BOLD);
                 mValue.setTypeface(null, Typeface.BOLD);
-                mValue1.setTypeface(null, Typeface.BOLD);
+//                mValue1.setTypeface(null, Typeface.BOLD);
 
 
             }
 
             mType.setText(feesMainResponse.getFinalArray().get(i).getLedgerName());
             mValue.setText("₹" + " " + String.valueOf(feesMainResponse.getFinalArray().get(i).getTerm1Amt()));
-            mValue1.setText("₹" + " " + String.valueOf(feesMainResponse.getFinalArray().get(i).getTerm2Amt()));
+//            mValue1.setText("₹" + " " + String.valueOf(feesMainResponse.getFinalArray().get(i).getTerm2Amt()));
 //            tenCharPerLineString = tenCharPerLineString + text.substring(0);
 
 //            if (feesMainResponse.getFinalArray().get(i).getLedgerName().length() > 16 && feesMainResponse.getFinalArray().get(i).getLedgerName().length() < 32) {
@@ -427,7 +424,7 @@ public class PaymentFragment extends Fragment {
 
             childLayout.addView(mType);
             childLayout.addView(mValue);
-            childLayout.addView(mValue1);
+//            childLayout.addView(mValue1);
 
             table_layout.addView(childLayout);
 
