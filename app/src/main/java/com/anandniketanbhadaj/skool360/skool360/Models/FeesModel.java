@@ -43,6 +43,9 @@ public class FeesModel {
     @SerializedName("PayNowURL")
     @Expose
     private String paynowurl;
+    @SerializedName("PayNowButtonDisplay")
+    @Expose
+    private String paynowbtn;
     //        @SerializedName("FinalArray")
 //        @Expose
 //        private List<FinalArray> finalArray = null;
@@ -113,6 +116,14 @@ public class FeesModel {
 
     public void setPaynowurl(String paynowurl) {
         this.paynowurl = paynowurl;
+    }
+
+    public String getPaynowbtn() {
+        return paynowbtn;
+    }
+
+    public void setPaynowbtn(String paynowbtn) {
+        this.paynowbtn = paynowbtn;
     }
 
     public String getTermTotal() {

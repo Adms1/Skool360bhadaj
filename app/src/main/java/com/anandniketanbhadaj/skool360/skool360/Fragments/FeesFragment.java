@@ -244,6 +244,13 @@ public class FeesFragment extends Fragment {
                                                     linear_right.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.right2));
                                                     more_detail_btn.setEnabled(true);
                                                     more_detail_btn.setAlpha(1);
+
+                                                    if (feesMainResponse.getPaynowbtn().equalsIgnoreCase("true")) {
+                                                        pay_now_btn.setVisibility(View.VISIBLE);
+                                                    } else {
+                                                        pay_now_btn.setVisibility(View.GONE);
+                                                    }
+
                                                 } else {
 
                                                     payment_total_amount_txt.setText("₹" + " " + "0");
@@ -254,6 +261,7 @@ public class FeesFragment extends Fragment {
                                                     Utility.ping(mContext, "Payment Detail are not available.");
                                                     more_detail_btn.setEnabled(false);
                                                     more_detail_btn.setAlpha(1);
+                                                    pay_now_btn.setVisibility(View.GONE);
                                                 }
                                             } else {
                                                 Intent serverintent = new Intent(mContext, Server_Error.class);

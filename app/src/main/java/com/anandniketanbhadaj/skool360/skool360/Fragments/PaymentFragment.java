@@ -283,7 +283,6 @@ public class PaymentFragment extends Fragment {
 //            paynow_term2_txt.setVisibility(View.VISIBLE);
 //        }
 
-
         for (int i = 0; i < feesMainResponse.getFinalArray().size(); i++) {
             LinearLayout childLayout = new LinearLayout(mContext);
             LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(
