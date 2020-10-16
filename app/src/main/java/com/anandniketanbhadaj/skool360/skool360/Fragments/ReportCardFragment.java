@@ -196,7 +196,7 @@ public class ReportCardFragment extends Fragment {
                             public void run() {
                                 if (reportModels != null) {
                                     if (reportModels.size() > 0) {
-
+                                        progressDialog.dismiss();
                                         txtNoRecordsUnitTest.setVisibility(View.GONE);
                                         webview_report_card.loadUrl(reportModels.get(0).getURL());
                                         if (reportModels.get(0).getURL().equalsIgnoreCase("")) {
