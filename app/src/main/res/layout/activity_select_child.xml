@@ -4,8 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".skool360.Activities.SelectChildActivity">
 
     <RelativeLayout
         android:layout_width="fill_parent"

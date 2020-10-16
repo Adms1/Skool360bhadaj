@@ -271,10 +271,12 @@ public class PaymentFragment extends Fragment {
 //            line_view.setVisibility(View.GONE);
 //            tableRow13.setVisibility(View.VISIBLE);
 //        }
-        if (feesMainResponse.getPaynowurl().equals(false)) {
-            paynow_term1_txt.setVisibility(View.GONE);
-        } else {
+        if (feesMainResponse.getPaynowbtn().equals("true")) {
             paynow_term1_txt.setVisibility(View.VISIBLE);
+            tableRow13.setVisibility(View.VISIBLE);
+        } else {
+            paynow_term1_txt.setVisibility(View.GONE);
+            tableRow13.setVisibility(View.GONE);
         }
 
 //        if (feesMainResponse.getTerm2Btn().equals(false)) {

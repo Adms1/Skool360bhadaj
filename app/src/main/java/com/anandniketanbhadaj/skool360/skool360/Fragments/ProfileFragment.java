@@ -189,7 +189,7 @@ public class ProfileFragment extends Fragment {
                 includeEditProfileDetail.setVisibility(View.GONE);
                 viewShadow1.setVisibility(View.INVISIBLE);
                 viewShadow2.setVisibility(View.VISIBLE);
-                viewShadow3.setVisibility(View.VISIBLE);
+                viewShadow3.setVisibility(View.GONE);
             }
         });
         btnEducationalDetail.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +203,7 @@ public class ProfileFragment extends Fragment {
                 includeEditProfileDetail.setVisibility(View.GONE);
                 viewShadow1.setVisibility(View.VISIBLE);
                 viewShadow2.setVisibility(View.INVISIBLE);
-                viewShadow3.setVisibility(View.VISIBLE);
+                viewShadow3.setVisibility(View.GONE);
             }
         });
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
@@ -217,7 +217,7 @@ public class ProfileFragment extends Fragment {
                 includeEditProfileDetail.setVisibility(View.VISIBLE);
                 viewShadow1.setVisibility(View.VISIBLE);
                 viewShadow2.setVisibility(View.VISIBLE);
-                viewShadow3.setVisibility(View.INVISIBLE);
+                viewShadow3.setVisibility(View.GONE);
             }
         });
 
